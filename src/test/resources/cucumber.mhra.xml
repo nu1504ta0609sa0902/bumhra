@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+    <context:component-scan base-package="com.mhra.mcm.appian"/>
+    <!--<context:component-scan base-package="com.mhra.mcm.appian.steps"/>-->
+
+    <context:annotation-config/>
+
+
+    <!-- Define system variables -->
+    <bean id="systemPrereqs"
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" value="#{@systemProperties}"/>
+        <property name="targetMethod" value="putAll"/>
+        <property name="arguments">
+            <!--The new Properties -->
+            <util:properties>
+                <prop key="webdriver.chrome.driver">C:\Users\TPD_Auto\Downloads\Apps\chromedriver.exe</prop>
+                <prop key="webdriver.ie.driver">C:\Users\TPD_Auto\Downloads\Apps\IEDriverServer.exe</prop>
+            </util:properties>
+        </property>
+    </bean>
+
+    <!-- Links the feature files to the step definitions -->
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="cucumber-glue">
+                    <bean class="cucumber.runtime.java.spring.GlueCodeScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!--
+            select browser from ${firefox}, ${chrome} or ${ie}
+              Uses the value to get the correct driver class and than initiates it
+
+              And loads the properties file related to the profile
+          -->
+    <!-- PROFILE MAPPING -->
+    <beans profile="mhradev">
+        <context:property-placeholder location="classpath:configs/envs/mhradev.properties" ignore-unresolvable="true" />
+        <context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true" />
+        <bean id="driver" class="${${current.browser}}" destroy-method="quit" />
+    </beans>
+
+    <beans profile="mhratest">
+        <context:property-placeholder location="classpath:configs/envs/mhratest.properties" ignore-unresolvable="true" />
+        <context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true" />
+        <bean id="driver" class="${${current.browser}}" destroy-method="quit" />
+    </beans>
+
+    <beans profile="mhra">
+        <context:property-placeholder location="classpath:configs/envs/mhra.properties" ignore-unresolvable="true" />
+        <context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true" />
+        <bean id="driver" class="${${current.browser}}" destroy-method="quit" />
+    </beans>
+
+</beans>
