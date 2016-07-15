@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.steps.common;
 
+import com.mhra.mcm.appian.po.AppianHomePage;
 import com.mhra.mcm.appian.session.ScenarioSession;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.io.IOException;
 import java.util.Properties;
 
 import static org.codehaus.plexus.util.cli.CommandLineUtils.addShutdownHook;
@@ -34,6 +36,8 @@ public class CommonSteps {
     /**
      * PageObjects: Main _Page objects, These page objects should create section objects
      */
+    @Autowired
+    public AppianHomePage appianHomePage;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {
@@ -44,52 +48,13 @@ public class CommonSteps {
         } else {
             baseUrl = baseUrl;
         }
-
-//        if(driver == null && oneDriverOnly){
-//            oneDriverOnly = false;
-//            DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
-//            capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
-//            driver = new InternetExplorerDriver(capabilities);
-//        }
-        //Add shutdown hook to close all the opened browser
-        closeBrowserWhenFinished();
-    }
-
-    private void closeBrowserWhenFinished() {
-        if (!onlyOnce) {
-            onlyOnce = true;
-            log.info("Close all browsers when testing done");
-
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        if (driver != null) {
-                            sleep(5000);
-                            driver.quit();
-                            //IE driver doesn't quit, so forced to try this
-                            Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");
-                            Runtime.getRuntime().exec("taskkill /F /IM iexplore.exe");
-                            log.info("All browsers closed after tests");
-                        }
-                    } catch (Exception e) {
-
-                    }
-                }
-            });
-        }
-    }
-
-    public void quit(){
-        if(driver != null){
-            driver.manage().deleteAllCookies();
-        }
     }
 
 
     /**
      * Shutdown all the browsers after its done
-     */ {
+     */
+    public void quit(){
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
@@ -97,6 +62,10 @@ public class CommonSteps {
                     if (driver != null) {
                         sleep(5000);
                         driver.quit();
+                        //IE driver doesn't quit, so forced to try this
+                        //Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");
+                        //Runtime.getRuntime().exec("taskkill /F /IM iexplore.exe");
+                        log.info("All browsers closed after tests");
                     }
                 } catch (Exception e) {
 
@@ -104,5 +73,6 @@ public class CommonSteps {
             }
         });
     }
+
 
 }
