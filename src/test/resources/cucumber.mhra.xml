@@ -26,8 +26,8 @@
         <property name="arguments">
             <!--The new Properties -->
             <util:properties>
-                <prop key="webdriver.chrome.driver">C:\Users\TPD_Auto\Downloads\Apps\chromedriver.exe</prop>
-                <prop key="webdriver.ie.driver">C:\Users\TPD_Auto\Downloads\Apps\IEDriverServer.exe</prop>
+                <prop key="webdriver.chrome.driver">C:\Selenium\chromedriver.exe</prop>
+                <prop key="webdriver.ie.driver">C:\Selenium\IEDriverServer.exe</prop>
             </util:properties>
         </property>
     </bean>
@@ -48,6 +48,8 @@
               Uses the value to get the correct driver class and than initiates it
 
               And loads the properties file related to the profile
+
+              MHRA Requirements: Windows and IE11 Testing Only
           -->
     <!-- PROFILE MAPPING -->
     <beans profile="mhradev">
