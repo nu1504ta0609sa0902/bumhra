@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.po.AppianHomePage;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
+import com.mhra.mcm.appian.utils.AssertUtils;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -20,7 +21,7 @@ public class HomePageSteps extends CommonSteps {
 
     @Given("^I am logged into MHRA application using$")
     public void i_am_logged_into_MHRA_application_using(DataTable users) throws Throwable {
-        System.out.println("Test : " + users);
+        log.info("Test : " + users);
     }
 
     @Given("^I am in appian page$")
@@ -36,6 +37,7 @@ public class HomePageSteps extends CommonSteps {
     @Then("^I should see name of logged in user as \"([^\"]*)\"$")
     public void i_should_see_name_of_logged_in_user_as(String expectedName) throws Throwable {
         String actualName = appianHomePage.getLoggedInUserName();
+        expectedName = AssertUtils.getExpectedName(expectedName);
         Assert.assertThat(actualName.toLowerCase(), Matchers.equalTo(expectedName));
     }
 }

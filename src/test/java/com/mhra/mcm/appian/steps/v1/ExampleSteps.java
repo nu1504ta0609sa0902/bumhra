@@ -15,15 +15,5 @@ import java.util.Properties;
 @Scope("cucumber-glue")
 public class ExampleSteps extends CommonSteps {
 
-    @Given("^I am logged into MHRA application using$")
-    public void i_am_logged_into_MHRA_application_using(DataTable users) throws Throwable {
-        System.out.println("Test : " + users);
-    }
 
-    @Given("^I am in appian page$")
-    public void i_am_in_appian_page() throws Throwable {
-        driver.get(baseUrl);
-        Properties properties = System.getProperties();
-        System.out.println("" + baseUrl + "\n" + driver.getCurrentUrl());
-    }
 }

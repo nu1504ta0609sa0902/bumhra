@@ -60,7 +60,7 @@ public class CommonSteps {
             public void run() {
                 try {
                     if (driver != null) {
-                        sleep(5000);
+                        sleep(10000);
                         driver.quit();
                         //IE driver doesn't quit, so forced to try this
                         //Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");

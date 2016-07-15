@@ -1,6 +1,7 @@
 package com.mhra.mcm.appian.steps.common;
 
 import com.mhra.mcm.appian.session.SessionKey;
+import com.mhra.mcm.appian.utils.reporter.CreatePrettyReport;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
@@ -25,10 +26,9 @@ public class SharedSteps extends CommonSteps {
 	 */
 	@After  
     public void embedScreenshot(Scenario scenario) {
-        //generatePrettyReportOnTheGo();
-        if (scenario.isFailed()) {  
-        	System.out.println("Scenario Failed");
-    		System.out.println("==================================\n");
+        if (driver!=null && scenario.isFailed()) {
+        	log.info("Scenario Failed");
+    		log.info("==================================\n");
             try {  
             	byte[] bytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             	scenario.embed(bytes, "image/png");
@@ -40,8 +40,8 @@ public class SharedSteps extends CommonSteps {
             	e.printStackTrace();
             }
         }  else{
-        	System.out.println("Scenario Passed");
-    		//System.out.println("\n==================================");
+        	log.info("Scenario Passed");
+    		//log.info("\n==================================");
         	
         }
     }
@@ -49,32 +49,35 @@ public class SharedSteps extends CommonSteps {
 	
 	@Before
 	public void logScenarioNames(Scenario scenario) {
-	    //System.setProperty("spring.profiles.active", browser);
-		System.out.println("\n==================================\n");
-		System.out.println("NEW SCENARIO");
-		System.out.println(scenario.getName());
-		System.out.println("\n==================================\n");
+		generatePrettyReportOnTheGo();
+		if(driver!=null){
+			log.info("\n==================================\n");
+			log.info("NEW SCENARIO");
+			log.info(scenario.getName());
+			log.info("\n==================================\n");
 
-        //store current scenario and test environment details
-		driver.manage().deleteAllCookies();
-        scenarioSession.putData(SessionKey.scenarioName, scenario);
-        String env = System.getProperty("spring.profiles.active");
-        scenarioSession.putData(SessionKey.environment, env);
+			//store current scenario and test environment details
+			//driver.manage().deleteAllCookies();
+			scenarioSession.putData(SessionKey.scenarioName, scenario);
+			String env = System.getProperty("spring.profiles.active");
+			scenarioSession.putData(SessionKey.environment, env);
+		}
 
 	}
 
 
 
+	public static CreatePrettyReport pr;
     /**
      * This will generate pretty report on the go
      */
-//    private void generatePrettyReportOnTheGo() {
-//        if(pr == null && (generateReport==true)){
-//            System.out.println("Will Create Pretty Report On The Go");
-//            pr = new CreatePrettyReport();
-//            pr.monitorFolder("PrettyReport");
-//        }
-//
-//    }
+    private void generatePrettyReportOnTheGo() {
+		String generateReport = System.getProperty("generate.report");
+		if(pr == null && generateReport != null){
+            log.info("Will Create Pretty Report On The Go");
+            pr = new CreatePrettyReport();
+            pr.monitorFolder("PrettyReport");
+        }
+    }
 
 }

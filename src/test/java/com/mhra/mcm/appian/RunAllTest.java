@@ -9,8 +9,8 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(
-//        plugin = {"pretty", "html:target/cucumber-html-report", "json:target/report_example.json"}
-//        , monochrome = true
+        plugin = {"pretty", "html:target/cucumber-html-report", "json:target/all_tests.json"}
+        , monochrome = true, tags = {"~@ignore"}
 )
 public class RunAllTest {
 }
