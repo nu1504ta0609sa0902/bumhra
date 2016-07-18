@@ -73,7 +73,7 @@ public class SharedSteps extends CommonSteps {
      */
     private void generatePrettyReportOnTheGo() {
 		String generateReport = System.getProperty("generate.report");
-		if(pr == null && generateReport != null){
+		if(pr == null && (generateReport != null && generateReport.trim().equals("true"))){
             log.info("Will Create Pretty Report On The Go");
             pr = new CreatePrettyReport();
             pr.monitorFolder("PrettyReport");

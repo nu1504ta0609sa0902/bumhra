@@ -1,20 +1,13 @@
 package com.mhra.mcm.appian.steps.common;
 
-import com.mhra.mcm.appian.po.AppianHomePage;
+import com.mhra.mcm.appian.po.AppianLoginPage;
 import com.mhra.mcm.appian.session.ScenarioSession;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
-
-import java.io.IOException;
-import java.util.Properties;
-
-import static org.codehaus.plexus.util.cli.CommandLineUtils.addShutdownHook;
 
 
 @ContextConfiguration(locations = {"/cucumber.mhra.xml"})
@@ -37,7 +30,7 @@ public class CommonSteps {
      * PageObjects: Main _Page objects, These page objects should create section objects
      */
     @Autowired
-    public AppianHomePage appianHomePage;
+    public AppianLoginPage appianHomePage;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {

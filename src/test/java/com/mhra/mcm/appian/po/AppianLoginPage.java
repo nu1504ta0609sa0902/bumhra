@@ -15,7 +15,7 @@ import java.util.Properties;
  * Created by TPD_Auto on 14/07/2016.
  */
 @Component
-public class AppianHomePage extends _Page {
+public class AppianLoginPage extends _Page {
 
     @FindBy(id="un")
     WebElement username;
@@ -29,16 +29,16 @@ public class AppianHomePage extends _Page {
     WebElement loggedInUsername;
 
     @Autowired
-    public AppianHomePage(WebDriver driver) {
+    public AppianLoginPage(WebDriver driver) {
         super(driver);
     }
 
-    public AppianHomePage loadPage(String url) {
+    public AppianLoginPage loadPage(String url) {
         driver.get(url);
-        return new AppianHomePage(driver);
+        return new AppianLoginPage(driver);
     }
 
-    public AppianHomePage login(String uname) {
+    public AppianLoginPage login(String uname) {
         dontRemember();
 
         //get login details
@@ -52,12 +52,12 @@ public class AppianHomePage extends _Page {
         password.sendKeys(pword);
         username.submit();
 
-        return new AppianHomePage(driver);
+        return new AppianLoginPage(driver);
     }
 
-    public AppianHomePage reloginUsing(String uname){
+    public AppianLoginPage reloginUsing(String uname){
         logoutIfLoggedIn();
-        AppianHomePage login = login(uname);
+        AppianLoginPage login = login(uname);
         return login;
     }
 
@@ -68,7 +68,7 @@ public class AppianHomePage extends _Page {
         }
     }
 
-    private AppianHomePage logoutIfLoggedIn() {
+    private AppianLoginPage logoutIfLoggedIn() {
         try {
             if (settings.isDisplayed()) {
                 settings.click();
@@ -76,7 +76,7 @@ public class AppianHomePage extends _Page {
                 WaitUtils.waitForElementToBeClickable(driver,remember, 10);
             }
         }catch(Exception e){}
-        return new AppianHomePage(driver);
+        return new AppianLoginPage(driver);
     }
 
     public String getLoggedInUserName() {
