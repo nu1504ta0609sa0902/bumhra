@@ -57,7 +57,7 @@ public class SharedSteps extends CommonSteps {
 			log.info("\n==================================\n");
 
 			//store current scenario and test environment details
-			//driver.manage().deleteAllCookies();
+			driver.manage().deleteAllCookies();
 			scenarioSession.putData(SessionKey.scenarioName, scenario);
 			String env = System.getProperty("spring.profiles.active");
 			scenarioSession.putData(SessionKey.environment, env);

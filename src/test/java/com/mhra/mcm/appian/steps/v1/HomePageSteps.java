@@ -40,4 +40,9 @@ public class HomePageSteps extends CommonSteps {
         expectedName = AssertUtils.getExpectedName(expectedName);
         Assert.assertThat(actualName.toLowerCase(), Matchers.equalTo(expectedName));
     }
+
+    @When("^I re login as user \"([^\"]*)\"$")
+    public void i_re_login_as_user(String username) throws Throwable {
+        appianHomePage = appianHomePage.reloginUsing(username);
+    }
 }

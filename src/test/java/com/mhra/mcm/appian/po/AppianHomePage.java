@@ -1,6 +1,6 @@
 package com.mhra.mcm.appian.po;
 
-import com.mhra.mcm.appian.utils.ReadPropertiesFile;
+import com.mhra.mcm.appian.utils.PropertiesFileUtils;
 import com.mhra.mcm.appian.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -39,12 +39,11 @@ public class AppianHomePage extends _Page {
     }
 
     public AppianHomePage login(String uname) {
-        //logoutIfLoggedIn(uname);
         dontRemember();
 
         //get login details
         String selectedProfile = System.getProperty("spring.profiles.active");
-        Properties props = ReadPropertiesFile.loadPropertiesFile("users.properties");
+        Properties props = PropertiesFileUtils.loadPropertiesFile("users.properties");
         uname = props.getProperty(selectedProfile + ".username." + uname);
         String pword = props.getProperty(selectedProfile + ".password." + uname);
 
@@ -56,6 +55,12 @@ public class AppianHomePage extends _Page {
         return new AppianHomePage(driver);
     }
 
+    public AppianHomePage reloginUsing(String uname){
+        logoutIfLoggedIn();
+        AppianHomePage login = login(uname);
+        return login;
+    }
+
     private void dontRemember(){
         if(remember.getAttribute("checked")!=null){
             remember.click();
@@ -63,11 +68,15 @@ public class AppianHomePage extends _Page {
         }
     }
 
-    private void logoutIfLoggedIn(String uname) {
-        if(settings.isDisplayed()){
-            settings.click();
-            driver.findElement(By.linkText("Sign Out")).click();
-        }
+    private AppianHomePage logoutIfLoggedIn() {
+        try {
+            if (settings.isDisplayed()) {
+                settings.click();
+                driver.findElement(By.linkText("Sign Out")).click();
+                WaitUtils.waitForElementToBeClickable(driver,remember, 10);
+            }
+        }catch(Exception e){}
+        return new AppianHomePage(driver);
     }
 
     public String getLoggedInUserName() {

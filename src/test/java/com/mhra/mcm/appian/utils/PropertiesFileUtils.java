@@ -11,7 +11,7 @@ import java.util.Properties;
 /**
  * Created by TPD_Auto on 14/07/2016.
  */
-public class ReadPropertiesFile {
+public class PropertiesFileUtils {
 
     private final static String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
     private final static String userFileLocation = "configs" + File.separator +  "users.properties";
