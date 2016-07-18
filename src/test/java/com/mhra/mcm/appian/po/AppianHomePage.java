@@ -62,6 +62,7 @@ public class AppianHomePage extends _Page {
             log.info("We don't want the system to remember us");
         }
     }
+
     private void logoutIfLoggedIn(String uname) {
         if(settings.isDisplayed()){
             settings.click();
