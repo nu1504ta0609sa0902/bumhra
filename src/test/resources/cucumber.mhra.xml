@@ -27,7 +27,7 @@
             <!--The new Properties -->
             <util:properties>
                 <prop key="webdriver.chrome.driver">C:\Selenium\chromedriver.exe</prop>
-                <prop key="webdriver.ie.driver">C:\Selenium\IEDriverServer.exe</prop>
+                <prop key="webdriver.ie.driver">C:\Selenium\ie32\IEDriverServer.exe</prop>
             </util:properties>
         </property>
     </bean>

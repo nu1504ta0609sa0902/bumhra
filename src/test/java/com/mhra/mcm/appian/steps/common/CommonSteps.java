@@ -38,8 +38,6 @@ public class CommonSteps {
         // for prod we need to replace url with www
         if (selectedProfile.equals("mhra")) {
             baseUrl = baseUrl.replace("mhra.", "www.");
-        } else {
-            baseUrl = baseUrl;
         }
     }
 
