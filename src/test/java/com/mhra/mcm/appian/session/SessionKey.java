@@ -14,4 +14,6 @@ public class SessionKey {
 	public static String environment;
 	public static String scenarioName;
 
+	public static String storedValue;
+
 }

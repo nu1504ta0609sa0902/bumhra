@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
@@ -17,7 +18,7 @@ public class _Page {
     public WebDriver driver;
     public final Logger log = LoggerFactory.getLogger(_Page.class);
 
-
+    @Autowired
     public _Page(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);

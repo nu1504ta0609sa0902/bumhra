@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.utils;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,4 +14,9 @@ public class WaitUtils {
     public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int maxTimeToWait) {
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(element));
     }
+
+    public static void waitForElementToBeClickable(WebDriver driver, By by,  int maxTimeToWait) {
+        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(by));
+    }
+
 }

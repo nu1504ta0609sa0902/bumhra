@@ -1,6 +1,10 @@
 package com.mhra.mcm.appian.steps.common;
 
-import com.mhra.mcm.appian.po.AppianLoginPage;
+import com.mhra.mcm.appian.po.LoginPage;
+import com.mhra.mcm.appian.po.NewsPage;
+import com.mhra.mcm.appian.po.RecordsPage;
+import com.mhra.mcm.appian.po.sections.MainNavigationBar;
+import com.mhra.mcm.appian.po.sections.contents.EditNotification;
 import com.mhra.mcm.appian.session.ScenarioSession;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -8,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
+
 
 
 @ContextConfiguration(locations = {"/cucumber.mhra.xml"})
@@ -30,7 +35,15 @@ public class CommonSteps {
      * PageObjects: Main _Page objects, These page objects should create section objects
      */
     @Autowired
-    public AppianLoginPage appianHomePage;
+    public LoginPage loginPage;
+    @Autowired
+    public MainNavigationBar mainNavigationBar;
+    @Autowired
+    public NewsPage newsPage;
+    @Autowired
+    public RecordsPage recordsPage;
+    @Autowired
+    public EditNotification notificationPage;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {
