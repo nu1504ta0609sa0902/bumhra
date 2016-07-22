@@ -6,6 +6,7 @@ import com.mhra.mcm.appian.utils.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,17 +16,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class EditNotification extends _Page {
 
-    @FindBy(xpath = ".//form/div[2]/div/div/div/div/div/div/div[3]/div[3]/div/div/div[1]/div/div/div[1]/div/div/div/div/div/input")
+    @FindBy(xpath = ".//label[.='Name']//following::input[1]")
     WebElement submitterName;
 
     @Autowired
     public EditNotification(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(driver, this);
     }
 
     public String appendTextToSubmitterName(String append) {
-        WaitUtils.waitForElementToBeClickable(driver, submitterName, 5);
-        String existingName = submitterName.getText();
+        WaitUtils.waitForElementToBeVisible(driver, submitterName, 5);
+        String existingName = WaitUtils.getText(submitterName);
         submitterName.clear();
         submitterName.sendKeys(existingName + append);
         return existingName;

@@ -56,7 +56,7 @@ public class RecordsPageSteps extends CommonSteps {
         String expectedName = previousName + append;
 
         //verfiy page contains the updated information
-        boolean contains = recordsPage.notificationsPageContainsText(previousName + expectedName);
+        boolean contains = recordsPage.notificationsPageContainsText(expectedName);
         assertThat(contains, is(equalTo(true)));
     }
 }

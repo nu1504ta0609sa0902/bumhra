@@ -19,4 +19,15 @@ public class WaitUtils {
         new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(by));
     }
 
+    public static void waitForElementToBeVisible(WebDriver driver, WebElement element, int maxTimeToWait) {
+        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public static String getText(WebElement submitterName) {
+        submitterName.click();
+        String existingName = submitterName.getText();
+        if(existingName.equals(""))
+            existingName = submitterName.getAttribute("value");
+        return existingName;
+    }
 }

@@ -29,7 +29,7 @@ public class RecordsPage extends _Page {
     @FindBy(linkText = "Users")
     WebElement usersLink;
 
-    @FindBy(xpath = ".//*/div[4]/div[3]/div/div/div[1]/div/div/div[1]/div/div/div/div[1]/p")
+    @FindBy(xpath = ".//label[.='Name']//following::input[1]")
     WebElement submitterName;
 
     @Autowired
@@ -82,7 +82,8 @@ public class RecordsPage extends _Page {
 
     public boolean notificationsPageContainsText(String expectedName) {
         WaitUtils.waitForElementToBeClickable(driver, submitterName, 5);
-        boolean containsNewName = driver.getPageSource().contains(expectedName);
+        String text = submitterName.getText();
+        boolean containsNewName = text.contains(expectedName);
         return containsNewName;
     }
 }

@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.steps.common;
 
+import com.mhra.mcm.appian.po.ActionsPage;
 import com.mhra.mcm.appian.po.LoginPage;
 import com.mhra.mcm.appian.po.NewsPage;
 import com.mhra.mcm.appian.po.RecordsPage;
@@ -44,6 +45,8 @@ public class CommonSteps {
     public RecordsPage recordsPage;
     @Autowired
     public EditNotification notificationPage;
+    @Autowired
+    public ActionsPage actionsPage;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {
