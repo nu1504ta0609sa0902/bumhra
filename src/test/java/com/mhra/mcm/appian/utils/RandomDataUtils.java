@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.domain.utils;
+package com.mhra.mcm.appian.utils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,13 +20,13 @@ public class RandomDataUtils {
     public static double getRandomDigits(int numberOfDigits){
         Random r = new Random( System.currentTimeMillis() );
         int thousands = (int) Math.pow(10,numberOfDigits-1);
-        return thousands + r.nextInt(9* thousands);
+        return thousands + r.nextInt(9 * thousands);
     }
 
     public static String getECID(String euIdentifier) {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         year = year % 2000;
-        int productId = (int) getRandomDigits(5);
+        String productId = getRandomNumberBetween(30000, 90000);
         return euIdentifier + "-" + year + "-" + productId;
     }
 
@@ -47,6 +47,6 @@ public class RandomDataUtils {
     public static String getRandomNumberBetween(int min, int max) {
         Random random = new Random( System.currentTimeMillis() );
         int val = random.nextInt(max - min + 1) + min;
-        return String .valueOf(val);
+        return String.valueOf(val);
     }
 }

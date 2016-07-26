@@ -11,16 +11,28 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class WaitUtils {
 
+    static int timeForTesting = 10;
+
     public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int maxTimeToWait) {
+        maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public static void waitForElementToBeClickable(WebDriver driver, By by,  int maxTimeToWait) {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(by));
+        maxTimeToWait = resetMaxTime(maxTimeToWait);
+        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(by));
     }
 
     public static void waitForElementToBeVisible(WebDriver driver, WebElement element, int maxTimeToWait) {
+        maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
+    }
+
+    private static int resetMaxTime(int maxTimeToWait) {
+        if(timeForTesting > 0){
+            maxTimeToWait = timeForTesting;
+        }
+        return maxTimeToWait;
     }
 
     public static String getText(WebElement submitterName) {

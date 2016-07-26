@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.po.sections.contents.CreateNotification;
+import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import cucumber.api.java.en.Given;
 import org.springframework.context.annotation.Scope;
@@ -17,7 +18,17 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_create_a_new_notification() throws Throwable {
         actionsPage = mainNavigationBar.clickActions();
         CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
-        createNotification.createRandomNotification(new Notification(10,10));
+        Notification random = new Notification(2, 2);
+        actionsPage = createNotification.createRandomNotification(random);
+        String ecId = random.ecIDNumber;
+        scenarioSession.putData(SessionKey.ECID, ecId);
+        log.warn("\nNotification Generated with ECID: " + ecId);
+        log.info("Notification Details : \n" + random);
+        try {
+            Thread.sleep(20000);
+        }catch(Exception e){
+
+        }
     }
 
 }

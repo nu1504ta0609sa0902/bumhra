@@ -66,7 +66,6 @@ public class LoginPage extends _Page {
     private void dontRemember(){
         if(remember.getAttribute("checked")!=null){
             remember.click();
-            log.info("We don't want the system to remember us");
         }
     }
 

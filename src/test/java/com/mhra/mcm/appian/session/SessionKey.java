@@ -9,11 +9,11 @@ package com.mhra.mcm.appian.session;
  *
  */
 public class SessionKey {
-
 	//Current env and scenario
 	public static String environment;
 	public static String scenarioName;
 
-	public static String storedValue;
+	public static final String ECID = "EC ID";
+	public static String storedValue = "StoredValue";
 
 }

@@ -1,6 +1,6 @@
 package com.mhra.mcm.appian.domain.sub;
 
-import com.mhra.mcm.appian.domain.utils.RandomDataUtils;
+import com.mhra.mcm.appian.utils.RandomDataUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,21 @@ public class Submitter {
         submitterType = "1";
         sme = false;
         confidential = false;
-        tcaNumber = "" + RandomDataUtils.getRandomDigits(5);
+        tcaNumber = "" + (int) RandomDataUtils.getRandomDigits(5);
         Address submitterAddress = new Address();
         listOfAddresses.add(submitterAddress);
+    }
+
+    @Override
+    public String toString() {
+        return "Submitter:" +
+                "\n name='" + name + '\'' +
+                "\n submitterType='" + submitterType + '\'' +
+                "\n sme=" + sme +
+                "\n euIdentifier='" + euIdentifier + '\'' +
+                "\n tcaNumber='" + tcaNumber + '\'' +
+                "\n confidential=" + confidential +
+                "\n listOfAddresses=" + listOfAddresses +
+                '\n';
     }
 }

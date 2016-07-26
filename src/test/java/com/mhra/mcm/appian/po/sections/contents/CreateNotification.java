@@ -1,9 +1,8 @@
 package com.mhra.mcm.appian.po.sections.contents;
 
 import com.mhra.mcm.appian.domain.Notification;
-import com.mhra.mcm.appian.domain.sub.Submitter;
-import com.mhra.mcm.appian.domain.sub.SubmitterDetails;
-import com.mhra.mcm.appian.domain.sub.Summary;
+import com.mhra.mcm.appian.domain.sub.*;
+import com.mhra.mcm.appian.po.ActionsPage;
 import com.mhra.mcm.appian.po._Page;
 import com.mhra.mcm.appian.utils.PageUtils;
 import com.mhra.mcm.appian.utils.WaitUtils;
@@ -38,6 +37,8 @@ public class CreateNotification extends _Page {
     WebElement name;
     @FindBy(xpath = ".//label[.='EU Identifier']//following::input[1]")
     WebElement euIdentifier;
+    @FindBy(xpath = ".//label[.='TCA Number']//following::input[1]")
+    WebElement tcaNumber;
     @FindBy(xpath = ".//span[.='SME']//following::input[1]")
     WebElement smeYes;
     @FindBy(xpath = ".//span[.='SME']//following::input[2]")
@@ -54,9 +55,9 @@ public class CreateNotification extends _Page {
     WebElement hasVATYes;
     @FindBy(xpath = ".//span[.='Has VAT?']//following::input[2]")
     WebElement hasVatNo;
-    @FindBy(xpath = ".//span[.='Has VAT?']//following::input[1]")
+    @FindBy(xpath = ".//span[.='Has Enterer?']//following::input[1]")
     WebElement hasEntererYes;
-    @FindBy(xpath = ".//span[.='Has VAT?']//following::input[2]")
+    @FindBy(xpath = ".//span[.='Has Enterer?']//following::input[2]")
     WebElement hasEntererNo;
     @FindBy(xpath = ".//span[.='Has Parent?']//following::input[1]")
     WebElement hasParentYes;
@@ -67,6 +68,37 @@ public class CreateNotification extends _Page {
     @FindBy(xpath = ".//span[.='Has Affiliate?']//following::input[2]")
     WebElement hasAffiliateNo;
 
+    //Product
+    @FindBy(xpath = ".//label[.='Brand Name']//following::input[1]")
+    WebElement productName;
+    @FindBy(xpath = ".//label[.='Launch Date']//following::input[1]")
+    WebElement launchDate;
+    @FindBy(xpath = ".//span[.='Type']//following::select[1]")
+    WebElement type;
+
+    //Product design
+    @FindBy(xpath = ".//label[.='Weight E-Liquid']//following::input[1]")
+    WebElement liquidWeight;
+    @FindBy(xpath = ".//label[.='Volume E-Liquid']//following::input[1]")
+    WebElement liquidVolumne;
+
+    //Fill address
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::input[1]")
+    WebElement address;
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::select[1]")
+    WebElement country;
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::input[2]")
+    WebElement phone;
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::input[3]")
+    WebElement email;
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::input[5]")
+    WebElement productionSiteNo;
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::input[7]")
+    WebElement addressConfidentialNo;
+
+    //submit button
+    @FindBy(xpath = ".//button[.='Submit']")
+    WebElement submitBtn;
 
 
     @Autowired
@@ -76,20 +108,47 @@ public class CreateNotification extends _Page {
     }
 
 
-    public void createRandomNotification(Notification notification) {
+    public ActionsPage createRandomNotification(Notification notification) {
         WaitUtils.waitForElementToBeClickable(driver, ecId, 10);
         fillSummary(notification.getSummary());
         fillSubmitter(notification.getSubmitter());
         fillSubmitterDetails(notification.getSubmitterDetails());
+        fillProduct(notification.getProduct());
+        fillProductDesign(notification.getProductDesign());
+
+        //Now submit the notification and keep track of ecID
+        submitBtn.submit();
+        return new ActionsPage(driver);
+    }
+
+    private void fillProductDesign(ProductDesign productDesign) {
+        liquidWeight.sendKeys(String.valueOf(productDesign.weightELiquid));
+        liquidVolumne.sendKeys(String.valueOf(productDesign.volumeELiquid));
+    }
+
+    private void fillProduct(Product product) {
+        productName.sendKeys(product.brandName);
+        //launchDate.sendKeys(product.launchDate);
+        PageUtils.enterDate(driver, launchDate, product.launchDate);
+        PageUtils.select(driver, type, product.type);
     }
 
     private void fillSubmitterDetails(SubmitterDetails submitterDetails) {
-        PageUtils.selectOption(hasVATYes, hasVatNo, submitterDetails.hasVAT);
-        PageUtils.selectOption(hasEntererYes, hasEntererNo, submitterDetails.hasEnterer);
-        PageUtils.selectOption(hasParentYes, hasParentNo, submitterDetails.hasParent);
-        PageUtils.selectOption(hasAffiliateYes, hasAffiliateNo, submitterDetails.hasAffiliate);
 
+        PageUtils.clickOption(hasEntererYes, hasEntererNo, submitterDetails.hasEnterer);
+        WaitUtils.waitForElementToBeVisible(driver, hasEntererYes, 5);
+
+        WaitUtils.waitForElementToBeVisible(driver, hasAffiliateYes, 5);
+        PageUtils.clickOption(hasAffiliateYes, hasAffiliateNo, submitterDetails.hasAffiliate);
+        WaitUtils.waitForElementToBeVisible(driver, hasAffiliateYes, 5);
+
+        WaitUtils.waitForElementToBeVisible(driver, hasParentYes, 5);
+        PageUtils.clickOption(hasParentYes, hasParentNo, submitterDetails.hasParent);
+        WaitUtils.waitForElementToBeVisible(driver, hasParentYes, 5);
+
+        PageUtils.clickOption(hasVATYes, hasVatNo, submitterDetails.hasVAT);
         if(submitterDetails.hasVAT){
+            WaitUtils.waitForElementToBeClickable(driver,By.xpath(".//label[.='VAT']//following::input[1]"), 5 );
             WebElement vatField = driver.findElement(By.xpath(".//label[.='VAT']//following::input[1]"));
             vatField.sendKeys(submitterDetails.vatNumber);
         }
@@ -98,17 +157,34 @@ public class CreateNotification extends _Page {
     private void fillSubmitter(Submitter submitter) {
         name.sendKeys(submitter.name);
         euIdentifier.sendKeys(submitter.euIdentifier);
+        tcaNumber.sendKeys(submitter.tcaNumber);
         PageUtils.select(driver, submitterType, submitter.submitterType);
-        PageUtils.selectOption(smeYes, smeNo, submitter.sme);
-        PageUtils.selectOption(confidentialYes, confidentialNo, submitter.confidential);
+        PageUtils.clickOption(smeYes, smeNo, submitter.sme);
+        PageUtils.clickOption(confidentialYes, confidentialNo, submitter.confidential);
+
+        //set address
+        Address add = submitter.listOfAddresses.get(0);
+        address.click();
+        address.sendKeys(add.address);
+        phone.sendKeys(add.phone);
+        email.sendKeys(add.email);
+        PageUtils.clickOption(productionSiteNo, productionSiteNo, false);
+        PageUtils.clickOption(addressConfidentialNo, addressConfidentialNo, false);
+
+        PageUtils.select(driver, country, add.country);
+
+
     }
 
     private void fillSummary(Summary summary) {
-        startDate.sendKeys(summary.startDate);
+//        WaitUtils.waitForElementToBeVisible(driver, startDate, 5);
+//        startDate.clear();
+//        startDate.sendKeys(summary.startDate);
+        PageUtils.enterDate(driver, startDate, summary.startDate);
         ecId.click();
         ecId.sendKeys(summary.ecId);
         PageUtils.select(driver, submissionType, summary.submissionType);
         PageUtils.select(driver, status, summary.status);
-        endDate.sendKeys(summary.endDate);
+        PageUtils.enterDate(driver, endDate, summary.endDate);
     }
 }

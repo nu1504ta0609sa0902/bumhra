@@ -1,6 +1,6 @@
 package com.mhra.mcm.appian.domain.sub;
 
-import com.mhra.mcm.appian.domain.utils.RandomDataUtils;
+import com.mhra.mcm.appian.utils.RandomDataUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +25,23 @@ public class SubmitterDetails {
 
     private void createDefualts() {
         hasVAT = true;
-        vatNumber = "" + RandomDataUtils.getRandomDigits(10);
+        vatNumber = "0161" + (int) RandomDataUtils.getRandomDigits(7);
         hasEnterer = false;
         hasParent = false;
         hasAffiliate = false;
+    }
+
+    @Override
+    public String toString() {
+        return "SubmitterDetails:" +
+                "\n hasVAT=" + hasVAT +
+                "\n vatNumber='" + vatNumber + '\'' +
+                "\n hasEnterer=" + hasEnterer +
+                "\n listOfEntererAddresses=" + listOfEntererAddresses +
+                "\n hasParent=" + hasParent +
+                "\n listOfParentAddresses=" + listOfParentAddresses +
+                "\n hasAffiliate=" + hasAffiliate +
+                "\n listOfAffiliateAddresses=" + listOfAffiliateAddresses +
+                '\n';
     }
 }

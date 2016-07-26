@@ -1,6 +1,6 @@
 package com.mhra.mcm.appian.domain.sub;
 
-import com.mhra.mcm.appian.domain.utils.RandomDataUtils;
+import com.mhra.mcm.appian.utils.RandomDataUtils;
 
 /**
  * Created by TPD_Auto on 22/07/2016.
@@ -24,5 +24,16 @@ public class Summary {
         startDate = RandomDataUtils.getDateInFutureMonths(6);
         endDate = RandomDataUtils.getDateInFutureMonths(24);
         status = "1";
+    }
+
+    @Override
+    public String toString() {
+        return "Summary:" +
+                "\n ecId='" + ecId + '\'' +
+                "\n submissionType='" + submissionType + '\'' +
+                "\n startDate='" + startDate + '\'' +
+                "\n endDate='" + endDate + '\'' +
+                "\n status='" + status + '\'' +
+                '\n';
     }
 }

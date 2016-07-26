@@ -1,7 +1,7 @@
 package com.mhra.mcm.appian.domain;
 
 import com.mhra.mcm.appian.domain.sub.*;
-import com.mhra.mcm.appian.domain.utils.RandomDataUtils;
+import com.mhra.mcm.appian.utils.RandomDataUtils;
 
 /**
  * Created by TPD_Auto on 22/07/2016.
@@ -14,6 +14,7 @@ import com.mhra.mcm.appian.domain.utils.RandomDataUtils;
  */
 public class Notification {
 
+    public String ecIDNumber;
     Submitter submitter;
     Summary summary;
     SubmitterDetails submitterDetails;
@@ -23,12 +24,13 @@ public class Notification {
     public Notification(int weight, int volume){
         String euIdentifier = RandomDataUtils.getEUIdentifier();
         String ecId = RandomDataUtils.getECID(euIdentifier);
+        ecIDNumber = ecId;
         summary = new Summary(ecId);
         submitter = new Submitter(euIdentifier, "TestE2E");
         submitterDetails = new SubmitterDetails();
         product = new Product("TestE2EBrand ");
         productDesign = new ProductDesign(weight, volume);
-        System.out.println("Notification generated completed");
+
     }
 
     public Submitter getSubmitter() {
@@ -74,5 +76,18 @@ public class Notification {
     public static void main(String args[]){
         Notification n = new Notification(10,10);
         System.out.println(n);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "\n  ecIDNumber: " + ecIDNumber + '\'' +
+                "\n" + summary +
+                "\n" + submitter +
+                "\n" + submitterDetails +
+                "\n" + product +
+                "\n" + productDesign +
+                '}';
     }
 }
