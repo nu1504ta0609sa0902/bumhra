@@ -6,6 +6,7 @@ import com.mhra.mcm.appian.po.NewsPage;
 import com.mhra.mcm.appian.po.RecordsPage;
 import com.mhra.mcm.appian.po.sections.MainNavigationBar;
 import com.mhra.mcm.appian.po.sections.contents.EditNotification;
+import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
 import com.mhra.mcm.appian.session.ScenarioSession;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -47,6 +48,8 @@ public class CommonSteps {
     public EditNotification notificationPage;
     @Autowired
     public ActionsPage actionsPage;
+    @Autowired
+    public NotificationDetails notificationDetails;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {

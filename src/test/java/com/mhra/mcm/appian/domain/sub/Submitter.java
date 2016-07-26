@@ -27,7 +27,7 @@ public class Submitter {
 
     private void createDefaults() {
         name = RandomDataUtils.getRandomTestName(beginsWith);
-        submitterType = "1";
+        submitterType = "2";
         sme = false;
         confidential = false;
         tcaNumber = "" + (int) RandomDataUtils.getRandomDigits(5);
@@ -44,7 +44,7 @@ public class Submitter {
                 "\n euIdentifier='" + euIdentifier + '\'' +
                 "\n tcaNumber='" + tcaNumber + '\'' +
                 "\n confidential=" + confidential +
-                "\n listOfAddresses=" + listOfAddresses +
+                "\n\n listOfAddresses=" + listOfAddresses +
                 '\n';
     }
 }

@@ -21,7 +21,7 @@ public class Summary {
 
     private void createDefaultValues() {
         submissionType = "1";
-        startDate = RandomDataUtils.getDateInFutureMonths(6);
+        startDate = RandomDataUtils.getDateInFutureMonths(7);
         endDate = RandomDataUtils.getDateInFutureMonths(24);
         status = "1";
     }

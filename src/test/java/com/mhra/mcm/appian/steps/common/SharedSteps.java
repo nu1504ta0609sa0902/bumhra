@@ -40,14 +40,13 @@ public class SharedSteps extends CommonSteps {
             	e.printStackTrace();
             }
         }  else{
-			driver.manage().deleteAllCookies();
         	log.info("Scenario Passed");
     		//log.info("\n==================================");
         	
         }
     }
 
-	
+
 	@Before
 	public void logScenarioNames(Scenario scenario) {
 		generatePrettyReportOnTheGo();
@@ -58,6 +57,7 @@ public class SharedSteps extends CommonSteps {
 			log.info("\n==================================\n");
 
 			//store current scenario and test environment details
+			driver.manage().deleteAllCookies();
 			driver.manage().window().maximize();
 			scenarioSession.putData(SessionKey.scenarioName, scenario);
 			String env = System.getProperty("spring.profiles.active");

@@ -24,7 +24,8 @@ public class SubmitterDetails {
     }
 
     private void createDefualts() {
-        hasVAT = true;
+        hasVAT = false;
+        if(hasVAT)
         vatNumber = "0161" + (int) RandomDataUtils.getRandomDigits(7);
         hasEnterer = false;
         hasParent = false;

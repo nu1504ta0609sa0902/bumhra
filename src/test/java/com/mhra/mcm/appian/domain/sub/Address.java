@@ -8,7 +8,8 @@ import com.mhra.mcm.appian.utils.RandomDataUtils;
 public class Address {
 
     public String address;
-    public String country;
+    public String countryIndex;
+    public String countryName;
     public String phone;
     public String email;
     public boolean productionSite;
@@ -19,8 +20,9 @@ public class Address {
     }
 
     private void createDefault() {
-        address = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.getRandomTestName("Test" ) + " GrowLand Avenue, London, UB7 6UU";
-        country = RandomDataUtils.getRandomNumberBetween(1, 31);
+        address = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.getRandomTestName("Test" ).replace("_","") + " GrowLand Avenue, London, UB7 6UU";
+        countryIndex = RandomDataUtils.getRandomNumberBetween(1, 31);
+        countryName = "United Kingdom";
         phone = "07941" + (int) RandomDataUtils.getRandomDigits(7);
         email = "testE2E@" + (int) RandomDataUtils.getRandomDigits(7) + ".com";
         email = "mhra.uat@gmail.com";
@@ -32,7 +34,7 @@ public class Address {
     public String toString() {
         return "Address:" +
                 "\naddress='" + address + '\'' +
-                "\ncountry='" + country + '\'' +
+                "\ncountry='" + countryName + '\'' +
                 "\nphone='" + phone + '\'' +
                 "\nemail='" + email + '\'' +
                 "\nproductionSite=" + productionSite +

@@ -9,6 +9,7 @@ import com.mhra.mcm.appian.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,9 +98,13 @@ public class CreateNotification extends _Page {
     WebElement addressConfidentialNo;
 
     //submit button
-    @FindBy(xpath = ".//button[.='Submit']")
+    @FindBy(xpath = ".//label[.='UPC Number']//following::input[1]")
+    WebElement upcNumber;
+    //@FindBy(xpath = ".//button[.='Submit']")
+    @FindBy(css = ".buttonContainer .right button")
     WebElement submitBtn;
-
+    @FindBy(css = ".buttonContainer")
+    WebElement page;
 
     @Autowired
     public CreateNotification(WebDriver driver) {
@@ -110,6 +115,10 @@ public class CreateNotification extends _Page {
 
     public ActionsPage createRandomNotification(Notification notification) {
         WaitUtils.waitForElementToBeClickable(driver, ecId, 10);
+        String prevUrl = driver.getCurrentUrl();
+        log.info("Current URL : " + prevUrl);
+
+        //Fill notification details
         fillSummary(notification.getSummary());
         fillSubmitter(notification.getSubmitter());
         fillSubmitterDetails(notification.getSubmitterDetails());
@@ -117,7 +126,10 @@ public class CreateNotification extends _Page {
         fillProductDesign(notification.getProductDesign());
 
         //Now submit the notification and keep track of ecID
-        submitBtn.submit();
+        page.click();
+        Actions ac = new Actions(driver);
+        ac.moveToElement(submitBtn).doubleClick(submitBtn).build().perform();
+
         return new ActionsPage(driver);
     }
 
@@ -130,7 +142,7 @@ public class CreateNotification extends _Page {
         productName.sendKeys(product.brandName);
         //launchDate.sendKeys(product.launchDate);
         PageUtils.enterDate(driver, launchDate, product.launchDate);
-        PageUtils.select(driver, type, product.type);
+        PageUtils.selectByIndex(type, product.type);
     }
 
     private void fillSubmitterDetails(SubmitterDetails submitterDetails) {
@@ -158,7 +170,7 @@ public class CreateNotification extends _Page {
         name.sendKeys(submitter.name);
         euIdentifier.sendKeys(submitter.euIdentifier);
         tcaNumber.sendKeys(submitter.tcaNumber);
-        PageUtils.select(driver, submitterType, submitter.submitterType);
+        PageUtils.selectByIndex(submitterType, submitter.submitterType);
         PageUtils.clickOption(smeYes, smeNo, submitter.sme);
         PageUtils.clickOption(confidentialYes, confidentialNo, submitter.confidential);
 
@@ -171,9 +183,8 @@ public class CreateNotification extends _Page {
         PageUtils.clickOption(productionSiteNo, productionSiteNo, false);
         PageUtils.clickOption(addressConfidentialNo, addressConfidentialNo, false);
 
-        PageUtils.select(driver, country, add.country);
-
-
+        PageUtils.selectByText(country, add.countryName);
+        //PageUtils.selectByIndex(country, add.country);
     }
 
     private void fillSummary(Summary summary) {
@@ -183,8 +194,8 @@ public class CreateNotification extends _Page {
         PageUtils.enterDate(driver, startDate, summary.startDate);
         ecId.click();
         ecId.sendKeys(summary.ecId);
-        PageUtils.select(driver, submissionType, summary.submissionType);
-        PageUtils.select(driver, status, summary.status);
+        PageUtils.selectByIndex(submissionType, summary.submissionType);
+        PageUtils.selectByIndex(status, summary.status);
         PageUtils.enterDate(driver, endDate, summary.endDate);
     }
 }

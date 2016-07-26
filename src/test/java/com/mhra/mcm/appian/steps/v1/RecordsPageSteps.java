@@ -1,6 +1,7 @@
 package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.po.RecordsPage;
+import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import cucumber.api.java.en.And;
@@ -58,5 +59,19 @@ public class RecordsPageSteps extends CommonSteps {
         //verfiy page contains the updated information
         boolean contains = recordsPage.notificationsPageContainsText(expectedName);
         assertThat(contains, is(equalTo(true)));
+    }
+
+    /***
+     * remove this : only created so we don't have 100s of notifications
+     * @param expectedNotificationID
+     * @throws Throwable
+     */
+    @Then("^I should see the notification \"([^\"]*)\" generated$")
+    public void i_should_see_the_notification_generated(String expectedNotificationID) throws Throwable {
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+        notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID);
+        boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
+        assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
     }
 }

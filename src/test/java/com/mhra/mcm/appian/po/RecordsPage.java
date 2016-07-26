@@ -1,6 +1,7 @@
 package com.mhra.mcm.appian.po;
 
 import com.mhra.mcm.appian.po.sections.contents.EditNotification;
+import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
 import com.mhra.mcm.appian.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -85,5 +86,12 @@ public class RecordsPage extends _Page {
         String text = submitterName.getText();
         boolean containsNewName = text.contains(expectedName);
         return containsNewName;
+    }
+
+    public NotificationDetails clickNotificationNumber(String expectedNotificationID) {
+        WaitUtils.waitForElementToBeClickable(driver, By.linkText(expectedNotificationID), 5);
+        WebElement notification = driver.findElement(By.linkText(expectedNotificationID));
+        notification.click();
+        return new NotificationDetails(driver);
     }
 }

@@ -43,4 +43,13 @@ public class LoginPageSteps extends CommonSteps {
         loginPage = loginPage.loadPage(baseUrl);
         mainNavigationBar = loginPage.login(username);
     }
+
+    @When("^I login as \"([^\"]*)\" and generate a standard invoice$")
+    public void i_login_as_and_generate_a_standard_invoice(String username) throws Throwable {
+        mainNavigationBar = loginPage.reloginUsing(username);
+        actionsPage = mainNavigationBar.clickActions();
+        //only FINANCE users should see this option
+        actionsPage.generateStandardInvoices();
+    }
+
 }

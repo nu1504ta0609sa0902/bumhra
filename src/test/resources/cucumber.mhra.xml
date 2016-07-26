@@ -45,7 +45,7 @@
     </bean>
 
     <!--
-            select browser from ${firefox}, ${chrome} or ${ie}
+            selectByIndex browser from ${firefox}, ${chrome} or ${ie}
               Uses the value to get the correct driver class and than initiates it
 
               And loads the properties file related to the profile

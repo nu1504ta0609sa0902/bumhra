@@ -24,11 +24,11 @@ public class ActionsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.ECID, ecId);
         log.warn("\nNotification Generated with ECID: " + ecId);
         log.info("Notification Details : \n" + random);
-        try {
-            Thread.sleep(20000);
-        }catch(Exception e){
-
-        }
+//        try {
+//            Thread.sleep(20000);
+//        }catch(Exception e){
+//
+//        }
     }
 
 }
