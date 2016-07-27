@@ -20,15 +20,11 @@ public class ActionsPageSteps extends CommonSteps {
         CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
         Notification random = new Notification(2, 2);
         actionsPage = createNotification.createRandomNotification(random);
+
+        //Stored ecId for future use
         String ecId = random.ecIDNumber;
         scenarioSession.putData(SessionKey.ECID, ecId);
-        log.warn("\nNotification Generated with ECID: " + ecId);
         log.info("Notification Details : \n" + random);
-//        try {
-//            Thread.sleep(20000);
-//        }catch(Exception e){
-//
-//        }
     }
 
 }

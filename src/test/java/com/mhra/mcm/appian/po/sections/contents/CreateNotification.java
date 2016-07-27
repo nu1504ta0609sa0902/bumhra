@@ -127,9 +127,7 @@ public class CreateNotification extends _Page {
 
         //Now submit the notification and keep track of ecID
         page.click();
-        Actions ac = new Actions(driver);
-        ac.moveToElement(submitBtn).doubleClick(submitBtn).build().perform();
-
+        PageUtils.doubleClick(driver, submitBtn);
         return new ActionsPage(driver);
     }
 

@@ -37,4 +37,9 @@ public class PageUtils {
         actions.sendKeys(dateTxt);
         actions.build().perform();
     }
+
+    public static void doubleClick(WebDriver driver, WebElement element) {
+        Actions ac = new Actions(driver);
+        ac.moveToElement(element).doubleClick(element).build().perform();
+    }
 }

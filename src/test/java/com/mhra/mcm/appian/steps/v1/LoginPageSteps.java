@@ -49,7 +49,7 @@ public class LoginPageSteps extends CommonSteps {
         mainNavigationBar = loginPage.reloginUsing(username);
         actionsPage = mainNavigationBar.clickActions();
         //only FINANCE users should see this option
-        actionsPage.generateStandardInvoices();
+        actionsPage = actionsPage.generateStandardInvoices();
     }
 
 }

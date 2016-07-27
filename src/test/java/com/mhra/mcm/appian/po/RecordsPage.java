@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -89,9 +90,24 @@ public class RecordsPage extends _Page {
     }
 
     public NotificationDetails clickNotificationNumber(String expectedNotificationID) {
-        WaitUtils.waitForElementToBeClickable(driver, By.linkText(expectedNotificationID), 5);
-        WebElement notification = driver.findElement(By.linkText(expectedNotificationID));
-        notification.click();
+        boolean found = false;
+        int attempt = 0;
+        do {
+            attempt++;
+
+            try {
+                WaitUtils.waitForElementToBeClickable(driver, By.linkText(expectedNotificationID), 5);
+                WebElement notification = driver.findElement(By.linkText(expectedNotificationID));
+                notification.click();
+                found = true;
+            }catch(Exception e){
+            }
+
+            //refresh page
+            driver.navigate().refresh();
+            PageFactory.initElements(driver, this);
+
+        }while(!found && attempt < 5);
         return new NotificationDetails(driver);
     }
 }

@@ -17,6 +17,9 @@ public class ActionsPage extends _Page {
     @FindBy(linkText = "Upload Sample Notification")
     WebElement uploadSampleNotification;
 
+    @FindBy(linkText = "Create Standard Invoices")
+    WebElement createStandardNotification;
+
     @Autowired
     public ActionsPage(WebDriver driver) {
         super(driver);
@@ -26,5 +29,11 @@ public class ActionsPage extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 5);
         uploadSampleNotification.click();
         return new CreateNotification(driver);
+    }
+
+    public ActionsPage generateStandardInvoices() {
+        WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 5);
+        createStandardNotification.click();
+        return new ActionsPage(driver);
     }
 }

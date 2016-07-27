@@ -74,4 +74,16 @@ public class RecordsPageSteps extends CommonSteps {
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
         assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
     }
+
+
+    @Then("^I should see the stored notification$")
+    public void i_should_see_the_stored_notification() throws Throwable {
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+
+        String expectedNotificationID = (String) scenarioSession.getData(SessionKey.ECID);
+        notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID);
+        boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
+        assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
+    }
 }
