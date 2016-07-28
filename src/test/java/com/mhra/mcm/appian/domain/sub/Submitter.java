@@ -30,21 +30,21 @@ public class Submitter {
         submitterType = "2";
         sme = false;
         confidential = false;
-        tcaNumber = "" + (int) RandomDataUtils.getRandomDigits(5);
+        tcaNumber = RandomDataUtils.getRandomNumberBetween(1000*100, 1000*1000);
         Address submitterAddress = new Address();
         listOfAddresses.add(submitterAddress);
     }
 
     @Override
     public String toString() {
-        return "Submitter:" +
-                "\n name='" + name + '\'' +
-                "\n submitterType='" + submitterType + '\'' +
-                "\n sme=" + sme +
-                "\n euIdentifier='" + euIdentifier + '\'' +
-                "\n tcaNumber='" + tcaNumber + '\'' +
-                "\n confidential=" + confidential +
-                "\n\n listOfAddresses=" + listOfAddresses +
+        return "#Submitter:" +
+                "\nsubmitter.name=" + name +
+                "\nsubmitter.submitterType=" + submitterType +
+                "\nsubmitter.sme=" + sme +
+                "\nsubmitter.euIdentifier=" + euIdentifier +
+                "\nsubmitter.tcaNumber=" + tcaNumber +
+                "\nsubmitter.confidential=" + confidential +
+                "\n\nsubmitter.listOfAddresses=" + listOfAddresses +
                 '\n';
     }
 }

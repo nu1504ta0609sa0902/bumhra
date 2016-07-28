@@ -34,15 +34,15 @@ public class SubmitterDetails {
 
     @Override
     public String toString() {
-        return "SubmitterDetails:" +
-                "\n hasVAT=" + hasVAT +
-                "\n vatNumber='" + vatNumber + '\'' +
-                "\n hasEnterer=" + hasEnterer +
-                "\n listOfEntererAddresses=" + listOfEntererAddresses +
-                "\n hasParent=" + hasParent +
-                "\n listOfParentAddresses=" + listOfParentAddresses +
-                "\n hasAffiliate=" + hasAffiliate +
-                "\n listOfAffiliateAddresses=" + listOfAffiliateAddresses +
+        return "#SubmitterDetails:" +
+                "\nsubmitter.details.hasVAT=" + hasVAT +
+                "\nsubmitter.details.vatNumber='" + vatNumber +
+                "\nsubmitter.details.hasEnterer=" + hasEnterer +
+                "\nsubmitter.details.listOfEntererAddresses=" + listOfEntererAddresses +
+                "\nsubmitter.details.hasParent=" + hasParent +
+                "\nsubmitter.details.listOfParentAddresses=" + listOfParentAddresses +
+                "\nsubmitter.details.hasAffiliate=" + hasAffiliate +
+                "\nsubmitter.details.listOfAffiliateAddresses=" + listOfAffiliateAddresses +
                 '\n';
     }
 }

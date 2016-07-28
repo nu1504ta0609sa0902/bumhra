@@ -28,12 +28,12 @@ public class Summary {
 
     @Override
     public String toString() {
-        return "Summary:" +
-                "\n ecId='" + ecId + '\'' +
-                "\n submissionType='" + submissionType + '\'' +
-                "\n startDate='" + startDate + '\'' +
-                "\n endDate='" + endDate + '\'' +
-                "\n status='" + status + '\'' +
+        return "#Summary:" +
+                "\nsummary.ecId=" + ecId +
+                "\nsummary.submissionType=" + submissionType +
+                "\nsummary.startDate=" + startDate +
+                "\nsummary.endDate=" + endDate +
+                "\nsummary.status=" + status +
                 '\n';
     }
 }

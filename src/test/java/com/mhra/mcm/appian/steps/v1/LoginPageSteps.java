@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.AssertUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -22,6 +23,12 @@ public class LoginPageSteps extends CommonSteps {
 
     @When("^I login as user \"([^\"]*)\"$")
     public void i_login_as_user(String username) throws Throwable {
+        mainNavigationBar = loginPage.login(username);
+    }
+
+    @When("^I am logged into appian as \"([^\"]*)\" user$")
+    public void i_am_logged_into_appian_as_user(String username) throws Throwable {
+        loginPage = loginPage.loadPage(baseUrl);
         mainNavigationBar = loginPage.login(username);
     }
 
@@ -52,4 +59,10 @@ public class LoginPageSteps extends CommonSteps {
         actionsPage = actionsPage.generateStandardInvoices();
     }
 
+    @When("^I generate a standard invoice$")
+    public void i_generate_a_standard_invoice() throws Throwable {
+        actionsPage = mainNavigationBar.clickActions();
+        //only FINANCE users should see this option
+        actionsPage = actionsPage.generateStandardInvoices();
+    }
 }

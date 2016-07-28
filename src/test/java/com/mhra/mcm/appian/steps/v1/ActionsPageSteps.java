@@ -24,6 +24,7 @@ public class ActionsPageSteps extends CommonSteps {
         //Stored ecId for future use
         String ecId = random.ecIDNumber;
         scenarioSession.putData(SessionKey.ECID, ecId);
+        scenarioSession.putData(SessionKey.storedNotification, random);
         log.info("Notification Details : \n" + random);
     }
 

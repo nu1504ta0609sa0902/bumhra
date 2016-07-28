@@ -25,10 +25,10 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product: " +
-                "\n brandName='" + brandName + '\'' +
-                "\n launchDate='" + launchDate + '\'' +
-                "\n type='" + type + '\'' +
+        return "#Product: " +
+                "\nproduct.brandName=" + brandName  +
+                "\nproduct.launchDate=" + launchDate   +
+                "\nproduct.type=" + type +
                 '\n';
     }
 }

@@ -1,6 +1,7 @@
 package com.mhra.mcm.appian.po;
 
 import com.mhra.mcm.appian.po.sections.contents.CreateNotification;
+import com.mhra.mcm.appian.utils.PageUtils;
 import com.mhra.mcm.appian.utils.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,7 +34,8 @@ public class ActionsPage extends _Page {
 
     public ActionsPage generateStandardInvoices() {
         WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 5);
-        createStandardNotification.click();
+        PageUtils.doubleClick(driver, createStandardNotification);
+        //createStandardNotification.click();
         return new ActionsPage(driver);
     }
 }

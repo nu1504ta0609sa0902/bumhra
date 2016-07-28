@@ -41,7 +41,7 @@ public class RandomDataUtils {
 
     public static String getRandomTestName(String test) {
         Calendar cal = Calendar.getInstance();
-        return test + cal.get(Calendar.DAY_OF_MONTH) + "_" + cal.get(Calendar.MONTH);
+        return test + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + cal.get(Calendar.MONTH);
     }
 
     public static String getRandomNumberBetween(int min, int max) {

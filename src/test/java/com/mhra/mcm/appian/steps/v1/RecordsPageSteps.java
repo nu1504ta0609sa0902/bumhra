@@ -66,7 +66,7 @@ public class RecordsPageSteps extends CommonSteps {
      * @param expectedNotificationID
      * @throws Throwable
      */
-    @Then("^I should see the notification \"([^\"]*)\" generated$")
+    @Then("^I have a notification \"([^\"]*)\" generated$")
     public void i_should_see_the_notification_generated(String expectedNotificationID) throws Throwable {
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();

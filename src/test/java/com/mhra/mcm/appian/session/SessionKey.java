@@ -16,4 +16,6 @@ public class SessionKey {
 	public static final String ECID = "EC ID";
 	public static String storedValue = "StoredValue";
 
+	public static String storedNotification = "Notification";
+	public static String invoice = "Invoice";
 }

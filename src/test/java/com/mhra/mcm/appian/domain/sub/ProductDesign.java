@@ -14,9 +14,9 @@ public class ProductDesign {
 
     @Override
     public String toString() {
-        return "ProductDesign:" +
-                "\n weightELiquid=" + weightELiquid +
-                "\n volumeELiquid=" + volumeELiquid +
+        return "#ProductDesign:" +
+                "\nproduct.design.weightELiquid=" + weightELiquid +
+                "\nproduct.design.volumeELiquid=" + volumeELiquid +
                 '\n';
     }
 }

@@ -32,13 +32,13 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address:" +
-                "\naddress='" + address + '\'' +
-                "\ncountry='" + countryName + '\'' +
-                "\nphone='" + phone + '\'' +
-                "\nemail='" + email + '\'' +
-                "\nproductionSite=" + productionSite +
-                "\naddressConfidential=" + addressConfidential +
+        return "#Address:" +
+                "\naddress.address=" + address +
+                "\naddress.country=" + countryName +
+                "\naddress.phone=" + phone +
+                "\naddress.email=" + email +
+                "\naddress.productionSite=" + productionSite +
+                "\naddress.addressConfidential=" + addressConfidential +
                 '\n';
     }
 }
