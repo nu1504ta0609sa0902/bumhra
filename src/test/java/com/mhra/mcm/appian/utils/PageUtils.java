@@ -31,11 +31,9 @@ public class PageUtils {
     }
 
     public static void enterDate(WebDriver driver, WebElement element, String dateTxt) {
+        //element.click();
         Actions actions = new Actions(driver);
-        actions.moveToElement(element);
-        actions.click();
-        actions.sendKeys(dateTxt);
-        actions.build().perform();
+        actions.moveToElement(element).click().sendKeys(dateTxt).build().perform();
     }
 
     public static void doubleClick(WebDriver driver, WebElement element) {

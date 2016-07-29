@@ -186,9 +186,6 @@ public class CreateNotification extends _Page {
     }
 
     private void fillSummary(Summary summary) {
-//        WaitUtils.waitForElementToBeVisible(driver, startDate, 5);
-//        startDate.clear();
-//        startDate.sendKeys(summary.startDate);
         PageUtils.enterDate(driver, startDate, summary.startDate);
         ecId.click();
         ecId.sendKeys(summary.ecId);

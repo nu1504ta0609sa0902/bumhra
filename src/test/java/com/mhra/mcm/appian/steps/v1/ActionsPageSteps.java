@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Scope;
 public class ActionsPageSteps extends CommonSteps {
 
 
-    @Given("^I create a new notification$")
+    @Given("^I create new notification$")
     public void i_create_a_new_notification() throws Throwable {
         actionsPage = mainNavigationBar.clickActions();
         CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
@@ -26,6 +26,22 @@ public class ActionsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, random);
         log.info("Notification Details : \n" + random);
+    }
+
+
+    @Given("^I create (.*) new notifications$")
+    public void i_create_a_new_notification(int numberOfNotifications) throws Throwable {
+        for(int x = 0; x < numberOfNotifications; x++){
+            try {
+                actionsPage = mainNavigationBar.clickActions();
+                CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
+                Notification random = new Notification(2, 2);
+                actionsPage = createNotification.createRandomNotification(random);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            Thread.sleep(1000*5);
+        }
     }
 
 }

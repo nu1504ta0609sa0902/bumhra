@@ -68,6 +68,7 @@ public class RecordsPageSteps extends CommonSteps {
      */
     @Then("^I have a notification \"([^\"]*)\" generated$")
     public void i_should_see_the_notification_generated(String expectedNotificationID) throws Throwable {
+        scenarioSession.putData(SessionKey.ECID, expectedNotificationID);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID);

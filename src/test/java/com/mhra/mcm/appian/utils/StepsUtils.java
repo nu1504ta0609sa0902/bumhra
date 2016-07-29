@@ -14,12 +14,10 @@ public class StepsUtils {
      * Find the invoice associated with notification
      *
      * @param listOfInvoices
-     * @param notification
      * @return
      */
-    public static Invoice getInvoiceForNotification(List<Invoice> listOfInvoices, Notification notification) {
+    public static Invoice getInvoiceForNotification(List<Invoice> listOfInvoices, String ecIDNumber) {
         Invoice found = null;
-        String ecIDNumber = notification.ecIDNumber;
         for(Invoice i: listOfInvoices){
             if(i.Description.contains(ecIDNumber)){
                 found = i;
