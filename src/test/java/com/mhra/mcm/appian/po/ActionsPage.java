@@ -27,6 +27,7 @@ public class ActionsPage extends _Page {
     }
 
     public CreateNotification clickUploadSampleNotification() {
+
         WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 5);
         uploadSampleNotification.click();
         return new CreateNotification(driver);

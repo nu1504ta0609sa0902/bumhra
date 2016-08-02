@@ -1,9 +1,6 @@
 Feature: Able to login to MHRA application using different credentials
 
 
-  Scenario: Create lots of notifications
-    Given I am logged into appian as "super1" user
-    And I create 5 new notification
 
   Scenario Outline: Login into to MHRA notifications page using different credentials
     Given I am in appian page
