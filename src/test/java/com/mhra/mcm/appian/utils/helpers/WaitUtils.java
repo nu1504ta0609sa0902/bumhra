@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.utils;
+package com.mhra.mcm.appian.utils.helpers;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -41,5 +41,13 @@ public class WaitUtils {
         if(existingName.equals(""))
             existingName = submitterName.getAttribute("value");
         return existingName;
+    }
+
+    public static void nativeWait() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
