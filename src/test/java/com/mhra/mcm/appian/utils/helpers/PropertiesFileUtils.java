@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.utils;
+package com.mhra.mcm.appian.utils.helpers;
 
 import java.io.File;
 import java.io.FileInputStream;

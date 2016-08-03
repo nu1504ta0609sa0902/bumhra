@@ -4,12 +4,11 @@ import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.domain.sub.*;
 import com.mhra.mcm.appian.po.ActionsPage;
 import com.mhra.mcm.appian.po._Page;
-import com.mhra.mcm.appian.utils.PageUtils;
-import com.mhra.mcm.appian.utils.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,8 +99,8 @@ public class CreateNotification extends _Page {
     //submit button
     @FindBy(xpath = ".//label[.='UPC Number']//following::input[1]")
     WebElement upcNumber;
-    //@FindBy(xpath = ".//button[.='Submit']")
-    @FindBy(css = ".buttonContainer .right button")
+    //@FindBy(css = ".buttonContainer .right button")
+    @FindBy(css = "button.GJEWJWHDFE.GJEWJWHDNE.GJEWJWHDPE")
     WebElement submitBtn;
     @FindBy(css = ".buttonContainer")
     WebElement page;
@@ -126,7 +125,6 @@ public class CreateNotification extends _Page {
         fillProductDesign(notification.getProductDesign());
 
         //Now submit the notification and keep track of ecID
-        page.click();
         PageUtils.doubleClick(driver, submitBtn);
         return new ActionsPage(driver);
     }
@@ -145,18 +143,17 @@ public class CreateNotification extends _Page {
 
     private void fillSubmitterDetails(SubmitterDetails submitterDetails) {
 
-        PageUtils.clickOption(hasEntererYes, hasEntererNo, submitterDetails.hasEnterer);
-        WaitUtils.waitForElementToBeVisible(driver, hasEntererYes, 5);
+        PageUtils.clickOption(driver, hasEntererYes, hasEntererNo, submitterDetails.hasEnterer);
+        PageUtils.clickOption(driver, hasAffiliateYes, hasAffiliateNo, submitterDetails.hasAffiliate);
+        PageUtils.clickOption(driver, hasParentYes, hasParentNo, submitterDetails.hasParent);
 
-        WaitUtils.waitForElementToBeVisible(driver, hasAffiliateYes, 5);
-        PageUtils.clickOption(hasAffiliateYes, hasAffiliateNo, submitterDetails.hasAffiliate);
-        WaitUtils.waitForElementToBeVisible(driver, hasAffiliateYes, 5);
+//        WaitUtils.waitForElementToBeClickable(driver, hasEntererYes, 5);
+//        WaitUtils.waitForElementToBeClickable(driver, hasAffiliateYes, 5);
+//        WaitUtils.waitForElementToBeClickable(driver, hasAffiliateYes, 5);
+//        WaitUtils.waitForElementToBeClickable(driver, hasParentYes, 5);
+//        WaitUtils.waitForElementToBeClickable(driver, hasParentYes, 5);
 
-        WaitUtils.waitForElementToBeVisible(driver, hasParentYes, 5);
-        PageUtils.clickOption(hasParentYes, hasParentNo, submitterDetails.hasParent);
-        WaitUtils.waitForElementToBeVisible(driver, hasParentYes, 5);
-
-        PageUtils.clickOption(hasVATYes, hasVatNo, submitterDetails.hasVAT);
+        PageUtils.clickOption(driver, hasVATYes, hasVatNo, submitterDetails.hasVAT);
         if(submitterDetails.hasVAT){
             WaitUtils.waitForElementToBeClickable(driver,By.xpath(".//label[.='VAT']//following::input[1]"), 5 );
             WebElement vatField = driver.findElement(By.xpath(".//label[.='VAT']//following::input[1]"));

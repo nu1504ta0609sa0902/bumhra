@@ -1,7 +1,6 @@
 Feature: Able to login to MHRA application using different credentials
 
 
-
   Scenario Outline: Login into to MHRA notifications page using different credentials
     Given I am in appian page
     When I login as user "<user>"

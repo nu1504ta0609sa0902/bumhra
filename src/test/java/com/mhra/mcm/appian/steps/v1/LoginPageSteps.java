@@ -1,8 +1,7 @@
 package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.steps.common.CommonSteps;
-import com.mhra.mcm.appian.utils.AssertUtils;
-import cucumber.api.PendingException;
+import com.mhra.mcm.appian.utils.helpers.AssertUtils;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

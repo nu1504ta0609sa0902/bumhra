@@ -4,7 +4,7 @@ import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.po.sections.contents.CreateNotification;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
-import cucumber.api.DataTable;
+import com.mhra.mcm.appian.utils.helpers.NotificationUtils;
 import cucumber.api.java.en.Given;
 import org.springframework.context.annotation.Scope;
 
@@ -22,6 +22,7 @@ public class ActionsPageSteps extends CommonSteps {
         actionsPage = mainNavigationBar.clickActions();
         CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
         Notification random = new Notification(2, 2);
+        log.info("Create Notification With ECID : " +  random.ecIDNumber);
         actionsPage = createNotification.createRandomNotification(random);
 
         //Stored ecId for future use
@@ -42,9 +43,8 @@ public class ActionsPageSteps extends CommonSteps {
 
         actionsPage = mainNavigationBar.clickActions();
         CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
-        Notification random = new Notification(2, 2);
-        String type = dataValues.get("type");
-        random.getSummary().submissionType = type;
+        Notification random = NotificationUtils.updateDefaultNotification(dataValues);
+        log.info("Create Notification With ECID : " +  random.ecIDNumber);
         actionsPage = createNotification.createRandomNotification(random);
 
         //Stored ecId for future use
@@ -52,6 +52,7 @@ public class ActionsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, random);
         log.info("Notification Details : \n" + random);
+        log.info("Created Notification With ECID : " +  random.ecIDNumber);
     }
 
 

@@ -4,14 +4,10 @@ package com.mhra.mcm.appian.utils.emails;
  * Created by TPD_Auto on 29/07/2016.
  */
 
-import au.com.bytecode.opencsv.CSVReader;
 import com.mhra.mcm.appian.domain.sort.SortByMessageNumber;
 import com.mhra.mcm.appian.domain.sub.Invoice;
-import com.mhra.mcm.appian.utils.RandomDataUtils;
-import com.sun.corba.se.spi.orbutil.threadpool.Work;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -101,7 +97,7 @@ public class GmailEmail {
                     if (emailAddress != null && emailAddress.contains("appian")) {
 
                         boolean isMessageReceivedToday = isMessageReceivedToday(subject);
-                        if (isMessageReceivedToday) {
+                        if (isMessageReceivedToday && subject.contains("Uninvoiced Notifications")) {
                             boolean isRecent = receivedInLast(min, sentDate);
                             if (isRecent) {
                                 System.out.println("---------------------------------");

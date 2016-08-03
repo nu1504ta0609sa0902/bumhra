@@ -1,7 +1,7 @@
 package com.mhra.mcm.appian.domain;
 
 import com.mhra.mcm.appian.domain.sub.*;
-import com.mhra.mcm.appian.utils.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
 /**
  * Created by TPD_Auto on 22/07/2016.
@@ -82,12 +82,11 @@ public class Notification {
     @Override
     public String toString() {
         return "Notification{" +
-                "\n  ecIDNumber: " + ecIDNumber + '\'' +
                 "\n" + summary +
                 "\n" + submitter +
                 "\n" + submitterDetails +
                 "\n" + product +
                 "\n" + productDesign +
-                '}';
+                "\n\n}\n";
     }
 }

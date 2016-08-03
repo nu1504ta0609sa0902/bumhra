@@ -1,13 +1,12 @@
 package com.mhra.mcm.appian.po;
 
 import com.mhra.mcm.appian.po.sections.MainNavigationBar;
-import com.mhra.mcm.appian.utils.PropertiesFileUtils;
-import com.mhra.mcm.appian.utils.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.PropertiesFileUtils;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

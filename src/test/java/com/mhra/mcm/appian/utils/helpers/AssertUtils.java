@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.utils;
+package com.mhra.mcm.appian.utils.helpers;
 
 /**
  * Created by TPD_Auto on 15/07/2016.

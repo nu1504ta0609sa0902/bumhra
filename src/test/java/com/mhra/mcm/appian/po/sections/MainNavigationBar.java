@@ -1,7 +1,7 @@
 package com.mhra.mcm.appian.po.sections;
 
 import com.mhra.mcm.appian.po.*;
-import com.mhra.mcm.appian.utils.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

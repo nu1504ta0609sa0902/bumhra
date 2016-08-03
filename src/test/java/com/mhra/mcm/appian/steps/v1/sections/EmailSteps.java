@@ -4,17 +4,14 @@ import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.domain.sub.Invoice;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
-import com.mhra.mcm.appian.utils.PropertiesFileUtils;
-import com.mhra.mcm.appian.utils.StepsUtils;
-import com.mhra.mcm.appian.utils.emails.EmailUtils;
+import com.mhra.mcm.appian.utils.helpers.StepsUtils;
 import com.mhra.mcm.appian.utils.emails.GmailEmail;
-import cucumber.api.PendingException;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.context.annotation.Scope;
 
 import java.util.List;
-import java.util.Properties;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -88,11 +85,11 @@ public class EmailSteps extends CommonSteps {
     @When("^The status should update to \"([^\"]*)\"$")
     public void the_status_should_update_to(String expectedStatus) throws Throwable {
         String currentStatus = (String) scenarioSession.getData(SessionKey.notificationStatus);
-        //boolean statusChanged = notificationDetails.hasPageStatusChanged(currentStatus);
+        //boolean statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
         boolean statusChanged = false;
         int attempt = 0;
         do{
-            statusChanged = notificationDetails.hasPageStatusChanged(currentStatus);
+            statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
             attempt++;
             Thread.sleep(1000 * 5);
         }while (!statusChanged && attempt < 15);
@@ -100,5 +97,35 @@ public class EmailSteps extends CommonSteps {
         String newStatus = notificationDetails.getCurrentStatus();
 
         assertThat("Status should not be : " + currentStatus , newStatus, is((equalTo(expectedStatus))));
+    }
+
+
+    @Given("^I should see the stored notification with status set to \"([^\"]*)\"$")
+    public void i_should_see_new_task_generated_for_the_submitter(String expectedStatus) throws Throwable {
+        //Stored data to verify
+        Notification data = (Notification) scenarioSession.getData(SessionKey.storedNotification);
+        String expectedNotificationID = data.ecIDNumber;
+
+        //Verify notification generated
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+        notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID);
+        boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
+        assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
+
+        //Verify status
+        boolean statusMatched = false;
+        int attempt = 0;
+        do{
+            statusMatched = notificationDetails.expectedStatusToBe(expectedStatus);
+            if(statusMatched)
+                break;
+            attempt++;
+            Thread.sleep(1000 * 5);
+        }while (!statusMatched && attempt < 15);
+
+        String newStatus = notificationDetails.getCurrentStatus();
+
+        assertThat("Status should be : " + expectedStatus , newStatus, is((equalTo(expectedStatus))));
     }
 }

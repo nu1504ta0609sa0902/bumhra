@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.utils;
+package com.mhra.mcm.appian.utils.helpers;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -41,7 +41,7 @@ public class RandomDataUtils {
 
     public static String getRandomTestName(String test) {
         Calendar cal = Calendar.getInstance();
-        return test + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + cal.get(Calendar.MONTH);
+        return test + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + (cal.get(Calendar.MONTH)+1);
     }
 
     public static String getRandomNumberBetween(int min, int max) {

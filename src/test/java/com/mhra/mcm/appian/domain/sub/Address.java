@@ -1,6 +1,6 @@
 package com.mhra.mcm.appian.domain.sub;
 
-import com.mhra.mcm.appian.utils.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
 /**
  * Created by TPD_Auto on 22/07/2016.

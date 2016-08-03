@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.utils;
+package com.mhra.mcm.appian.utils.helpers;
 
 import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.domain.sub.Invoice;

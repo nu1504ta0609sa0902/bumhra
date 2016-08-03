@@ -1,9 +1,7 @@
 package com.mhra.mcm.appian.po.sections.contents;
 
-import com.mhra.mcm.appian.po.RecordsPage;
 import com.mhra.mcm.appian.po._Page;
-import com.mhra.mcm.appian.utils.WaitUtils;
-import org.openqa.selenium.By;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,7 +39,7 @@ public class NotificationDetails extends _Page {
         return currentStatus.getText();
     }
 
-    public boolean hasPageStatusChanged(String currentStatusText) {
+    public boolean hasPageStatusChangedTo(String currentStatusText) {
 
         boolean found = false;
         WaitUtils.waitForElementToBeVisible(driver, currentStatus, 5);
@@ -53,25 +51,19 @@ public class NotificationDetails extends _Page {
             PageFactory.initElements(driver, this);
         }
 
-//        boolean found = false;
-//        int attempt = 0;
-//        do {
-//            attempt++;
-//
-//            try {
-//                WaitUtils.waitForElementToBeVisible(driver, currentStatus, 5);
-//                String updatedStatus = getCurrentStatus();
-//                if(!updatedStatus.equals(currentStatusText)){
-//                    found = true;
-//                }
-//            }catch(Exception e){
-//            }
-//
-//            //refresh page
-//            driver.navigate().refresh();
-//            PageFactory.initElements(driver, this);
-//
-//        }while(!found && attempt < 5);
+        return found;
+    }
+
+    public boolean expectedStatusToBe(String expectedStatus) {
+        boolean found = false;
+        WaitUtils.waitForElementToBeVisible(driver, currentStatus, 5);
+        String updatedStatus = getCurrentStatus();
+        if(updatedStatus.equals(expectedStatus)){
+            found = true;
+        }else{
+            driver.navigate().refresh();
+            PageFactory.initElements(driver, this);
+        }
 
         return found;
     }
