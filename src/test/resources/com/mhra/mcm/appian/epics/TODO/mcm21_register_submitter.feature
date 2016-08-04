@@ -12,13 +12,13 @@ Feature: Once Appian has parsed the notification data, the system will register 
     Examples:
       | type | submitterNameGeneration | initialStatus |
       | 1    | random                  | Uploaded      |
-#      | 2    | random                  | Uploaded      |
-#      | 3    | random                  | Uploaded      |
-#      | 4    | random                  | Uploaded      |
+      | 2    | random                  | Uploaded      |
+      | 3    | random                  | Uploaded      |
+      | 4    | random                  | Uploaded      |
 
 
   @mcm-21 @e2e
-  Scenario Outline: Register a new submitter with a tcaNumber than generate an invoice and wait for payment
+  Scenario Outline: Register a new submitter without a tcaNumber than generate an invoice and wait for payment
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data
       | type          | <type>                    |

@@ -32,26 +32,23 @@ public class ActionsPageSteps extends CommonSteps {
         log.info("Notification Details : \n" + random);
     }
 
-//    @Given("^I create new notification with following data$")
-//    public void i_create_new_notification_with_following_data(DataTable data) throws Throwable {
-//        Map<String, String> dataValues = data.asMap(String.class, String.class);
-//        System.out.println();
-//    }
 
     @Given("^I create new notification with following data$")
     public void i_create_new_notification_with_following_data(Map<String, String> dataValues) throws Throwable {
 
-        actionsPage = mainNavigationBar.clickActions();
-        CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
         Notification random = NotificationUtils.updateDefaultNotification(dataValues);
         log.info("Create Notification With ECID : " +  random.ecIDNumber);
+
+        //UPLOAD NOTIFICATION
+        actionsPage = mainNavigationBar.clickActions();
+        CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
         actionsPage = createNotification.createRandomNotification(random);
 
         //Stored ecId for future use
         String ecId = random.ecIDNumber;
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, random);
-        log.info("Notification Details : \n" + random);
+        log.debug("Notification Details : \n" + random);
         log.info("Created Notification With ECID : " +  random.ecIDNumber);
     }
 

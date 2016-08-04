@@ -41,17 +41,17 @@ public class NotificationDetails extends _Page {
 
     public boolean hasPageStatusChangedTo(String currentStatusText) {
 
-        boolean found = false;
+        boolean statusChanged = false;
         WaitUtils.waitForElementToBeVisible(driver, currentStatus, 5);
         String updatedStatus = getCurrentStatus();
         if(!updatedStatus.equals(currentStatusText)){
-            found = true;
+            statusChanged = true;
         }else{
             driver.navigate().refresh();
             PageFactory.initElements(driver, this);
         }
 
-        return found;
+        return statusChanged;
     }
 
     public boolean expectedStatusToBe(String expectedStatus) {

@@ -11,7 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class WaitUtils {
 
-    static int timeForTesting = 10;
+    //mhratest is very slow, set this to 0 once slow issue is fixed
+    static int timeForTesting = 30;
 
     public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int maxTimeToWait) {
         maxTimeToWait = resetMaxTime(maxTimeToWait);

@@ -89,9 +89,11 @@ public class EmailSteps extends CommonSteps {
         boolean statusChanged = false;
         int attempt = 0;
         do{
-            statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
-            attempt++;
             Thread.sleep(1000 * 5);
+            statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
+            if(statusChanged)
+                break;
+            attempt++;
         }while (!statusChanged && attempt < 15);
 
         String newStatus = notificationDetails.getCurrentStatus();
