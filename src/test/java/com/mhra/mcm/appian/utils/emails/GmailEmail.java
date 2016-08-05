@@ -42,10 +42,28 @@ public class GmailEmail {
     }
 
 
-    public static List<Invoice> getListOfInvoicesFromGmail(int min) {
+    public static List<Invoice> getListOfInvoicesFromGmail(int min, String ecID) {
         //generate list of invoices
         read(min);
+        filterListOfInvoicesByEcid(ecID);
         return listOfInvoices;
+    }
+
+    private static void filterListOfInvoicesByEcid(String ecID) {
+        boolean contains = false;
+        //check invoice with ecid exists
+        for(Invoice invoice: listOfInvoices){
+            String descECid = invoice.Description;
+            if(descECid!=null && descECid.equals(ecID)){
+                contains = true;
+                break;
+            }
+        }
+
+        if(!contains){
+            //remove all invoices
+            listOfInvoices.clear();
+        }
     }
 
     public static void read(int min) {

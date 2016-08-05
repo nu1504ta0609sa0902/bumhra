@@ -19,6 +19,7 @@ public class NotificationUtils {
         String type = dataValues.get("type");
         String tcaNumber = dataValues.get("tcaNumber");
         String submitterName = dataValues.get("submitterName");
+        String ingredient = dataValues.get("ingredient");
 
         if(type!=null){
             notification.getSummary().submissionType = type;
@@ -32,6 +33,9 @@ public class NotificationUtils {
                 sn = sn + RandomDataUtils.getRandomNumberBetween(1000,10000);
                 notification.getSubmitter().name = sn;
             }
+        }
+        if(ingredient!=null){
+            notification.getIngredient().ingredientName = ingredient;
         }
 
         return notification;

@@ -6,6 +6,7 @@ import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.StepsUtils;
 import com.mhra.mcm.appian.utils.emails.GmailEmail;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -23,7 +24,7 @@ import static org.hamcrest.Matchers.*;
 @Scope("cucumber-glue")
 public class EmailSteps extends CommonSteps {
 
-    @Then("^I should receive an invoice email in last (.*) min with correct price \"([^\"]*)\" for the stored notification$")
+    @Then("^I should receive an invoice email from appian in next (.*) min with correct price \"([^\"]*)\" for the stored notification$")
     public void iShouldReceiveAnInvoiceEmailWithCorrectPriceForTheStoredNotification(int min, String amount) throws Throwable {
         //Properties emailDetails = PropertiesFileUtils.loadPropertiesFile("users.properties");
 
@@ -31,15 +32,15 @@ public class EmailSteps extends CommonSteps {
         boolean foundInvoices = false;
         int attempt = 0;
         do {
-            //listOfInvoices = EmailUtils.getListOfInvoicesFromGmail(emailDetails);
-            listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min);
+            String ecID = (String) scenarioSession.getData(SessionKey.ECID);
+            listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, ecID);
 
             //Break from loop if invoices read from the email server
             if(listOfInvoices.size()>0){
                 break;
             }else{
-                //Wait for 10 seconds and try again
-                Thread.sleep(1000 * 5);
+                //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
+                WaitUtils.nativeWait(8);
             }
             attempt++;
         }while(!foundInvoices && attempt < 12);
@@ -54,8 +55,9 @@ public class EmailSteps extends CommonSteps {
             Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
 
             //Verify details
+            String netAmount = invoice.Net_Amount;
             scenarioSession.putData(SessionKey.invoice, invoice);
-            assertThat("Price should be : " + amount , amount, is((equalTo(amount))));
+            assertThat("Price should be : " + amount , amount, is((equalTo(netAmount))));
         }else{
             assertThat("No email received from appian related to invoices : mhra.uat@gmail.com" , listOfInvoices.size(), is(not(equalTo(0))));
         }
@@ -82,14 +84,13 @@ public class EmailSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.notificationStatus, currentStatus);
     }
 
-    @When("^The status should update to \"([^\"]*)\"$")
+    @When("^The notification status should update to \"([^\"]*)\"$")
     public void the_status_should_update_to(String expectedStatus) throws Throwable {
         String currentStatus = (String) scenarioSession.getData(SessionKey.notificationStatus);
         //boolean statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
         boolean statusChanged = false;
         int attempt = 0;
         do{
-            Thread.sleep(1000 * 5);
             statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
             if(statusChanged)
                 break;
@@ -123,7 +124,6 @@ public class EmailSteps extends CommonSteps {
             if(statusMatched)
                 break;
             attempt++;
-            Thread.sleep(1000 * 5);
         }while (!statusMatched && attempt < 15);
 
         String newStatus = notificationDetails.getCurrentStatus();

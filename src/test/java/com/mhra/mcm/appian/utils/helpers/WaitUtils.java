@@ -44,9 +44,13 @@ public class WaitUtils {
         return existingName;
     }
 
-    public static void nativeWait() {
+    /**
+     * Should be used for non selenium related tasks
+     * @param tis
+     */
+    public static void nativeWait(int tis) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1000*tis);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

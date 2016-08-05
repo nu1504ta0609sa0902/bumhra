@@ -6,9 +6,9 @@ Feature: As a user I should be able to do an end to end invoice processing of no
     And I create new notification
     Then I should see the stored notification
     When I login as "fin1" and generate a standard invoice
-    Then I should receive an invoice email in last 2 min with correct price "150" for the stored notification
+    Then I should receive an invoice email from appian in next 2 min with correct price "150" for the stored notification
     When I send paid email response back to appian
-    Then The status should update to "Paid"
+    Then The notification status should update to "Paid"
 
 
   @wip @testenv @e2e
@@ -18,9 +18,9 @@ Feature: As a user I should be able to do an end to end invoice processing of no
       | type | <type> |
     Then I should see the stored notification
     When I login as "fin1" and generate a standard invoice
-    Then I should receive an invoice email in last 2 min with correct price "<price>" for the stored notification
+    Then I should receive an invoice email from appian in next 2 min with correct price "<price>" for the stored notification
     When I send paid email response back to appian
-    Then The status should update to "<status>"
+    Then The notification status should update to "<status>"
     Examples:
       | user | type | price | status |
       | ipu1 | 1    | 150   | Paid   |

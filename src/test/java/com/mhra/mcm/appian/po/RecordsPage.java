@@ -104,8 +104,10 @@ public class RecordsPage extends _Page {
             }
 
             //refresh page
-            driver.navigate().refresh();
-            PageFactory.initElements(driver, this);
+            if(!found) {
+                driver.navigate().refresh();
+                PageFactory.initElements(driver, this);
+            }
 
         }while(!found && attempt < 5);
         return new NotificationDetails(driver);

@@ -66,4 +66,30 @@ public class Invoice {
     public int hashCode() {
         return Invoice_Id.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "Invoice_Id='" + Invoice_Id + '\'' +
+                ", Order_Date='" + Order_Date + '\'' +
+                ", Customer_reference='" + Customer_reference + '\'' +
+                ", Customer_Number='" + Customer_Number + '\'' +
+                ", Customer_Name='" + Customer_Name + '\'' +
+                ", Customer_Postal_Code='" + Customer_Postal_Code + '\'' +
+                ", Fee_Type='" + Fee_Type + '\'' +
+                ", Quantity='" + Quantity + '\'' +
+                ", Unit_price='" + Unit_price + '\'' +
+                ", Net_Amount='" + Net_Amount + '\'' +
+                ", VAT='" + VAT + '\'' +
+                ", Gross_Amount='" + Gross_Amount + '\'' +
+                ", Description='" + Description + '\'' +
+                ", Cost_Centre='" + Cost_Centre + '\'' +
+                ", Natural_Account='" + Natural_Account + '\'' +
+                ", Project_Code='" + Project_Code + '\'' +
+                ", Transaction_Type='" + Transaction_Type + '\'' +
+                ", More_information1='" + More_information1 + '\'' +
+                ", More_information2='" + More_information2 + '\'' +
+                ", Email_Address='" + Email_Address + '\'' +
+                '}';
+    }
 }

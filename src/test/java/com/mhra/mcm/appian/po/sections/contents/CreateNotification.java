@@ -96,6 +96,29 @@ public class CreateNotification extends _Page {
     @FindBy(xpath = ".//span[.='Available Addresses']//following::input[7]")
     WebElement addressConfidentialNo;
 
+    //Add ingredient
+    @FindBy(xpath = ".//*[.='Ingredients']//following::input[3]")
+    WebElement ingredientName;
+    @FindBy(xpath = ".//*[.='Ingredients']//following::input[4]")
+    WebElement casExistsYes;
+    @FindBy(xpath = ".//*[.='Ingredients']//following::input[5]")
+    WebElement getCasExistsNo;
+    @FindBy(xpath = ".//*[.='Ingredients']//following::input[6]")
+    WebElement casNumber;
+    @FindBy(xpath = ".//*[.='Ingredients']//following::input[7]")
+    WebElement fema;
+    @FindBy(xpath = ".//*[.='Ingredients']//following::input[8]")
+    WebElement additive;
+    @FindBy(xpath = ".//*[.='Ingredients']//following::input[9]")
+    WebElement flNumber;
+    @FindBy(xpath = ".//*[.='Ingredients']//following::input[10]")
+    WebElement ecNumber;
+    @FindBy(xpath = ".//*[.='Ingredients']//following::select[1]")
+    WebElement toxicity;
+    @FindBy(xpath = ".//*[.='Ingredients']//following::select[2]")
+    WebElement nonVapourisedStatus;
+
+
     //submit button
     @FindBy(xpath = ".//label[.='UPC Number']//following::input[1]")
     WebElement upcNumber;
@@ -115,7 +138,7 @@ public class CreateNotification extends _Page {
     public ActionsPage createRandomNotification(Notification notification) {
         WaitUtils.waitForElementToBeClickable(driver, ecId, 10);
         String prevUrl = driver.getCurrentUrl();
-        log.info("Current URL : " + prevUrl);
+        log.info("\nCurrent URL : " + prevUrl);
 
         //Fill notification details
         fillSummary(notification.getSummary());
@@ -123,10 +146,32 @@ public class CreateNotification extends _Page {
         fillSubmitterDetails(notification.getSubmitterDetails());
         fillProduct(notification.getProduct());
         fillProductDesign(notification.getProductDesign());
+        fillIngredients(notification.getIngredient());
 
         //Now submit the notification and keep track of ecID
         PageUtils.doubleClick(driver, submitBtn);
         return new ActionsPage(driver);
+    }
+
+
+    private void fillIngredients(Ingredient ingredientDetails) {
+        String in = ingredientDetails.ingredientName;
+        if(in!=null && !in.equals("")){
+            System.out.println("No ingredient");
+            ingredientName.sendKeys(ingredientDetails.ingredientName);
+            casNumber.sendKeys(ingredientDetails.cASNumber);
+            fema.sendKeys(ingredientDetails.FEMA);
+            additive.sendKeys(ingredientDetails.additive);
+            flNumber.sendKeys(ingredientDetails.fLNumber);
+            ecNumber.sendKeys(ingredientDetails.eCNumber);
+
+            //select from dropdown
+            PageUtils.selectByIndex(toxicity, ingredientDetails.toxicity);
+            PageUtils.selectByIndex(nonVapourisedStatus, ingredientDetails.nonVapourisedStatus);
+
+            //Checkbox or radiobuttons
+            PageUtils.clickOption(driver, casExistsYes, getCasExistsNo, ingredientDetails.casExists);
+        }
     }
 
     private void fillProductDesign(ProductDesign productDesign) {
@@ -171,6 +216,7 @@ public class CreateNotification extends _Page {
 
         //set address
         Address add = submitter.listOfAddresses.get(0);
+        WaitUtils.waitForElementToBeClickable(driver, address, 10);
         address.click();
         address.sendKeys(add.address);
         phone.sendKeys(add.phone);

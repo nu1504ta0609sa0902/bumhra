@@ -5,6 +5,7 @@ import com.mhra.mcm.appian.po.sections.contents.CreateNotification;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.NotificationUtils;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import cucumber.api.java.en.Given;
 import org.springframework.context.annotation.Scope;
 
@@ -48,7 +49,7 @@ public class ActionsPageSteps extends CommonSteps {
         String ecId = random.ecIDNumber;
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, random);
-        log.debug("Notification Details : \n" + random);
+        //log.debug("Notification Details : \n" + random);
         log.info("Created Notification With ECID : " +  random.ecIDNumber);
     }
 
@@ -64,7 +65,7 @@ public class ActionsPageSteps extends CommonSteps {
             }catch(Exception e){
                 e.printStackTrace();
             }
-            Thread.sleep(1000*5);
+            WaitUtils.nativeWait(5);
         }
     }
 

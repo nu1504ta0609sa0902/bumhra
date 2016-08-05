@@ -47,6 +47,7 @@ public class NotificationDetails extends _Page {
         if(!updatedStatus.equals(currentStatusText)){
             statusChanged = true;
         }else{
+            //WaitUtils.nativeWait(5);
             driver.navigate().refresh();
             PageFactory.initElements(driver, this);
         }
@@ -61,6 +62,7 @@ public class NotificationDetails extends _Page {
         if(updatedStatus.equals(expectedStatus)){
             found = true;
         }else{
+            //WaitUtils.nativeWait(5);
             driver.navigate().refresh();
             PageFactory.initElements(driver, this);
         }

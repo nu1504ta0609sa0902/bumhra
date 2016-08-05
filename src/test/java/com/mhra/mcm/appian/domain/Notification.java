@@ -20,6 +20,7 @@ public class Notification {
     SubmitterDetails submitterDetails;
     Product product;
     ProductDesign productDesign;
+    Ingredient ingredient;
 
     public Notification(int weight, int volume){
         String euIdentifier = RandomDataUtils.getEUIdentifier();
@@ -30,7 +31,11 @@ public class Notification {
         submitterDetails = new SubmitterDetails();
         product = new Product("TestE2EBrand ");
         productDesign = new ProductDesign(weight, volume);
+    }
 
+    public Notification(int weight, int volume, String ingredientName){
+        this(weight,volume);
+        ingredient = new Ingredient(ingredientName);
     }
 
     public Submitter getSubmitter() {
@@ -69,6 +74,12 @@ public class Notification {
         return productDesign;
     }
 
+    public Ingredient getIngredient() {
+        if(ingredient == null)
+            ingredient = new Ingredient();
+        return ingredient;
+    }
+
     public void setProductDesign(ProductDesign productDesign) {
         this.productDesign = productDesign;
     }
@@ -89,4 +100,5 @@ public class Notification {
                 "\n" + productDesign +
                 "\n\n}\n";
     }
+
 }
