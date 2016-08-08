@@ -74,6 +74,10 @@ public class RecordsPageSteps extends CommonSteps {
         notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
         assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
+
+        //Add a toxicology report
+        notificationDetails = notificationDetails.clickManageDocuments();
+        notificationDetails = notificationDetails.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf");
     }
 
 

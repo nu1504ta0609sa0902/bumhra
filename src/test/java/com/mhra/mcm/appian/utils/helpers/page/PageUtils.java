@@ -1,5 +1,6 @@
-package com.mhra.mcm.appian.utils.helpers;
+package com.mhra.mcm.appian.utils.helpers.page;
 
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,7 +32,7 @@ public class PageUtils {
         }
     }
 
-    public static void clickOption(WebDriver driver, WebElement option1, WebElement option2, boolean status) {
+    public static void clickOptionAdvanced(WebDriver driver, WebElement option1, WebElement option2, boolean status) {
         if(status){
             clickIfVisible(driver, option1);
         }else{
@@ -62,5 +63,15 @@ public class PageUtils {
         }catch(Exception e){
             //e.printStackTrace();
         }
+    }
+
+    public static void typeText(WebElement element, String text) {
+        element.sendKeys(text);
+    }
+
+    public static void uploadDocument(WebElement element, String fileName){
+        element.sendKeys(fileName);
+        //We will have to wait for uploading to finish
+        WaitUtils.nativeWait(5);
     }
 }

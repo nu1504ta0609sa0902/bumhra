@@ -26,7 +26,7 @@ public class EmailSteps extends CommonSteps {
 
     @Then("^I should receive an invoice email from appian in next (.*) min with correct price \"([^\"]*)\" for the stored notification$")
     public void iShouldReceiveAnInvoiceEmailWithCorrectPriceForTheStoredNotification(int min, String amount) throws Throwable {
-        //Properties emailDetails = PropertiesFileUtils.loadPropertiesFile("users.properties");
+        //Properties emailDetails = FileUtils.loadPropertiesFile("users.properties");
 
         List<Invoice> listOfInvoices = null;
         boolean foundInvoices = false;

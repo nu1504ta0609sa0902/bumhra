@@ -1,6 +1,6 @@
 package com.mhra.mcm.appian.po;
 
-import com.mhra.mcm.appian.utils.helpers.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

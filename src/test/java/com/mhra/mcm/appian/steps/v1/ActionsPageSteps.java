@@ -4,7 +4,7 @@ import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.po.sections.contents.CreateNotification;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
-import com.mhra.mcm.appian.utils.helpers.NotificationUtils;
+import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import cucumber.api.java.en.Given;
 import org.springframework.context.annotation.Scope;
@@ -44,6 +44,12 @@ public class ActionsPageSteps extends CommonSteps {
         actionsPage = mainNavigationBar.clickActions();
         CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
         actionsPage = createNotification.createRandomNotification(random);
+
+        //Add reports to notification
+//        RecordsPage recordsPage = mainNavigationBar.clickRecords();
+//        notificationDetails = recordsPage.clickNotificationNumber(random.ecIDNumber);
+//        notificationDetails.getCurrentStatus();
+
 
         //Stored ecId for future use
         String ecId = random.ecIDNumber;

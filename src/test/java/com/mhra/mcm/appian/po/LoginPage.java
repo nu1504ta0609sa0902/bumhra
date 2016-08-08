@@ -1,7 +1,7 @@
 package com.mhra.mcm.appian.po;
 
 import com.mhra.mcm.appian.po.sections.MainNavigationBar;
-import com.mhra.mcm.appian.utils.helpers.PropertiesFileUtils;
+import com.mhra.mcm.appian.utils.helpers.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -44,7 +44,7 @@ public class LoginPage extends _Page {
 
         //get login details
         String selectedProfile = System.getProperty("spring.profiles.active");
-        Properties props = PropertiesFileUtils.loadPropertiesFile("users.properties");
+        Properties props = FileUtils.loadPropertiesFile("users.properties");
         uname = props.getProperty(selectedProfile + ".username." + uname);
         String pword = props.getProperty(selectedProfile + ".password." + uname);
 

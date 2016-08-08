@@ -11,7 +11,7 @@ import java.util.Properties;
 /**
  * Created by TPD_Auto on 14/07/2016.
  */
-public class PropertiesFileUtils {
+public class FileUtils {
 
     private final static String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
     private final static String userFileLocation = "configs" + File.separator +  "users.properties";
@@ -45,5 +45,38 @@ public class PropertiesFileUtils {
 
         return prop;
     }
+
+
+    /**
+     * Get full path to a specific file related to root of project
+     * @param fileName
+     * @return
+     */
+    public static String getDataFileFullPath(String fileName) {
+        File file = new File("");
+        String rootFolder = file.getAbsolutePath();
+        String data = (rootFolder + File.separator + resourceFolder + fileName);
+        return data;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static String getTempFileFullPath() {
+        File file = new File("");
+        String rootFolder = file.getAbsolutePath();
+        String data = (rootFolder + File.separator + resourceFolder  + "tmp");
+        return data;
+    }
+
+
+    public static String getFileFullPath(String tmpFolderName, String fileName) {
+        File file = new File("");
+        String rootFolder = file.getAbsolutePath();
+        String data = (rootFolder + File.separator + resourceFolder  +  tmpFolderName + File.separator + fileName);
+        return data;
+    }
+
 
 }

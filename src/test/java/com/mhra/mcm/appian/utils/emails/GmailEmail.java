@@ -6,6 +6,7 @@ package com.mhra.mcm.appian.utils.emails;
 
 import com.mhra.mcm.appian.domain.sort.SortByMessageNumber;
 import com.mhra.mcm.appian.domain.sub.Invoice;
+import com.mhra.mcm.appian.utils.helpers.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -168,6 +169,9 @@ public class GmailEmail {
                 });
 
         try {
+            //create a temporary file
+            File temp = generateCSVResponse(invoice);
+
             // Create a default MimeMessage object.
             Message message = new MimeMessage(session);
 
@@ -192,9 +196,6 @@ public class GmailEmail {
 
             // Set text message part
             multipart.addBodyPart(messageBodyPart);
-
-            //create a temporary file
-            File temp = generateCSVResponse(invoice);
 
             // Part two is attachment
             messageBodyPart = new MimeBodyPart();
@@ -232,20 +233,8 @@ public class GmailEmail {
      * @throws Exception
      */
     public static File generateCSVResponse(Invoice invoice) throws Exception{
-//        String tp = getTempFileFullPath() +  File.separator + "tempfile" + RandomDataUtils.getRandomNumberBetween(1000,10000) + ".csv";
-//        File temp = new File(tp);
-//        temp.createNewFile();
-//
-//        //Write content to file
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("ecId,invoiceNumber,invoiceDate\n");
-//        sb.append(invoice.Description+","+invoice.Invoice_Id+"," + getTodaysDate(1));
-//        getXLXSData(invoice);
-//        BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
-//        bw.write(sb.toString());
-//        bw.close();
-//
-        String tp2 = getTempFileFullPath() +  File.separator + "workbook" + RandomDataUtils.getRandomNumberBetween(1000,10000) + ".xlsx";
+
+        String tp2 = FileUtils.getTempFileFullPath() +  File.separator + "workbook" + RandomDataUtils.getRandomNumberBetween(1000,10000) + ".xlsx";
         File temp2 = new File(tp2);
         temp2.createNewFile();
 
@@ -418,19 +407,5 @@ public class GmailEmail {
 
     }
 
-
-    private static String getDataFileFullPath(String fileName) {
-        File file = new File("");
-        String rootFolder = file.getAbsolutePath();
-        String data = (rootFolder + File.separator + resourceFolder + File.separator + fileName);
-        return data;
-    }
-
-    private static String getTempFileFullPath() {
-        File file = new File("");
-        String rootFolder = file.getAbsolutePath();
-        String data = (rootFolder + File.separator + resourceFolder  + "tmp");
-        return data;
-    }
 
 }

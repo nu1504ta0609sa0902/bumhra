@@ -4,7 +4,7 @@ import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.domain.sub.*;
 import com.mhra.mcm.appian.po.ActionsPage;
 import com.mhra.mcm.appian.po._Page;
-import com.mhra.mcm.appian.utils.helpers.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -170,7 +170,10 @@ public class CreateNotification extends _Page {
             PageUtils.selectByIndex(nonVapourisedStatus, ingredientDetails.nonVapourisedStatus);
 
             //Checkbox or radiobuttons
-            PageUtils.clickOption(driver, casExistsYes, getCasExistsNo, ingredientDetails.casExists);
+            PageUtils.clickOptionAdvanced(driver, casExistsYes, getCasExistsNo, ingredientDetails.casExists);
+
+            //Add toxicology report if required
+
         }
     }
 
@@ -188,17 +191,11 @@ public class CreateNotification extends _Page {
 
     private void fillSubmitterDetails(SubmitterDetails submitterDetails) {
 
-        PageUtils.clickOption(driver, hasEntererYes, hasEntererNo, submitterDetails.hasEnterer);
-        PageUtils.clickOption(driver, hasAffiliateYes, hasAffiliateNo, submitterDetails.hasAffiliate);
-        PageUtils.clickOption(driver, hasParentYes, hasParentNo, submitterDetails.hasParent);
+        PageUtils.clickOptionAdvanced(driver, hasEntererYes, hasEntererNo, submitterDetails.hasEnterer);
+        PageUtils.clickOptionAdvanced(driver, hasAffiliateYes, hasAffiliateNo, submitterDetails.hasAffiliate);
+        PageUtils.clickOptionAdvanced(driver, hasParentYes, hasParentNo, submitterDetails.hasParent);
 
-//        WaitUtils.waitForElementToBeClickable(driver, hasEntererYes, 5);
-//        WaitUtils.waitForElementToBeClickable(driver, hasAffiliateYes, 5);
-//        WaitUtils.waitForElementToBeClickable(driver, hasAffiliateYes, 5);
-//        WaitUtils.waitForElementToBeClickable(driver, hasParentYes, 5);
-//        WaitUtils.waitForElementToBeClickable(driver, hasParentYes, 5);
-
-        PageUtils.clickOption(driver, hasVATYes, hasVatNo, submitterDetails.hasVAT);
+        PageUtils.clickOptionAdvanced(driver, hasVATYes, hasVatNo, submitterDetails.hasVAT);
         if(submitterDetails.hasVAT){
             WaitUtils.waitForElementToBeClickable(driver,By.xpath(".//label[.='VAT']//following::input[1]"), 5 );
             WebElement vatField = driver.findElement(By.xpath(".//label[.='VAT']//following::input[1]"));
