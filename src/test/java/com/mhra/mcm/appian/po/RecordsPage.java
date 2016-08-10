@@ -96,7 +96,7 @@ public class RecordsPage extends _Page {
             attempt++;
 
             try {
-                WaitUtils.waitForElementToBeClickable(driver, By.linkText(expectedNotificationID), 5);
+                WaitUtils.waitForElementToBeClickable(driver, By.linkText(expectedNotificationID), 7, false);
                 WebElement notification = driver.findElement(By.linkText(expectedNotificationID));
                 notification.click();
                 found = true;

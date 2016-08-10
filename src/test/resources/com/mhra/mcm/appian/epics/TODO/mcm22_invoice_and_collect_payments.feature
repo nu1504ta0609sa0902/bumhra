@@ -6,7 +6,7 @@ Feature: Each notification will have a fee associated with it. No processing of 
     And I create new notification with following data
       | type | <type> |
       | ingredient | <ingredient> |
-    Then I should see the stored notification
+    And I attach a toxicology report for "<ingredient>"
     When I login as "fin1" and generate a standard invoice
     Then I should receive an invoice email from appian in next 2 min with correct price "<price>" for the stored notification
     When I send paid email response back to appian

@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.steps.v1.sections;
 
 import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.domain.sub.Invoice;
+import com.mhra.mcm.appian.po.sections.MainNavigationBar;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.StepsUtils;
@@ -72,6 +73,7 @@ public class EmailSteps extends CommonSteps {
         String ecid = invoice.Description;
 
         //Keep track of current status
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(ecid);
@@ -100,6 +102,7 @@ public class EmailSteps extends CommonSteps {
         String newStatus = notificationDetails.getCurrentStatus();
 
         assertThat("Status should not be : " + currentStatus , newStatus, is((equalTo(expectedStatus))));
+        scenarioSession.putData(SessionKey.notificationStatus, newStatus);
     }
 
 

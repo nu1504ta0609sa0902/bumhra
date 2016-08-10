@@ -1,9 +1,9 @@
 package com.mhra.mcm.appian.steps.v1;
 
-import com.mhra.mcm.appian.po.RecordsPage;
-import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
+import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
+import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -76,8 +76,10 @@ public class RecordsPageSteps extends CommonSteps {
         assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
 
         //Add a toxicology report
+        Notification random = NotificationUtils.updateDefaultNotification(null);
+        random.getIngredient().ingredientName="SUPPA1";
         notificationDetails = notificationDetails.clickManageDocuments();
-        notificationDetails = notificationDetails.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf");
+        notificationDetails = notificationDetails.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", random);
     }
 
 
@@ -90,5 +92,18 @@ public class RecordsPageSteps extends CommonSteps {
         notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
         assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
+    }
+
+    @Given("^I attach a toxicology report for \"([^\"]*)\"$")
+    public void i_attach_a_toxicology_reporth_with_following_data(String ingredient) throws Throwable {
+        Notification notification = (Notification) scenarioSession.getData(SessionKey.storedNotification);
+        String ecId = notification.ecIDNumber;
+
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+        notificationDetails = recordsPage.clickNotificationNumber(ecId);
+
+        notificationDetails = notificationDetails.clickManageDocuments();
+        notificationDetails = notificationDetails.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", notification);
     }
 }

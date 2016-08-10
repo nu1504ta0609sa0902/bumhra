@@ -18,7 +18,7 @@ public class Product {
     }
 
     private void createDefaults() {
-        brandName = beginsWith + RandomDataUtils.getRandomNumberBetween(1, 1000);
+        brandName = beginsWith + RandomDataUtils.getRandomNumberBetween(1, 1000) + RandomDataUtils.getRandomTestName("");
         launchDate = RandomDataUtils.getDateInFutureMonths(7);
         type = "1";
     }

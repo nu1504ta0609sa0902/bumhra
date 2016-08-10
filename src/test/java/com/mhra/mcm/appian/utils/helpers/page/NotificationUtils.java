@@ -3,6 +3,7 @@ package com.mhra.mcm.appian.utils.helpers.page;
 import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,35 +22,47 @@ public class NotificationUtils {
      */
     public static Notification updateDefaultNotification(Map<String, String> dataValues) {
         Notification notification = new Notification(2, 2);
-        String type = dataValues.get("type");
-        String tcaNumber = dataValues.get("tcaNumber");
-        String submitterName = dataValues.get("submitterName");
-        String ingredient = dataValues.get("ingredient");
 
-        if(type!=null){
-            notification.getSummary().submissionType = type;
-        }
-        if(tcaNumber!=null){
-            notification.getSubmitter().tcaNumber = tcaNumber;
-        }
-        if(submitterName!=null){
-            if(submitterName.equals("random")){
-                String sn = notification.getSubmitter().name;
-                sn = sn + RandomDataUtils.getRandomNumberBetween(1000,10000);
-                notification.getSubmitter().name = sn;
+        if(dataValues!=null){
+            String type = dataValues.get("type");
+            String tcaNumber = dataValues.get("tcaNumber");
+            String submitterName = dataValues.get("submitterName");
+            String ingredient = dataValues.get("ingredient");
+
+            if(type!=null){
+                notification.getSummary().submissionType = type;
             }
+            if(tcaNumber!=null){
+                notification.getSubmitter().tcaNumber = tcaNumber;
+            }
+            if(submitterName!=null){
+                if(submitterName.equals("random")){
+                    String sn = notification.getSubmitter().name;
+                    sn = sn + RandomDataUtils.getRandomNumberBetween(1000,10000);
+                    notification.getSubmitter().name = sn;
+                }
+            }
+            if(ingredient!=null){
+                notification.getIngredient().ingredientName = ingredient;
+            }
+
         }
-        if(ingredient!=null){
-            notification.getIngredient().ingredientName = ingredient;
-        }
+
 
         return notification;
     }
 
-    public static void addDocumentNumber(int docNumber, WebDriver driver, String documentType, String fileName, String description, boolean confidential, boolean active) {
-        int countFromSelect = (docNumber - 1) * 1;  //Theres only 1 select box
+    public static void addDocumentNumber(int docNumber, WebDriver driver, String documentType, String fileName, String description, boolean confidential, boolean active, String name) {
+        int countFromSelect = (docNumber - 1) * 2;  //Theres only 2 select box
         int countFromInput = (docNumber - 1) * 8;   //Position of last input element is 8
+
+        //Wait for elements to be clickable
+        WaitUtils.waitForElementToBeClickable(driver,By.xpath(".//h2[.='Document Type']//following::select[" + (countFromSelect + 1) + "]"), 10);
+        WaitUtils.waitForElementToBeVisible(driver,By.xpath(".//h2[.='Document Type']//following::select[" + (countFromSelect + 2) + "]"), 10);
+
+        //Get elements
         WebElement documentTypeSelectBox = driver.findElement(By.xpath(".//h2[.='Document Type']//following::select[" + (countFromSelect + 1) + "]"));
+        WebElement ingredientSelectBox = driver.findElement(By.xpath(".//h2[.='Document Type']//following::select[" + (countFromSelect + 2) + "]"));
         WebElement descriptionElement = driver.findElement(By.xpath(".//h2[.='Document Type']//following::input[" + (countFromInput + 4) + "]"));
         WebElement confidentialYes = driver.findElement(By.xpath(".//h2[.='Document Type']//following::input[" + (countFromInput + 5) + "]"));
         WebElement confidentialNo = driver.findElement(By.xpath(".//h2[.='Document Type']//following::input[" + (countFromInput + 6) + "]"));
@@ -61,6 +74,9 @@ public class NotificationUtils {
         PageUtils.typeText(descriptionElement, description);
         PageUtils.clickOptionAdvanced(driver, confidentialYes, confidentialNo, confidential);
         PageUtils.clickOptionAdvanced(driver, activeYes, activeNo, active);
+
+        WaitUtils.waitForElementToBeClickable(driver, ingredientSelectBox, 5);
+        PageUtils.selectByText(ingredientSelectBox, name);
 
         //Browse and load document
         System.out.println(fileName);

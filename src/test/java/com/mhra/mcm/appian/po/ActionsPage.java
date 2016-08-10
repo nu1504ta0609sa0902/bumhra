@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ActionsPage extends _Page {
 
-    @FindBy(linkText = "Upload Sample Notification")
+    @FindBy(partialLinkText = "Upload Sample Notification")
     WebElement uploadSampleNotification;
 
-    @FindBy(linkText = "Create Standard Invoices")
+    @FindBy(partialLinkText = "Create Standard Invoices")
     WebElement createStandardNotification;
 
     @Autowired
@@ -35,7 +35,7 @@ public class ActionsPage extends _Page {
 
     public ActionsPage generateStandardInvoices() {
         WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 5);
-        PageUtils.doubleClick(driver, createStandardNotification);
+        PageUtils.singleClick(driver, createStandardNotification);
         //createStandardNotification.click();
         return new ActionsPage(driver);
     }

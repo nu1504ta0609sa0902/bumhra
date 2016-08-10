@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.po.sections;
 
 import com.mhra.mcm.appian.po.*;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,31 +34,36 @@ public class MainNavigationBar extends _Page {
 
     public NewsPage clickNews() {
         WaitUtils.waitForElementToBeClickable(driver, news, 5);
-        news.click();
+        PageUtils.doubleClick(driver, news);
+        //news.click();
         return new NewsPage(driver);
     }
 
     public TasksPage clickTasks() {
         WaitUtils.waitForElementToBeClickable(driver, tasks, 5);
-        tasks.click();
+        PageUtils.doubleClick(driver, tasks);
+        //tasks.click();
         return new TasksPage(driver);
     }
 
     public RecordsPage clickRecords() {
         WaitUtils.waitForElementToBeClickable(driver, records, 5);
-        records.click();
+        PageUtils.doubleClick(driver, records);
+        //records.click();
         return new RecordsPage(driver);
     }
 
     public ReportsPage clickReports() {
         WaitUtils.waitForElementToBeClickable(driver, reports, 5);
-        reports.click();
+        PageUtils.doubleClick(driver, reports);
+        //reports.click();
         return new ReportsPage(driver);
     }
 
     public ActionsPage clickActions() {
         WaitUtils.waitForElementToBeClickable(driver, actions, 5);
-        actions.click();
+        PageUtils.doubleClick(driver, actions);
+        //actions.click();
         return new ActionsPage(driver);
     }
 }

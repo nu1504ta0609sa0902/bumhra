@@ -74,8 +74,11 @@ public class LoginPage extends _Page {
                 settings.click();
                 driver.findElement(By.linkText("Sign Out")).click();
                 WaitUtils.waitForElementToBeClickable(driver,remember, 10);
+                WaitUtils.nativeWait(2);
             }
-        }catch(Exception e){}
+        }catch(Exception e){
+            WaitUtils.waitForElementToBeClickable(driver,username, 10);
+        }
         return new LoginPage(driver);
     }
 

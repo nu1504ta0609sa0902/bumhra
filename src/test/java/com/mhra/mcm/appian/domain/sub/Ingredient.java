@@ -28,8 +28,8 @@ public class Ingredient {
     }
 
     private void createDefault() {
-        toxicity = "1";
-        nonVapourisedStatus = "1";
+        toxicity = "3";
+        nonVapourisedStatus = "3";
         casExists = false;
         cASNumber = "10" + (int) RandomDataUtils.getRandomDigits(7);
         FEMA = "FEMA" + (int) RandomDataUtils.getRandomDigits(7);

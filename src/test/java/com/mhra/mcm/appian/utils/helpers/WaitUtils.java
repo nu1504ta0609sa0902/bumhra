@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class WaitUtils {
 
     //mhratest is very slow, set this to 0 once slow issue is fixed
-    static int timeForTesting = 45;
+    static int timeForTesting = 90;
 
     public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int maxTimeToWait) {
         maxTimeToWait = resetMaxTime(maxTimeToWait);
@@ -26,6 +26,12 @@ public class WaitUtils {
 
     public static void waitForElementToBeVisible(WebDriver driver, WebElement element, int maxTimeToWait) {
         maxTimeToWait = resetMaxTime(maxTimeToWait);
+        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public static void waitForElementToBeVisible(WebDriver driver, By by,  int maxTimeToWait) {
+        maxTimeToWait = resetMaxTime(maxTimeToWait);
+        WebElement element = driver.findElement(by);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
     }
 
@@ -56,5 +62,18 @@ public class WaitUtils {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     *
+     * @param driver
+     * @param by
+     * @param maxTimeToWait
+     * @param overrideTimeSpecified
+     */
+    public static void waitForElementToBeClickable(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
+        if(overrideTimeSpecified)
+        maxTimeToWait = resetMaxTime(maxTimeToWait);
+        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(by));
     }
 }

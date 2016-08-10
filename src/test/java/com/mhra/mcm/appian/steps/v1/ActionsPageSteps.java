@@ -38,6 +38,7 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_create_new_notification_with_following_data(Map<String, String> dataValues) throws Throwable {
 
         Notification random = NotificationUtils.updateDefaultNotification(dataValues);
+        String ecId = random.ecIDNumber;
         log.info("Create Notification With ECID : " +  random.ecIDNumber);
 
         //UPLOAD NOTIFICATION
@@ -45,20 +46,42 @@ public class ActionsPageSteps extends CommonSteps {
         CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
         actionsPage = createNotification.createRandomNotification(random);
 
-        //Add reports to notification
-//        RecordsPage recordsPage = mainNavigationBar.clickRecords();
-//        notificationDetails = recordsPage.clickNotificationNumber(random.ecIDNumber);
-//        notificationDetails.getCurrentStatus();
-
-
         //Stored ecId for future use
-        String ecId = random.ecIDNumber;
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, random);
         //log.debug("Notification Details : \n" + random);
         log.info("Created Notification With ECID : " +  random.ecIDNumber);
     }
 
+
+
+    @Given("^I create new notification and attach a toxicology report with following data$")
+    public void i_create_new_notification_and_attach_a_toxicology_reporth_with_following_data(Map<String, String> dataValues) throws Throwable {
+
+        Notification random = NotificationUtils.updateDefaultNotification(dataValues);
+        String ecId = random.ecIDNumber;
+        log.info("Create Notification With ECID : " +  ecId);
+
+        //UPLOAD NOTIFICATION
+        actionsPage = mainNavigationBar.clickActions();
+        CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
+        actionsPage = createNotification.createRandomNotification(random);
+        log.info("Created Notification With ECID : " +  ecId);
+
+        //Add a toxicology report
+        if(createNotification.ingredientAdded) {
+            recordsPage = mainNavigationBar.clickRecords();
+            recordsPage = recordsPage.clickNotificationsLink();
+            notificationDetails = recordsPage.clickNotificationNumber(ecId);
+
+            notificationDetails = notificationDetails.clickManageDocuments();
+            notificationDetails = notificationDetails.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", random);
+        }
+
+        //Stored ecId for future use
+        scenarioSession.putData(SessionKey.ECID, ecId);
+        scenarioSession.putData(SessionKey.storedNotification, random);
+    }
 
     @Given("^I create (.*) new notifications$")
     public void i_create_a_new_notification(int numberOfNotifications) throws Throwable {

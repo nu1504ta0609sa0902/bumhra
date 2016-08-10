@@ -16,6 +16,8 @@ public class PageUtils {
     public static void selectByText(WebElement selectElement, String visibleText) {
         Select select = new Select(selectElement);
         select.selectByVisibleText(visibleText);
+
+        System.out.println("Selected Option : " + visibleText);
     }
 
     public static void selectByIndex(WebElement selectElement, String index) {
@@ -51,17 +53,22 @@ public class PageUtils {
         ac.moveToElement(element).doubleClick(element).build().perform();
     }
 
+    public static void singleClick(WebDriver driver, WebElement element) {
+        Actions ac = new Actions(driver);
+        ac.moveToElement(element).click(element).build().perform();
+    }
+
     public static void clickIfVisible(WebDriver driver, WebElement element) {
         try{
-            if(element.isDisplayed() && !element.isSelected()){
-                Actions ac = new Actions(driver);
-                ac.moveToElement(element).doubleClick().sendKeys(Keys.SPACE).build().perform();
-
-                //IE sometimes doesn't click the element
-                element.sendKeys(Keys.SPACE);
-            }
+            //IE sometimes doesn't click the element
+            element.sendKeys(Keys.SPACE);
         }catch(Exception e){
-            //e.printStackTrace();
+            try {
+                if (element.isDisplayed() && !element.isSelected()) {
+                    Actions ac = new Actions(driver);
+                    ac.moveToElement(element).doubleClick().sendKeys(Keys.SPACE).build().perform();
+                }
+            }catch(Exception e2){}
         }
     }
 
@@ -74,4 +81,5 @@ public class PageUtils {
         //We will have to wait for uploading to finish
         WaitUtils.nativeWait(5);
     }
+
 }

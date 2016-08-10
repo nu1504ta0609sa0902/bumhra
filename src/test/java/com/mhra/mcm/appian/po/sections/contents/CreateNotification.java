@@ -122,11 +122,12 @@ public class CreateNotification extends _Page {
     //submit button
     @FindBy(xpath = ".//label[.='UPC Number']//following::input[1]")
     WebElement upcNumber;
-    //@FindBy(css = ".buttonContainer .right button")
-    @FindBy(css = "button.GJEWJWHDFE.GJEWJWHDNE.GJEWJWHDPE")
+    @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
     @FindBy(css = ".buttonContainer")
     WebElement page;
+
+    public boolean ingredientAdded = false;
 
     @Autowired
     public CreateNotification(WebDriver driver) {
@@ -138,7 +139,7 @@ public class CreateNotification extends _Page {
     public ActionsPage createRandomNotification(Notification notification) {
         WaitUtils.waitForElementToBeClickable(driver, ecId, 10);
         String prevUrl = driver.getCurrentUrl();
-        log.info("\nCurrent URL : " + prevUrl);
+        //log.info("Current URL : " + prevUrl);
 
         //Fill notification details
         fillSummary(notification.getSummary());
@@ -157,7 +158,7 @@ public class CreateNotification extends _Page {
     private void fillIngredients(Ingredient ingredientDetails) {
         String in = ingredientDetails.ingredientName;
         if(in!=null && !in.equals("")){
-            System.out.println("No ingredient");
+            //System.out.println("No ingredient");
             ingredientName.sendKeys(ingredientDetails.ingredientName);
             casNumber.sendKeys(ingredientDetails.cASNumber);
             fema.sendKeys(ingredientDetails.FEMA);
@@ -172,8 +173,7 @@ public class CreateNotification extends _Page {
             //Checkbox or radiobuttons
             PageUtils.clickOptionAdvanced(driver, casExistsYes, getCasExistsNo, ingredientDetails.casExists);
 
-            //Add toxicology report if required
-
+            ingredientAdded = true;
         }
     }
 
@@ -211,15 +211,14 @@ public class CreateNotification extends _Page {
         PageUtils.clickOption(smeYes, smeNo, submitter.sme);
         PageUtils.clickOption(confidentialYes, confidentialNo, submitter.confidential);
 
-        //set address
+        //set address : this should be changed to take into account multiple addresses
         Address add = submitter.listOfAddresses.get(0);
         WaitUtils.waitForElementToBeClickable(driver, address, 10);
-        address.click();
         address.sendKeys(add.address);
         phone.sendKeys(add.phone);
         email.sendKeys(add.email);
-        PageUtils.clickOption(productionSiteNo, productionSiteNo, false);
-        PageUtils.clickOption(addressConfidentialNo, addressConfidentialNo, false);
+        PageUtils.clickOptionAdvanced(driver, productionSiteNo, productionSiteNo, add.productionSite);
+        PageUtils.clickOptionAdvanced(driver, addressConfidentialNo, addressConfidentialNo, add.addressConfidential);
 
         PageUtils.selectByText(country, add.countryName);
         //PageUtils.selectByIndex(country, add.country);

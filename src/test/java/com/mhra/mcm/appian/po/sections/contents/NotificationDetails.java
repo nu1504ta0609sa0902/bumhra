@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.po.sections.contents;
 
+import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.po._Page;
 import com.mhra.mcm.appian.utils.helpers.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
@@ -74,13 +75,15 @@ public class NotificationDetails extends _Page {
         return found;
     }
 
-    public NotificationDetails addGenericToxicologyReportFromTempFolder(String fileName) {
+    public NotificationDetails addGenericToxicologyReportFromTempFolder(String fileName, Notification random) {
         String fullPath = FileUtils.getFileFullPath("tmp", fileName);
-        NotificationUtils.addDocumentNumber(1, driver, "1", fullPath, "Some Description", false, false);
+        String name = random.getIngredient().ingredientName;
+        NotificationUtils.addDocumentNumber(1, driver, "5", fullPath, "Some Description", false, false, name);
         return new NotificationDetails(driver);
     }
 
     public NotificationDetails clickManageDocuments() {
+        WaitUtils.waitForElementToBeClickable(driver, manageDocuments, 5);
         manageDocuments.click();
         return new NotificationDetails(driver);
     }

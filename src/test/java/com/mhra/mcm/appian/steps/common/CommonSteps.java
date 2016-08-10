@@ -5,6 +5,7 @@ import com.mhra.mcm.appian.po.sections.MainNavigationBar;
 import com.mhra.mcm.appian.po.sections.contents.EditNotification;
 import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
 import com.mhra.mcm.appian.session.ScenarioSession;
+import com.mhra.mcm.appian.utils.reporter.CreatePrettyReport;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,8 @@ public class CommonSteps {
     public ScenarioSession scenarioSession;
 
     public static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
+    public static final String PRETTY_REPORT = "PrettyReport";
+    public static CreatePrettyReport pr;
 
     /**
      * PageObjects: Main _Page objects, These page objects should create section objects

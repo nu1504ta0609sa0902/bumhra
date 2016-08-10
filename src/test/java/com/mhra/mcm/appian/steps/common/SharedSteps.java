@@ -20,9 +20,9 @@ import cucumber.api.java.Before;
 @Scope("cucumber-glue")
 public class SharedSteps extends CommonSteps {
 
-	public SharedSteps(){
-		generatePrettyReportOnTheGo();
-	}
+	//public SharedSteps(){
+	//	generatePrettyReportOnTheGo();
+	//}
 
 	/**
 	 * Take screen shot
@@ -30,7 +30,7 @@ public class SharedSteps extends CommonSteps {
 	 */
 	@After  
     public void embedScreenshot(Scenario scenario) {
-		//generatePrettyReportOnTheGo();
+		generatePrettyReportOnTheGo();
         if (driver!=null && scenario.isFailed()) {
         	log.info("Scenario Failed");
     		log.info("==================================\n");
@@ -72,8 +72,6 @@ public class SharedSteps extends CommonSteps {
 	}
 
 
-
-	public static CreatePrettyReport pr;
     /**
      * This will generate pretty report on the go
      */
@@ -82,7 +80,7 @@ public class SharedSteps extends CommonSteps {
 		if(pr == null && generateReport != null && ( generateReport.trim().equals("true") || generateReport.trim().equals("yes"))){
             log.info("Will Create Pretty Report On The Go");
             pr = new CreatePrettyReport();
-            pr.monitorFolder("PrettyReport");
+            pr.monitorFolder(PRETTY_REPORT);
         }
     }
 

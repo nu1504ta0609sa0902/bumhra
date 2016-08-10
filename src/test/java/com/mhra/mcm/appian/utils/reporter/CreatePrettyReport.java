@@ -3,6 +3,7 @@ package com.mhra.mcm.appian.utils.reporter;
 import net.masterthought.cucumber.sandwich.CucumberReportMonitor;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -24,7 +25,7 @@ public class CreatePrettyReport {
 
 	public static void main(String[] args) {
 		CreatePrettyReport cpr = new CreatePrettyReport();
-		cpr.monitorFolder("Pretty");
+		cpr.monitorFolder("PrettyReport");
 	}
 
 	/**
@@ -42,7 +43,9 @@ public class CreatePrettyReport {
 		aaa[0] = "-f";
 		aaa[1] = res + File.separatorChar + "target" ;
 		aaa[2] = "-o";
-		String outFile = res + File.separatorChar + "target" + File.separatorChar + outFolderName + File.separatorChar + new Date().toString().replace(":", "").substring(0,16).replace(" ", "");
+		String fname = new Date().toString().replace(":", "").substring(0,16).replace(" ", "");
+		fname = formatName(fname);
+		String outFile = res + File.separatorChar + "target" + File.separatorChar + outFolderName + File.separatorChar + fname;
 		
 		//Create folder
 		File f = new File(outFile);
@@ -56,8 +59,21 @@ public class CreatePrettyReport {
 		}
 	}
 
+	private String formatName(String fname) {
+		Calendar instance = Calendar.getInstance();
+		int dom = instance.get(Calendar.DAY_OF_MONTH);
+		String ds = stringify(dom);
+		fname = fname.replaceFirst(ds, ds + "_");
+		return fname;
+	}
 
-
+	private String stringify(int dom) {
+		String x = "" + dom;
+		if(dom < 10){
+			x = "0" + dom;
+		}
+		return x;
+	}
 
 
 //	private void generateReports() {

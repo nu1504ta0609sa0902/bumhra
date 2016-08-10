@@ -20,6 +20,10 @@
 	</category>
 
 	<category name="com.jayway">
+		<priority value="DEBUG" />
+	</category>
+
+	<category name="net.masterthought">
 		<priority value="INFO" />
 	</category>
 
