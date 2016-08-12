@@ -101,7 +101,7 @@ public class EmailSteps extends CommonSteps {
 
         String newStatus = notificationDetails.getCurrentStatus();
 
-        assertThat("Status should not be : " + currentStatus , newStatus, is((equalTo(expectedStatus))));
+        assertThat("Status should not be : " + currentStatus , newStatus, is(isOneOf(expectedStatus,"Quality Assurance")));
         scenarioSession.putData(SessionKey.notificationStatus, newStatus);
     }
 

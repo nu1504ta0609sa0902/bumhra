@@ -1,15 +1,19 @@
 package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.domain.Notification;
+import com.mhra.mcm.appian.po.RecordsPage;
+import com.mhra.mcm.appian.po.sections.filters.RecordsFilter;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.springframework.context.annotation.Scope;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -94,6 +98,34 @@ public class RecordsPageSteps extends CommonSteps {
         assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
     }
 
+    @Then("^I should see only (.*) notification$")
+    public void i_should_see_only_single_notification(int countExpected) throws Throwable {
+        String ecid = (String) scenarioSession.getData(SessionKey.ECID);
+        int count = recordsPage.getNotificationCount(ecid);
+        String submitter = recordsPage.getSubmitterNameForEcid(ecid);
+        scenarioSession.putData(SessionKey.submitter, submitter);
+        assertThat("Expected to see 1 notification but was : " + count , count, is(equalTo(countExpected)));
+    }
+
+
+    @Then("^I should see (.*) or more notification$")
+    public void i_should_see_X_number_OF_notification(int countExpected) throws Throwable {
+        String ecid = (String) scenarioSession.getData(SessionKey.ECID);
+        int count = recordsPage.getNotificationCount(ecid);
+        String submitter = recordsPage.getSubmitterNameForEcid(ecid);
+        scenarioSession.putData(SessionKey.submitter, submitter);
+        assertThat("Expected to see at least 1 notification but was : " + count , count, is(greaterThanOrEqualTo(countExpected)));
+    }
+
+
+    @Then("^I should see at least (.*) notification$")
+    public void i_should_see_atleaset_X_number_OF_notification(int countExpected) throws Throwable {
+        String ecid = (String) scenarioSession.getData(SessionKey.ECID);
+        int count = recordsPage.getNotificationCount(ecid);
+        assertThat("Expected to see at least 1 notification but was : " + count , count, is(greaterThanOrEqualTo(countExpected)));
+    }
+
+
     @Given("^I attach a toxicology report for \"([^\"]*)\"$")
     public void i_attach_a_toxicology_reporth_with_following_data(String ingredient) throws Throwable {
         Notification notification = (Notification) scenarioSession.getData(SessionKey.storedNotification);
@@ -106,4 +138,85 @@ public class RecordsPageSteps extends CommonSteps {
         notificationDetails = notificationDetails.clickManageDocuments();
         notificationDetails = notificationDetails.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", notification);
     }
+
+
+    @When("^I search for an existing notification by \"([^\"]*)\"$")
+    public void i_search_for_an_existing_notification_by(String searchType) throws Throwable {
+
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+
+        if(searchType.trim().toLowerCase().equals("ecid")){
+            //Select an existing notification from the page
+            String ecid = recordsPage.getARandomNotificationECID();
+            scenarioSession.putData(SessionKey.ECID, ecid);
+
+            //Search for the ecid
+            recordsPage = recordsPage.searchForECIDSubmitterOrOthers(ecid);
+        }
+    }
+
+    @When("^I search for an existing notification by partial \"([^\"]*)\"$")
+    public void i_search_for_an_existing_notification_by_partial(String searchType) throws Throwable {
+
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+
+        if(searchType.trim().toLowerCase().equals("ecid")){
+            //Select an existing notification from the page
+            String ecid = recordsPage.getARandomNotificationECID();
+            ecid = ecid.substring(0, ecid.indexOf("-"));
+            scenarioSession.putData(SessionKey.ECID, ecid);
+
+            //Search for the ecid
+            recordsPage = recordsPage.searchForECIDSubmitterOrOthers(ecid);
+        }
+    }
+
+    @When("^I search for the stored submitter name$")
+    public void i_search_for_the_stored_submitter_name() throws Throwable {
+        //String menu = mainNavigationBar.getCurrentSelectedMenu();
+        //if(menu==null || !menu.equals("Records")){
+            recordsPage = mainNavigationBar.clickRecords();
+            recordsPage = recordsPage.clickNotificationsLink();
+        //}
+
+        String submitter = (String) scenarioSession.getData(SessionKey.submitter);
+
+        if(submitter!=null){
+            //Search for the ecid
+            recordsPage = recordsPage.searchForECIDSubmitterOrOthers(submitter);
+        }
+    }
+
+    @When("^I go to the notifications page$")
+    public void i_go_to_the_notifications_page() throws Throwable {
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+    }
+
+    @When("^I filter by status \"([^\"]*)\"$")
+    public void i_filter_by_status(String filterByStatus) throws Throwable {
+        RecordsFilter filterSection = recordsPage.getFilterSection();
+        //filterSection = filterSection.clearSelection();
+        filterSection = filterSection.expand();
+        //recordsPage = filterSection.filterByStatus(filterByStatus);
+        recordsPage = filterSection.clickFilterText(filterByStatus);
+    }
+
+    @Then("^I should only see notifications where status is \"([^\"]*)\"$")
+    public void i_should_only_see_notifications_in_the_selected_status(String filterBy) throws Throwable {
+        recordsPage = new RecordsPage(driver);
+        boolean allStatusSame = recordsPage.isAllNotificationStatusOfType(filterBy);
+        assertThat("Expected to see notifications with status : " + filterBy , allStatusSame, is(equalTo(true)));
+    }
+
+
+    @When("^I clear the selected filter \"([^\"]*)\"$")
+    public void i_go_to_the_notifications_page(String filter) throws Throwable {
+        RecordsFilter filterSection = recordsPage.getFilterSection();
+        filterSection.waitForOptionsToBeClickable();
+        recordsPage = filterSection.clearSelection(filter);
+    }
+
 }

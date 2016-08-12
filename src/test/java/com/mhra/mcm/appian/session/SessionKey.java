@@ -19,4 +19,5 @@ public class SessionKey {
 	public static String storedNotification = "Notification";
 	public static String invoice = "Invoice";
 	public static String notificationStatus = "Notification Status";
+	public static String submitter = "Submitter";
 }

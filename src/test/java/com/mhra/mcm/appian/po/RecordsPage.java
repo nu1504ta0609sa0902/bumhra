@@ -2,8 +2,12 @@ package com.mhra.mcm.appian.po;
 
 import com.mhra.mcm.appian.po.sections.contents.EditNotification;
 import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
+import com.mhra.mcm.appian.po.sections.filters.RecordsFilter;
+import com.mhra.mcm.appian.utils.helpers.GenericUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,11 +38,22 @@ public class RecordsPage extends _Page {
     @FindBy(xpath = ".//label[.='Name']//following::input[1]")
     WebElement submitterName;
 
+    @FindBy(xpath = ".//h2[.='Uploaded On']//following::a")
+    List<WebElement> listOfECIDLinks;
+
+    @FindBy(xpath=".//img//following::input[1]")
+    WebElement searchField;
+
     @Autowired
     public RecordsPage(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(driver, this);
     }
 
+
+    public RecordsFilter getFilterSection() {
+        return new RecordsFilter(driver);
+    }
 
     public boolean hasNotifications() {
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".appianGridLayout.hasFooter>tbody>tr"), 5);
@@ -66,7 +81,8 @@ public class RecordsPage extends _Page {
 
     public RecordsPage clickNotificationsLink() {
         WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 5);
-        notificationsLink.click();
+        PageUtils.doubleClick(driver, notificationsLink);
+        //notificationsLink.click();
         return new RecordsPage(driver);
     }
 
@@ -112,4 +128,46 @@ public class RecordsPage extends _Page {
         }while(!found && attempt < 5);
         return new NotificationDetails(driver);
     }
+
+    public String getARandomNotificationECID() {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
+        if(listOfECIDLinks.size() > 0){
+            String ecID = listOfECIDLinks.get(1).getText();
+            return ecID;
+        }else{
+            return null;
+        }
+    }
+
+    public int getNotificationCount(String ecid) {
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(ecid), 5);
+        List<WebElement> listOfMatches = driver.findElements(By.partialLinkText(ecid));
+        int count = GenericUtils.getUniqueECIDCount(listOfMatches);
+        return count;
+    }
+
+
+    public RecordsPage searchForECIDSubmitterOrOthers(String ecid) {
+        WaitUtils.waitForElementToBeClickable(driver, searchField, 5);
+        searchField.clear();
+        searchField.sendKeys(ecid);
+        searchField.sendKeys(Keys.ENTER);
+        return new RecordsPage(driver);
+    }
+
+
+    public String getSubmitterNameForEcid(String ecid) {
+        WebElement submitter = driver.findElement(By.xpath(".//a[.='"+ecid+"']//following::p[2]"));
+        String name = submitter.getText();
+        return name;
+    }
+
+    public boolean isAllNotificationStatusOfType(String filterBy) {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']"), 5, false);
+        //WebElement submitter = driver.findElement(By.xpath(".//h2[.='Uploaded On']//following::p[.='" + filterBy + "']"));
+        List<WebElement> listOfMatchingNotificationsWithStatus = driver.findElements(By.xpath(".//h2[.='Uploaded On']//following::p[.='" + filterBy + "']"));
+        boolean allStatusSame = GenericUtils.isAllStatusMatching(listOfMatchingNotificationsWithStatus, filterBy);
+        return allStatusSame;
+    }
+    
 }

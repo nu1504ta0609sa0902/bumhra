@@ -20,9 +20,9 @@ import cucumber.api.java.Before;
 @Scope("cucumber-glue")
 public class SharedSteps extends CommonSteps {
 
-	//public SharedSteps(){
-	//	generatePrettyReportOnTheGo();
-	//}
+	public SharedSteps(){
+		//generatePrettyReportOnTheGo();
+	}
 
 	/**
 	 * Take screen shot
@@ -30,8 +30,8 @@ public class SharedSteps extends CommonSteps {
 	 */
 	@After  
     public void embedScreenshot(Scenario scenario) {
-		generatePrettyReportOnTheGo();
         if (driver!=null && scenario.isFailed()) {
+			generatePrettyReportOnTheGo();
         	log.info("Scenario Failed");
     		log.info("==================================\n");
             try {  
@@ -54,8 +54,8 @@ public class SharedSteps extends CommonSteps {
 
 	@Before
 	public void logScenarioNames(Scenario scenario) {
-		//generatePrettyReportOnTheGo();
 		if(driver!=null){
+			generatePrettyReportOnTheGo();
 			log.info("\n==================================\n");
 			log.info("NEW SCENARIO");
 			log.info(scenario.getName());

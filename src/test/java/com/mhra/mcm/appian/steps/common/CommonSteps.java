@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.util.concurrent.TimeUnit;
 
 
 @ContextConfiguration(locations = {"/cucumber.mhra.xml"})
@@ -59,6 +60,11 @@ public class CommonSteps {
         // for prod we need to replace url with www
         if (selectedProfile.equals("mhra")) {
             baseUrl = baseUrl.replace("mhra.", "www.");
+        }
+        if(driver==null){
+            quit();
+        }else{
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         }
     }
 

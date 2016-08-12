@@ -26,6 +26,9 @@ public class MainNavigationBar extends _Page {
     @FindBy(partialLinkText = "Actions")
     WebElement actions;
 
+    @FindBy(css = ".appian-menu-item.appian-menu-item-selected")
+    WebElement currentSelection;
+
 
     @Autowired
     public MainNavigationBar(WebDriver driver) {
@@ -60,10 +63,18 @@ public class MainNavigationBar extends _Page {
         return new ReportsPage(driver);
     }
 
+    public String getCurrentSelectedMenu() {
+        WaitUtils.waitForElementToBeClickable(driver, currentSelection, 5);
+        String selectedMenu = currentSelection.getText();
+        return selectedMenu;
+    }
+
     public ActionsPage clickActions() {
         WaitUtils.waitForElementToBeClickable(driver, actions, 5);
         PageUtils.doubleClick(driver, actions);
         //actions.click();
         return new ActionsPage(driver);
     }
+
+    
 }

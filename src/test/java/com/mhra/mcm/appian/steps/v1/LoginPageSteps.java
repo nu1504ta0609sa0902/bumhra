@@ -22,13 +22,21 @@ public class LoginPageSteps extends CommonSteps {
 
     @When("^I login as user \"([^\"]*)\"$")
     public void i_login_as_user(String username) throws Throwable {
-        mainNavigationBar = loginPage.login(username);
+        try {
+            mainNavigationBar = loginPage.login(username);
+        }catch(Exception e) {
+            mainNavigationBar = loginPage.reloginUsing(username);
+        }
     }
 
     @When("^I am logged into appian as \"([^\"]*)\" user$")
     public void i_am_logged_into_appian_as_user(String username) throws Throwable {
         loginPage = loginPage.loadPage(baseUrl);
-        mainNavigationBar = loginPage.login(username);
+        try {
+            mainNavigationBar = loginPage.login(username);
+        }catch(Exception e) {
+            mainNavigationBar = loginPage.reloginUsing(username);
+        }
     }
 
     @Then("^I should see name of logged in user as \"([^\"]*)\"$")

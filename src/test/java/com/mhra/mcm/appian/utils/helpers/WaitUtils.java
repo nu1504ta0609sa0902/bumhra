@@ -76,4 +76,11 @@ public class WaitUtils {
         maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(by));
     }
+
+
+    public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int maxTimeToWait, boolean overrideTimeSpecified) {
+        if(overrideTimeSpecified)
+            maxTimeToWait = resetMaxTime(maxTimeToWait);
+        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(element));
+    }
 }
