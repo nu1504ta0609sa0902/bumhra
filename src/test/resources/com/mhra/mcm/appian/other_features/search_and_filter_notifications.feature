@@ -57,7 +57,9 @@ Feature: As an Appian user I should be able to search and filter notifications
     And I filter by status "<filterBy2>"
     Then I should only see notifications where status is "<filterBy2>"
     Examples:
-      | user   | filterBy          | filterBy2  |
-      | rdt1   | Uploaded          | Paid       |
-      | ipu1   | Quality Assurance | Successful |
-      | fin1   | Published         | Paid       |
+      | user | filterBy          | filterBy2  |
+      | rdt1 | Uploaded          | Paid       |
+      | ipu1 | Quality Assurance | Successful |
+      | fin1 | Paid              | Paid       |
+
+

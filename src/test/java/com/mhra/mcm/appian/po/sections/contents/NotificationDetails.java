@@ -28,6 +28,9 @@ public class NotificationDetails extends _Page {
     @FindBy(css = ".GJEWJWHDCP .GJEWJWHDIP")
     WebElement currentStatus;
 
+    @FindBy(linkText = "Manage Notification")
+    WebElement manageNotificationBtn;
+
     @Autowired
     public NotificationDetails(WebDriver driver) {
         super(driver);
@@ -75,16 +78,15 @@ public class NotificationDetails extends _Page {
         return found;
     }
 
-    public NotificationDetails addGenericToxicologyReportFromTempFolder(String fileName, Notification random) {
-        String fullPath = FileUtils.getFileFullPath("tmp", fileName);
-        String name = random.getIngredient().ingredientName;
-        NotificationUtils.addDocumentNumber(1, driver, "5", fullPath, "Some Description", false, false, name);
-        return new NotificationDetails(driver);
-    }
-
-    public NotificationDetails clickManageDocuments() {
+    public EditNotification clickManageDocuments() {
         WaitUtils.waitForElementToBeClickable(driver, manageDocuments, 5);
         manageDocuments.click();
-        return new NotificationDetails(driver);
+        return new EditNotification(driver);
+    }
+
+    public EditNotification clickManageNotification() {
+        WaitUtils.waitForElementToBeClickable(driver, manageNotificationBtn, 5);
+        manageNotificationBtn.click();
+        return new EditNotification(driver);
     }
 }

@@ -32,7 +32,6 @@ public class CommonSteps {
 
     public static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
     public static final String PRETTY_REPORT = "PrettyReport";
-    public static CreatePrettyReport pr;
 
     /**
      * PageObjects: Main _Page objects, These page objects should create section objects
@@ -52,7 +51,11 @@ public class CommonSteps {
     @Autowired
     public NotificationDetails notificationDetails;
     @Autowired
+    public EditNotification editNotification;
+    @Autowired
     public TasksPage tasksPage;
+    @Autowired
+    public ReportsPage reportsPage;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {

@@ -1,6 +1,6 @@
 Feature: Once Appian has parsed the notification data, the system will register the submitter of the notification and wait for a payment to be made.
 
-  @mcm-21
+  @mcm-21 @mcm-50
   Scenario Outline: Register a new submitter without a tcaNumber and verify status
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data
@@ -17,7 +17,7 @@ Feature: Once Appian has parsed the notification data, the system will register 
       | 4    | random                  | Uploaded      |
 
 
-  @mcm-21 @e2e
+  @mcm-21 @e2e @mcm-50
   Scenario Outline: Register a new submitter without a tcaNumber than generate an invoice and wait for payment
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data

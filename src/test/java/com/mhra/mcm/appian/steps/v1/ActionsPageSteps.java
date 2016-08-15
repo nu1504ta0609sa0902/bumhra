@@ -74,8 +74,8 @@ public class ActionsPageSteps extends CommonSteps {
             recordsPage = recordsPage.clickNotificationsLink();
             notificationDetails = recordsPage.clickNotificationNumber(ecId);
 
-            notificationDetails = notificationDetails.clickManageDocuments();
-            notificationDetails = notificationDetails.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", random);
+            editNotification = notificationDetails.clickManageDocuments();
+            notificationDetails = editNotification.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", random);
         }
 
         //Stored ecId for future use

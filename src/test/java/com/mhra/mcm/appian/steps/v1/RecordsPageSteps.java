@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.equalTo;
 @Scope("cucumber-glue")
 public class RecordsPageSteps extends CommonSteps {
 
+
     @And("^I have notifications$")
     public void i_have_notifications() throws Throwable {
         recordsPage = mainNavigationBar.clickRecords();
@@ -55,6 +56,21 @@ public class RecordsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.storedValue, existingName);
     }
 
+
+    @Given("^I update status of an existing notification to \"([^\"]*)\"$")
+    public void i_update_status_of_existing_notification_to(String updatedStatus) throws Throwable {
+        //Select an existing notification from the page
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+        String ecid = recordsPage.getARandomNotificationECIDFromPosition(5);
+        scenarioSession.putData(SessionKey.ECID, ecid);
+
+        //update notification
+        notificationDetails = recordsPage.clickNotificationNumber(ecid);
+        editNotification = notificationDetails.clickManageNotification();
+        notificationDetails = editNotification.updateStatusTo(updatedStatus);
+    }
+
     @Then("^I should see the submitter name containing \"([^\"]*)\"$")
     public void i_should_see_the_submitter_name_showing(String append) throws Throwable {
         String previousName = (String) scenarioSession.getData(SessionKey.storedValue);
@@ -82,8 +98,8 @@ public class RecordsPageSteps extends CommonSteps {
         //Add a toxicology report
         Notification random = NotificationUtils.updateDefaultNotification(null);
         random.getIngredient().ingredientName="SUPPA1";
-        notificationDetails = notificationDetails.clickManageDocuments();
-        notificationDetails = notificationDetails.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", random);
+        editNotification = notificationDetails.clickManageDocuments();
+        notificationDetails = editNotification.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", random);
     }
 
 
@@ -135,8 +151,8 @@ public class RecordsPageSteps extends CommonSteps {
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(ecId);
 
-        notificationDetails = notificationDetails.clickManageDocuments();
-        notificationDetails = notificationDetails.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", notification);
+        editNotification = notificationDetails.clickManageDocuments();
+        notificationDetails = editNotification.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", notification);
     }
 
 
@@ -148,7 +164,7 @@ public class RecordsPageSteps extends CommonSteps {
 
         if(searchType.trim().toLowerCase().equals("ecid")){
             //Select an existing notification from the page
-            String ecid = recordsPage.getARandomNotificationECID();
+            String ecid = recordsPage.getARandomNotificationECIDFromPosition(0);
             scenarioSession.putData(SessionKey.ECID, ecid);
 
             //Search for the ecid
@@ -164,7 +180,8 @@ public class RecordsPageSteps extends CommonSteps {
 
         if(searchType.trim().toLowerCase().equals("ecid")){
             //Select an existing notification from the page
-            String ecid = recordsPage.getARandomNotificationECID();
+            String ecid = recordsPage.getARandomNotificationECIDFromPosition(0);
+            if(ecid.contains("-"))
             ecid = ecid.substring(0, ecid.indexOf("-"));
             scenarioSession.putData(SessionKey.ECID, ecid);
 

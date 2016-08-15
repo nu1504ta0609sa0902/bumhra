@@ -1,9 +1,13 @@
 package com.mhra.mcm.appian.po.sections.contents;
 
+import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.po.ActionsPage;
 import com.mhra.mcm.appian.po.RecordsPage;
 import com.mhra.mcm.appian.po._Page;
+import com.mhra.mcm.appian.utils.helpers.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,6 +23,10 @@ public class EditNotification extends _Page {
 
     @FindBy(xpath = ".//label[.='Name']//following::input[1]")
     WebElement submitterName;
+    @FindBy(xpath = ".//span[.='Status']//following::select[1]")
+    WebElement status;
+    @FindBy(xpath = ".//button[.='Submit']")
+    WebElement submitBtn;
 
     @Autowired
     public EditNotification(WebDriver driver) {
@@ -37,5 +45,18 @@ public class EditNotification extends _Page {
     public RecordsPage submitChanges() {
         submitterName.submit();
         return new RecordsPage(driver);
+    }
+
+    public NotificationDetails addGenericToxicologyReportFromTempFolder(String fileName, Notification random) {
+        String fullPath = FileUtils.getFileFullPath("tmp", fileName);
+        String name = random.getIngredient().ingredientName;
+        NotificationUtils.addDocumentNumber(1, driver, "5", fullPath, "Some Description", false, false, name);
+        return new NotificationDetails(driver);
+    }
+
+    public NotificationDetails updateStatusTo(String updatedStatus) {
+        PageUtils.selectByText(status, updatedStatus);
+        PageUtils.doubleClick(driver, submitBtn);
+        return new NotificationDetails(driver);
     }
 }

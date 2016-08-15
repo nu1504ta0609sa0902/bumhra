@@ -129,10 +129,22 @@ public class RecordsPage extends _Page {
         return new NotificationDetails(driver);
     }
 
-    public String getARandomNotificationECID() {
+    public String getARandomNotificationECIDFromPosition(int from) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
         if(listOfECIDLinks.size() > 0){
-            String ecID = listOfECIDLinks.get(1).getText();
+            String ecID = null;
+            int count = from;
+            do{
+                count++;
+                ecID = listOfECIDLinks.get(count).getText();
+                if(ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")){
+                    ecID = null;
+                }
+
+                if(count>10){
+                    break;
+                }
+            }while(ecID == null);
             return ecID;
         }else{
             return null;
