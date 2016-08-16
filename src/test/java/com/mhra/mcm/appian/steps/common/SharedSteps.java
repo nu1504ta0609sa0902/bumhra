@@ -77,6 +77,7 @@ public class SharedSteps extends CommonSteps {
 		String generateReport = System.getProperty("generate.report");
 		if(pr == null && generateReport != null && ( generateReport.trim().equals("true") || generateReport.trim().equals("yes"))){
             log.info("Will Create Pretty Report On The Go");
+			log.info("Have you configured it : --plugin json:target/report_name_what_ever_you_want.json");
             pr = new CreatePrettyReport();
             pr.monitorFolder(PRETTY_REPORT);
         }

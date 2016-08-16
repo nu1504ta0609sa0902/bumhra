@@ -71,6 +71,19 @@ public class RecordsPageSteps extends CommonSteps {
         notificationDetails = editNotification.updateStatusTo(updatedStatus);
     }
 
+    @Given("^I update status of stored notification to \"([^\"]*)\"$")
+    public void i_update_status_of_stored_notification_to(String updatedStatus) throws Throwable {
+        //Select an existing notification from the page
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+        String ecid = (String) scenarioSession.getData(SessionKey.ECID);
+
+        //update notification
+        notificationDetails = recordsPage.clickNotificationNumber(ecid);
+        editNotification = notificationDetails.clickManageNotification();
+        notificationDetails = editNotification.updateStatusTo(updatedStatus);
+    }
+
     @Then("^I should see the submitter name containing \"([^\"]*)\"$")
     public void i_should_see_the_submitter_name_showing(String append) throws Throwable {
         String previousName = (String) scenarioSession.getData(SessionKey.storedValue);

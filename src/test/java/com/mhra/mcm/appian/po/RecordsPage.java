@@ -116,6 +116,7 @@ public class RecordsPage extends _Page {
                 WebElement notification = driver.findElement(By.linkText(expectedNotificationID));
                 notification.click();
                 found = true;
+                break;
             }catch(Exception e){
             }
 
