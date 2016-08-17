@@ -39,4 +39,9 @@ public class ActionsPage extends _Page {
         //createStandardNotification.click();
         return new ActionsPage(driver);
     }
+
+    public boolean isInCorrectPage() {
+        WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 20, false);
+        return true;
+    }
 }

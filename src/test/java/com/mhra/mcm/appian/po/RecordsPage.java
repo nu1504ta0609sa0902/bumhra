@@ -152,6 +152,36 @@ public class RecordsPage extends _Page {
         }
     }
 
+    public String getARandomNotificationWithStatusNotEqualTo(String status) {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
+        if(listOfECIDLinks.size() > 0){
+            String ecID = null;
+            int count = 0;
+            do{
+                count++;
+                WebElement element = listOfECIDLinks.get(listOfECIDLinks.size() - count);
+                ecID = element.getText();
+                if(ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")){
+                    ecID = null;
+                }else{
+                    element = driver.findElement(By.xpath(".//*[.='" + ecID + "']//following::p[4]"));
+                    String currentStatus = element.getText();
+                    System.out.println("Status " + currentStatus);
+                    if(currentStatus.equals(status)){
+                       ecID = null;
+                    }
+                }
+
+                if(count>10){
+                    break;
+                }
+            }while(ecID == null);
+            return ecID;
+        }else{
+            return null;
+        }
+    }
+
     public int getNotificationCount(String ecid) {
         WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(ecid), 5);
         List<WebElement> listOfMatches = driver.findElements(By.partialLinkText(ecid));

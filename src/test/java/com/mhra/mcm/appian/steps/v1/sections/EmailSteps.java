@@ -66,6 +66,46 @@ public class EmailSteps extends CommonSteps {
     }
 
 
+    @Then("^I receive an invoice email from appian in next (.*) min and it should not contain my notification$")
+    public void iShouldReceiveAnInvoiceEmailButItShouldNotContainMyNotification(int min, String amount) throws Throwable {
+        //Properties emailDetails = FileUtils.loadPropertiesFile("users.properties");
+
+        List<Invoice> listOfInvoices = null;
+        boolean foundInvoices = false;
+        int attempt = 0;
+        do {
+            String ecID = (String) scenarioSession.getData(SessionKey.ECID);
+            listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, ecID);
+
+            //Break from loop if invoices read from the email server
+            if(listOfInvoices.size()>0){
+                break;
+            }else{
+                //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
+                WaitUtils.nativeWait(8);
+            }
+            attempt++;
+        }while(!foundInvoices && attempt < 12);
+
+        //verify the price and other details
+        if(listOfInvoices!=null && listOfInvoices.size() > 0) {
+            Notification notification = (Notification) scenarioSession.getData(SessionKey.storedNotification);
+            String ecID = (String) scenarioSession.getData(SessionKey.ECID);
+            if(notification!=null){
+                ecID = notification.ecIDNumber;
+            }
+            Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
+
+            //Verify details
+            String netAmount = invoice.Net_Amount;
+            scenarioSession.putData(SessionKey.invoice, invoice);
+            assertThat("Price should be : " + amount , amount, is((equalTo(netAmount))));
+        }else{
+            assertThat("No email received from appian related to invoices : mhra.uat@gmail.com" , listOfInvoices.size(), is(not(equalTo(0))));
+        }
+
+    }
+
 
     @When("^I send paid email response back to appian$")
     public void i_send_paid_email_response_back_to_appian_than_the_status_should_update_to() throws Throwable {

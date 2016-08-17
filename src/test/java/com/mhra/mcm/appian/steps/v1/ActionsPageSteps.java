@@ -25,6 +25,7 @@ public class ActionsPageSteps extends CommonSteps {
         Notification random = new Notification(2, 2);
         log.info("Create Notification With ECID : " +  random.ecIDNumber);
         actionsPage = createNotification.createRandomNotification(random);
+        actionsPage.isInCorrectPage();
 
         //Stored ecId for future use
         String ecId = random.ecIDNumber;
@@ -45,6 +46,7 @@ public class ActionsPageSteps extends CommonSteps {
         actionsPage = mainNavigationBar.clickActions();
         CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
         actionsPage = createNotification.createRandomNotification(random);
+        actionsPage.isInCorrectPage();
 
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
@@ -66,6 +68,7 @@ public class ActionsPageSteps extends CommonSteps {
         actionsPage = mainNavigationBar.clickActions();
         CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
         actionsPage = createNotification.createRandomNotification(random);
+        actionsPage.isInCorrectPage();
         log.info("Created Notification With ECID : " +  ecId);
 
         //Add a toxicology report
@@ -91,6 +94,7 @@ public class ActionsPageSteps extends CommonSteps {
                 CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
                 Notification random = new Notification(2, 2);
                 actionsPage = createNotification.createRandomNotification(random);
+                actionsPage.isInCorrectPage();
             }catch(Exception e){
                 e.printStackTrace();
             }

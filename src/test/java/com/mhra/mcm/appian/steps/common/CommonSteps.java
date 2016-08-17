@@ -65,7 +65,10 @@ public class CommonSteps {
             baseUrl = baseUrl.replace("mhra.", "www.");
         }
         if(driver==null){
-            quit();
+            if(!onlyOnce){
+                onlyOnce=true;
+                quit();
+            }
         }else{
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         }
@@ -81,7 +84,8 @@ public class CommonSteps {
             public void run() {
                 try {
                     if (driver != null) {
-                        sleep(10000);
+                        log.info("Should generate the pretty report");
+                        sleep(15000);
                         driver.quit();
                         //IE driver doesn't quit, so forced to try this
                         //Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");
@@ -93,6 +97,7 @@ public class CommonSteps {
                 }
             }
         });
+
     }
 
 

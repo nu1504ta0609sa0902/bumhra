@@ -78,6 +78,13 @@ public class WaitUtils {
     }
 
 
+    /**
+     *
+     * @param driver
+     * @param element
+     * @param maxTimeToWait
+     * @param overrideTimeSpecified
+     */
     public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int maxTimeToWait, boolean overrideTimeSpecified) {
         if(overrideTimeSpecified)
             maxTimeToWait = resetMaxTime(maxTimeToWait);

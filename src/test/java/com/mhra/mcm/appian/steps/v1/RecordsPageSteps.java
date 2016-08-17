@@ -62,7 +62,8 @@ public class RecordsPageSteps extends CommonSteps {
         //Select an existing notification from the page
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
-        String ecid = recordsPage.getARandomNotificationECIDFromPosition(5);
+        String ecid = recordsPage.getARandomNotificationWithStatusNotEqualTo(updatedStatus);
+        log.info("ECID selected : " + ecid);
         scenarioSession.putData(SessionKey.ECID, ecid);
 
         //update notification
