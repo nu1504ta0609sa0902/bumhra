@@ -1,5 +1,7 @@
 package com.mhra.mcm.appian.steps.v1;
 
+import com.mhra.mcm.appian.po.LoginPage;
+import com.mhra.mcm.appian.po.sections.MainNavigationBar;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
@@ -33,6 +35,18 @@ public class LoginPageSteps extends CommonSteps {
 
     @When("^I am logged into appian as \"([^\"]*)\" user$")
     public void i_am_logged_into_appian_as_user(String username) throws Throwable {
+        //loginPage = new LoginPage(driver).loadPage(baseUrl);
+//        boolean loggedIn = loginPage.isAlreadyLoggedInAsUser(username);
+//        if(!loggedIn) {
+//            loginPage = new LoginPage(driver).loadPage(baseUrl);
+//            try {
+//                mainNavigationBar = loginPage.login(username);
+//            } catch (Exception e) {
+//                mainNavigationBar = loginPage.reloginUsing(username);
+//            }
+//        }else{
+//            mainNavigationBar = new MainNavigationBar(driver);
+//        }
         loginPage = loginPage.loadPage(baseUrl);
         try {
             mainNavigationBar = loginPage.login(username);

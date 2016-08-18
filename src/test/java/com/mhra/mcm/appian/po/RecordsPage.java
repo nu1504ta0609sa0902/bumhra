@@ -61,8 +61,8 @@ public class RecordsPage extends _Page {
         return listOfNotifications.size()> 0;
     }
 
-    public RecordsPage clickNotificationNumber(int number) {
-        WebElement notification = listOfNotifications.get(number - 1);
+    public RecordsPage clickNotificationNumber(int notificationNumber) {
+        WebElement notification = listOfNotifications.get(notificationNumber - 1);
         WebElement link = notification.findElement(By.cssSelector("div[is-selectable='selectable'] a"));
         link.click();
         return new RecordsPage(driver);
@@ -114,7 +114,13 @@ public class RecordsPage extends _Page {
         return containsNewName;
     }
 
-    public NotificationDetails clickNotificationNumber(String expectedNotificationID) {
+    /**
+     *
+     * @param expectedNotificationID
+     * @param maxNumberOfTimesToIterate
+     * @return
+     */
+    public NotificationDetails clickNotificationNumber(String expectedNotificationID, int maxNumberOfTimesToIterate) {
         boolean found = false;
         int attempt = 0;
         do {
@@ -135,11 +141,17 @@ public class RecordsPage extends _Page {
                 PageFactory.initElements(driver, this);
             }
 
-        }while(!found && attempt < 5);
+        }while(!found && attempt < maxNumberOfTimesToIterate);
         return new NotificationDetails(driver);
     }
 
-    public String getARandomNotificationECIDFromPosition(int from) {
+    /**
+     *
+     * @param from
+     * @param maxNumberOfTimesToIterate
+     * @return
+     */
+    public String getARandomNotificationECIDFromPosition(int from, int maxNumberOfTimesToIterate) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
         if(listOfECIDLinks.size() > 0){
             String ecID = null;
@@ -151,7 +163,7 @@ public class RecordsPage extends _Page {
                     ecID = null;
                 }
 
-                if(count>10){
+                if(count>maxNumberOfTimesToIterate){
                     break;
                 }
             }while(ecID == null);
@@ -161,7 +173,13 @@ public class RecordsPage extends _Page {
         }
     }
 
-    public String getARandomNotificationWithStatusNotEqualTo(String status) {
+    /**
+     *
+     * @param status
+     * @param maxNumberOfTimesToIterate
+     * @return
+     */
+    public String getARandomNotificationWithStatusNotEqualTo(String status, int maxNumberOfTimesToIterate) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
         if(listOfECIDLinks.size() > 0){
             String ecID = null;
@@ -176,12 +194,14 @@ public class RecordsPage extends _Page {
                     element = driver.findElement(By.xpath(".//*[.='" + ecID + "']//following::p[4]"));
                     String currentStatus = element.getText();
                     System.out.println("Status " + currentStatus);
-                    if(currentStatus.equals(status)){
+
+                    //Bug: Failed notifications can't be edited
+                    if(currentStatus.equals(status) || currentStatus.equals("Failed")){
                        ecID = null;
                     }
                 }
 
-                if(count>10){
+                if(count>maxNumberOfTimesToIterate){
                     break;
                 }
             }while(ecID == null);

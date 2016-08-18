@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.po;
 
 import java.util.Properties;
 
+import com.mhra.mcm.appian.utils.helpers.AssertUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -86,5 +87,17 @@ public class LoginPage extends _Page {
     public String getLoggedInUserName() {
         WaitUtils.waitForElementToBeClickable(driver,loggedInUsername, 10);
         return loggedInUsername.getText();
+    }
+
+    public boolean isAlreadyLoggedInAsUser(String username) {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver,loggedInUsername, 10, false);
+            String userNameDisplayed = loggedInUsername.getText().toLowerCase();
+            String expectedName = AssertUtils.getExpectedName(username).toLowerCase();
+            return userNameDisplayed.equals(expectedName);
+        }catch (Exception e){
+            //Not logged in
+            return false;
+        }
     }
 }

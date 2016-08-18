@@ -13,6 +13,8 @@ public class AssertUtils {
             case "vrmm1": val = "vrmm 1"; break;
             case "fin1": val = "finance 1"; break;
             case "comm1": val = "comms 1"; break;
+            case "super1": val = "super 1"; break;
+            case "super2": val = "super 2"; break;
         }
         return val;
     }

@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.utils.emails;
+package com.mhra.mcm.appian.utils.emails.remove;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;

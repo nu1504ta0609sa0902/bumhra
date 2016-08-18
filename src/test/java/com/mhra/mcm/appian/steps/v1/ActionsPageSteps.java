@@ -76,7 +76,7 @@ public class ActionsPageSteps extends CommonSteps {
         if(createNotification.ingredientAdded) {
             recordsPage = mainNavigationBar.clickRecords();
             recordsPage = recordsPage.clickNotificationsLink();
-            notificationDetails = recordsPage.clickNotificationNumber(ecId);
+            notificationDetails = recordsPage.clickNotificationNumber(ecId, 5);
 
             editNotification = notificationDetails.clickManageDocuments();
             notificationDetails = editNotification.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", random);

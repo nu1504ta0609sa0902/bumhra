@@ -64,12 +64,12 @@ public class RecordsPageSteps extends CommonSteps {
         //Select an existing notification from the page
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
-        String ecid = recordsPage.getARandomNotificationWithStatusNotEqualTo(updatedStatus);
+        String ecid = recordsPage.getARandomNotificationWithStatusNotEqualTo(updatedStatus, 10);
         log.info("ECID selected : " + ecid);
         scenarioSession.putData(SessionKey.ECID, ecid);
 
         //update notification
-        notificationDetails = recordsPage.clickNotificationNumber(ecid);
+        notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
         editNotification = notificationDetails.clickManageNotification();
         notificationDetails = editNotification.updateStatusTo(updatedStatus);
     }
@@ -82,7 +82,7 @@ public class RecordsPageSteps extends CommonSteps {
         String ecid = (String) scenarioSession.getData(SessionKey.ECID);
 
         //update notification
-        notificationDetails = recordsPage.clickNotificationNumber(ecid);
+        notificationDetails = recordsPage.clickNotificationNumber(ecid,10);
         editNotification = notificationDetails.clickManageNotification();
         notificationDetails = editNotification.updateStatusTo(updatedStatus);
     }
@@ -107,7 +107,7 @@ public class RecordsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.ECID, expectedNotificationID);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
-        notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID);
+        notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
         assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
 
@@ -125,7 +125,7 @@ public class RecordsPageSteps extends CommonSteps {
         recordsPage = recordsPage.clickNotificationsLink();
 
         String expectedNotificationID = (String) scenarioSession.getData(SessionKey.ECID);
-        notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID);
+        notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
         assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
     }
@@ -165,7 +165,7 @@ public class RecordsPageSteps extends CommonSteps {
 
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
-        notificationDetails = recordsPage.clickNotificationNumber(ecId);
+        notificationDetails = recordsPage.clickNotificationNumber(ecId, 5);
 
         editNotification = notificationDetails.clickManageDocuments();
         notificationDetails = editNotification.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", notification);
@@ -180,7 +180,7 @@ public class RecordsPageSteps extends CommonSteps {
 
         if(searchType.trim().toLowerCase().equals("ecid")){
             //Select an existing notification from the page
-            String ecid = recordsPage.getARandomNotificationECIDFromPosition(0);
+            String ecid = recordsPage.getARandomNotificationECIDFromPosition(0, 10);
             scenarioSession.putData(SessionKey.ECID, ecid);
 
             //Search for the ecid
@@ -196,7 +196,7 @@ public class RecordsPageSteps extends CommonSteps {
 
         if(searchType.trim().toLowerCase().equals("ecid")){
             //Select an existing notification from the page
-            String ecid = recordsPage.getARandomNotificationECIDFromPosition(0);
+            String ecid = recordsPage.getARandomNotificationECIDFromPosition(0, 10);
             if(ecid.contains("-"))
             ecid = ecid.substring(0, ecid.indexOf("-"));
             scenarioSession.putData(SessionKey.ECID, ecid);

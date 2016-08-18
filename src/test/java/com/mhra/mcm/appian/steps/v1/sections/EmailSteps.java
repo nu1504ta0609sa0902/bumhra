@@ -110,7 +110,7 @@ public class EmailSteps extends CommonSteps {
         mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
-        notificationDetails = recordsPage.clickNotificationNumber(ecid);
+        notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
         String currentStatus = notificationDetails.getCurrentStatus();
 
         //send the paid email and wait for status to change
@@ -149,7 +149,7 @@ public class EmailSteps extends CommonSteps {
         //Verify notification generated
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
-        notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID);
+        notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
         assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
 
