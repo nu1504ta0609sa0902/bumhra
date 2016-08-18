@@ -44,6 +44,7 @@
         </property>
     </bean>
 
+
     <!--
             selectByIndex browser from ${firefox}, ${chrome} or ${ie}
               Uses the value to get the correct driver class and than initiates it
@@ -56,26 +57,21 @@
     <beans profile="mhradev">
         <context:property-placeholder location="classpath:configs/envs/mhradev.properties" ignore-unresolvable="true"/>
         <context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true"/>
+        <!--<context:property-placeholder location="classpath:configs/envs/logsettings/log4j-mhradev.properties" ignore-unresolvable="true"/>-->
         <bean id="driver" class="${${current.browser}}" destroy-method="quit"/>
     </beans>
 
     <beans profile="mhratest">
         <context:property-placeholder location="classpath:configs/envs/mhratest.properties" ignore-unresolvable="true"/>
         <context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true"/>
-
-        <!--<bean id="desiredCapabilities" class="org.openqa.selenium.remote.DesiredCapabilities">-->
-            <!--<property name="capability">-->
-            <!--</property>-->
-        <!--</bean>-->
-        <!--<bean id="driver" class="${${current.browser}}" destroy-method="quit">-->
-            <!--<constructor-arg ref="desiredCapabilities"/>-->
-        <!--</bean>-->
+        <!--<context:property-placeholder location="classpath:configs/envs/logsettings/log4j-mhratest.properties" ignore-unresolvable="true"/>-->
         <bean id="driver" class="${${current.browser}}" destroy-method="quit"/>
     </beans>
 
     <beans profile="mhra">
         <context:property-placeholder location="classpath:configs/envs/mhra.properties" ignore-unresolvable="true"/>
         <context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true"/>
+        <!--<context:property-placeholder location="classpath:configs/envs/logsettings/log4j.properties" ignore-unresolvable="true"/>-->
         <bean id="driver" class="${${current.browser}}" destroy-method="quit"/>
     </beans>
 

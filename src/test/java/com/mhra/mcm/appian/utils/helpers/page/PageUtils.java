@@ -78,10 +78,10 @@ public class PageUtils {
     }
 
     public static void uploadDocument(WebElement element, String fileName){
-        WaitUtils.nativeWait(1);
+        WaitUtils.nativeWait(2);
         element.sendKeys(fileName);
         //We will have to wait for uploading to finish
-        WaitUtils.nativeWait(5);
+        WaitUtils.nativeWait(6);
     }
 
 }

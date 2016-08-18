@@ -1,11 +1,6 @@
 package com.mhra.mcm.appian.domain;
 
-import com.mhra.mcm.appian.domain.sub.Ingredient;
-import com.mhra.mcm.appian.domain.sub.Product;
-import com.mhra.mcm.appian.domain.sub.ProductDesign;
-import com.mhra.mcm.appian.domain.sub.Submitter;
-import com.mhra.mcm.appian.domain.sub.SubmitterDetails;
-import com.mhra.mcm.appian.domain.sub.Summary;
+import com.mhra.mcm.appian.domain.sub.*;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
 /**
@@ -26,6 +21,7 @@ public class Notification {
     Product product;
     ProductDesign productDesign;
     Ingredient ingredient;
+    BatteryWattageVoltage batteryWattageVoltage;
 
     public Notification(int weight, int volume, String fixedEUID){
         String euIdentifier = RandomDataUtils.getEUIdentifier(fixedEUID);
@@ -36,6 +32,8 @@ public class Notification {
         submitterDetails = new SubmitterDetails();
         product = new Product("TestE2EBrand ");
         productDesign = new ProductDesign(weight, volume);
+
+        batteryWattageVoltage = new BatteryWattageVoltage();
     }
 
     public Notification(int weight, int volume, String ingredientName, String fixedEUID){
@@ -89,10 +87,26 @@ public class Notification {
         this.productDesign = productDesign;
     }
 
-    public static void main(String args[]){
-        Notification n = new Notification(10,10,null);
-        System.out.println(n);
+    public String getEcIDNumber() {
+        return ecIDNumber;
     }
+
+    public void setEcIDNumber(String ecIDNumber) {
+        this.ecIDNumber = ecIDNumber;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public BatteryWattageVoltage getBatteryWattageVoltage() {
+        return batteryWattageVoltage;
+    }
+
+    public void setBatteryWattageVoltage(BatteryWattageVoltage batteryWattageVoltage) {
+        this.batteryWattageVoltage = batteryWattageVoltage;
+    }
+
 
 
     @Override
@@ -106,4 +120,9 @@ public class Notification {
                 "\n\n}\n";
     }
 
+
+    public static void main(String args[]){
+        Notification n = new Notification(10,10,null);
+        System.out.println(n);
+    }
 }

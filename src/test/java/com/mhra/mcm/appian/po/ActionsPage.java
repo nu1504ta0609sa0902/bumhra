@@ -42,7 +42,7 @@ public class ActionsPage extends _Page {
     }
 
     public boolean isInCorrectPage() {
-        WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 20, false);
+        WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 5, true);
         return true;
     }
 }

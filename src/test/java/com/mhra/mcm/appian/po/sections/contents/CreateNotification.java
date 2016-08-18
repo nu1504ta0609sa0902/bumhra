@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.po.sections.contents;
 
+import com.mhra.mcm.appian.domain.sub.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,13 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mhra.mcm.appian.domain.Notification;
-import com.mhra.mcm.appian.domain.sub.Address;
-import com.mhra.mcm.appian.domain.sub.Ingredient;
-import com.mhra.mcm.appian.domain.sub.Product;
-import com.mhra.mcm.appian.domain.sub.ProductDesign;
-import com.mhra.mcm.appian.domain.sub.Submitter;
-import com.mhra.mcm.appian.domain.sub.SubmitterDetails;
-import com.mhra.mcm.appian.domain.sub.Summary;
 import com.mhra.mcm.appian.po.ActionsPage;
 import com.mhra.mcm.appian.po._Page;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
@@ -89,6 +83,12 @@ public class CreateNotification extends _Page {
     @FindBy(xpath = ".//label[.='Volume E-Liquid']//following::input[1]")
     WebElement liquidVolumne;
 
+    //Battery, Wattage and Voltage
+    @FindBy(xpath = ".//label[.='Liquid Volume Capacity']//following::input[1]")
+    WebElement liquidVolumeCapacity;
+    @FindBy(xpath = ".//label[.='Nicotine Concentration']//following::input[1]")
+    WebElement nicotineConcentration;
+
     //Fill address
     @FindBy(xpath = ".//span[.='Available Addresses']//following::input[1]")
     WebElement address;
@@ -154,11 +154,17 @@ public class CreateNotification extends _Page {
         fillSubmitterDetails(notification.getSubmitterDetails());
         fillProduct(notification.getProduct());
         fillProductDesign(notification.getProductDesign());
+        fillBatteryWattageAndVoltage(notification.getBatteryWattageVoltage());
         fillIngredients(notification.getIngredient());
 
         //Now submit the notification and keep track of ecID
         PageUtils.doubleClick(driver, submitBtn);
         return new ActionsPage(driver);
+    }
+
+    private void fillBatteryWattageAndVoltage(BatteryWattageVoltage batteryWattageVoltage) {
+        liquidVolumeCapacity.sendKeys(batteryWattageVoltage.liquidVolumeCapacity);
+        nicotineConcentration.sendKeys(batteryWattageVoltage.nicotineConcentration);
     }
 
 

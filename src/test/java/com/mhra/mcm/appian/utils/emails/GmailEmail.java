@@ -237,7 +237,7 @@ public class GmailEmail {
             //remove temp file
             temp.delete();
 
-            System.out.println("Sent message successfully....");
+            System.out.println("Sent PAYMENT response message to APPIAN successfully....");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
