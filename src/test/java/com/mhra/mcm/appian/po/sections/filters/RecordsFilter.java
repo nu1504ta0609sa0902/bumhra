@@ -1,10 +1,7 @@
 package com.mhra.mcm.appian.po.sections.filters;
 
-import com.gargoylesoftware.htmlunit.Page;
-import com.mhra.mcm.appian.po.RecordsPage;
-import com.mhra.mcm.appian.po._Page;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
-import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +9,10 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.mhra.mcm.appian.po.RecordsPage;
+import com.mhra.mcm.appian.po._Page;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 
 /**
  * Created by TPD_Auto on 18/07/2016.
@@ -142,28 +142,9 @@ public class RecordsFilter extends _Page {
     public RecordsPage clearSelection(String filter) {
         By selected = By.cssSelector("li.selected");
         WaitUtils.waitForElementToBeClickable(driver, selected, 20, false);
-        By by = By.xpath(".//*[.='"+filter+"']/a[1]");
+        //By by = By.xpath(".//*[.='"+filter+"']/a[1]");
         WebElement element = driver.findElement(selected);
         PageUtils.doubleClick(driver, element);
-//        if(listOfSelectedFilters.size() > 0){
-//            //find element
-//            WebElement find = null;
-//            for(WebElement e: listOfSelectedFilters){
-//                String status = e.getText();
-//                if(status.equals(filter)){
-//                    find = e;
-//                    break;
-//                }
-//            }
-//
-//            if(find!=null){
-//                WaitUtils.waitForElementToBeClickable(driver, find, 20, false);
-//                PageUtils.doubleClick(driver, find);
-//                //PageUtils.singleClick(driver, find);
-//                //filterByStatus(filter);
-//            }
-//        }
-
         return new RecordsPage(driver);
     }
 

@@ -1,7 +1,6 @@
 package com.mhra.mcm.appian.utils.helpers;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
 /**
@@ -13,8 +12,12 @@ public class RandomDataUtils {
      *
      * @return
      */
-    public static String getEUIdentifier() {
-        return String.valueOf((int)getRandomDigits(5));
+    public static String getEUIdentifier(String euid) {
+        if(euid==null || euid.trim().equals("")){
+            return String.valueOf((int)getRandomDigits(5));
+        }else{
+            return euid;
+        }
     }
 
     public static double getRandomDigits(int numberOfDigits){

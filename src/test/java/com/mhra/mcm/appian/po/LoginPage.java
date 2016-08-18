@@ -1,8 +1,7 @@
 package com.mhra.mcm.appian.po;
 
-import com.mhra.mcm.appian.po.sections.MainNavigationBar;
-import com.mhra.mcm.appian.utils.helpers.FileUtils;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +9,9 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Properties;
+import com.mhra.mcm.appian.po.sections.MainNavigationBar;
+import com.mhra.mcm.appian.utils.helpers.FileUtils;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 
 /**
  * Created by TPD_Auto on 14/07/2016.

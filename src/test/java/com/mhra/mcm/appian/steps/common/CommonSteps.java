@@ -1,11 +1,7 @@
 package com.mhra.mcm.appian.steps.common;
 
-import com.mhra.mcm.appian.po.*;
-import com.mhra.mcm.appian.po.sections.MainNavigationBar;
-import com.mhra.mcm.appian.po.sections.contents.EditNotification;
-import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
-import com.mhra.mcm.appian.session.ScenarioSession;
-import com.mhra.mcm.appian.utils.reporter.CreatePrettyReport;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.concurrent.TimeUnit;
+import com.mhra.mcm.appian.po.ActionsPage;
+import com.mhra.mcm.appian.po.LoginPage;
+import com.mhra.mcm.appian.po.NewsPage;
+import com.mhra.mcm.appian.po.RecordsPage;
+import com.mhra.mcm.appian.po.ReportsPage;
+import com.mhra.mcm.appian.po.TasksPage;
+import com.mhra.mcm.appian.po.sections.MainNavigationBar;
+import com.mhra.mcm.appian.po.sections.contents.CreateNotification;
+import com.mhra.mcm.appian.po.sections.contents.EditNotification;
+import com.mhra.mcm.appian.po.sections.contents.Exceptions;
+import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
+import com.mhra.mcm.appian.session.ScenarioSession;
 
 
 @ContextConfiguration(locations = {"/cucumber.mhra.xml"})
@@ -37,25 +44,29 @@ public class CommonSteps {
      * PageObjects: Main _Page objects, These page objects should create section objects
      */
     @Autowired
-    public LoginPage loginPage;
-    @Autowired
     public MainNavigationBar mainNavigationBar;
+    @Autowired
+    public LoginPage loginPage;
     @Autowired
     public NewsPage newsPage;
     @Autowired
     public RecordsPage recordsPage;
     @Autowired
-    public EditNotification notificationPage;
-    @Autowired
     public ActionsPage actionsPage;
+    @Autowired
+    public TasksPage tasksPage;
+    @Autowired
+    public ReportsPage reportsPage;
+
+    //SECTIONS
     @Autowired
     public NotificationDetails notificationDetails;
     @Autowired
     public EditNotification editNotification;
     @Autowired
-    public TasksPage tasksPage;
+    public CreateNotification createNotification;
     @Autowired
-    public ReportsPage reportsPage;
+    public Exceptions exception;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {

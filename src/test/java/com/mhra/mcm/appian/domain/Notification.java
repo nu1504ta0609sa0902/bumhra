@@ -1,6 +1,11 @@
 package com.mhra.mcm.appian.domain;
 
-import com.mhra.mcm.appian.domain.sub.*;
+import com.mhra.mcm.appian.domain.sub.Ingredient;
+import com.mhra.mcm.appian.domain.sub.Product;
+import com.mhra.mcm.appian.domain.sub.ProductDesign;
+import com.mhra.mcm.appian.domain.sub.Submitter;
+import com.mhra.mcm.appian.domain.sub.SubmitterDetails;
+import com.mhra.mcm.appian.domain.sub.Summary;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
 /**
@@ -22,8 +27,8 @@ public class Notification {
     ProductDesign productDesign;
     Ingredient ingredient;
 
-    public Notification(int weight, int volume){
-        String euIdentifier = RandomDataUtils.getEUIdentifier();
+    public Notification(int weight, int volume, String fixedEUID){
+        String euIdentifier = RandomDataUtils.getEUIdentifier(fixedEUID);
         String ecId = RandomDataUtils.getECID(euIdentifier);
         ecIDNumber = ecId;
         summary = new Summary(ecId);
@@ -33,8 +38,8 @@ public class Notification {
         productDesign = new ProductDesign(weight, volume);
     }
 
-    public Notification(int weight, int volume, String ingredientName){
-        this(weight,volume);
+    public Notification(int weight, int volume, String ingredientName, String fixedEUID){
+        this(weight,volume,fixedEUID);
         ingredient = new Ingredient(ingredientName);
     }
 
@@ -85,7 +90,7 @@ public class Notification {
     }
 
     public static void main(String args[]){
-        Notification n = new Notification(10,10);
+        Notification n = new Notification(10,10,null);
         System.out.println(n);
     }
 

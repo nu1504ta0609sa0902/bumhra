@@ -1,7 +1,8 @@
+@poc
 Feature: Perform a POC of end to end invoicing process to stakeholders
   So that we can better understand the purpose of automation testing
 
-  @poc @e2e
+  @poce2e1
   Scenario Outline: POC perform simple end to end invoice processing of type 1 notification
     Given I am logged into appian as "<user>" user
     When I create new notification with following data
@@ -16,7 +17,7 @@ Feature: Perform a POC of end to end invoicing process to stakeholders
       | rdt1 | 1    | 150   | Paid   |
 
 
-  @poc @e2e
+  @poce2e2
   Scenario Outline: POC example of invoice processing of type 1 notification with ingredient and toxicology report
     Given I am logged into appian as "<user>" user
     When I create new notification with following data
@@ -33,7 +34,7 @@ Feature: Perform a POC of end to end invoicing process to stakeholders
       | rdt1 | 1    | 150   | Paid   | SUPPLEMENT1 | Successful |
 
 
-  @poc @e2e
+  @poce2e3
   Scenario Outline: POC example of invoice processing of type 1 notification without a TCA number
     Given I am logged into appian as "rdt1" user
     When I create new notification with following data
@@ -53,3 +54,4 @@ Feature: Perform a POC of end to end invoicing process to stakeholders
     Examples:
       | type | statusWithTCANumber | statusWhenInvoiced | statusInvoicePaid | amountToInvoice | initialStatus | submitterNameGeneration | ingredient  |
       | 1    | Ready for Invoicing | Unpaid             | Paid              | 150             | Uploaded      | random                  | Supplement2 |
+

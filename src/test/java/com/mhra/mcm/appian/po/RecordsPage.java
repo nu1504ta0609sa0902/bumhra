@@ -1,11 +1,7 @@
 package com.mhra.mcm.appian.po;
 
-import com.mhra.mcm.appian.po.sections.contents.EditNotification;
-import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
-import com.mhra.mcm.appian.po.sections.filters.RecordsFilter;
-import com.mhra.mcm.appian.utils.helpers.GenericUtils;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
-import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +11,12 @@ import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.mhra.mcm.appian.po.sections.contents.EditNotification;
+import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
+import com.mhra.mcm.appian.po.sections.filters.RecordsFilter;
+import com.mhra.mcm.appian.utils.helpers.GenericUtils;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 
 /**
  * Created by TPD_Auto on 18/07/2016.
@@ -98,7 +99,15 @@ public class RecordsPage extends _Page {
         return new EditNotification(driver);
     }
 
-    public boolean notificationsPageContainsText(String expectedName) {
+    public boolean notificationsPageContainsText(String expectedName, boolean refresh) {
+        if(refresh){
+            //Bug with the page, it requires a page refresh to show the updates
+            WaitUtils.waitForElementToBeClickable(driver, submitterName, 5);
+            driver.navigate().refresh();
+            PageFactory.initElements(driver, this);
+        }
+
+        //
         WaitUtils.waitForElementToBeClickable(driver, submitterName, 5);
         String text = submitterName.getText();
         boolean containsNewName = text.contains(expectedName);

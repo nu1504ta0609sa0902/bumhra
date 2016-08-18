@@ -1,15 +1,16 @@
 package com.mhra.mcm.appian.steps.v1;
 
-import com.mhra.mcm.appian.domain.Notification;
-import com.mhra.mcm.appian.po.sections.contents.CreateNotification;
-import com.mhra.mcm.appian.session.SessionKey;
-import com.mhra.mcm.appian.steps.common.CommonSteps;
-import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
-import cucumber.api.java.en.Given;
+import java.util.Map;
+
 import org.springframework.context.annotation.Scope;
 
-import java.util.Map;
+import com.mhra.mcm.appian.domain.Notification;
+import com.mhra.mcm.appian.session.SessionKey;
+import com.mhra.mcm.appian.steps.common.CommonSteps;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
+
+import cucumber.api.java.en.Given;
 
 /**
  * Created by TPD_Auto on 18/07/2016.
@@ -21,8 +22,8 @@ public class ActionsPageSteps extends CommonSteps {
     @Given("^I create new notification$")
     public void i_create_a_new_notification() throws Throwable {
         actionsPage = mainNavigationBar.clickActions();
-        CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
-        Notification random = new Notification(2, 2);
+        createNotification = actionsPage.clickUploadSampleNotification();
+        Notification random = new Notification(2, 2, null);
         log.info("Create Notification With ECID : " +  random.ecIDNumber);
         actionsPage = createNotification.createRandomNotification(random);
         actionsPage.isInCorrectPage();
@@ -44,7 +45,7 @@ public class ActionsPageSteps extends CommonSteps {
 
         //UPLOAD NOTIFICATION
         actionsPage = mainNavigationBar.clickActions();
-        CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
+        createNotification = actionsPage.clickUploadSampleNotification();
         actionsPage = createNotification.createRandomNotification(random);
         actionsPage.isInCorrectPage();
 
@@ -66,7 +67,7 @@ public class ActionsPageSteps extends CommonSteps {
 
         //UPLOAD NOTIFICATION
         actionsPage = mainNavigationBar.clickActions();
-        CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
+        createNotification = actionsPage.clickUploadSampleNotification();
         actionsPage = createNotification.createRandomNotification(random);
         actionsPage.isInCorrectPage();
         log.info("Created Notification With ECID : " +  ecId);
@@ -91,8 +92,8 @@ public class ActionsPageSteps extends CommonSteps {
         for(int x = 0; x < numberOfNotifications; x++){
             try {
                 actionsPage = mainNavigationBar.clickActions();
-                CreateNotification createNotification = actionsPage.clickUploadSampleNotification();
-                Notification random = new Notification(2, 2);
+                createNotification = actionsPage.clickUploadSampleNotification();
+                Notification random = new Notification(2, 2, null);
                 actionsPage = createNotification.createRandomNotification(random);
                 actionsPage.isInCorrectPage();
             }catch(Exception e){

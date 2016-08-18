@@ -1,11 +1,5 @@
 package com.mhra.mcm.appian.po.sections.contents;
 
-import com.mhra.mcm.appian.domain.Notification;
-import com.mhra.mcm.appian.domain.sub.*;
-import com.mhra.mcm.appian.po.ActionsPage;
-import com.mhra.mcm.appian.po._Page;
-import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +7,19 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.mhra.mcm.appian.domain.Notification;
+import com.mhra.mcm.appian.domain.sub.Address;
+import com.mhra.mcm.appian.domain.sub.Ingredient;
+import com.mhra.mcm.appian.domain.sub.Product;
+import com.mhra.mcm.appian.domain.sub.ProductDesign;
+import com.mhra.mcm.appian.domain.sub.Submitter;
+import com.mhra.mcm.appian.domain.sub.SubmitterDetails;
+import com.mhra.mcm.appian.domain.sub.Summary;
+import com.mhra.mcm.appian.po.ActionsPage;
+import com.mhra.mcm.appian.po._Page;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 
 /**
  * Created by TPD_Auto on 22/07/2016.
@@ -138,7 +145,7 @@ public class CreateNotification extends _Page {
 
     public ActionsPage createRandomNotification(Notification notification) {
         WaitUtils.waitForElementToBeClickable(driver, ecId, 10);
-        String prevUrl = driver.getCurrentUrl();
+        //String prevUrl = driver.getCurrentUrl();
         //log.info("Current URL : " + prevUrl);
 
         //Fill notification details

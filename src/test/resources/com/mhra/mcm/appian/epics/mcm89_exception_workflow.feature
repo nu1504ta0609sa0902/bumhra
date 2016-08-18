@@ -1,6 +1,6 @@
-Feature: As an IPU user, I want the ability to see a list of notifications that are in an "Exception" status
-  so that I can take the appropriate action
-
+Feature: As an RDT user, IPU user or a Finance User
+  I want to see know which notifications do not have the correct information for being added to the invoice spreadsheet
+  so that I can take the appropriate action.
 
   @mcm-89 @mcm-72
   Scenario: Create a new notification and update status to Exception

@@ -1,13 +1,14 @@
 package com.mhra.mcm.appian.po.sections.contents;
 
-import com.mhra.mcm.appian.po._Page;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.mhra.mcm.appian.po._Page;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 
 /**
  * Created by TPD_Auto on 18/07/2016.

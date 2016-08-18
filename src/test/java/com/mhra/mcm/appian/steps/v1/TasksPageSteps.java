@@ -1,16 +1,18 @@
 package com.mhra.mcm.appian.steps.v1;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+
+import org.springframework.context.annotation.Scope;
+
 import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
-import org.springframework.context.annotation.Scope;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 
 /**
  * Created by TPD_Auto on 18/07/2016.

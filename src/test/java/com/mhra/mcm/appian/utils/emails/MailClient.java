@@ -1,9 +1,21 @@
 package com.mhra.mcm.appian.utils.emails;
 
-import java.io.IOException;
 import static java.lang.System.out;
+
+import java.io.IOException;
 import java.util.Properties;
-import javax.mail.*;
+
+import javax.mail.Authenticator;
+import javax.mail.BodyPart;
+import javax.mail.Flags;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Store;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;

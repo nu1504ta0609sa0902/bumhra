@@ -1,13 +1,19 @@
 package com.mhra.mcm.appian.po.sections;
 
-import com.mhra.mcm.appian.po.*;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
-import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.mhra.mcm.appian.po.ActionsPage;
+import com.mhra.mcm.appian.po.NewsPage;
+import com.mhra.mcm.appian.po.RecordsPage;
+import com.mhra.mcm.appian.po.ReportsPage;
+import com.mhra.mcm.appian.po.TasksPage;
+import com.mhra.mcm.appian.po._Page;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 
 /**
  * Created by TPD_Auto on 18/07/2016.

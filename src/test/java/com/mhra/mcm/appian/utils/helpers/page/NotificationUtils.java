@@ -1,14 +1,14 @@
 package com.mhra.mcm.appian.utils.helpers.page;
 
-import com.mhra.mcm.appian.domain.Notification;
-import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
+import java.util.Map;
 
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.Map;
+import com.mhra.mcm.appian.domain.Notification;
+import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 
 /**
  * Created by TPD_Auto on 02/08/2016.
@@ -21,7 +21,7 @@ public class NotificationUtils {
      * @return
      */
     public static Notification updateDefaultNotification(Map<String, String> dataValues) {
-        Notification notification = new Notification(2, 2);
+        Notification notification = new Notification(2, 2, null);
 
         if(dataValues!=null){
             String type = dataValues.get("type");

@@ -1,8 +1,9 @@
 package com.mhra.mcm.appian;
 
+import org.junit.runner.RunWith;
+
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
-import org.junit.runner.RunWith;
 
 /**
  * Created by TPD_Auto on 12/07/2016.

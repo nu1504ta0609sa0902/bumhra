@@ -1,10 +1,10 @@
 package com.mhra.mcm.appian.utils.helpers;
 
-import org.openqa.selenium.WebElement;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.openqa.selenium.WebElement;
 
 /**
  * Created by TPD_Auto on 11/08/2016.

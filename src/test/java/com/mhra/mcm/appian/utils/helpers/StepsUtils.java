@@ -1,9 +1,8 @@
 package com.mhra.mcm.appian.utils.helpers;
 
-import com.mhra.mcm.appian.domain.Notification;
-import com.mhra.mcm.appian.domain.sub.Invoice;
-
 import java.util.List;
+
+import com.mhra.mcm.appian.domain.sub.Invoice;
 
 /**
  * Created by TPD_Auto on 28/07/2016.

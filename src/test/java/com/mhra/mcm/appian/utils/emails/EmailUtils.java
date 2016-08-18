@@ -1,12 +1,5 @@
 package com.mhra.mcm.appian.utils.emails;
 
-/**
- * Created by TPD_Auto on 27/07/2016.
- */
-
-import com.mhra.mcm.appian.domain.sort.SortByMessageNumber;
-import com.mhra.mcm.appian.domain.sub.Invoice;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -15,10 +8,32 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
 
-import javax.mail.*;
+import javax.mail.Address;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Part;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Store;
 import javax.mail.internet.InternetAddress;
+
+/**
+ * Created by TPD_Auto on 27/07/2016.
+ */
+
+import com.mhra.mcm.appian.domain.sort.SortByMessageNumber;
+import com.mhra.mcm.appian.domain.sub.Invoice;
 
 public class EmailUtils {
 

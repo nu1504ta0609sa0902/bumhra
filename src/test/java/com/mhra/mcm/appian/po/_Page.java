@@ -1,6 +1,5 @@
 package com.mhra.mcm.appian.po;
 
-import com.mhra.mcm.appian.steps.common.CommonSteps;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
@@ -14,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(locations = {"/cucumber.mhra.xml"})
 public class _Page {
 
+    public static final boolean USE_DEBUG_TIME = true;
 
     public WebDriver driver;
     public final Logger log = LoggerFactory.getLogger(_Page.class);

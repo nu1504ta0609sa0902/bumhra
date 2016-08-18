@@ -1,13 +1,13 @@
 package com.mhra.mcm.appian.po;
 
-import com.mhra.mcm.appian.po.sections.contents.Exceptions;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.mhra.mcm.appian.po.sections.contents.Exceptions;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 
 /**
  * Created by TPD_Auto on 18/07/2016.

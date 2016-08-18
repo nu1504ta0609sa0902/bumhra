@@ -12,9 +12,9 @@ Feature: Once Appian has parsed the notification data, the system will register 
     Examples:
       | type | submitterNameGeneration | initialStatus |
       | 1    | random                  | Uploaded      |
-      | 2    | random                  | Uploaded      |
-      | 3    | random                  | Uploaded      |
-      | 4    | random                  | Uploaded      |
+#      | 2    | random                  | Uploaded      |
+#      | 3    | random                  | Uploaded      |
+#      | 4    | random                  | Uploaded      |
 
 
   @mcm-21 @e2e @mcm-50 @mcm-70
@@ -31,24 +31,24 @@ Feature: Once Appian has parsed the notification data, the system will register 
     Examples:
       | type | submitterNameGeneration | initialStatus | statusWithTCANumber |
       | 1    | random                  | Uploaded      | Ready for Invoicing |
-      | 2    | random                  | Uploaded      | Ready for Invoicing |
-      | 3    | random                  | Uploaded      | Ready for Invoicing |
-      | 4    | random                  | Uploaded      | Ready for Invoicing |
+#      | 2    | random                  | Uploaded      | Ready for Invoicing |
+#      | 3    | random                  | Uploaded      | Ready for Invoicing |
+#      | 4    | random                  | Uploaded      | Ready for Invoicing |
 
 
-
-   Scenario Outline: Check to see invoice is not created without a TCA number
-     Given I am logged into appian as "rdt1" user
-     And I create new notification with following data
-       | type          | <type>                    |
-       | tcaNumber     |                           |
-       | submitterName | <submitterNameGeneration> |
-     Then I should see the stored notification with status set to "<initialStatus>"
-     When I login as "fin1" and generate a standard invoice
-     Then I should receive an invoice email from appian in next 2 min with correct price "<price>" for the stored notification
-     Examples:
-       | type | submitterNameGeneration | initialStatus |
-       | 1    | random                  | Uploaded      |
-       | 2    | random                  | Uploaded      |
-       | 3    | random                  | Uploaded      |
-       | 4    | random                  | Uploaded      |
+  @mcm-21 @mcm-70
+  Scenario Outline: Check to see invoice is not created without a TCA number
+    Given I am logged into appian as "rdt1" user
+    And I create new notification with following data
+      | type          | <type>                    |
+      | tcaNumber     |                           |
+      | submitterName | <submitterNameGeneration> |
+    Then I should see the stored notification with status set to "<initialStatus>"
+    When I login as "fin1" and generate a standard invoice
+    Then If I receive an invoice email from appian in next 2 min than the invoice should not contain my notification
+    Examples:
+      | type | submitterNameGeneration | initialStatus |
+      | 1    | random                  | Uploaded      |
+#       | 2    | random                  | Uploaded      |
+#       | 3    | random                  | Uploaded      |
+#       | 4    | random                  | Uploaded      |

@@ -1,5 +1,46 @@
 package com.mhra.mcm.appian.utils.emails;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Address;
+import javax.mail.BodyPart;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Store;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 /**
  * Created by TPD_Auto on 29/07/2016.
  */
@@ -8,24 +49,6 @@ import com.mhra.mcm.appian.domain.sort.SortByMessageNumber;
 import com.mhra.mcm.appian.domain.sub.Invoice;
 import com.mhra.mcm.appian.utils.helpers.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.io.*;
-
-import java.util.*;
-
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.*;
-
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 
 public class GmailEmail {
@@ -101,7 +124,7 @@ public class GmailEmail {
             List<Message> lom = Arrays.asList(messages);
             Collections.sort(lom, new SortByMessageNumber());
             messages = lom.toArray(new Message[lom.size()]);
-            System.out.println("Number of messages : " + messages.length);
+            //System.out.println("Number of messages : " + messages.length);
 
 
             for (int i = 0; i < messages.length; i++) {

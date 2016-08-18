@@ -1,11 +1,12 @@
 package com.mhra.mcm.appian.utils.helpers.page;
 
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 
 /**
  * Created by TPD_Auto on 22/07/2016.

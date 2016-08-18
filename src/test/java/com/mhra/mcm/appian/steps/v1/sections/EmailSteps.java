@@ -1,23 +1,28 @@
 package com.mhra.mcm.appian.steps.v1.sections;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isOneOf;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+
+import java.util.List;
+
+import org.springframework.context.annotation.Scope;
+
 import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.domain.sub.Invoice;
 import com.mhra.mcm.appian.po.sections.MainNavigationBar;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
-import com.mhra.mcm.appian.utils.helpers.StepsUtils;
 import com.mhra.mcm.appian.utils.emails.GmailEmail;
+import com.mhra.mcm.appian.utils.helpers.StepsUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.springframework.context.annotation.Scope;
-
-import java.util.List;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.*;
 
 /**
  * Created by TPD_Auto on 18/07/2016.
@@ -66,15 +71,14 @@ public class EmailSteps extends CommonSteps {
     }
 
 
-    @Then("^I receive an invoice email from appian in next (.*) min and it should not contain my notification$")
-    public void iShouldReceiveAnInvoiceEmailButItShouldNotContainMyNotification(int min, String amount) throws Throwable {
-        //Properties emailDetails = FileUtils.loadPropertiesFile("users.properties");
+    @Then("^If I receive an invoice email from appian in next (.*) min than the invoice should not contain my notification$")
+    public void iShouldReceiveAnInvoiceEmailButItShouldNotContainMyNotification(int min) throws Throwable {
 
+        String ecID = (String) scenarioSession.getData(SessionKey.ECID);
         List<Invoice> listOfInvoices = null;
         boolean foundInvoices = false;
         int attempt = 0;
         do {
-            String ecID = (String) scenarioSession.getData(SessionKey.ECID);
             listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, ecID);
 
             //Break from loop if invoices read from the email server
@@ -82,28 +86,18 @@ public class EmailSteps extends CommonSteps {
                 break;
             }else{
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
-                WaitUtils.nativeWait(8);
+                WaitUtils.nativeWait(1);
             }
             attempt++;
         }while(!foundInvoices && attempt < 12);
 
-        //verify the price and other details
-        if(listOfInvoices!=null && listOfInvoices.size() > 0) {
-            Notification notification = (Notification) scenarioSession.getData(SessionKey.storedNotification);
-            String ecID = (String) scenarioSession.getData(SessionKey.ECID);
-            if(notification!=null){
-                ecID = notification.ecIDNumber;
-            }
+        if(listOfInvoices.size() > 0){
             Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
-
-            //Verify details
-            String netAmount = invoice.Net_Amount;
-            scenarioSession.putData(SessionKey.invoice, invoice);
-            assertThat("Price should be : " + amount , amount, is((equalTo(netAmount))));
-        }else{
-            assertThat("No email received from appian related to invoices : mhra.uat@gmail.com" , listOfInvoices.size(), is(not(equalTo(0))));
+            assertThat("We should not receive any invoice for notification with ecid : " + ecID + " because it has no TCANumber check email : mhra.uat@gmail.com", invoice, nullValue());
+        }else {
+            //verify the price and other details
+            assertThat("We should not receive any invoice for notification with ecid : " + ecID + " because it has no TCANumber check email : mhra.uat@gmail.com", listOfInvoices.size(), is((equalTo(0))));
         }
-
     }
 
 

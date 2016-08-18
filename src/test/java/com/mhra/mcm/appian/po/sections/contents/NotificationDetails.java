@@ -1,16 +1,14 @@
 package com.mhra.mcm.appian.po.sections.contents;
 
-import com.mhra.mcm.appian.domain.Notification;
-import com.mhra.mcm.appian.po._Page;
-import com.mhra.mcm.appian.utils.helpers.FileUtils;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
-import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.mhra.mcm.appian.po._Page;
+import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 
 /**
  * Created by TPD_Auto on 26/07/2016.

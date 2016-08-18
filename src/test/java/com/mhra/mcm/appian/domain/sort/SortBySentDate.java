@@ -1,8 +1,8 @@
 package com.mhra.mcm.appian.domain.sort;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
 import java.util.Comparator;
+
+import javax.mail.Message;
 
 /**
  * Created by TPD_Auto on 28/07/2016.

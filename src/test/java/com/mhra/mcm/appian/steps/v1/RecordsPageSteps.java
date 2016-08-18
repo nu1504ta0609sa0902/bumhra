@@ -1,21 +1,23 @@
 package com.mhra.mcm.appian.steps.v1;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.is;
+
+import org.springframework.context.annotation.Scope;
+
 import com.mhra.mcm.appian.domain.Notification;
 import com.mhra.mcm.appian.po.RecordsPage;
 import com.mhra.mcm.appian.po.sections.filters.RecordsFilter;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.springframework.context.annotation.Scope;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Created by TPD_Auto on 18/07/2016.
@@ -50,9 +52,9 @@ public class RecordsPageSteps extends CommonSteps {
     @Given("^I make change to submitter name by appending \"([^\"]*)\"$")
     public void i_make_change_to_submitter_name_by_appending(String append) throws Throwable {
         recordsPage = recordsPage.clickNotificationNumber(1);
-        notificationPage = recordsPage.clickManageNotification();
-        String existingName = notificationPage.appendTextToSubmitterName(append);
-        recordsPage = notificationPage.submitChanges();
+        editNotification = recordsPage.clickManageNotification();
+        String existingName = editNotification.appendTextToSubmitterName(append);
+        notificationDetails = editNotification.submitChanges();
         scenarioSession.putData(SessionKey.storedValue, existingName);
     }
 
@@ -91,7 +93,7 @@ public class RecordsPageSteps extends CommonSteps {
         String expectedName = previousName + append;
 
         //verfiy page contains the updated information
-        boolean contains = recordsPage.notificationsPageContainsText(expectedName);
+        boolean contains = recordsPage.notificationsPageContainsText(expectedName, true);
         assertThat(contains, is(equalTo(true)));
     }
 
