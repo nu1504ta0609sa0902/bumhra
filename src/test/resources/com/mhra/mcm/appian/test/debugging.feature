@@ -33,9 +33,26 @@ Feature: As a tester I would like to create and edit notification in batches
     And I have a notification "12626-16-53234" generated
 
 
-  @mcm-21 @ignore
+  @ignore
   Scenario: Verify new TCA task exists with EC id
     Given I am logged into appian as "rdt1" user
     And I should see new task generated for the submitter "TestE2E_2_74806" with ecid "34382-16-70839"
     When I set a new TCA number for the notification
     Then I should see the stored notification with status set to "Ready for Invoicing"
+
+
+  @ignore
+  Scenario Outline: Users can change the notification status to another status for existing notification
+    Given I am logged into appian as "<user>" user
+    When I view an existing notification with ecid  "<ecid>" in exception page
+    And Update the status of stored notification to "<status>"
+    Then I expect the notification status should be "<status>"
+    Examples:
+      | user   | status   | ecid           |
+      | super1 | Uploaded | 75815-16-48218 |
+      | super1 | Uploaded | 52975-16-82676 |
+      | super1 | Uploaded | 21892-16-84622 |
+      | super1 | Uploaded | 44558-16-31859 |
+      | super1 | Uploaded | 24894-16-48667 |
+      | super1 | Uploaded | 75254-16-63710 |
+      | super1 | Uploaded | 74980-16-32807 |

@@ -1,10 +1,9 @@
 package com.mhra.mcm.appian.steps.v1;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
+import cucumber.api.PendingException;
 import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.domain.Notification;
@@ -252,4 +251,28 @@ public class RecordsPageSteps extends CommonSteps {
         recordsPage = filterSection.clearSelection(filter);
     }
 
+    @And("^Update the status of stored notification to \"([^\"]*)\"$")
+    public void updateTheStatusOfStoredNotificationTo(String updatedStatus) throws Throwable {
+        editNotification = notificationDetails.clickManageNotification();
+        notificationDetails = editNotification.updateStatusTo(updatedStatus);
+        scenarioSession.putData(SessionKey.notificationStatus, updatedStatus);
+    }
+
+    @When("^I expect the notification status should be \"([^\"]*)\"$")
+    public void the_status_should_update_to(String expectedStatus) throws Throwable {
+        String currentStatus = (String) scenarioSession.getData(SessionKey.notificationStatus);
+        boolean statusMatched = false;
+        int attempt = 0;
+        do{
+            statusMatched = notificationDetails.expectedStatusToBe(expectedStatus);
+            if(statusMatched)
+                break;
+            attempt++;
+        }while (!statusMatched && attempt < 15);
+
+        String newStatus = notificationDetails.getCurrentStatus();
+
+        assertThat("Status should be : " + currentStatus , newStatus, is(isOneOf(expectedStatus,"Quality Assurance")));
+        scenarioSession.putData(SessionKey.notificationStatus, newStatus);
+    }
 }
