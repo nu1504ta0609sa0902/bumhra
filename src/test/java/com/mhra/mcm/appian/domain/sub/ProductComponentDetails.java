@@ -21,6 +21,8 @@ public class ProductComponentDetails {
 
 
     public ProductComponentDetails(){
+        this.coilResistance = RandomDataUtils.getRandomNumberBetween(1, 20);
+        this.coilComposition = RandomDataUtils.getRandomNumberBetween(1, 20);
         createDefault();
     }
 
@@ -31,6 +33,7 @@ public class ProductComponentDetails {
     }
 
     private void createDefault() {
+        //Default is all the other values are false
     }
 
     @Override

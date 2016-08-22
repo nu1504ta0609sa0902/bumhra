@@ -1,5 +1,4 @@
-Feature: As a tester I would like to create and edit notification in batches
-  So that I can do testing without worrying about running out of notifications
+Feature: As a tester I would like to debug
 
   @ignore
   Scenario Outline: Create lots of notifications
@@ -49,10 +48,10 @@ Feature: As a tester I would like to create and edit notification in batches
     Then I expect the notification status should be "<status>"
     Examples:
       | user   | status   | ecid           |
-      | super1 | Uploaded | 75815-16-48218 |
-      | super1 | Uploaded | 52975-16-82676 |
-      | super1 | Uploaded | 21892-16-84622 |
-      | super1 | Uploaded | 44558-16-31859 |
-      | super1 | Uploaded | 24894-16-48667 |
-      | super1 | Uploaded | 75254-16-63710 |
-      | super1 | Uploaded | 74980-16-32807 |
+      | super1 | Uploaded | 36550-16-34422 |
+      | super1 | Uploaded | 19585-16-36777 |
+      | super1 | Uploaded | 95114-16-33516 |
+      | super1 | Uploaded | 83374-16-64750 |
+      | super1 | Uploaded | 24335-16-58479 |
+      | super1 | Uploaded | 65895-16-37521 |
+      | super1 | Uploaded | 58752-16-57074 |

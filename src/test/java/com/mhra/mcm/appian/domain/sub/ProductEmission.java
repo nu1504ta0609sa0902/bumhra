@@ -15,6 +15,7 @@ public class ProductEmission {
 
 
     public ProductEmission(){
+        this.emission = RandomDataUtils.getRandomNumberBetween(1000000, 10000000);
         createDefault();
     }
 
@@ -24,6 +25,10 @@ public class ProductEmission {
     }
 
     private void createDefault() {
+        this.otherName = RandomDataUtils.getRandomTestName("PE_");
+        this.iupac = RandomDataUtils.getRandomNumberBetween(1000000, 10000000);
+        this.quantity = RandomDataUtils.getRandomNumberBetween(1, 20);
+        this.units = RandomDataUtils.getRandomNumberBetween(1, 20);
     }
 
     @Override

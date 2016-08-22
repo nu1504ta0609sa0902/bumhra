@@ -3,6 +3,11 @@ package com.mhra.mcm.appian.domain;
 import com.mhra.mcm.appian.domain.sub.*;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Created by TPD_Auto on 22/07/2016.
  *
@@ -12,6 +17,7 @@ import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
  *
  * - ONLY FOR TESTING PURPOSE
  */
+@XmlRootElement
 public class Notification {
 
     public String ecIDNumber;
@@ -19,9 +25,16 @@ public class Notification {
     Summary summary;
     SubmitterDetails submitterDetails;
     Product product;
+    ProductIdentifiers productIdentifier;
     ProductDesign productDesign;
     Ingredient ingredient;
     BatteryWattageVoltage batteryWattageVoltage;
+    ProductComponentDetails productComponentDetails;
+    ProductEmission productEmission;
+
+    public Notification(){
+
+    }
 
     public Notification(int weight, int volume, String fixedEUID){
         String euIdentifier = RandomDataUtils.getEUIdentifier(fixedEUID);
@@ -31,9 +44,11 @@ public class Notification {
         submitter = new Submitter(euIdentifier, "TestE2E");
         submitterDetails = new SubmitterDetails();
         product = new Product("TestE2EBrand ");
+        productIdentifier = new ProductIdentifiers();
         productDesign = new ProductDesign(weight, volume);
-
         batteryWattageVoltage = new BatteryWattageVoltage();
+        productComponentDetails = new ProductComponentDetails();
+        productEmission = new ProductEmission();
     }
 
     public Notification(int weight, int volume, String ingredientName, String fixedEUID){
@@ -87,9 +102,9 @@ public class Notification {
         this.productDesign = productDesign;
     }
 
-    public String getEcIDNumber() {
-        return ecIDNumber;
-    }
+    //public String getEcIDNumber() {
+    //    return ecIDNumber;
+    //}
 
     public void setEcIDNumber(String ecIDNumber) {
         this.ecIDNumber = ecIDNumber;
@@ -107,7 +122,29 @@ public class Notification {
         this.batteryWattageVoltage = batteryWattageVoltage;
     }
 
+    public ProductIdentifiers getProductIdentifier() {
+        return productIdentifier;
+    }
 
+    public void setProductIdentifier(ProductIdentifiers productIdentifier) {
+        this.productIdentifier = productIdentifier;
+    }
+
+    public ProductComponentDetails getProductComponentDetails() {
+        return productComponentDetails;
+    }
+
+    public void setProductComponentDetails(ProductComponentDetails productComponentDetails) {
+        this.productComponentDetails = productComponentDetails;
+    }
+
+    public ProductEmission getProductEmission() {
+        return productEmission;
+    }
+
+    public void setProductEmission(ProductEmission productEmission) {
+        this.productEmission = productEmission;
+    }
 
     @Override
     public String toString() {
@@ -124,5 +161,17 @@ public class Notification {
     public static void main(String args[]){
         Notification n = new Notification(10,10,null);
         System.out.println(n);
+
+        try {
+            JAXBContext context = JAXBContext.newInstance(Notification.class);
+
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            m.marshal(n, System.out);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
     }
 }
