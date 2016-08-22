@@ -6,6 +6,7 @@ import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -17,13 +18,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * - ONLY FOR TESTING PURPOSE
  */
-@XmlRootElement
+@XmlRootElement(name = "EcigProductSubmission")
 public class EcigProductSubmission {
 
-    private String ecIDNumber;
-    private Submitter submitter;
-    private SubmissionType submissionType;
-    private Product product;
+    public String ecIDNumber;
+    @XmlElement(name = "Submitter")
+    public Submitter submitter;
+    @XmlElement(name = "SubmissionType")
+    public SubmissionType submissionType;
+    @XmlElement(name = "Product")
+    public Product product;
 
     public EcigProductSubmission(){
         double weight = 2;
@@ -42,39 +46,42 @@ public class EcigProductSubmission {
         String ecId = RandomDataUtils.getECID(euIdentifier);
         ecIDNumber = ecId;
 
+        //submitter = new Submitter(false, euIdentifier, "MANUFACTURER", true, true, true );
+        //submissionType = new SubmissionType(false, "1");
+        product = new Product(weight, volume, ecId);
+
     }
 
-    public String getEcIDNumber() {
-        return ecIDNumber;
-    }
-
-    public void setEcIDNumber(String ecIDNumber) {
-        this.ecIDNumber = ecIDNumber;
-    }
-
-    public Submitter getSubmitter() {
-        return submitter;
-    }
-
-    public void setSubmitter(Submitter submitter) {
-        this.submitter = submitter;
-    }
-
-    public SubmissionType getSubmissionType() {
-        return submissionType;
-    }
-
-    public void setSubmissionType(SubmissionType submissionType) {
-        this.submissionType = submissionType;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+//    public String getEcIDNumber() {
+//        return ecIDNumber;
+//    }
+//
+//    public void setEcIDNumber(String ecIDNumber) {
+//        this.ecIDNumber = ecIDNumber;
+//    }
+//
+//    public Submitter getSubmitter() {
+//        return submitter;
+//    }
+//
+//    public void setSubmitter(Submitter submitter) {
+//        this.submitter = submitter;
+//    }
+//    public SubmissionType getSubmissionType() {
+//        return submissionType;
+//    }
+//
+//    public void setSubmissionType(SubmissionType submissionType) {
+//        this.submissionType = submissionType;
+//    }
+//
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
 
     public static void main(String args[]){
         EcigProductSubmission n = new EcigProductSubmission(10,10,null);

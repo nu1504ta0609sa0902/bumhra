@@ -1,6 +1,10 @@
-package com.mhra.mcm.appian.domain.xmlPojo.sub.product;
+package com.mhra.mcm.appian.domain.xmlPojo.sub.product.props;
 
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -36,20 +40,5 @@ public class Ingredient {
         additive = "Vitamin D1";
         fLNumber = "FL" + (int) RandomDataUtils.getRandomDigits(7);
         eCNumber = RandomDataUtils.getECID("ECNUM");
-    }
-
-    @Override
-    public String toString() {
-        return "Ingredient{" +
-                "ingredientName='" + ingredientName + '\'' +
-                ", toxicity='" + toxicity + '\'' +
-                ", nonVapourisedStatus='" + nonVapourisedStatus + '\'' +
-                ", casExists='" + casExists + '\'' +
-                ", cASNumber='" + cASNumber + '\'' +
-                ", FEMA='" + FEMA + '\'' +
-                ", additive='" + additive + '\'' +
-                ", fLNumber='" + fLNumber + '\'' +
-                ", eCNumber='" + eCNumber + '\'' +
-                '}';
     }
 }

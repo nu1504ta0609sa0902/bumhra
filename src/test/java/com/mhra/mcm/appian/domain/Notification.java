@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * - ONLY FOR TESTING PURPOSE
  */
-@XmlRootElement
+@XmlRootElement(name="EcigProductSubmission")
 public class Notification {
 
     public String ecIDNumber;
