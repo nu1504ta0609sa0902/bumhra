@@ -33,7 +33,7 @@ import javax.mail.internet.InternetAddress;
  */
 
 import com.mhra.mcm.appian.domain.sort.SortByMessageNumber;
-import com.mhra.mcm.appian.domain.sub.Invoice;
+import com.mhra.mcm.appian.domain.webPagePojo.sub.Invoice;
 
 public class EmailUtils {
 

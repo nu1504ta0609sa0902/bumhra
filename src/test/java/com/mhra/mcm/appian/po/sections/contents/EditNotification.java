@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mhra.mcm.appian.domain.Notification;
+import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.po._Page;
 import com.mhra.mcm.appian.utils.helpers.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;

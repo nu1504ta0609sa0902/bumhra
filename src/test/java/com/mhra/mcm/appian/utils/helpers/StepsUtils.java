@@ -2,7 +2,7 @@ package com.mhra.mcm.appian.utils.helpers;
 
 import java.util.List;
 
-import com.mhra.mcm.appian.domain.sub.Invoice;
+import com.mhra.mcm.appian.domain.webPagePojo.sub.Invoice;
 
 /**
  * Created by TPD_Auto on 28/07/2016.

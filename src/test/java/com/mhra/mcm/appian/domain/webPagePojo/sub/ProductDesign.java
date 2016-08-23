@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.domain.sub;
+package com.mhra.mcm.appian.domain.webPagePojo.sub;
 
 /**
  * Created by TPD_Auto on 22/07/2016.

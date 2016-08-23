@@ -1,6 +1,4 @@
-package com.mhra.mcm.appian.domain.sub;
-
-import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
+package com.mhra.mcm.appian.domain.webPagePojo.sub;
 
 /**
  *

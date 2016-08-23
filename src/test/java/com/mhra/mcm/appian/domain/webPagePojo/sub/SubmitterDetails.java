@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.domain.sub;
+package com.mhra.mcm.appian.domain.webPagePojo.sub;
 
 import java.util.ArrayList;
 import java.util.List;

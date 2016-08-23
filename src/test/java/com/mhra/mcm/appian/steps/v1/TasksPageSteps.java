@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.is;
 
 import org.springframework.context.annotation.Scope;
 
-import com.mhra.mcm.appian.domain.Notification;
+import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;

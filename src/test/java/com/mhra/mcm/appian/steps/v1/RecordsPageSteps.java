@@ -3,10 +3,9 @@ package com.mhra.mcm.appian.steps.v1;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-import cucumber.api.PendingException;
 import org.springframework.context.annotation.Scope;
 
-import com.mhra.mcm.appian.domain.Notification;
+import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.po.RecordsPage;
 import com.mhra.mcm.appian.po.sections.filters.RecordsFilter;
 import com.mhra.mcm.appian.session.SessionKey;

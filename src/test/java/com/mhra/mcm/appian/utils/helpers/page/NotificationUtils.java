@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.mhra.mcm.appian.domain.Notification;
+import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 

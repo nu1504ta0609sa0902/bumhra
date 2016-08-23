@@ -1,6 +1,6 @@
-package com.mhra.mcm.appian.domain;
+package com.mhra.mcm.appian.domain.webPagePojo;
 
-import com.mhra.mcm.appian.domain.sub.*;
+import com.mhra.mcm.appian.domain.webPagePojo.sub.*;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
 import javax.xml.bind.JAXBContext;
