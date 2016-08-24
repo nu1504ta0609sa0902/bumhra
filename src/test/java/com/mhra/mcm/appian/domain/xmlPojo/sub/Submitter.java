@@ -3,8 +3,10 @@ package com.mhra.mcm.appian.domain.xmlPojo.sub;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.submitter.HasAffiliate;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.submitter.HasEnterer;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.submitter.Parent;
+import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
 import javax.xml.bind.annotation.*;
+import java.util.Map;
 
 /**
  * Created by TPD_Auto on 22/07/2016.
@@ -18,11 +20,11 @@ public class Submitter {
 
     @XmlElement(name = "SubmitterType")
     public String submitterType;
-    @XmlElement
+    @XmlElement(name = "HasEnterer")
     public boolean hasEnterer;
-    @XmlElement
+    @XmlElement(name = "HasParent")
     public boolean hasParent;
-    @XmlElement
+    @XmlElement(name = "HasAffiliate")
     public boolean hasAffiliate;
 
     @XmlElement(name = "Parent")
@@ -32,9 +34,9 @@ public class Submitter {
     @XmlElement(name = "Affiliate")
     public HasAffiliate affiliate;
 
-    public Submitter(){
+    public Submitter(String euID){
         this.confidential = false;
-        this.submitterId = "GetRandomID";
+        this.submitterId = euID;
         this.submitterType = "MANUFACTURER";
 
         this.hasAffiliate = false;
@@ -42,6 +44,15 @@ public class Submitter {
         this.hasParent = false;
     }
 
+    /**
+     *
+     * @param confidential
+     * @param submitterId
+     * @param submitterType
+     * @param hasEnterer
+     * @param hasAffiliate
+     * @param hasParent
+     */
     public Submitter(boolean confidential, String submitterId, String submitterType, boolean hasEnterer, boolean hasAffiliate, boolean hasParent) {
         this.confidential = confidential;
         this.submitterId = submitterId;
@@ -61,59 +72,42 @@ public class Submitter {
             parent = new Parent();
     }
 
-//    public String getSubmitterType() {
-//        return submitterType;
-//    }
-//
-//    public void setSubmitterType(String submitterType) {
-//        this.submitterType = submitterType;
-//    }
-//
-//    public boolean isHasEnterer() {
-//        return hasEnterer;
-//    }
-//
-//    public void setHasEnterer(boolean hasEnterer) {
-//        this.hasEnterer = hasEnterer;
-//    }
-//
-//    public boolean isHasParent() {
-//        return hasParent;
-//    }
-//
-//    public void setHasParent(boolean hasParent) {
-//        this.hasParent = hasParent;
-//    }
-//
-//    public boolean isHasAffiliate() {
-//        return hasAffiliate;
-//    }
-//
-//    public void setHasAffiliate(boolean hasAffiliate) {
-//        this.hasAffiliate = hasAffiliate;
-//    }
-//
-//    public Parent getParent() {
-//        return parent;
-//    }
-//
-//    public void setParent(Parent parent) {
-//        this.parent = parent;
-//    }
-//
-//    public HasEnterer getEnterer() {
-//        return enterer;
-//    }
-//
-//    public void setEnterer(HasEnterer enterer) {
-//        this.enterer = enterer;
-//    }
-//
-//    public HasAffiliate getAffiliate() {
-//        return affiliate;
-//    }
-//
-//    public void setAffiliate(HasAffiliate affiliate) {
-//        this.affiliate = affiliate;
-//    }
+    public void evaluate() {
+        if(hasEnterer)
+            enterer = new HasEnterer();
+
+        if(hasAffiliate)
+            affiliate = new HasAffiliate();
+
+        if(hasParent)
+            parent = new Parent();
+    }
+
+    public void addSubmitter(String submitter1, Map<String, String> dataValues) {
+
+        String submitterType = dataValues.get("submitterType");
+        if(submitter1.equals("random") || submitter1.equals("default")){
+            this.hasEnterer = RandomDataUtils.getRandomBooleanValue();
+            this.hasAffiliate = RandomDataUtils.getRandomBooleanValue();
+            this.hasParent = RandomDataUtils.getRandomBooleanValue();
+        }else {
+
+            String hasEnterer = dataValues.get("hasEnterer");
+            String hasAffiliate = dataValues.get("hasAffiliate");
+            String hasParent = dataValues.get("hasParent");
+
+            if (submitterType != null) {
+                this.submitterType = submitterType;
+            }
+            if (hasEnterer != null) {
+                this.hasEnterer = Boolean.valueOf(hasEnterer);
+            }
+            if (hasAffiliate != null) {
+                this.hasAffiliate = Boolean.valueOf(hasAffiliate);
+            }
+            if (hasParent != null) {
+                this.hasParent = Boolean.valueOf(hasParent);
+            }
+        }
+    }
 }

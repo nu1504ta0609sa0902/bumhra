@@ -44,8 +44,8 @@ public class Design {
     @XmlElement(name = "CoilResistance")
     private CoilResistance coilResistance;
 
-    public Design() {
-        description = new Description("");
+    public Design(String desc) {
+        description = new Description(desc);
         liquidVolumeCapacity = new LiquidVolumeCapacity("1.5");
         nicotineConcentration = new NicotineConcentration("0");
         voltageWattageAdjustable = new VoltageWattageAdjustable("4");

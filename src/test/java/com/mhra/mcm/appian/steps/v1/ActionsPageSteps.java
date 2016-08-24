@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.steps.v1;
 
 import java.util.Map;
 
+import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
@@ -102,5 +103,29 @@ public class ActionsPageSteps extends CommonSteps {
             WaitUtils.nativeWait(5);
         }
     }
+
+
+
+    @Given("^I create new xml notification with following data$")
+    public void i_create_new_xml_notification_with_following_data(Map<String, String> dataValues) throws Throwable {
+
+        EcigProductSubmission random = NotificationUtils.updateDefaultXMLNotification(dataValues);
+        random.generateXml(random);
+        String ecId = random.getEcIDNumber();
+        log.info("Create Notification With ECID : " +  ecId);
+
+        //UPLOAD NOTIFICATION
+        //actionsPage = mainNavigationBar.clickActions();
+        //createNotification = actionsPage.clickUploadSampleNotification();
+        //actionsPage = createNotification.createRandomXMLNotification(random);
+        //actionsPage.isInCorrectPage();
+
+        //Stored ecId for future use
+        scenarioSession.putData(SessionKey.ECID, ecId);
+        scenarioSession.putData(SessionKey.storedNotification, random);
+        //log.debug("Notification Details : \n" + random);
+        log.info("Created Notification With ECID : " +  ecId);
+    }
+
 
 }

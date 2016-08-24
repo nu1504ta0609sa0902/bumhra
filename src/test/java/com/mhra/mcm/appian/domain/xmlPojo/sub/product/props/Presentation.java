@@ -43,4 +43,17 @@ public class Presentation {
         packageUnits = new PackageUnits(RandomDataUtils.getRandomNumberBetween(1, 20));
         unitPacketPictureFile = new UnitPacketPictureFile("");
     }
+
+    public Presentation(String name, String productType){
+        nationalMarket = new NationalMarket("GB");
+        brandName = new BrandName(name);
+        brandSubtypeNameExists = new BrandSubtypeNameExists("true");
+        brandSubtypeName = new BrandSubtypeName("ePen");
+        launchDate = new LaunchDate(RandomDataUtils.getDateInFutureMonthsUS(6));
+        withdrawalIndication = new WithdrawalIndication("false");
+        productNumberType = new ProductNumberType("SUBMITTER");
+        productNumber = new ProductNumber(""+RandomDataUtils.getRandomDigits(6));
+        packageUnits = new PackageUnits(RandomDataUtils.getRandomNumberBetween(1, 20));
+        unitPacketPictureFile = new UnitPacketPictureFile("");
+    }
 }

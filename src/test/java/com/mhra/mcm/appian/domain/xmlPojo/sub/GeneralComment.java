@@ -7,18 +7,18 @@ import javax.xml.bind.annotation.XmlValue;
  * Created by TPD_Auto on 22/07/2016.
  */
 //@XmlRootElement(name="SubmissionType")
-public class SubmissionType {
+public class GeneralComment {
 
     @XmlAttribute
     public boolean confidential;
     @XmlValue
-    public String type;
+    private String type;
 
-    public SubmissionType(){
+    public GeneralComment(){
         this.type = "Testing";
     }
 
-    public SubmissionType(boolean confidential, String type) {
+    public GeneralComment(boolean confidential, String type) {
         this.confidential = confidential;
         this.type = type;
     }

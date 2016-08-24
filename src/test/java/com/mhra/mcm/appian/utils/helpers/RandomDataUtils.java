@@ -59,13 +59,28 @@ public class RandomDataUtils {
     public static String getRandomNumberBetween(int min, int max) {
         Random random = new Random( System.currentTimeMillis() );
         int val = random.nextInt(max - min + 1) + min;
+        val = new Random().nextInt(max) + min;
         return String.valueOf(val);
     }
 
     public static String generateCASNumber() {
-        String a = getRandomNumberBetween(100, 10000);
-        String b = getRandomNumberBetween(100, 10000);
-        String c = getRandomNumberBetween(100, 10000);
+        String a = getRandomNumberBetween(1, 100);
+        String b = getRandomNumberBetween(1, 100);
+        String c = getRandomNumberBetween(1, 100);
         return a + "-" + b + "-" + c;
+    }
+
+    public static boolean getRandomBooleanValue() {
+        String val = getRandomNumberBetween(1, 100);
+        int v = Integer.parseInt(val);
+        int rem = v % 2;
+        return rem == 0;
+    }
+
+    public static String getRandomFloatNumberBetween(int from, int to) {
+        String a = getRandomNumberBetween(from, to);
+        double x = (Integer.parseInt(a) * Math.PI)/ 3;
+        double td = ((int)(x * 100))/100.0;
+        return String.valueOf(td);
     }
 }

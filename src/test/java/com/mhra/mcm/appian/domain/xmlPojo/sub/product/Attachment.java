@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.domain.xmlPojo.sub.product.emission;
+package com.mhra.mcm.appian.domain.xmlPojo.sub.product;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;

@@ -1,11 +1,9 @@
 package com.mhra.mcm.appian.domain.xmlPojo.sub.product.emission;
 
-import com.mhra.mcm.appian.domain.xmlPojo.sub.product.props.Emission;
+import com.mhra.mcm.appian.domain.xmlPojo.sub.product.Attachment;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlValue;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.domain.xmlPojo.sub.product.props;
 
+import com.mhra.mcm.appian.domain.xmlPojo.sub.product.Attachment;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.emission.*;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
@@ -20,10 +21,7 @@ public class Emission {
     @XmlElement(name = "Unit")
     private Unit unit;
     @XmlElement(name = "Name")
-    private Name name;
-
-//    @XmlElement(name = "MethodsFile")
-//    private MethodsFile methodsFile;
+    private EmissionName emissionName;
 
     @XmlElementWrapper(name = "MethodsFile")
     @XmlElement(name = "Attachment")
@@ -34,11 +32,22 @@ public class Emission {
         casNumber = new CasNumber(RandomDataUtils.generateCASNumber());
         quantity = new Quantity(RandomDataUtils.getRandomNumberBetween(1, 20));
         unit = new Unit("±1.1mg/100puffs");
-        name = new Name(RandomDataUtils.getRandomNumberBetween(1, 20));
+        emissionName = new EmissionName(RandomDataUtils.getRandomNumberBetween(1, 20));
         //methodsFile = new MethodsFile("");
 
         attachments.add(new Attachment(""));
         attachments.add(new Attachment(""));
         attachments.add(new Attachment(""));
+    }
+
+    public Emission(String emission1Quantity, String emission1Unit, String emission1Name, String addAttachment) {
+        casNumber = new CasNumber(RandomDataUtils.generateCASNumber());
+        quantity = new Quantity(emission1Quantity);
+        unit = new Unit(emission1Unit);
+        emissionName = new EmissionName(emission1Name);
+
+        if(addAttachment.equals("true")){
+            attachments.add(new Attachment("41da3cd9-5220-4b26-830c-d6fc991407b5"));
+        }
     }
 }

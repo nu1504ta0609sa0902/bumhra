@@ -1,44 +1,90 @@
 package com.mhra.mcm.appian.domain.xmlPojo.sub.product.props;
 
+import com.mhra.mcm.appian.domain.xmlPojo.sub.product.ingredient.*;
+import com.mhra.mcm.appian.domain.xmlPojo.sub.product.ingredient.toxicology.ToxCardioPulmonary;
+import com.mhra.mcm.appian.domain.xmlPojo.sub.product.ingredient.toxicology.ToxCmr;
+import com.mhra.mcm.appian.domain.xmlPojo.sub.product.ingredient.toxicology.ToxEmission;
+import com.mhra.mcm.appian.domain.xmlPojo.sub.product.ingredient.toxicology.ToxOther;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  */
 public class Ingredient {
 
-    public String ingredientName;
-    public String toxicity;
-    public String nonVapourisedStatus;
-    public boolean casExists;
-    public String cASNumber;
-    public String FEMA;
-    public String additive;
-    public String fLNumber;
-    public String eCNumber;
+    @XmlElement(name = "Name")
+    private IngredientName ingredientName;
+    @XmlElement(name = "CasNumberExists")
+    private CasNumberExists casNumberExists;
+    @XmlElement(name = "CasNumber")
+    private IngredientCasNumber ingredientCasNumber;
+    @XmlElement(name = "FlNumber")
+    private FlNumber flNumber;
+    @XmlElement(name = "FemaNumber")
+    private FemaNumber femaNumber;
+    @XmlElement(name = "EcNumber")
+    private EcNumber ecNumber;
+    @XmlElement(name = "RecipeQuantity")
+    private RecipeQuantity recipeQuantity;
+
+    @XmlElementWrapper(name = "Functions")
+    @XmlElement(name = "Function")
+    public List<Function> functions = new ArrayList<>();
+
+    @XmlElement(name = "ToxicityStatus")
+    private ToxicityStatus toxicityStatus;
+    @XmlElement(name = "ReachRegistration")
+    private ReachRegistration reachRegistration;
+    @XmlElement(name = "ClpWhetherClassification")
+    private ClpWhetherClassification clpWhetherClassification;
+
+    @XmlElement(name = "ToxicologicalDetails")
+    private ToxicologicalDetails toxicologicalDetails;
 
 
-    public Ingredient(){
-        createDefault();
+    public Ingredient(String name) {
+        ingredientName = new IngredientName(name);
+        casNumberExists = new CasNumberExists("");
+        ingredientCasNumber = new IngredientCasNumber(RandomDataUtils.generateCASNumber());
+        femaNumber = new FemaNumber("");
+        flNumber = new FlNumber("");
+        ecNumber = new EcNumber("");
+        recipeQuantity = new RecipeQuantity("");
+
+        functions.add(new Function(RandomDataUtils.getRandomNumberBetween(1, 20)));
+        functions.add(new Function(RandomDataUtils.getRandomNumberBetween(1, 20)));
+
+        toxicityStatus = new ToxicityStatus("");
+        reachRegistration = new ReachRegistration("");
+        clpWhetherClassification = new ClpWhetherClassification("");
+
+        toxicologicalDetails = new ToxicologicalDetails("");
     }
 
-    public Ingredient(String ingredient){
-        this.ingredientName = ingredient;
-        createDefault();
+    public void setToxicologyStatus(ToxicityStatus toxicityStatus) {
+        this.toxicityStatus = toxicityStatus;
     }
 
-    private void createDefault() {
-        toxicity = "3";
-        nonVapourisedStatus = "3";
-        casExists = false;
-        cASNumber = "10" + (int) RandomDataUtils.getRandomDigits(7);
-        FEMA = "FEMA" + (int) RandomDataUtils.getRandomDigits(7);
-        additive = "Vitamin D1";
-        fLNumber = "FL" + (int) RandomDataUtils.getRandomDigits(7);
-        eCNumber = RandomDataUtils.getECID("ECNUM");
+    public void setToxicologyCardioPulmonary(ToxCardioPulmonary toxCardioPulmonary, String addReport) {
+        this.toxicologicalDetails.setToxCardioPulmonary(toxCardioPulmonary);
+        if(addReport!=null && addReport.equals("true"))
+            toxicologicalDetails.setToxCardioPulmonaryFile();
+    }
+
+    public void setToxicologyCmr(ToxCmr toxCmr, String addReport) {
+        this.toxicologicalDetails.setToxCmr(toxCmr);
+        if(addReport!=null && addReport.equals("true"))
+            toxicologicalDetails.setToxCmrFile();
+    }
+
+    public void setToxicologyOther(ToxOther toxOther, String addReport) {
+        this.toxicologicalDetails.setToxOther(toxOther);
+        if(addReport!=null && addReport.equals("true"))
+            toxicologicalDetails.setToxOtherFile();
     }
 }

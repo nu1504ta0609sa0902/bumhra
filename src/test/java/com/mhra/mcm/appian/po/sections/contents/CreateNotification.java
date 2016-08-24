@@ -1,6 +1,8 @@
 package com.mhra.mcm.appian.po.sections.contents;
 
 import com.mhra.mcm.appian.domain.webPagePojo.sub.*;
+import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
+import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -142,6 +144,20 @@ public class CreateNotification extends _Page {
         PageFactory.initElements(driver, this);
     }
 
+    public ActionsPage createRandomXMLNotification(EcigProductSubmission notification) {
+        WaitUtils.waitForElementToBeClickable(driver, ecId, 10);
+
+        //Upload generated XML notification
+        String created = NotificationUtils.createXmlNotificationData(notification);
+
+        if(created!=null){
+            //Write once available
+        }
+
+        //Now submit the notification and keep track of ecID
+        PageUtils.doubleClick(driver, submitBtn);
+        return new ActionsPage(driver);
+    }
 
     public ActionsPage createRandomNotification(Notification notification) {
         WaitUtils.waitForElementToBeClickable(driver, ecId, 10);
