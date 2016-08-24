@@ -40,8 +40,8 @@ public class Emission {
         attachments.add(new Attachment(""));
     }
 
-    public Emission(String emission1Quantity, String emission1Unit, String emission1Name, String addAttachment) {
-        casNumber = new CasNumber(RandomDataUtils.generateCASNumber());
+    public Emission(String casNumberGenerated, String emission1Quantity, String emission1Unit, String emission1Name, String addAttachment) {
+        casNumber = new CasNumber(casNumberGenerated);
         quantity = new Quantity(emission1Quantity);
         unit = new Unit(emission1Unit);
         emissionName = new EmissionName(emission1Name);
@@ -50,4 +50,5 @@ public class Emission {
             attachments.add(new Attachment("41da3cd9-5220-4b26-830c-d6fc991407b5"));
         }
     }
+
 }

@@ -66,6 +66,25 @@ public class Ingredient {
         toxicologicalDetails = new ToxicologicalDetails("");
     }
 
+    public Ingredient(String name, String casNumberGenerated) {
+        ingredientName = new IngredientName(name);
+        casNumberExists = new CasNumberExists("false");
+        ingredientCasNumber = new IngredientCasNumber(casNumberGenerated);
+        femaNumber = new FemaNumber("");
+        flNumber = new FlNumber("");
+        ecNumber = new EcNumber("");
+        recipeQuantity = new RecipeQuantity("");
+
+        functions.add(new Function(RandomDataUtils.getRandomNumberBetween(1, 20)));
+        functions.add(new Function(RandomDataUtils.getRandomNumberBetween(1, 20)));
+
+        toxicityStatus = new ToxicityStatus("");
+        reachRegistration = new ReachRegistration("");
+        clpWhetherClassification = new ClpWhetherClassification("");
+
+        toxicologicalDetails = new ToxicologicalDetails("");
+    }
+
     public void setToxicologyStatus(ToxicityStatus toxicityStatus) {
         this.toxicityStatus = toxicityStatus;
     }
@@ -73,18 +92,18 @@ public class Ingredient {
     public void setToxicologyCardioPulmonary(ToxCardioPulmonary toxCardioPulmonary, String addReport) {
         this.toxicologicalDetails.setToxCardioPulmonary(toxCardioPulmonary);
         if(addReport!=null && addReport.equals("true"))
-            toxicologicalDetails.setToxCardioPulmonaryFile();
+            this.toxicologicalDetails.setToxCardioPulmonaryFile();
     }
 
     public void setToxicologyCmr(ToxCmr toxCmr, String addReport) {
         this.toxicologicalDetails.setToxCmr(toxCmr);
         if(addReport!=null && addReport.equals("true"))
-            toxicologicalDetails.setToxCmrFile();
+            this.toxicologicalDetails.setToxCmrFile();
     }
 
     public void setToxicologyOther(ToxOther toxOther, String addReport) {
         this.toxicologicalDetails.setToxOther(toxOther);
         if(addReport!=null && addReport.equals("true"))
-            toxicologicalDetails.setToxOtherFile();
+            this.toxicologicalDetails.setToxOtherFile();
     }
 }

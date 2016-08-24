@@ -79,7 +79,7 @@ public class Product {
         manufacturers.add(new Manufacturer("Test", "151 Buckingham Palace Road, London, SW1V", "GB", "44(0)20-31787094", "mhra.uat@gmail.com"));
     }
 
-    public void addIngredients(String ingredient1, Map<String, String> dataValues) {
+    public void addIngredients(String ingredient1, String casNumberGenerated, Map<String, String> dataValues) {
 
         //Add toxicology data if required
         String ingredient1ToxicologyCardioPulmonary = dataValues.get("ingredient1AddToxicologyCardioPulmonary");
@@ -102,7 +102,7 @@ public class Product {
         }
 
         //Add ingredient
-        Ingredient ingredient = new Ingredient(ingredient1);
+        Ingredient ingredient = new Ingredient(ingredient1, casNumberGenerated);
         String ingredient1ToxicologyStatus = dataValues.get("ingredient1ToxicologyStatus");
         ingredient.setToxicologyStatus(new ToxicityStatus(ingredient1ToxicologyStatus));
 
@@ -179,7 +179,7 @@ public class Product {
         clpClassification = new ClpClassification("None");
     }
 
-    public void addEmission(String emission1, Map<String, String> dataValues) {
+    public void addEmission(String emission1, String casNumberGenerated, Map<String, String> dataValues) {
         String emission1Quantity = dataValues.get("emission1Quantity");
         String emission1Unit = dataValues.get("emission1Unit");
         String emission1Name = dataValues.get("emission1Name");
@@ -188,9 +188,15 @@ public class Product {
             emission1Quantity = RandomDataUtils.getRandomFloatNumberBetween(1, 100);
             emission1Unit = "<" + RandomDataUtils.getRandomFloatNumberBetween(1, 100) + "ug/" + RandomDataUtils.getRandomNumberBetween(50, 300) + "puffs";
             emission1Name = RandomDataUtils.getRandomNumberBetween(1, 30);
-            emissions.add(new Emission(emission1Quantity, emission1Unit, emission1Name, "true"));
+            Emission emission = new Emission(casNumberGenerated, emission1Quantity, emission1Unit, emission1Name, "true");
+            emissions.add(emission);
         }else{
-            emissions.add(new Emission(emission1Quantity, emission1Unit, emission1Name, emission1Attachement));
+            Emission emission = new Emission(casNumberGenerated, emission1Quantity, emission1Unit, emission1Name, emission1Attachement);
+            emissions.add(emission);
         }
+    }
+
+    public String getCasNumber() {
+        return RandomDataUtils.generateCASNumber();
     }
 }

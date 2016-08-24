@@ -53,7 +53,7 @@ public class RandomDataUtils {
 
     public static String getRandomTestName(String test) {
         Calendar cal = Calendar.getInstance();
-        return test + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + (cal.get(Calendar.MONTH)+1) + "_" + (int)getRandomDigits(5);
+        return test + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + (cal.get(Calendar.MONTH)+1) + "_" + getRandomNumberBetween(100, 1000000);
     }
 
     public static String getRandomNumberBetween(int min, int max) {

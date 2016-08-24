@@ -129,6 +129,7 @@ public class NotificationUtils {
 
                 //Product: Emissions,Ingredient,Presentations,Design
                 Product product = notification.getProduct();
+                String casNumber = product.getCasNumber();
                 product.evaluate(notification.getEcIDNumber(), dataValues);
 
                 if(manufacturer1!=null && !manufacturer1.equals("none")){
@@ -137,14 +138,14 @@ public class NotificationUtils {
                 if(presentation1!=null && !presentation1.equals("none")){
                     product.addPresentation(presentation1, dataValues);
                 }
+                if(emission1!=null && !emission1.equals("none")){
+                    product.addEmission(emission1, casNumber, dataValues);
+                }
                 if(ingredient1!=null && !ingredient1.equals("none")){
-                    product.addIngredients(ingredient1, dataValues);
+                    product.addIngredients(ingredient1, casNumber, dataValues);
                 }
                 if(design1!=null && !design1.equals("none")){
                     product.addDesign(design1, dataValues);
-                }
-                if(emission1!=null && !emission1.equals("none")){
-                    product.addEmission(emission1, dataValues);
                 }
             }
         }
