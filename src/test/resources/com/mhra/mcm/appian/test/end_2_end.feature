@@ -81,18 +81,18 @@ Feature: As a user I should be able to do an end to end invoice processing of no
       | volume                                        | 10              |
       #Product ingredient
       | ingredient1                                   | random          |
-      | ingredient2                                   | random          |
-      | ingredient3                                   | random          |
+      #| ingredient2                                   | random          |
+      #| ingredient3                                   | random          |
       | ingredient1ToxicologyStatus                   | 1               |
       #Producct Emission
       | emission1                                     | random          |
-      | emission2                                     | random          |
-      | emission3                                     | random          |
+      #| emission2                                     | random          |
+      #| emission3                                     | random          |
       #Product Manufacturer
-      #| manufacturer1                                 | random          |
+      | manufacturer1                                 | random          |
       #Product Presentation
-      #| presentation1                                 | random          |
+      | presentation1                                 | random          |
       #Product Design
-      #| design1                                       | random          |
+      | design1                                       | random          |
 
 

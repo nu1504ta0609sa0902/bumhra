@@ -1,17 +1,9 @@
 package com.mhra.mcm.appian.utils.helpers.others;
 
-import com.mhra.mcm.appian.utils.helpers.FileUtils;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
@@ -26,14 +18,12 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.*;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
-public class FileReplace {
+public class AnonymiseXMLDataUtility {
 
 //    ArrayList<String> lines = new ArrayList<String>();
 //    String line = null;
@@ -102,29 +92,28 @@ public class FileReplace {
 
                 for (int i = 0; i < list.getLength(); i++) {
 
-//                    Node node = list.item(i);
-//                    boolean contains = ignoreTagList.contains(node.getNodeName());
-//                    if(!contains) {
-//                        //String textContent = node.getTextContent();
-//                        NodeList children = node.getChildNodes();
-//                        if (children.getLength() > 1) {
-//                            for (int x = 0; x < children.getLength(); x++) {
-//                                Node child = children.item(x);
-//                                if (child.getNodeType() == Node.ELEMENT_NODE) {
-//                                    String childText = child.getTextContent();
-//                                    child.setTextContent(replaceWith);
-//                                    System.out.println(child.getNodeName() + " " + childText);
-//                                }
-//                            }
-//                        } else {
-//                            //System.out.println("No children");
-//                            node.setTextContent(replaceWith);
-//                        }
-//                    }
-
-
                     Node node = list.item(i);
-                    node.setTextContent("CONFIDENTIAL_DATA");
+                    boolean contains = ignoreTagList.contains(node.getNodeName());
+                    if(!contains) {
+                        NodeList children = node.getChildNodes();
+                        if (children.getLength() > 1) {
+                            for (int x = 0; x < children.getLength(); x++) {
+                                Node child = children.item(x);
+                                if (child.getNodeType() == Node.ELEMENT_NODE) {
+                                    String childText = child.getTextContent();
+                                    child.setTextContent(replaceWith);
+                                    //System.out.println(child.getNodeName() + " " + childText);
+                                }
+                            }
+                        } else {
+                            //System.out.println("No children");
+                            node.setTextContent(replaceWith);
+                        }
+                    }
+
+
+//                    Node node = list.item(i);
+//                    node.setTextContent("CONFIDENTIAL_DATA");
 
 
                 }
@@ -141,7 +130,7 @@ public class FileReplace {
                 e.printStackTrace();
             }
 
-            System.out.println("Done");
+            System.out.println("Done\n");
 
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
@@ -172,7 +161,7 @@ public class FileReplace {
 
         String[] listOfXmlFiles = location.list();
 
-        FileReplace fr = new FileReplace();
+        AnonymiseXMLDataUtility fr = new AnonymiseXMLDataUtility();
         for (String fileName : listOfXmlFiles) {
             try {
                 String original = locationInputFullPath + "\\" + fileName;
