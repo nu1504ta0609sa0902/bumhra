@@ -7,6 +7,7 @@ import com.mhra.mcm.appian.domain.xmlPojo.sub.product.ingredient.toxicology.ToxE
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.ingredient.toxicology.ToxOther;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ import java.util.List;
  *
  */
 public class Ingredient {
+
+    //@XmlAttribute
+    private boolean confidential;
 
     @XmlElement(name = "Name")
     private IngredientName ingredientName;
@@ -48,6 +52,7 @@ public class Ingredient {
 
 
     public Ingredient(String name) {
+        confidential = true;
         ingredientName = new IngredientName(name);
         casNumberExists = new CasNumberExists("");
         ingredientCasNumber = new IngredientCasNumber(RandomDataUtils.generateCASNumber());
@@ -67,6 +72,7 @@ public class Ingredient {
     }
 
     public Ingredient(String name, String casNumberGenerated) {
+        confidential = true;
         ingredientName = new IngredientName(name);
         casNumberExists = new CasNumberExists("false");
         ingredientCasNumber = new IngredientCasNumber(casNumberGenerated);
