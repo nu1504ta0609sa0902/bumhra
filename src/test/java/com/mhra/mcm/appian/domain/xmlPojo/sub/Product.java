@@ -103,7 +103,7 @@ public class Product {
 
         //Add ingredient
         Ingredient ingredient = new Ingredient(ingredient1, casNumberGenerated, doIngredient, doToxicologyDetails);
-        String ingredient1ToxicologyStatus = dataValues.get("ingredient1ToxicologyStatus");
+        String ingredient1ToxicologyStatus = doIngredient.toxicityStatus;
         ingredient.setToxicologyStatus(new ToxicityStatus(ingredient1ToxicologyStatus));
 
         //Only add CardioPulmonary report if its true

@@ -111,14 +111,14 @@ public class NotificationUtils {
 
         for(int i = 1; i <= 3; i++){
             if(dataValues!=null){
+                String submitter1 = dataValues.get("submitter"+i);
+                String product1 = dataValues.get("product"+i);
+                String ingredient1 = dataValues.get("ingredient"+i);
+                String toxicology1 = dataValues.get("toxicology"+i);
                 String manufacturer1 = dataValues.get("manufacturer"+i);
                 String presentation1 = dataValues.get("presentation"+i);
                 String design1 = dataValues.get("design"+i);
-                String submitter1 = dataValues.get("submitter"+i);
-                String ingredient1 = dataValues.get("ingredient"+i);
-                String toxicology1 = dataValues.get("toxicology"+i);
                 String emission1 = dataValues.get("emission"+i);
-                String product1 = dataValues.get("product"+i);
 
                 //Set submission type
                 String submissionType = dataValues.get("submissionType");
