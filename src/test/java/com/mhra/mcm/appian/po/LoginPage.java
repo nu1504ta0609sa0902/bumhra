@@ -72,6 +72,7 @@ public class LoginPage extends _Page {
 
     private LoginPage logoutIfLoggedIn() {
         try {
+            WaitUtils.waitForElementToBeClickable(driver,settings, 10);
             if (settings.isDisplayed()) {
                 settings.click();
                 driver.findElement(By.linkText("Sign Out")).click();
