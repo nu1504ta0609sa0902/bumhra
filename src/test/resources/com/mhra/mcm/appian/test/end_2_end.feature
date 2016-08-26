@@ -102,16 +102,11 @@ Feature: As a user I should be able to do an end to end invoice processing of no
     Given I create new xml notification with following data
       #Submitter : random, usedata or none
 #      | submitter1                                    | random         |
-      | submitter1                                    | valid.submitter.2         |
+      | submitter1                                    | valid.submitter.1         |
 #      | submitter1                                    | invalid.submitter.1         |
       #Product
-#      | product1                                     | random          |
       | product1                                     | valid.product.1          |
 #      | product1                                     | product.invalid.1          |
-#      | productId                                     | random          |
-#      | productType                                   | 5               |
-#      | weight                                        | 10              |
-#      | volume                                        | 10              |
       #Product ingredient
       | ingredient1                                   | valid.ingredient.1        |
       | toxicology1                                   | valid.toxicology.1        |
