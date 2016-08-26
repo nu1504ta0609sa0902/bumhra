@@ -22,50 +22,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
+/**
+ * Help with Anonymizing XML data
+ */
 public class AnonymiseXMLDataUtility {
-
-//    ArrayList<String> lines = new ArrayList<String>();
-//    String line = null;
-//
-//    public void doIt() {
-//
-//        String tmp = FileUtils.getFileFullPath("tmp", "test.xml");
-//        File f1=null;
-//        FileReader fr=null;
-//        BufferedReader br=null;
-//        FileWriter fw=null;
-//        BufferedWriter out=null;
-//        try {
-//            f1 = new File(tmp);
-//            fr = new FileReader(f1);
-//            br = new BufferedReader(fr);
-//            while ((line = br.readLine()) != null) {
-//                lines.add(line);
-//            }
-//
-//            fw = new FileWriter(f1);
-//            out = new BufferedWriter(fw);
-//            for (String s : lines)
-//                out.write(s);
-//            out.flush();
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        } finally {
-//            try{
-//                fr.close();
-//                br.close();
-//                out.close();
-//            }catch(IOException ioe)
-//
-//            {
-//                ioe.printStackTrace();
-//            }
-//        }
-//
-//    }
-//
 
     public static void XMLReplaceTextWith(String original, String created, String searchForTag, String replaceWith, List<String> ignoreTagList) {
         try {
@@ -93,15 +53,20 @@ public class AnonymiseXMLDataUtility {
                 for (int i = 0; i < list.getLength(); i++) {
 
                     Node node = list.item(i);
-                    boolean contains = ignoreTagList.contains(node.getNodeName());
+                    String parentName = node.getNodeName();
+                    boolean contains = ignoreTagList.contains(parentName);
                     if(!contains) {
                         NodeList children = node.getChildNodes();
                         if (children.getLength() > 1) {
                             for (int x = 0; x < children.getLength(); x++) {
                                 Node child = children.item(x);
                                 if (child.getNodeType() == Node.ELEMENT_NODE) {
-                                    String childText = child.getTextContent();
-                                    child.setTextContent(replaceWith);
+                                    String childName = child.getNodeName();
+                                    contains = ignoreTagList.contains(childName);
+                                    if(!contains) {
+                                        String childText = child.getTextContent();
+                                        child.setTextContent(replaceWith);
+                                    }
                                     //System.out.println(child.getNodeName() + " " + childText);
                                 }
                             }
@@ -141,6 +106,18 @@ public class AnonymiseXMLDataUtility {
         }
     }
 
+//    private static boolean itsInTheSpecialList(String parentName, String childName) {
+//        boolean isInSpecialList = false;
+//        if(parentName.equals("Ingredient"))
+//            isInSpecialList = true;
+//        if(parentName.equals("Manufacturer") && childName.equals("Name"))
+//            isInSpecialList = true;
+//        if(parentName.equals("Manufacturer") && childName.equals("Country"))
+//            isInSpecialList = true;
+//
+//        return isInSpecialList;
+//    }
+
     public static boolean isNumeric(String str) {
         for (char c : str.toCharArray()) {
             if (!Character.isDigit(c)) return false;
@@ -149,8 +126,15 @@ public class AnonymiseXMLDataUtility {
     }
 
     public static void main(String args[]) {
+        String os = System.getProperty("os.name");
         String xmlFolderLocation = "C:\\Selenium\\xmlData\\originalFiles";
         File locationOutput = new File("C:\\Selenium\\xmlData\\AnonymisedFiles" + new Date().toString().substring(0, 16).replace(":", "").replace(" ", "").trim());
+
+        if(os.toLowerCase().contains("mac")){
+            xmlFolderLocation = "/Users/tayyibah/Downloads/xml/originalFiles";
+            locationOutput = new File("/Users/tayyibah/Downloads/xml/AnonymisedFiles" + new Date().toString().substring(0, 16).replace(":", "").replace(" ", "").trim());
+        }
+
         locationOutput.mkdir();
         File location = new File(xmlFolderLocation);
         String locationInputFullPath = location.getAbsolutePath();
@@ -164,8 +148,8 @@ public class AnonymiseXMLDataUtility {
         AnonymiseXMLDataUtility fr = new AnonymiseXMLDataUtility();
         for (String fileName : listOfXmlFiles) {
             try {
-                String original = locationInputFullPath + "\\" + fileName;
-                String created = locationOutputFullPath + "\\" + fileName;
+                String original = locationInputFullPath + File.separator + fileName;
+                String created = locationOutputFullPath + File.separator + fileName;
 
                 File isFile = new File(original);
                 if(isFile.isFile())
@@ -177,11 +161,39 @@ public class AnonymiseXMLDataUtility {
 
     }
 
+    /**
+     * This list of items received from Chris Dale
+     * @return
+     */
     private static List<String> getListOfIgnoreTags() {
+
+        //Beryl has highlighted in the list appended below, those XML data fields which will never be Confidential
         List<String> listOfIgnoreTags = new ArrayList<>();
-        //listOfIgnoreTags.add("Submitter");
-        //listOfIgnoreTags.add("Parent");
-        //listOfIgnoreTags.add("LiquidVolumeCapacity");
+        listOfIgnoreTags.add("ProductID");
+        listOfIgnoreTags.add("SubmitterType");
+        listOfIgnoreTags.add("ProductType");
+
+        listOfIgnoreTags.add("Volume");                 //not tested
+        listOfIgnoreTags.add("BrandName");
+
+        listOfIgnoreTags.add("Description");
+        listOfIgnoreTags.add("LiquidVolumeCapacity");
+        listOfIgnoreTags.add("NicotineConcentration");
+        listOfIgnoreTags.add("ProductionConformity");
+        listOfIgnoreTags.add("QualitySafety");
+        listOfIgnoreTags.add("ChildTamperProof");
+        listOfIgnoreTags.add("HighPurity");
+        listOfIgnoreTags.add("NonRisk");
+        listOfIgnoreTags.add("ConsistentDosing");
+        listOfIgnoreTags.add("LeafletFile");
+
+        //Company_Name
+        //Company_Country
+        //Ingredient_Name – unless Ingredient_Recipe_Quantity <0.1%
+        listOfIgnoreTags.add("Name");
+        listOfIgnoreTags.add("Country");
+
+
         return listOfIgnoreTags;
     }
 }
