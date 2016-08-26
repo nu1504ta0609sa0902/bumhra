@@ -103,7 +103,6 @@ Feature: As a user I should be able to do an end to end invoice processing of no
       #Submitter : random, usedata or none
 #      | submitter1                                    | random         |
       | submitter1                                    | valid.submitter.1         |
-#      | submitter1                                    | invalid.submitter.1         |
       #Product
       | product1                                     | valid.product.1          |
 #      | product1                                     | product.invalid.1          |

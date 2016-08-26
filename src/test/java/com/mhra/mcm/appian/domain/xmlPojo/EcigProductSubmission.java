@@ -221,7 +221,7 @@ public class EcigProductSubmission {
                 if(ingredient1!=null && !ingredient1.equals("none")){
                     DO_Ingredient doIngredient = (DO_Ingredient) mapOfExcelData.get("Ingredient").get(ingredient1);
                     DO_ToxicologyDetails doToxicologyDetails = (DO_ToxicologyDetails) mapOfExcelData.get("ToxicologicalDetails").get(toxicology1);
-                    if(doToxicologyDetails!=null)
+                    if(doToxicologyDetails!=null && doIngredient!=null)
                     product.addIngredients(ingredient1, casNumber, dataValues, doIngredient, doToxicologyDetails);
                 }
                 if(design1!=null && !design1.equals("none")){
