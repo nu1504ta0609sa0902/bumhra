@@ -14,7 +14,7 @@ public class OtherProductsExist {
     @XmlValue
     private String otherProduct;
 
-    public OtherProductsExist(boolean otherProduct){
-        this.otherProduct = ""+otherProduct;
+    public OtherProductsExist(String otherProduct){
+        this.otherProduct =  otherProduct;
     }
 }

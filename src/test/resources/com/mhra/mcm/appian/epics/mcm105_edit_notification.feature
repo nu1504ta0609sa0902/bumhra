@@ -25,3 +25,4 @@ Feature: As an IPU super user, I want the ability to edit notification
     And I have notifications
     And I make change to submitter name by appending "Test1234"
     Then I should see the submitter name containing "Test1234"
+

@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.domain.xmlPojo.sub.product.props;
 
+import com.mhra.mcm.appian.domain.excelpojo.DO_Address;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.Attachment;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.emission.CasNumber;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.emission.EmissionName;
@@ -34,14 +35,17 @@ public class Manufacturer {
     public List<ProductionSiteAddress> productionSiteAddresses = new ArrayList<>();
 
 
-    public Manufacturer(String name, String address, String country, String phoneNumber, String email){
+    public Manufacturer(String name, String address, String country, String phoneNumber, String email, DO_Address site1, DO_Address site2){
         this.name = name;
         this.address = address;
         this.country = country;
         this.phoneNumber = phoneNumber;
         this.email = email;
 
-        productionSiteAddresses.add(new ProductionSiteAddress("123 Production Address, Shenzhen, China.", "CN", "86(0)777-888441094", "mhra.uat@gmail.com"));
-        productionSiteAddresses.add(new ProductionSiteAddress("124 Production Address, Shenzhen, China.", "CN", "86(0)777-888441095", "mhra.uat@gmail.com"));
+        if(site1!=null)
+        productionSiteAddresses.add(new ProductionSiteAddress(site1.address, site1.country, site1.phoneNumber, site1.email));
+        if(site2!=null)
+        productionSiteAddresses.add(new ProductionSiteAddress(site2.address, site2.country, site2.phoneNumber, site2.email));
     }
+
 }

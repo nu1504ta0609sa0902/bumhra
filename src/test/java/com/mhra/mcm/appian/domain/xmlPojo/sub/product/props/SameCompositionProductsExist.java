@@ -13,7 +13,7 @@ public class SameCompositionProductsExist {
     @XmlValue
     private String sameComposition;
 
-    public SameCompositionProductsExist(boolean sameComposition) {
-        this.sameComposition = ""+sameComposition;
+    public SameCompositionProductsExist(String sameComposition) {
+        this.sameComposition = sameComposition;
     }
 }

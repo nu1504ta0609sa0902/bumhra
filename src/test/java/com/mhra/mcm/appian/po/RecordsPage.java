@@ -70,7 +70,7 @@ public class RecordsPage extends _Page {
 
     public boolean isNotificationEditable() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, manageNotificationBtn, 5);
+            WaitUtils.waitForElementToBeClickable(driver, manageNotificationBtn, 7, false);
             boolean isDisplayed = manageNotificationBtn.isDisplayed();
             if (isDisplayed)
                 manageNotificationBtn.click();

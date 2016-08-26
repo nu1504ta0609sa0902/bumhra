@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.domain.xmlPojo.sub.product.props;
 
+import com.mhra.mcm.appian.domain.excelpojo.DO_Design;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.design.*;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -44,25 +45,26 @@ public class Design {
     @XmlElement(name = "CoilResistance")
     private CoilResistance coilResistance;
 
-    public Design(String desc) {
-        description = new Description(desc);
-        liquidVolumeCapacity = new LiquidVolumeCapacity("1.5");
-        nicotineConcentration = new NicotineConcentration("0");
-        voltageWattageAdjustable = new VoltageWattageAdjustable("4");
-        voltage = new Voltage("0");
-        wattage = new Wattage("0");
-        productionConformity = new ProductionConformity("true");
-        qualitySafety = new QualitySafety("true");
-        childTamperProof = new ChildTamperProof("false");
-        highPurity = new HighPurity("true");
-        nonRisk = new NonRisk("false");
-        consistentDosing = new ConsistentDosing("true");
-        coilResistance = new CoilResistance("2.8");
+    public Design(DO_Design doDesign) {
+
+        description = new Description(doDesign.description);
+        liquidVolumeCapacity = new LiquidVolumeCapacity(doDesign.liquidVolumeCapacity);
+        nicotineConcentration = new NicotineConcentration(doDesign.nicotineConcentration);
+        voltageWattageAdjustable = new VoltageWattageAdjustable(doDesign.voltageWattageAdjustable);
+        voltage = new Voltage(doDesign.voltage);
+        wattage = new Wattage(doDesign.wattage);
+        productionConformity = new ProductionConformity(doDesign.productionConformity);
+        qualitySafety = new QualitySafety(doDesign.qualitySafety);
+        childTamperProof = new ChildTamperProof(doDesign.childTemperProof);
+        highPurity = new HighPurity(doDesign.highPurity);
+        nonRisk = new NonRisk(doDesign.nonRisk);
+        consistentDosing = new ConsistentDosing(doDesign.consistentDosing);
+        coilResistance = new CoilResistance(doDesign.coilResistance);
 
         //attachment
-        nicotineDoseUptakeFile = new NicotineDoseUptakeFile("");
-        productionFile = new ProductionFile("");
-        openingRefillFile = new OpeningRefillFile("");
-        leafletFile = new LeafletFile("");
+        nicotineDoseUptakeFile = new NicotineDoseUptakeFile(doDesign.nicotineDoseUptakeFile);
+        productionFile = new ProductionFile(doDesign.productionFile);
+        openingRefillFile = new OpeningRefillFile(doDesign.openningRefillFile);
+        leafletFile = new LeafletFile(doDesign.leafletFile);
     }
 }

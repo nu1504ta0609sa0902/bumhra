@@ -2,13 +2,16 @@ package com.mhra.mcm.appian.utils.helpers.page;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
+import com.mhra.mcm.appian.domain.excelpojo.*;
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.Product;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.SubmissionType;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.Submitter;
 import com.mhra.mcm.appian.utils.helpers.FileUtils;
+import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -97,9 +100,11 @@ public class NotificationUtils {
         //Submit the form
         WebElement submit = driver.findElement(By.xpath(".//button[.='Submit']"));
         PageUtils.doubleClick(driver, submit);
+
+        WaitUtils.nativeWait(1);
     }
 
-    public static EcigProductSubmission updateDefaultXMLNotification(Map<String, String> dataValues) {
+    public static EcigProductSubmission updateDefaultXMLNotification(Map<String, String> dataValues, Map<String, Map> mapOfExcelData) {
 
 
         EcigProductSubmission notification = new EcigProductSubmission();
@@ -111,7 +116,9 @@ public class NotificationUtils {
                 String design1 = dataValues.get("design"+i);
                 String submitter1 = dataValues.get("submitter"+i);
                 String ingredient1 = dataValues.get("ingredient"+i);
+                String toxicology1 = dataValues.get("toxicology"+i);
                 String emission1 = dataValues.get("emission"+i);
+                String product1 = dataValues.get("product"+i);
 
                 //Set submission type
                 String submissionType = dataValues.get("submissionType");
@@ -123,29 +130,39 @@ public class NotificationUtils {
                 //Submitter
                 Submitter submitter = notification.getSubmitter();
                 if(submitter1!=null && !submitter1.equals("none")){
-                    submitter.addSubmitter(submitter1, dataValues);
+                    DO_Submitter doSubmitter = (DO_Submitter) mapOfExcelData.get("Submitter").get(submitter1);
+                    submitter.addSubmitter(dataValues, doSubmitter );
                 }
                 submitter.evaluate();
 
                 //Product: Emissions,Ingredient,Presentations,Design
                 Product product = notification.getProduct();
                 String casNumber = product.getCasNumber();
-                product.evaluate(notification.getEcIDNumber(), dataValues);
+                if(product1!=null && !product1.equals("none")) {
+                    DO_Product doProduct = (DO_Product) mapOfExcelData.get("Product").get(product1);
+                    product.addProductDetail(notification.getEcIDNumber(), dataValues, doProduct);
+                }
 
                 if(manufacturer1!=null && !manufacturer1.equals("none")){
-                    product.addManufacturer(manufacturer1, dataValues);
+                    product.addManufacturer(mapOfExcelData, manufacturer1);
                 }
+
                 if(presentation1!=null && !presentation1.equals("none")){
-                    product.addPresentation(presentation1, dataValues);
+                    DO_Presentation doPresentation = (DO_Presentation) mapOfExcelData.get("Presentation").get(presentation1);
+                    product.addPresentation(presentation1, dataValues, doPresentation);
                 }
                 if(emission1!=null && !emission1.equals("none")){
-                    product.addEmission(emission1, casNumber, dataValues);
+                    DO_Emission doEmission = (DO_Emission) mapOfExcelData.get("Emission").get(emission1);
+                    casNumber = product.addEmission(emission1, casNumber, dataValues, doEmission);
                 }
                 if(ingredient1!=null && !ingredient1.equals("none")){
-                    product.addIngredients(ingredient1, casNumber, dataValues);
+                    DO_Ingredient doIngredient = (DO_Ingredient) mapOfExcelData.get("Ingredient").get(ingredient1);
+                    DO_ToxicologyDetails doToxicologyDetails = (DO_ToxicologyDetails) mapOfExcelData.get("ToxicologicalDetails").get(toxicology1);
+                    product.addIngredients(ingredient1, casNumber, dataValues, doIngredient, doToxicologyDetails);
                 }
                 if(design1!=null && !design1.equals("none")){
-                    product.addDesign(design1, dataValues);
+                    DO_Design doDesign = (DO_Design) mapOfExcelData.get("Design").get(design1);
+                    product.addDesign(design1, dataValues, doDesign);
                 }
             }
         }

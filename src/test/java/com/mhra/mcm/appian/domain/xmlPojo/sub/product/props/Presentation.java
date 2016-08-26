@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.domain.xmlPojo.sub.product.props;
 
+import com.mhra.mcm.appian.domain.excelpojo.DO_Presentation;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.presentation.*;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
@@ -55,5 +56,33 @@ public class Presentation {
         productNumber = new ProductNumber(""+RandomDataUtils.getRandomDigits(6));
         packageUnits = new PackageUnits(RandomDataUtils.getRandomNumberBetween(1, 20));
         unitPacketPictureFile = new UnitPacketPictureFile("");
+    }
+
+    public Presentation(DO_Presentation doPresentation) {
+        String name = doPresentation.brandName;
+        if(name.equals("default") || name.equals("random")){
+            name = RandomDataUtils.getRandomTestName("BrandName");
+        }
+
+        String ldate = doPresentation.launchDate;
+        if(ldate.equals("default") || ldate.equals("random")){
+            ldate = RandomDataUtils.getDateInFutureMonthsUS(6);
+        }
+
+        String pNumber = doPresentation.productNumber;
+        if(pNumber.equals("default") || pNumber.equals("random")){
+            pNumber = ""+(int)RandomDataUtils.getRandomDigits(6);
+        }
+
+        nationalMarket = new NationalMarket(doPresentation.nationalMarket);
+        brandName = new BrandName(name);
+        brandSubtypeNameExists = new BrandSubtypeNameExists(doPresentation.brandSubtypeNameExists);
+        brandSubtypeName = new BrandSubtypeName(doPresentation.brandSubtypeName);
+        launchDate = new LaunchDate(ldate);
+        withdrawalIndication = new WithdrawalIndication(doPresentation.withdrawalIndication);
+        productNumberType = new ProductNumberType(doPresentation.productNumberType);
+        productNumber = new ProductNumber(pNumber);
+        packageUnits = new PackageUnits(doPresentation.packageUnits);
+        unitPacketPictureFile = new UnitPacketPictureFile(doPresentation.unitPacketPictureFile);
     }
 }

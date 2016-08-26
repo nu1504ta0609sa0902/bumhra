@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.domain.xmlPojo.sub;
 
+import com.mhra.mcm.appian.domain.excelpojo.DO_Submitter;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.submitter.HasAffiliate;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.submitter.HasEnterer;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.submitter.Parent;
@@ -83,31 +84,48 @@ public class Submitter {
             parent = new Parent();
     }
 
-    public void addSubmitter(String submitter1, Map<String, String> dataValues) {
+    public void addSubmitter(Map<String, String> dataValues, DO_Submitter doSubmitter) {
 
-        String submitterType = dataValues.get("submitterType");
-        if(submitter1.equals("random") || submitter1.equals("default")){
-            this.hasEnterer = RandomDataUtils.getRandomBooleanValue();
-            this.hasAffiliate = RandomDataUtils.getRandomBooleanValue();
-            this.hasParent = RandomDataUtils.getRandomBooleanValue();
-        }else {
+        String submitterType = doSubmitter.submitterType;
+        String hasEnterer = doSubmitter.hasEnterer;
+        String hasAffiliate = doSubmitter.hasAffiliate;
+        String hasParent = doSubmitter.hasParent;
 
-            String hasEnterer = dataValues.get("hasEnterer");
-            String hasAffiliate = dataValues.get("hasAffiliate");
-            String hasParent = dataValues.get("hasParent");
-
-            if (submitterType != null) {
-                this.submitterType = submitterType;
-            }
-            if (hasEnterer != null) {
-                this.hasEnterer = Boolean.valueOf(hasEnterer);
-            }
-            if (hasAffiliate != null) {
-                this.hasAffiliate = Boolean.valueOf(hasAffiliate);
-            }
-            if (hasParent != null) {
-                this.hasParent = Boolean.valueOf(hasParent);
-            }
+        if (submitterType != null) {
+            this.submitterType = submitterType;
         }
+        if (hasEnterer != null) {
+            this.hasEnterer = Boolean.valueOf(hasEnterer);
+        }
+        if (hasAffiliate != null) {
+            this.hasAffiliate = Boolean.valueOf(hasAffiliate);
+        }
+        if (hasParent != null) {
+            this.hasParent = Boolean.valueOf(hasParent);
+        }
+
+//        if(submitter1.equals("random") || submitter1.equals("default")){
+//            this.hasEnterer = RandomDataUtils.getRandomBooleanValue();
+//            this.hasAffiliate = RandomDataUtils.getRandomBooleanValue();
+//            this.hasParent = RandomDataUtils.getRandomBooleanValue();
+//        }else {
+//
+//            String hasEnterer = dataValues.get("hasEnterer");
+//            String hasAffiliate = dataValues.get("hasAffiliate");
+//            String hasParent = dataValues.get("hasParent");
+//
+//            if (submitterType != null) {
+//                this.submitterType = submitterType;
+//            }
+//            if (hasEnterer != null) {
+//                this.hasEnterer = Boolean.valueOf(hasEnterer);
+//            }
+//            if (hasAffiliate != null) {
+//                this.hasAffiliate = Boolean.valueOf(hasAffiliate);
+//            }
+//            if (hasParent != null) {
+//                this.hasParent = Boolean.valueOf(hasParent);
+//            }
+//        }
     }
 }

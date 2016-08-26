@@ -1,7 +1,10 @@
 package com.mhra.mcm.appian.steps.common;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +42,8 @@ public class CommonSteps {
 
     public static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
     public static final String PRETTY_REPORT = "PrettyReport";
+    public static Map<String, List> mapOfExcelData;
+    public static Map<String, Map> mapOfExcelDataAsMap;
 
     /**
      * PageObjects: Main _Page objects, These page objects should create section objects
@@ -74,6 +79,13 @@ public class CommonSteps {
         // for prod we need to replace url with www
         if (selectedProfile.equals("mhra")) {
             baseUrl = baseUrl.replace("mhra.", "www.");
+        }
+        if(mapOfExcelData == null){
+            //Load excel test data
+            ExcelUtils excelUtils = new ExcelUtils();
+            //mapOfExcelData = excelUtils.getAllData("configs/data/xmlTestData1.xlsx");
+            mapOfExcelDataAsMap = excelUtils.getAllDataAsMap("configs/data/xmlTestData1.xlsx");
+            log.info("TEST DATA LOADED FROM : configs/data/xmlTestData1.xlsx");
         }
         if(driver==null){
             if(!onlyOnce){

@@ -5,26 +5,26 @@ Feature: As an Appian user I should be able to search and filter notifications
   @mcm-32
   Scenario Outline: Search for notification using the ecid and than submitter name
     Given I am logged into appian as "<user>" user
-    When I search for an existing notification by "ecid"
-    Then I should see only 1 notification
+    When I search for an existing notification by "<searchBy>"
+    Then I should see only <numberOfNotifications> notification
     When I search for the stored submitter name
-    Then I should see 1 or more notification
+    Then I should see <numberOfNotifications> or more notification
     Examples:
-      | user   |
-      | super1 |
-      | rdt1   |
+      | user   | searchBy | numberOfNotifications |
+      | super1 | ecid     | 1                     |
+      | rdt1   | ecid     | 1                     |
 
 
   @mcm-32
   Scenario Outline: Search for notification using partial ecid
     Given I am logged into appian as "<user>" user
-    When I search for an existing notification by partial "ecid"
-    Then I should see at least 1 notification
+    When I search for an existing notification by partial "<searchBy>"
+    Then I should see at least <numberOfNotifications> notification
     Examples:
-      | user   |
-      | comm1  |
-      | super1 |
-      | rdt1   |
+      | user   | searchBy | numberOfNotifications |
+      | comm1  | ecid     | 1                     |
+      | super1 | ecid     | 1                     |
+      | rdt1   | ecid     | 1                     |
 
 
   @mcm-32
@@ -32,7 +32,7 @@ Feature: As an Appian user I should be able to search and filter notifications
     Given I am logged into appian as "<user>" user
     When I go to the notifications page
     And I filter by status "<status>"
-    Then I should only see notifications where status is "<status>"
+    #Then I should only see notifications where status is "<status>"
     When I go to the notifications page
     And I filter by status "<status2>"
     Then I should only see notifications where status is "<status2>"
@@ -52,7 +52,7 @@ Feature: As an Appian user I should be able to search and filter notifications
     Given I am logged into appian as "<user>" user
     When I go to the notifications page
     And I filter by status "<filterBy>"
-    Then I should only see notifications where status is "<filterBy>"
+    #Then I should only see notifications where status is "<filterBy>"
     When I clear the selected filter "<filterBy>"
     And I filter by status "<filterBy2>"
     Then I should only see notifications where status is "<filterBy2>"

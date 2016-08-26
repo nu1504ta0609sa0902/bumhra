@@ -26,6 +26,7 @@ public class TasksPageSteps extends CommonSteps {
         Notification data = (Notification) scenarioSession.getData(SessionKey.storedNotification);
         String ecId = data.ecIDNumber;
         String submitterName = data.getSubmitter().name;
+        log.info("Expected tasks for submitter : " + submitterName);
 
         //Verify new task generated
         tasksPage = mainNavigationBar.clickTasks();
