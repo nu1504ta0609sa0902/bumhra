@@ -38,7 +38,6 @@ public class DO_Ingredient {
             toxicityStatus = data[8];
             reachRegistration = data[9];
             clpWhetherClassification = data[10];
-            System.out.println();
 
         }
     }

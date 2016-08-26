@@ -51,7 +51,6 @@ public class DO_Design {
             leafletFile = data[15];
             coilResistance = data[16];
             description = data[17];
-            System.out.println();
         }
     }
 

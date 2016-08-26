@@ -25,7 +25,6 @@ public class DO_Submitter {
             hasEnterer = data[2];
             hasParent = data[3];
             hasAffiliate = data[4];
-            System.out.println("");
         }
     }
 

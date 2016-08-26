@@ -30,7 +30,6 @@ public class DO_Address {
             country = data[3];
             phoneNumber = data[4];
             email = data[5];
-            System.out.println();
         }
     }
 

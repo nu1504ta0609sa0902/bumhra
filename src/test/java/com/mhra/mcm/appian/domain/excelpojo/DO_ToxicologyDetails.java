@@ -32,7 +32,6 @@ public class DO_ToxicologyDetails {
             toxAdditive = data[5];
             toxOther = data[6];
             attachment = data[7];
-            System.out.println();
         }
     }
 

@@ -25,7 +25,6 @@ public class DO_Manufacturer {
             manufacturerAddress = data[2];
             prodcutionSiteAddress1Key = data[3];
             prodcutionSiteAddress2Key = data[4];
-            System.out.println();
         }
     }
 

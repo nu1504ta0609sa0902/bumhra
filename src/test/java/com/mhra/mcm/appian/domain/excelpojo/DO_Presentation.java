@@ -37,7 +37,6 @@ public class DO_Presentation {
             productNumber = data[8];
             packageUnits = data[9];
             unitPacketPictureFile = data[10];
-            System.out.println();
         }
     }
 

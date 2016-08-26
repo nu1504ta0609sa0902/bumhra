@@ -27,7 +27,6 @@ public class DO_Emission {
             unit = data[3];
             name = data[4];
             attachment = data[5];
-            System.out.println();
         }
     }
 

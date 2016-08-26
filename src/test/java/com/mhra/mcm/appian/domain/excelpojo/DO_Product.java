@@ -31,7 +31,6 @@ public class DO_Product {
             weight = data[5];
             volume = data[6];
             clpClassification = data[7];
-            System.out.println("");
         }
     }
 
