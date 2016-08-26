@@ -16,7 +16,7 @@ public class DO_Emission {
      * @param line
      */
     public DO_Emission(String line){
-        System.out.println(line);
+        //System.out.println(line);
         if(line!=null && !line.trim().equals("")) {
             line = line.replace("FALSE", "false");
             line = line.replace("TRUE", "true");

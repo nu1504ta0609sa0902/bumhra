@@ -15,7 +15,7 @@ public class DO_Submitter {
      * @param line
      */
     public DO_Submitter(String line){
-        System.out.println(line);
+        //System.out.println(line);
         if(line!=null && !line.trim().equals("")){
             line = line.replace("FALSE", "false");
             line = line.replace("TRUE", "true");

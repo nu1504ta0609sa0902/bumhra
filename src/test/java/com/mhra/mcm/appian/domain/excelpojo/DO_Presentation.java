@@ -21,7 +21,7 @@ public class DO_Presentation {
      * @param line
      */
     public DO_Presentation(String line){
-        System.out.println(line);
+        //System.out.println(line);
         if(line!=null && !line.trim().equals("")) {
             line = line.replace("FALSE", "false");
             line = line.replace("TRUE", "true");
