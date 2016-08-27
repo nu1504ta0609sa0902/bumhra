@@ -48,7 +48,7 @@ public class Design {
 
     public Design(DO_Design doDesign) {
 
-        description = new Description(doDesign.description + RandomDataUtils.getRandomTestName("desc"));
+        description = new Description(doDesign.description);
         liquidVolumeCapacity = new LiquidVolumeCapacity(doDesign.liquidVolumeCapacity);
         nicotineConcentration = new NicotineConcentration(doDesign.nicotineConcentration);
         voltageWattageAdjustable = new VoltageWattageAdjustable(doDesign.voltageWattageAdjustable);

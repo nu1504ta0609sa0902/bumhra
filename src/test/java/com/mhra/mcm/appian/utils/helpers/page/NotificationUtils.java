@@ -111,60 +111,60 @@ public class NotificationUtils {
         EcigProductSubmission notification = new EcigProductSubmission();
 
         //for (int i = 1; i <= 3; i++) {
-            if (dataValues != null) {
-                String submitterValue = dataValues.get("submitter");
-                String productValue = dataValues.get("product");
-                String emissionValue = dataValues.get("listOfEmissions");
-                String manufacturerValue = dataValues.get("listOfManufacturers");
-                String presentationValue = dataValues.get("listOfPresentations");
-                String designValue = dataValues.get("design");
+        if (dataValues != null) {
+            String submitterValue = dataValues.get("submitter");
+            String productValue = dataValues.get("product");
+            String emissionValue = dataValues.get("listOfEmissions");
+            String manufacturerValue = dataValues.get("listOfManufacturers");
+            String presentationValue = dataValues.get("listOfPresentations");
+            String designValue = dataValues.get("design");
 
-                //Set submission type
-                String submissionType = dataValues.get("submissionType");
-                SubmissionType st = notification.getSubmissionType();
-                if (submissionType != null) {
-                    st.type = submissionType;
-                }
+            //Set submission type
+            String submissionType = dataValues.get("submissionType");
+            SubmissionType st = notification.getSubmissionType();
+            if (submissionType != null) {
+                st.type = submissionType;
+            }
 
-                //Submitter
-                Submitter submitter = notification.getSubmitter();
-                if (submitterValue != null && !submitterValue.equals("none")) {
-                    DO_Submitter doSubmitter = (DO_Submitter) mapOfExcelData.get("Submitter").get(submitterValue);
-                    submitter.addSubmitter(dataValues, doSubmitter);
-                }
-                submitter.evaluate();
+            //Submitter
+            Submitter submitter = notification.getSubmitter();
+            if (submitterValue != null && !submitterValue.equals("none")) {
+                DO_Submitter doSubmitter = (DO_Submitter) mapOfExcelData.get("Submitter").get(submitterValue);
+                submitter.addSubmitter(dataValues, doSubmitter);
+            }
+            submitter.evaluate();
 
-                //Product: Emissions,Ingredient,Presentations,Design,Manufacturer,Toxicology
-                Product product = notification.getProduct();
-                DO_Product doProduct = null;
-                String casNumber = product.getCasNumber();
-                if (productValue != null && !productValue.equals("none")) {
-                    doProduct = (DO_Product) mapOfExcelData.get("Product").get(productValue);
-                    if (doProduct != null)
-                        product.addProductDetail(notification.getEcIDNumber(), dataValues, doProduct);
-                }
+            //Product: Emissions,Ingredient,Presentations,Design,Manufacturer,Toxicology
+            Product product = notification.getProduct();
+            DO_Product doProduct = null;
+            String casNumber = product.getCasNumber();
+            if (productValue != null && !productValue.equals("none")) {
+                doProduct = (DO_Product) mapOfExcelData.get("Product").get(productValue);
+                if (doProduct != null)
+                    product.addProductDetail(notification.getEcIDNumber(), dataValues, doProduct);
+            }
 
-                //Add only if there is a product
-                if (doProduct != null) {
+            //Add only if there is a product
+            if (doProduct != null) {
 
-                    String ingredientValues = dataValues.get("ingredientAndToxicologyReportPairs");
-                    String[] dataPair = ingredientValues.split(":");
-                    for(String pair: dataPair){
-                        if (pair != null && !pair.equals("none")) {
+                String ingredientValues = dataValues.get("ingredientAndToxicologyReportPairs");
+                String[] dataPair = ingredientValues.split(":");
+                for (String pair : dataPair) {
+                    if (pair != null && !pair.equals("none")) {
 
-                            String[] data = pair.split(",");
-                            DO_Ingredient doIngredient = null;
-                            for (String key : data) {
-                                if (key.contains("ingredient")) {
-                                    doIngredient = (DO_Ingredient) mapOfExcelData.get("Ingredient").get(key.trim());
-                                }
-                                if (key.contains("toxicology") && doIngredient != null) {
-                                    DO_ToxicologyDetails doToxicologyDetails = (DO_ToxicologyDetails) mapOfExcelData.get("ToxicologicalDetails").get(key.trim());
-                                    product.addIngredients(pair, casNumber, dataValues, doIngredient, doToxicologyDetails);
-                                }
+                        String[] data = pair.split(",");
+                        DO_Ingredient doIngredient = null;
+                        for (String key : data) {
+                            if (key.contains("ingredient")) {
+                                doIngredient = (DO_Ingredient) mapOfExcelData.get("Ingredient").get(key.trim());
+                            }
+                            if (key.contains("toxicology") && doIngredient != null) {
+                                DO_ToxicologyDetails doToxicologyDetails = (DO_ToxicologyDetails) mapOfExcelData.get("ToxicologicalDetails").get(key.trim());
+                                product.addIngredients(pair, casNumber, dataValues, doIngredient, doToxicologyDetails);
                             }
                         }
                     }
+                }
 
 //                    for (int i = 1; i <= 10; i++) {
 //                        try {
@@ -188,58 +188,58 @@ public class NotificationUtils {
 //                        }
 //                    }
 
-                    if (emissionValue != null && !emissionValue.equals("none")) {
+                if (emissionValue != null && !emissionValue.equals("none")) {
 
-                        String[] data = emissionValue.split(",");
-                        for (String key : data) {
-                            if (key.contains("emission")) {
-                                DO_Emission doEmission = (DO_Emission) mapOfExcelData.get("Emission").get(key.trim());
-                                if (doEmission != null) {
-                                    casNumber = product.addEmission(key, casNumber, dataValues, doEmission);
-                                }
-                            }
-
-                        }
-                    }
-
-                    if (manufacturerValue != null && !manufacturerValue.equals("none")) {
-                        String[] data = manufacturerValue.split(",");
-                        for (String key : data) {
-                            if (key.contains("manufacturer")) {
-                                DO_Manufacturer doManufacturer = (DO_Manufacturer) mapOfExcelData.get("Manufacturer").get(key.trim());
-                                if (doManufacturer != null) {
-                                    product.addManufacturer(mapOfExcelData, doManufacturer);
-                                }
+                    String[] data = emissionValue.split(",");
+                    for (String key : data) {
+                        if (key.contains("emission")) {
+                            DO_Emission doEmission = (DO_Emission) mapOfExcelData.get("Emission").get(key.trim());
+                            if (doEmission != null) {
+                                casNumber = product.addEmission(key, casNumber, dataValues, doEmission);
                             }
                         }
-                    }
 
-                    if (presentationValue != null && !presentationValue.equals("none")) {
-                        String[] data = presentationValue.split(",");
-                        for (String key : data) {
-                            if (key.contains("presentation")) {
-                                DO_Presentation doPresentation = (DO_Presentation) mapOfExcelData.get("Presentation").get(key.trim());
-                                if (doPresentation != null) {
-                                    product.addPresentation(key, dataValues, doPresentation);
-                                }
-                            }
-                        }
                     }
-
-                    if (designValue != null && !designValue.equals("none")) {
-                        String[] data = designValue.split(",");
-                        for (String key : data) {
-                            if (key.contains("design")) {
-                                DO_Design doDesign = (DO_Design) mapOfExcelData.get("Design").get(key.trim());
-                                if (doDesign != null) {
-                                    product.addDesign(key, dataValues, doDesign);
-                                }
-                            }
-                        }
-                    }
-
                 }
+
+                if (manufacturerValue != null && !manufacturerValue.equals("none")) {
+                    String[] data = manufacturerValue.split(",");
+                    for (String key : data) {
+                        if (key.contains("manufacturer")) {
+                            DO_Manufacturer doManufacturer = (DO_Manufacturer) mapOfExcelData.get("Manufacturer").get(key.trim());
+                            if (doManufacturer != null) {
+                                product.addManufacturer(mapOfExcelData, doManufacturer);
+                            }
+                        }
+                    }
+                }
+
+                if (presentationValue != null && !presentationValue.equals("none")) {
+                    String[] data = presentationValue.split(",");
+                    for (String key : data) {
+                        if (key.contains("presentation")) {
+                            DO_Presentation doPresentation = (DO_Presentation) mapOfExcelData.get("Presentation").get(key.trim());
+                            if (doPresentation != null) {
+                                product.addPresentation(key, dataValues, doPresentation);
+                            }
+                        }
+                    }
+                }
+
+                if (designValue != null && !designValue.equals("none")) {
+                    String[] data = designValue.split(",");
+                    for (String key : data) {
+                        if (key.contains("design")) {
+                            DO_Design doDesign = (DO_Design) mapOfExcelData.get("Design").get(key.trim());
+                            if (doDesign != null) {
+                                product.addDesign(key, dataValues, doDesign);
+                            }
+                        }
+                    }
+                }
+
             }
+        }
         //}
 
         return notification;
@@ -275,11 +275,13 @@ public class NotificationUtils {
         EcigProductSubmission notification = new EcigProductSubmission();
 
         for (int i = 1; i <= 3; i++) {
+
             if (dataValues != null) {
                 String submitter1 = dataValues.get("submitter" + i);
                 String product1 = dataValues.get("product" + i);
                 String ingredient1 = dataValues.get("ingredient" + i);
                 String toxicology1 = dataValues.get("toxicologySet" + i);
+                String ingredientAndToxicologyReports1 = dataValues.get("ingredientAndToxicologyReports" + i);
                 String manufacturer1 = dataValues.get("manufacturer" + i);
                 String presentation1 = dataValues.get("presentation" + i);
                 String design1 = dataValues.get("design");
@@ -303,9 +305,46 @@ public class NotificationUtils {
                 //Product: Emissions,Ingredient,Presentations,Design
                 Product product = notification.getProduct();
                 String casNumber = product.getCasNumber();
+                DO_Product doProduct = null;
                 if (product1 != null && !product1.equals("none")) {
-                    DO_Product doProduct = (DO_Product) mapOfExcelData.get("Product").get(product1);
+                    doProduct = (DO_Product) mapOfExcelData.get("Product").get(product1);
                     product.addProductDetail(notification.getEcIDNumber(), dataValues, doProduct);
+                }
+
+
+//                if (ingredient1 != null && !ingredient1.equals("none")) {
+//                    DO_Ingredient doIngredient = (DO_Ingredient) mapOfExcelData.get("Ingredient").get(ingredient1);
+//                    if (doIngredient != null) {
+//                        DO_ToxicologyDetails doToxicologyDetails = (DO_ToxicologyDetails) mapOfExcelData.get("ToxicologicalDetails").get(toxicology1);
+//                        product.addIngredients(ingredient1, casNumber, dataValues, doIngredient, doToxicologyDetails);
+//                    }
+//                }
+
+                if (ingredientAndToxicologyReports1 != null && !ingredientAndToxicologyReports1.equals("none")) {
+                    String[] data = ingredientAndToxicologyReports1.split(",");
+                    DO_Ingredient doIngredient = null;
+                    boolean toxReportAvailable = true;
+                    for (String key : data) {
+                        if (key.contains("ingredient")) {
+                            doIngredient = (DO_Ingredient) mapOfExcelData.get("Ingredient").get(key.trim());
+                        }
+                        if (key.contains("toxicology") && doIngredient != null) {
+                            DO_ToxicologyDetails doToxicologyDetails = (DO_ToxicologyDetails) mapOfExcelData.get("ToxicologicalDetails").get(key.trim());
+                            product.addIngredients(key, casNumber, dataValues, doIngredient, doToxicologyDetails);
+                            toxReportAvailable = true;
+                        }else{
+                            toxReportAvailable = false;
+                        }
+                    }
+
+                    if(!toxReportAvailable){
+                        product.addIngredients("", casNumber, dataValues, doIngredient, null);
+                    }
+                }
+
+                if (emission1 != null && !emission1.equals("none")) {
+                    DO_Emission doEmission = (DO_Emission) mapOfExcelData.get("Emission").get(emission1);
+                    casNumber = product.addEmission(emission1, casNumber, dataValues, doEmission);
                 }
 
                 if (manufacturer1 != null && !manufacturer1.equals("none")) {
@@ -319,19 +358,12 @@ public class NotificationUtils {
                     DO_Presentation doPresentation = (DO_Presentation) mapOfExcelData.get("Presentation").get(presentation1);
                     product.addPresentation(presentation1, dataValues, doPresentation);
                 }
-                if (emission1 != null && !emission1.equals("none")) {
-                    DO_Emission doEmission = (DO_Emission) mapOfExcelData.get("Emission").get(emission1);
-                    casNumber = product.addEmission(emission1, casNumber, dataValues, doEmission);
-                }
-                if (ingredient1 != null && !ingredient1.equals("none")) {
-                    DO_Ingredient doIngredient = (DO_Ingredient) mapOfExcelData.get("Ingredient").get(ingredient1);
-                    DO_ToxicologyDetails doToxicologyDetails = (DO_ToxicologyDetails) mapOfExcelData.get("ToxicologicalDetails").get(toxicology1);
-                    product.addIngredients(ingredient1, casNumber, dataValues, doIngredient, doToxicologyDetails);
-                }
+
                 if (design1 != null && !design1.equals("none")) {
                     DO_Design doDesign = (DO_Design) mapOfExcelData.get("Design").get(design1);
                     product.addDesign(design1, dataValues, doDesign);
                 }
+
             }
         }
 

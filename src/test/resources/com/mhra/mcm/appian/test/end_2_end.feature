@@ -72,33 +72,37 @@ Feature: As a user I should be able to do an end to end invoice processing of no
     Given I create new xml notification with following data
       #Submitter : random, usedata or none
 #      | submitter1                                    | random         |
-      | submitter1    | valid.submitter.1    |
+      | submitter1     | valid.submitter.1    |
       #Product
-      | product1      | valid.product.1      |
+      | product1       | valid.product.1      |
 #      | product1                                     | product.invalid.1          |
       #Product ingredient
-      | ingredient1   | valid.ingredient.1   |
-      | toxicologySet1   | valid.toxicology.1   |
-      | ingredient2   | valid.ingredient.2   |
-      | toxicologySet2   | valid.toxicology.2   |
+#      | ingredient1    | valid.ingredient.1   |
+#      | toxicologySet1 | valid.toxicology.1   |
+#      | ingredient2    | valid.ingredient.2   |
+#      | toxicologySet2 | valid.toxicology.2   |
+      | ingredientAndToxicologyReports1    | valid.ingredient.2,valid.toxicology.2   |
+      | ingredientAndToxicologyReports2    | valid.ingredient.1,valid.toxicology.2   |
+      | ingredientAndToxicologyReports3    | valid.ingredient.1   |
       #Producct Emission
-      | emission1     | valid.emission.1     |
-      | emission2     | valid.emission.1     |
+      | emission1      | valid.emission.1     |
+      | emission2      | valid.emission.1     |
       #Product Manufacturer
-      | manufacturer1 | valid.manufacturer.1 |
-      | manufacturer2 | valid.manufacturer.1 |
-      | manufacturer3 | valid.manufacturer.1 |
+      | manufacturer1  | valid.manufacturer.1 |
+      | manufacturer2  | valid.manufacturer.1 |
+      | manufacturer3  | valid.manufacturer.1 |
       #Product Presentation
-      | presentation1 | valid.presentation.1 |
-      | presentation2 | valid.presentation.1 |
+      | presentation1  | valid.presentation.1 |
+      | presentation2  | valid.presentation.1 |
       #Product Design
-      | design       | valid.design.1       |
+      | design         | valid.design.1       |
 
 
   Scenario: Verify xml notification generation of minimal data from excelsheet 2
     #Given I am logged into appian as "super1" user
     Given I create new xml notification with following data table
-      | submitter         | product         | ingredientAndToxicologyReportPairs                                          | listOfEmissions                   | listOfManufacturers                       | listOfPresentations                       | design         |
-      | valid.submitter.1 | valid.product.1 | valid.ingredient.1,valid.toxicology.1:valid.ingredient.1,valid.toxicology.2 | valid.emission.1,valid.emission.2 | valid.manufacturer.1,valid.manufacturer.2 | valid.presentation.1,valid.presentation.2 | valid.design.1 |
+      | submitter         | product         | ingredientAndToxicologyReportPairs                                            | listOfEmissions                   | listOfManufacturers                       | listOfPresentations                       | design         |
+      #These are keys which will load data from excel file
+      | valid.submitter.1 | valid.product.1 | valid.ingredient.1,valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 | valid.emission.1,valid.emission.2 | valid.manufacturer.1,valid.manufacturer.2 | valid.presentation.1,valid.presentation.2 | valid.design.1 |
 
 

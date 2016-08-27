@@ -18,6 +18,8 @@ import java.util.List;
  *
  */
 public class Manufacturer {
+    //@XmlAttribute
+    private boolean confidential;
 
     @XmlElement(name = "Name")
     private String name;
