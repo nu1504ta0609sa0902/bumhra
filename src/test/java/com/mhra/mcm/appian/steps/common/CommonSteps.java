@@ -84,8 +84,8 @@ public class CommonSteps {
             //Load excel test data
             ExcelUtils excelUtils = new ExcelUtils();
             //mapOfExcelData = excelUtils.getAllData("configs/data/xmlTestData1.xlsx");
-            mapOfExcelDataAsMap = excelUtils.getAllDataAsMap("configs/data/xmlTestData1.xlsx");
-            log.info("TEST DATA LOADED FROM : configs/data/xmlTestData1.xlsx");
+            mapOfExcelDataAsMap = excelUtils.getAllDataAsMap("configs/data/xmlTestData2.xlsx");
+            log.info("TEST DATA LOADED FROM : configs/data/xmlTestData2.xlsx");
         }
         if(driver==null){
             if(!onlyOnce){

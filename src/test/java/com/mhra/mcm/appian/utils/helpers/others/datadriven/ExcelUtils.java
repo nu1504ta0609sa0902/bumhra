@@ -402,6 +402,8 @@ public class ExcelUtils {
                     mapOfItems.put(key, new DO_Address(line));
                 }
                 lineCount++;
+            }catch (ArrayIndexOutOfBoundsException e){
+                //break;
             }catch (Exception e){
                 break;
             }
@@ -622,15 +624,15 @@ public class ExcelUtils {
     public Map<String, Map> getAllDataAsMap(String dataFileLocation) {
 
         Map<String, Map> mapOfExcelData = new HashMap<>();
-        Map<String, DO_Submitter> submitter = this.getMapOfSubmitters("configs/data/xmlTestData1.xlsx", "Submitter");
-        Map<String, DO_Product> product = this.getMapOfProduct("configs/data/xmlTestData1.xlsx", "Product");
-        Map<String, DO_Ingredient> ingredient = this.getMapOfIngredients("configs/data/xmlTestData1.xlsx", "Ingredient");
-        Map<String, DO_Emission> emission = this.getMapOfEmissions("configs/data/xmlTestData1.xlsx", "Emission");
-        Map<String, DO_Manufacturer> manufacturer = this.getMapOfManufacturers("configs/data/xmlTestData1.xlsx", "Manufacturer");
-        Map<String, DO_Presentation> presentation = this.getMapOfPresentations("configs/data/xmlTestData1.xlsx", "Presentation");
-        Map<String, DO_Design> design = this.getMapOfDesigns("configs/data/xmlTestData1.xlsx", "Design");
-        Map<String, DO_ToxicologyDetails> toxicologicalDetails = this.getMapOfToxicologyDetails("configs/data/xmlTestData1.xlsx", "ToxicologicalDetails");
-        Map<String, DO_Address> addresses = this.getMapOfAddress("configs/data/xmlTestData1.xlsx", "Addresses");
+        Map<String, DO_Submitter> submitter = this.getMapOfSubmitters(dataFileLocation, "Submitter");
+        Map<String, DO_Product> product = this.getMapOfProduct(dataFileLocation, "Product");
+        Map<String, DO_Ingredient> ingredient = this.getMapOfIngredients(dataFileLocation, "Ingredient");
+        Map<String, DO_Emission> emission = this.getMapOfEmissions(dataFileLocation, "Emission");
+        Map<String, DO_Manufacturer> manufacturer = this.getMapOfManufacturers(dataFileLocation, "Manufacturer");
+        Map<String, DO_Presentation> presentation = this.getMapOfPresentations(dataFileLocation, "Presentation");
+        Map<String, DO_Design> design = this.getMapOfDesigns(dataFileLocation, "Design");
+        Map<String, DO_ToxicologyDetails> toxicologicalDetails = this.getMapOfToxicologyDetails(dataFileLocation, "ToxicologicalDetails");
+        Map<String, DO_Address> addresses = this.getMapOfAddress(dataFileLocation, "Addresses");
 
         mapOfExcelData.put("Submitter", submitter);
         mapOfExcelData.put("Product", product);

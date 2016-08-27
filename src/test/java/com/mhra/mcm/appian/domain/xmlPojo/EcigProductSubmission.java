@@ -204,8 +204,10 @@ public class EcigProductSubmission {
                 }
 
                 if(manufacturer1!=null && !manufacturer1.equals("none")){
-                    if(1==2)
-                    product.addManufacturer(mapOfExcelData, manufacturer1);
+                    DO_Manufacturer doManufacturer = (DO_Manufacturer) mapOfExcelData.get("Manufacturer").get(manufacturer1);
+                    if (doManufacturer != null) {
+                        product.addManufacturer(mapOfExcelData, doManufacturer);
+                    }
                 }
 
                 if(presentation1!=null && !presentation1.equals("none")){
@@ -252,5 +254,18 @@ public class EcigProductSubmission {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public String toString() {
+        return "EcigProductSubmission{" +
+                "ecIDNumber='" + ecIDNumber + '\'' +
+                ", euId='" + euId + '\'' +
+                ", submitter=" + submitter +
+                ", submissionType=" + submissionType +
+                ", generalComment=" + generalComment +
+                ", product=" + product +
+                '}';
     }
 }

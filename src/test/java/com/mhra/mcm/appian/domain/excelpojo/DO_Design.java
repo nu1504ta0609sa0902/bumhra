@@ -61,4 +61,28 @@ public class DO_Design {
         DO_Design o = (DO_Design) obj;
         return this.key.equals(o.key);
     }
+
+    @Override
+    public String toString() {
+        return "DO_Design{" +
+                "key='" + key + '\'' +
+                ", liquidVolumeCapacity='" + liquidVolumeCapacity + '\'' +
+                ", nicotineConcentration='" + nicotineConcentration + '\'' +
+                ", voltageWattageAdjustable='" + voltageWattageAdjustable + '\'' +
+                ", voltage='" + voltage + '\'' +
+                ", wattage='" + wattage + '\'' +
+                ", nicotineDoseUptakeFile='" + nicotineDoseUptakeFile + '\'' +
+                ", productionFile='" + productionFile + '\'' +
+                ", productionConformity='" + productionConformity + '\'' +
+                ", qualitySafety='" + qualitySafety + '\'' +
+                ", openningRefillFile='" + openningRefillFile + '\'' +
+                ", childTemperProof='" + childTemperProof + '\'' +
+                ", highPurity='" + highPurity + '\'' +
+                ", nonRisk='" + nonRisk + '\'' +
+                ", consistentDosing='" + consistentDosing + '\'' +
+                ", leafletFile='" + leafletFile + '\'' +
+                ", coilResistance='" + coilResistance + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

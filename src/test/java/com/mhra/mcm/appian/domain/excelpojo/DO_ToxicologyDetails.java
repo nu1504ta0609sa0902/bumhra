@@ -42,4 +42,18 @@ public class DO_ToxicologyDetails {
         DO_ToxicologyDetails o = (DO_ToxicologyDetails) obj;
         return this.key.equals(o.key);
     }
+
+    @Override
+    public String toString() {
+        return "DO_ToxicologyDetails{" +
+                "key='" + key + '\'' +
+                ", toxicologicalDataAvailable='" + toxicologicalDataAvailable + '\'' +
+                ", toxEmision='" + toxEmision + '\'' +
+                ", toxCmr='" + toxCmr + '\'' +
+                ", toxCardioPulmonary='" + toxCardioPulmonary + '\'' +
+                ", toxAdditive='" + toxAdditive + '\'' +
+                ", toxOther='" + toxOther + '\'' +
+                ", attachment='" + attachment + '\'' +
+                '}';
+    }
 }

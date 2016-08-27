@@ -35,4 +35,15 @@ public class DO_Submitter {
         DO_Submitter o = (DO_Submitter) obj;
         return this.key.equals(o.key);
     }
+
+    @Override
+    public String toString() {
+        return "DO_Submitter{" +
+                "key='" + key + '\'' +
+                ", submitterType='" + submitterType + '\'' +
+                ", hasEnterer='" + hasEnterer + '\'' +
+                ", hasParent='" + hasParent + '\'' +
+                ", hasAffiliate='" + hasAffiliate + '\'' +
+                '}';
+    }
 }

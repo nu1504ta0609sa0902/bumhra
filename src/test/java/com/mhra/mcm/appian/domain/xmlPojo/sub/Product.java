@@ -82,11 +82,11 @@ public class Product {
     public void addIngredients(String ingredient1, String casNumberGenerated, Map<String, String> dataValues, DO_Ingredient doIngredient, DO_ToxicologyDetails doToxicologyDetails) {
 
         //Add toxicology data if required
-        String ingredient1ToxicologyCardioPulmonary = doToxicologyDetails.toxCardioPulmonary;
+        //String ingredient1ToxicologyCardioPulmonary = doToxicologyDetails.toxCardioPulmonary;
         //String ingredient1ToxicologyCardioPulmonaryReport = dataValues.get("ingredient1AddToxicologyCardioPulmonaryReport");
-        String ingredient1ToxicologyCrm = doToxicologyDetails.toxCmr;
+        //String ingredient1ToxicologyCrm = doToxicologyDetails.toxCmr;
         //String ingredient1ToxicologyCrmReport = dataValues.get("ingredient1AddToxicologyCmrReport");
-        String ingredient1ToxicologyOther = doToxicologyDetails.toxOther;
+        //String ingredient1ToxicologyOther = doToxicologyDetails.toxOther;
         //String ingredient1ToxicologyOtherReport = dataValues.get("ingredient1AddToxicologyOtherReport");
 
         //Override with default random values
@@ -106,44 +106,30 @@ public class Product {
         String ingredient1ToxicologyStatus = doIngredient.toxicityStatus;
         ingredient.setToxicologyStatus(new ToxicityStatus(ingredient1ToxicologyStatus));
 
-        //Only add CardioPulmonary report if its true
-        if (ingredient1ToxicologyCardioPulmonary != null && !ingredient1ToxicologyCardioPulmonary.equals("false"))
-            ingredient.setToxicologyCardioPulmonary(new ToxCardioPulmonary(ingredient1ToxicologyCardioPulmonary), doToxicologyDetails.toxCardioPulmonary);
+        if(doToxicologyDetails!=null) {
 
-        //Only add Cmr report if its true
-        if (ingredient1ToxicologyCrm != null && !ingredient1ToxicologyCrm.equals("false"))
-            ingredient.setToxicologyCmr(new ToxCmr(ingredient1ToxicologyCrm), doToxicologyDetails.toxCmr);
+            String ingredient1ToxicologyCardioPulmonary = doToxicologyDetails.toxCardioPulmonary;
+            String ingredient1ToxicologyCrm = doToxicologyDetails.toxCmr;
+            String ingredient1ToxicologyOther = doToxicologyDetails.toxOther;
 
-        //Only add ToxOther report if its true
-        if (ingredient1ToxicologyOther != null && !ingredient1ToxicologyOther.equals("false"))
-            ingredient.setToxicologyOther(new ToxOther(ingredient1ToxicologyOther), doToxicologyDetails.toxOther);
+            //Only add CardioPulmonary report if its true
+            if (ingredient1ToxicologyCardioPulmonary != null && !ingredient1ToxicologyCardioPulmonary.equals("false"))
+                ingredient.setToxicologyCardioPulmonary(new ToxCardioPulmonary(ingredient1ToxicologyCardioPulmonary), doToxicologyDetails.toxCardioPulmonary);
 
+
+            //Only add Cmr report if its true
+            if (ingredient1ToxicologyCrm != null && !ingredient1ToxicologyCrm.equals("false"))
+                ingredient.setToxicologyCmr(new ToxCmr(ingredient1ToxicologyCrm), doToxicologyDetails.toxCmr);
+
+            //Only add ToxOther report if its true
+            if (ingredient1ToxicologyOther != null && !ingredient1ToxicologyOther.equals("false"))
+                ingredient.setToxicologyOther(new ToxOther(ingredient1ToxicologyOther), doToxicologyDetails.toxOther);
+        }
         ingredients.add(ingredient);
     }
 
-//    public void addManufacturer(String name, DO_Address manAddress, DO_Address site1, DO_Address site2) {
-//        if(name!=null && name.equals("random")){
-//            name = RandomDataUtils.getRandomTestName("Manufacturer");
-//        }
-//
-//        String address = manAddress.address ;
-//        String country = manAddress.country;
-//        String phoneNumber = manAddress.phoneNumber;
-//        String email = manAddress.email;
-//
-////        if(manufacturer1.equals("default")  || manufacturer1.equals("random")){
-////            manufacturer1 = RandomDataUtils.getRandomTestName("Manufacturer");
-////            address = RandomDataUtils.getRandomNumberBetween(1,100) + address;
-////            phoneNumber = "44(0)20-" + RandomDataUtils.getRandomDigits(6);
-////        }
-//        manufacturers.add(new Manufacturer(name, address, country, phoneNumber, email, site1, site2));
-//    }
 
     public void addPresentation(String presentation1, Map<String, String> dataValues, DO_Presentation doPresentation) {
-//        String brandName = doPresentation.brandName;
-//        if(brandName.equals("default") || brandName.equals("random")){
-//            brandName = RandomDataUtils.getRandomTestName("BrandName");
-//        }
         presentations.add(new Presentation(doPresentation));
     }
 
@@ -216,9 +202,8 @@ public class Product {
         return RandomDataUtils.generateCASNumber();
     }
 
-    public void addManufacturer(Map<String, Map> mapOfExcelData, String key) {
+    public void addManufacturer(Map<String, Map> mapOfExcelData, DO_Manufacturer doManufacturer) {
 
-        DO_Manufacturer doManufacturer = (DO_Manufacturer) mapOfExcelData.get("Manufacturer").get(key);
         String manufacturerAddressKey = doManufacturer.manufacturerAddress;
         String prodcutionSiteAddress1Key = doManufacturer.prodcutionSiteAddress1Key;
         String prodcutionSiteAddress2Key = doManufacturer.prodcutionSiteAddress2Key;

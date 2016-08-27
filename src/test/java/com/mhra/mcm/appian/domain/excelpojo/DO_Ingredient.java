@@ -49,4 +49,21 @@ public class DO_Ingredient {
         DO_Ingredient o = (DO_Ingredient) obj;
         return this.key.equals(o.key);
     }
+
+    @Override
+    public String toString() {
+        return "DO_Ingredient{" +
+                "key='" + key + '\'' +
+                ", name='" + name + '\'' +
+                ", casNumberExists='" + casNumberExists + '\'' +
+                ", casNumber='" + casNumber + '\'' +
+                ", fINumber='" + fINumber + '\'' +
+                ", femaNumber='" + femaNumber + '\'' +
+                ", ecNumber='" + ecNumber + '\'' +
+                ", recipeQuantity='" + recipeQuantity + '\'' +
+                ", toxicityStatus='" + toxicityStatus + '\'' +
+                ", reachRegistration='" + reachRegistration + '\'' +
+                ", clpWhetherClassification='" + clpWhetherClassification + '\'' +
+                '}';
+    }
 }

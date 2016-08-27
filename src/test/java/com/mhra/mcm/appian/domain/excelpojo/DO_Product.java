@@ -41,4 +41,18 @@ public class DO_Product {
         DO_Product o = (DO_Product) obj;
         return this.key.equals(o.key);
     }
+
+    @Override
+    public String toString() {
+        return "DO_Product{" +
+                "key='" + key + '\'' +
+                ", productId='" + productId + '\'' +
+                ", otherProductExists='" + otherProductExists + '\'' +
+                ", sameCompositionProductsExists='" + sameCompositionProductsExists + '\'' +
+                ", productType='" + productType + '\'' +
+                ", weight='" + weight + '\'' +
+                ", volume='" + volume + '\'' +
+                ", clpClassification='" + clpClassification + '\'' +
+                '}';
+    }
 }

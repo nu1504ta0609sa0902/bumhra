@@ -37,4 +37,16 @@ public class DO_Emission {
         DO_Emission o = (DO_Emission) obj;
         return this.key.equals(o.key);
     }
+
+    @Override
+    public String toString() {
+        return "DO_Emission{" +
+                "key='" + key + '\'' +
+                ", casNumber='" + casNumber + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", unit='" + unit + '\'' +
+                ", name='" + name + '\'' +
+                ", attachment='" + attachment + '\'' +
+                '}';
+    }
 }

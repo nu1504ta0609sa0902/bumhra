@@ -47,4 +47,21 @@ public class DO_Presentation {
         DO_Presentation o = (DO_Presentation) obj;
         return this.key.equals(o.key);
     }
+
+    @Override
+    public String toString() {
+        return "DO_Presentation{" +
+                "key='" + key + '\'' +
+                ", nationalMarket='" + nationalMarket + '\'' +
+                ", brandName='" + brandName + '\'' +
+                ", brandSubtypeNameExists='" + brandSubtypeNameExists + '\'' +
+                ", brandSubtypeName='" + brandSubtypeName + '\'' +
+                ", launchDate='" + launchDate + '\'' +
+                ", withdrawalIndication='" + withdrawalIndication + '\'' +
+                ", productNumberType='" + productNumberType + '\'' +
+                ", productNumber='" + productNumber + '\'' +
+                ", packageUnits='" + packageUnits + '\'' +
+                ", unitPacketPictureFile='" + unitPacketPictureFile + '\'' +
+                '}';
+    }
 }

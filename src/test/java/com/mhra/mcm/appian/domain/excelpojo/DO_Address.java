@@ -44,4 +44,16 @@ public class DO_Address {
         DO_Address o = (DO_Address) obj;
         return this.key.equals(o.key);
     }
+
+    @Override
+    public String toString() {
+        return "DO_Address{" +
+                "key='" + key + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", country='" + country + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

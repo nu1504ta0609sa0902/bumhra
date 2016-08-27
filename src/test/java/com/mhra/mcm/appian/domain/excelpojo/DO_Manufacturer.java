@@ -35,4 +35,15 @@ public class DO_Manufacturer {
         DO_Manufacturer o = (DO_Manufacturer) obj;
         return this.key.equals(o.key);
     }
+
+    @Override
+    public String toString() {
+        return "DO_Manufacturer{" +
+                "key='" + key + '\'' +
+                ", name='" + name + '\'' +
+                ", manufacturerAddress='" + manufacturerAddress + '\'' +
+                ", prodcutionSiteAddress1Key='" + prodcutionSiteAddress1Key + '\'' +
+                ", prodcutionSiteAddress2Key='" + prodcutionSiteAddress2Key + '\'' +
+                '}';
+    }
 }

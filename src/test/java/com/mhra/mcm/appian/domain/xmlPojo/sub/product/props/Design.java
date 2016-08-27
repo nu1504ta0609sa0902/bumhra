@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.domain.xmlPojo.sub.product.props;
 
 import com.mhra.mcm.appian.domain.excelpojo.DO_Design;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.design.*;
+import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -47,7 +48,7 @@ public class Design {
 
     public Design(DO_Design doDesign) {
 
-        description = new Description(doDesign.description);
+        description = new Description(doDesign.description + RandomDataUtils.getRandomTestName("desc"));
         liquidVolumeCapacity = new LiquidVolumeCapacity(doDesign.liquidVolumeCapacity);
         nicotineConcentration = new NicotineConcentration(doDesign.nicotineConcentration);
         voltageWattageAdjustable = new VoltageWattageAdjustable(doDesign.voltageWattageAdjustable);

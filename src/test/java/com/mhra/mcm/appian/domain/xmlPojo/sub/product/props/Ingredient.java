@@ -90,7 +90,8 @@ public class Ingredient {
         reachRegistration = new ReachRegistration(doIngredient.reachRegistration);
         clpWhetherClassification = new ClpWhetherClassification(doIngredient.clpWhetherClassification);
 
-        toxicologicalDetails = new ToxicologicalDetails(doToxicologyDetails);
+        if(doToxicologyDetails!=null)
+            toxicologicalDetails = new ToxicologicalDetails(doToxicologyDetails);
     }
 
 
