@@ -1,12 +1,10 @@
 package com.mhra.mcm.appian.steps.v1;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.Date;
 import java.util.Map;
 
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.utils.helpers.StepsUtils;
-import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
 import cucumber.api.DataTable;
 import org.springframework.context.annotation.Scope;
 
@@ -114,16 +112,20 @@ public class ActionsPageSteps extends CommonSteps {
     @Given("^I create new xml notification with following data$")
     public void i_create_new_xml_notification_with_following_data(Map<String, String> dataValues) throws Throwable {
 
+        //Create and save XML file
+        String xmlFileName = "Test" + new Date().toString().substring(0, 17).replaceAll(" ", "").replace(":", "") + ".xml";
+        xmlFileName = "Test.xml";
+        EcigProductSubmission random = NotificationUtils.generateDefaultXMLNotificationDataSimple(dataValues, mapOfExcelDataAsMap);
+        String xmlDataFileLocation = NotificationUtils.createXmlNotificationData(random,xmlFileName);
 
-        EcigProductSubmission random = NotificationUtils.updateDefaultXMLNotificationSimple(dataValues, mapOfExcelDataAsMap);
-        random.generateXml(random);
         String ecId = random.getEcIDNumber();
         log.info("Create Notification With ECID : " +  ecId);
+        log.info("XML Data File : " + xmlDataFileLocation);
 
-        //UPLOAD NOTIFICATION
+        //UPLOAD XML NOTIFICATION Data
         //actionsPage = mainNavigationBar.clickActions();
         //createNotification = actionsPage.clickUploadSampleNotification();
-        //actionsPage = createNotification.createRandomXMLNotification(random);
+        //actionsPage = createNotification.uploadXMLNotification(xmlDataFileLocation);
         //actionsPage.isInCorrectPage();
 
         //Stored ecId for future use
@@ -136,16 +138,21 @@ public class ActionsPageSteps extends CommonSteps {
     @Given("^I create new xml notification with following data table$")
     public void i_create_new_xml_notification_with_following_data_table(DataTable dataTable) throws Throwable {
         Map<String, String> dataValues = StepsUtils.convertDataTableToMap(dataTable);
-        EcigProductSubmission random = NotificationUtils.updateDefaultXMLNotification(dataValues, mapOfExcelDataAsMap);
-        random.generateXml(random);
+
+        //Create and save XML file
+        String xmlFileName = "Test" + new Date().toString().substring(0, 17).replaceAll(" ", "").replace(":", "") + ".xml";
+        xmlFileName = "Test.xml";
+        EcigProductSubmission random = NotificationUtils.generateDefaultXMLNotificationData(dataValues, mapOfExcelDataAsMap);
+        String xmlDataFileLocation = NotificationUtils.createXmlNotificationData(random,xmlFileName);
 
         String ecId = random.getEcIDNumber();
         log.info("Create Notification With ECID : " +  ecId);
+        log.info("XML Data File : " + xmlDataFileLocation);
 
-        //UPLOAD NOTIFICATION
+        //UPLOAD XML NOTIFICATION Data
         //actionsPage = mainNavigationBar.clickActions();
         //createNotification = actionsPage.clickUploadSampleNotification();
-        //actionsPage = createNotification.createRandomXMLNotification(random);
+        //actionsPage = createNotification.uploadXMLNotification(xmlDataFileLocation);
         //actionsPage.isInCorrectPage();
 
         //Stored ecId for future use

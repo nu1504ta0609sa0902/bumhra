@@ -67,6 +67,17 @@ public class NotificationUtils {
         return notification;
     }
 
+    /**
+     * Upload notification data using the File Upload Dialogue
+     * @param docNumber
+     * @param driver
+     * @param documentType
+     * @param fileName
+     * @param description
+     * @param confidential
+     * @param active
+     * @param name
+     */
     public static void addDocumentNumber(int docNumber, WebDriver driver, String documentType, String fileName, String description, boolean confidential, boolean active, String name) {
         int countFromSelect = (docNumber - 1) * 2;  //Theres only 2 select box
         int countFromInput = (docNumber - 1) * 8;   //Position of last input element is 8
@@ -105,8 +116,13 @@ public class NotificationUtils {
         WaitUtils.nativeWait(1);
     }
 
-    public static EcigProductSubmission updateDefaultXMLNotification(Map<String, String> dataValues, Map<String, Map> mapOfExcelData) {
-
+    /**
+     * Create XML data for notification IMPORT function
+     * @param dataValues
+     * @param mapOfExcelData
+     * @return
+     */
+    public static EcigProductSubmission generateDefaultXMLNotificationData(Map<String, String> dataValues, Map<String, Map> mapOfExcelData) {
 
         EcigProductSubmission notification = new EcigProductSubmission();
 
@@ -154,6 +170,7 @@ public class NotificationUtils {
 
                         String[] data = pair.split(",");
                         DO_Ingredient doIngredient = null;
+                        boolean toxReportAvailable = true;
                         for (String key : data) {
                             if (key.contains("ingredient")) {
                                 doIngredient = (DO_Ingredient) mapOfExcelData.get("Ingredient").get(key.trim());
@@ -161,32 +178,16 @@ public class NotificationUtils {
                             if (key.contains("toxicology") && doIngredient != null) {
                                 DO_ToxicologyDetails doToxicologyDetails = (DO_ToxicologyDetails) mapOfExcelData.get("ToxicologicalDetails").get(key.trim());
                                 product.addIngredients(pair, casNumber, dataValues, doIngredient, doToxicologyDetails);
+                                toxReportAvailable = true;
+                            }else{
+                                toxReportAvailable = false;
                             }
+                        }
+                        if(!toxReportAvailable){
+                            product.addIngredients(pair, casNumber, dataValues, doIngredient, null);
                         }
                     }
                 }
-
-//                    for (int i = 1; i <= 10; i++) {
-//                        try {
-//                            String ingredientValue = dataValues.get("ingredientAndToxicologyReport" + i);
-//                            if (ingredientValue != null && !ingredientValue.equals("none")) {
-//
-//                                String[] data = ingredientValue.split(",");
-//                                DO_Ingredient doIngredient = null;
-//                                for (String key : data) {
-//                                    if (key.contains("ingredient")) {
-//                                        doIngredient = (DO_Ingredient) mapOfExcelData.get("Ingredient").get(key.trim());
-//                                    }
-//                                    if (key.contains("toxicology") && doIngredient != null) {
-//                                        DO_ToxicologyDetails doToxicologyDetails = (DO_ToxicologyDetails) mapOfExcelData.get("ToxicologicalDetails").get(key.trim());
-//                                        product.addIngredients(ingredientValue, casNumber, dataValues, doIngredient, doToxicologyDetails);
-//                                    }
-//                                }
-//                            }
-//                        }catch (Exception e){
-//                            break;
-//                        }
-//                    }
 
                 if (emissionValue != null && !emissionValue.equals("none")) {
 
@@ -245,32 +246,14 @@ public class NotificationUtils {
         return notification;
     }
 
-    public static String createXmlNotificationData(EcigProductSubmission notification) {
-        String fileName = null;
-        try {
-            JAXBContext context = JAXBContext.newInstance(EcigProductSubmission.class);
 
-            Marshaller m = context.createMarshaller();
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            m.marshal(notification, System.out);
-
-            String sn = new Date().toString().substring(0, 18).replaceAll(" ", "").replace(":", "");
-            sn = "";
-            String tmp = FileUtils.getFileFullPath("tmp", "test" + sn + ".xml");
-            System.out.println(tmp);
-            m.marshal(notification, new File(tmp));
-
-            fileName = tmp;
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-
-        return fileName;
-    }
-
-    public static EcigProductSubmission updateDefaultXMLNotificationSimple(Map<String, String> dataValues, Map<String, Map> mapOfExcelData) {
-
+    /**
+     * Generate XML notification data for the IMPORT function
+     * @param dataValues
+     * @param mapOfExcelData
+     * @return
+     */
+    public static EcigProductSubmission generateDefaultXMLNotificationDataSimple(Map<String, String> dataValues, Map<String, Map> mapOfExcelData) {
 
         EcigProductSubmission notification = new EcigProductSubmission();
 
@@ -279,8 +262,8 @@ public class NotificationUtils {
             if (dataValues != null) {
                 String submitter1 = dataValues.get("submitter" + i);
                 String product1 = dataValues.get("product" + i);
-                String ingredient1 = dataValues.get("ingredient" + i);
-                String toxicology1 = dataValues.get("toxicologySet" + i);
+                //String ingredient1 = dataValues.get("ingredient" + i);
+                //String toxicology1 = dataValues.get("toxicologySet" + i);
                 String ingredientAndToxicologyReports1 = dataValues.get("ingredientAndToxicologyReports" + i);
                 String manufacturer1 = dataValues.get("manufacturer" + i);
                 String presentation1 = dataValues.get("presentation" + i);
@@ -369,5 +352,56 @@ public class NotificationUtils {
 
 
         return notification;
+    }
+
+
+    /**
+     * Creates an XML file which will be uploaded
+     * @param notification
+     * @return
+     */
+    public static String createXmlNotificationData(EcigProductSubmission notification, String xmlFileName) {
+        String fileName = null;
+        try {
+            JAXBContext context = JAXBContext.newInstance(EcigProductSubmission.class);
+
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            m.marshal(notification, System.out);
+
+            String tmp = FileUtils.getFileFullPath("tmp"+File.separator+"xml", xmlFileName);
+            m.marshal(notification, new File(tmp));
+
+            fileName = tmp;
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
+        return fileName;
+    }
+
+    public static String createXmlNotificationData(EcigProductSubmission notification) {
+        String fileName = null;
+        try {
+            JAXBContext context = JAXBContext.newInstance(EcigProductSubmission.class);
+
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            m.marshal(notification, System.out);
+
+            String sn = new Date().toString().substring(0, 18).replaceAll(" ", "").replace(":", "");
+            sn = "";
+            String tmp = FileUtils.getFileFullPath("tmp", "test" + sn + ".xml");
+            System.out.println(tmp);
+            m.marshal(notification, new File(tmp));
+
+            fileName = tmp;
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
+        return fileName;
     }
 }

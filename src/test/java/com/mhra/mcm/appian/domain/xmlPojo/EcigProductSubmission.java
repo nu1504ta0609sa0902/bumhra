@@ -251,6 +251,8 @@ public class EcigProductSubmission {
             String tmp = FileUtils.getFileFullPath("tmp", "test"+ sn +  ".xml");
             System.out.println(tmp);
             m.marshal(n, new File(tmp));
+
+
         } catch (JAXBException e) {
             e.printStackTrace();
         }

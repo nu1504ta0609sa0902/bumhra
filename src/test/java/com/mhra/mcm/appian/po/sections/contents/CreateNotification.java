@@ -144,13 +144,11 @@ public class CreateNotification extends _Page {
         PageFactory.initElements(driver, this);
     }
 
-    public ActionsPage createRandomXMLNotification(EcigProductSubmission notification) {
+    public ActionsPage uploadXMLNotification(String xmlFileNotification) {
         WaitUtils.waitForElementToBeClickable(driver, ecId, 10);
 
         //Upload generated XML notification
-        String created = NotificationUtils.createXmlNotificationData(notification);
-
-        if(created!=null){
+        if(xmlFileNotification!=null && !xmlFileNotification.equals("")){
             //Write once available
         }
 
@@ -158,6 +156,7 @@ public class CreateNotification extends _Page {
         PageUtils.doubleClick(driver, submitBtn);
         return new ActionsPage(driver);
     }
+
 
     public ActionsPage createRandomNotification(Notification notification) {
         WaitUtils.waitForElementToBeClickable(driver, ecId, 10);
