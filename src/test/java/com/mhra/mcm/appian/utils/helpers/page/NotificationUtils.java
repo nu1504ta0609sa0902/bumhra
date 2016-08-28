@@ -371,6 +371,7 @@ public class NotificationUtils {
             m.marshal(notification, System.out);
 
             String tmp = FileUtils.getFileFullPath("tmp"+File.separator+"xml", xmlFileName);
+            System.out.println(tmp);
             m.marshal(notification, new File(tmp));
 
             fileName = tmp;

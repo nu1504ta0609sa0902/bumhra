@@ -70,7 +70,9 @@ Feature: As a user I should be able to do an end to end invoice processing of no
   Scenario: Verify xml notification generation of minimal data from excel sheet
     #Given I am logged into appian as "super1" user
     Given I create new xml notification with following data
-      #Submitter : random, usedata or none
+      #Submitter : excelkey or none
+      | saveXMLOutputAs                 | Test.xml                               |
+      | submitter1                      | valid.submitter.1                     |
 #      | submitter1                                    | random         |
       | submitter1                      | valid.submitter.1                     |
       #Product
@@ -96,7 +98,7 @@ Feature: As a user I should be able to do an end to end invoice processing of no
     #Given I am logged into appian as "super1" user
     Given I create new xml notification with following data table
       #These are keys which will load data from excel file
-      | submitter         | product         | ingredientAndToxicologyReportPairs                                                                 | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
-      | valid.submitter.1 | valid.product.1 | valid.ingredient.1,valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
+      | saveXMLOutputAs | submitter         | product         | ingredientAndToxicologyReportPairs                                                                 | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
+      | Test.xml        | valid.submitter.1 | valid.product.1 | valid.ingredient.1,valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
 
 

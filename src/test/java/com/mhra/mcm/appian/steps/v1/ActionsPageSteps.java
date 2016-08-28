@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Map;
 
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
+import com.mhra.mcm.appian.utils.helpers.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.StepsUtils;
 import cucumber.api.DataTable;
 import org.springframework.context.annotation.Scope;
@@ -113,8 +114,8 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_create_new_xml_notification_with_following_data(Map<String, String> dataValues) throws Throwable {
 
         //Create and save XML file
-        String xmlFileName = "Test" + new Date().toString().substring(0, 17).replaceAll(" ", "").replace(":", "") + ".xml";
-        xmlFileName = "Test.xml";
+        String xmlFileName = dataValues.get("saveXMLOutputAs");
+        xmlFileName = FileUtils.getXMLNotificationDataFileName(xmlFileName);
         EcigProductSubmission random = NotificationUtils.generateDefaultXMLNotificationDataSimple(dataValues, mapOfExcelDataAsMap);
         String xmlDataFileLocation = NotificationUtils.createXmlNotificationData(random,xmlFileName);
 
@@ -140,8 +141,8 @@ public class ActionsPageSteps extends CommonSteps {
         Map<String, String> dataValues = StepsUtils.convertDataTableToMap(dataTable);
 
         //Create and save XML file
-        String xmlFileName = "Test" + new Date().toString().substring(0, 17).replaceAll(" ", "").replace(":", "") + ".xml";
-        xmlFileName = "Test.xml";
+        String xmlFileName = dataValues.get("saveXMLOutputAs");
+        xmlFileName = FileUtils.getXMLNotificationDataFileName(xmlFileName);
         EcigProductSubmission random = NotificationUtils.generateDefaultXMLNotificationData(dataValues, mapOfExcelDataAsMap);
         String xmlDataFileLocation = NotificationUtils.createXmlNotificationData(random,xmlFileName);
 

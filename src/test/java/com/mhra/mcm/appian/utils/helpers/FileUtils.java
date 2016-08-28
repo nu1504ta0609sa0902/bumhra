@@ -3,6 +3,7 @@ package com.mhra.mcm.appian.utils.helpers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -13,19 +14,20 @@ import java.util.Properties;
 public class FileUtils {
 
     private final static String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
-    private final static String userFileLocation = "configs" + File.separator +  "users.properties";
+    private final static String userFileLocation = "configs" + File.separator + "users.properties";
     private final static Map<String, Properties> mapOfProperties = new HashMap<String, Properties>();
 
     /**
      * Load properties files from system
+     *
      * @param fileName
      * @return
      */
-    public static Properties loadPropertiesFile(String fileName){
+    public static Properties loadPropertiesFile(String fileName) {
 
         Properties prop = mapOfProperties.get(fileName);
 
-        if(prop == null){
+        if (prop == null) {
             try {
                 String root = new File("").getAbsolutePath();
                 String location = root + File.separator + resourceFolder + userFileLocation;
@@ -36,7 +38,7 @@ public class FileUtils {
 
                 //update map
                 mapOfProperties.put(fileName, prop);
-            }catch(Exception e){
+            } catch (Exception e) {
                 prop = null;
                 e.printStackTrace();
             }
@@ -48,6 +50,7 @@ public class FileUtils {
 
     /**
      * Get full path to a specific file related to root of project
+     *
      * @param fileName
      * @return
      */
@@ -59,13 +62,12 @@ public class FileUtils {
     }
 
     /**
-     *
      * @return
      */
     public static String getTempFileFullPath() {
         File file = new File("");
         String rootFolder = file.getAbsolutePath();
-        String data = (rootFolder + File.separator + resourceFolder  + "tmp");
+        String data = (rootFolder + File.separator + resourceFolder + "tmp");
         return data;
     }
 
@@ -73,9 +75,29 @@ public class FileUtils {
     public static String getFileFullPath(String tmpFolderName, String fileName) {
         File file = new File("");
         String rootFolder = file.getAbsolutePath();
-        String data = (rootFolder + File.separator + resourceFolder  +  tmpFolderName + File.separator + fileName);
+        String data = (rootFolder + File.separator + resourceFolder + tmpFolderName + File.separator + fileName);
         return data;
     }
 
 
+    /**
+     * If no xmlFileName is supplied than it defaults to Text.xml
+     *
+     * @param xmlFileName
+     * @return
+     */
+    public static String getXMLNotificationDataFileName(String xmlFileName) {
+
+        if (xmlFileName != null && (xmlFileName.contains(".xml") || xmlFileName.trim().equals("random"))) {
+            if (xmlFileName.trim().equals("") || xmlFileName.trim().equals("random")) {
+                if (xmlFileName.equals("random"))
+                    xmlFileName = "Test" + new Date().toString().substring(0, 17).replaceAll(" ", "").replace(":", "") + ".xml";
+                else
+                    xmlFileName = "Test.xml";
+            }
+        } else {
+            xmlFileName = "Test.xml";
+        }
+        return xmlFileName;
+    }
 }
