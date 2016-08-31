@@ -1,5 +1,7 @@
 package com.mhra.mcm.appian.domain.excelpojo;
 
+import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
+
 /**
  * Created by TPD_Auto on 26/08/2016.
  */
@@ -34,6 +36,36 @@ public class DO_Product {
         }
     }
 
+    public DO_Product(String[] dataUpdated) {
+        for(String dt: dataUpdated){
+            String fieldName = ExcelUtils.getFieldValue(dt, 0);
+            String fieldValue = ExcelUtils.getFieldValue(dt, 1);
+            if(fieldName!=null)
+                populateCorrectField(fieldName, fieldValue);
+        }
+    }
+
+    private void populateCorrectField(String fieldName, String fieldValue) {
+        String field = fieldName.toLowerCase().trim();
+        //System.out.println(field);
+        if(field.equals("key")){
+            key = fieldValue;
+        }else if(field.equals("productid")){
+            productId = fieldValue;
+        }else if(field.equals("otherproductsexist")){
+            otherProductExists = fieldValue;
+        }else if(field.equals("samecompositionproductsexist")){
+            sameCompositionProductsExists = fieldValue;
+        }else if(field.equals("producttype")){
+            productType = fieldValue;
+        }else if(field.equals("weight")){
+            weight = fieldValue;
+        }else if(field.equals("volume")){
+            volume = fieldValue;
+        }else if(field.equals("clpclassification")){
+            clpClassification = fieldValue;
+        }
+    }
 
 
     @Override

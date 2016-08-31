@@ -116,10 +116,10 @@ public class ActionsPageSteps extends CommonSteps {
         //Create and save XML file
         String xmlFileName = dataValues.get("saveXMLOutputAs");
         xmlFileName = FileUtils.getXMLNotificationDataFileName(xmlFileName);
-        EcigProductSubmission random = NotificationUtils.generateDefaultXMLNotificationDataSimple(dataValues, mapOfExcelDataAsMap);
-        String xmlDataFileLocation = NotificationUtils.createXmlNotificationData(random,xmlFileName);
+        EcigProductSubmission xmlNotificationData = NotificationUtils.generateDefaultXMLNotificationDataSimple(dataValues, mapOfExcelDataAsMap);
+        String xmlDataFileLocation = NotificationUtils.createXmlNotificationData(xmlNotificationData,xmlFileName);
 
-        String ecId = random.getEcIDNumber();
+        String ecId = xmlNotificationData.getEcIDNumber();
         log.info("Create Notification With ECID : " +  ecId);
         log.info("XML Data File : " + xmlDataFileLocation);
 
@@ -131,7 +131,7 @@ public class ActionsPageSteps extends CommonSteps {
 
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
-        scenarioSession.putData(SessionKey.storedNotification, random);
+        scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
         //log.debug("Notification Details : \n" + random);
         log.info("Created Notification With ECID : " +  ecId);
     }
@@ -143,10 +143,10 @@ public class ActionsPageSteps extends CommonSteps {
         //Create and save XML file
         String xmlFileName = dataValues.get("saveXMLOutputAs");
         xmlFileName = FileUtils.getXMLNotificationDataFileName(xmlFileName);
-        EcigProductSubmission random = NotificationUtils.generateDefaultXMLNotificationData(dataValues, mapOfExcelDataAsMap);
-        String xmlDataFileLocation = NotificationUtils.createXmlNotificationData(random,xmlFileName);
+        EcigProductSubmission xmlNotificationData = NotificationUtils.generateDefaultXMLNotificationData(dataValues, mapOfExcelDataAsMap);
+        String xmlDataFileLocation = NotificationUtils.createXmlNotificationData(xmlNotificationData,xmlFileName);
 
-        String ecId = random.getEcIDNumber();
+        String ecId = xmlNotificationData.getEcIDNumber();
         log.info("Create Notification With ECID : " +  ecId);
         log.info("XML Data File : " + xmlDataFileLocation);
 
@@ -158,7 +158,7 @@ public class ActionsPageSteps extends CommonSteps {
 
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
-        scenarioSession.putData(SessionKey.storedNotification, random);
+        scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
         //log.debug("Notification Details : \n" + random);
         log.info("Created Notification With ECID : " +  ecId);
     }

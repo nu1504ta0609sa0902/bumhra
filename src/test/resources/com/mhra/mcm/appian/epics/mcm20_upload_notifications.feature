@@ -22,6 +22,6 @@ Feature:Appian system will provide the ability for an RDT user to upload the not
     Then I should see the stored notification with status set to "<initialStatus>"
     Examples:
       | user | type | initialStatus |
-      | ipu1 | 5    | Uploaded          |
-      | ipu1 | 4    | Uploaded          |
-  
+      | ipu1 | 1    | Uploaded          |
+      | ipu1 | 2    | Uploaded          |
+

@@ -42,7 +42,6 @@ public class CommonSteps {
 
     public static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
     public static final String PRETTY_REPORT = "PrettyReport";
-    public static Map<String, List> mapOfExcelData;
     public static Map<String, Map> mapOfExcelDataAsMap;
 
     /**
@@ -80,10 +79,10 @@ public class CommonSteps {
         if (selectedProfile.equals("mhra")) {
             baseUrl = baseUrl.replace("mhra.", "www.");
         }
-        if(mapOfExcelData == null){
+        if(mapOfExcelDataAsMap == null && driver == null){
             //Load excel test data
             ExcelUtils excelUtils = new ExcelUtils();
-            //mapOfExcelData = excelUtils.getAllData("configs/data/xmlTestData1.xlsx");
+            //mapOfExcelDataAsMap = excelUtils.getAllData("configs/data/xmlTestData1.xlsx");
             mapOfExcelDataAsMap = excelUtils.getAllDataAsMap("configs/data/xmlTestData2.xlsx");
             log.info("TEST DATA LOADED FROM : configs/data/xmlTestData2.xlsx");
         }

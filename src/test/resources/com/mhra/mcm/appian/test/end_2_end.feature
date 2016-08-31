@@ -26,52 +26,13 @@ Feature: As a user I should be able to do an end to end invoice processing of no
       | ipu1 | 1    | 150   | Paid   |
 
 
-#  Scenario: Verify xml notification generation
-#    #Given I am logged into appian as "super1" user
-#    Given I create new xml notification with following data
-#      #Submitter : random, usedata or none
-#      | submitter1                                    | random          |
-#      | submitterType                                 | MANUFACTURER    |
-#      | submissionType                                | 2               |
-#      | hasEnterer                                    | false           |
-#      | hasAffiliate                                  | false           |
-#      | hasParent                                     | true            |
-#      #Product
-#      | productId                                     | random          |
-#      | productType                                   | 5               |
-#      | weight                                        | 10              |
-#      | volume                                        | 10              |
-#      #Product Manufacturer
-#      | manufacturer1                                 | random          |
-#      #Product Presentation
-#      | presentation1                                 | random          |
-#      #Product Design
-#      | design1                                       | random          |
-#      #Product ingredient
-#      | ingredient1                                   | usedata         |
-#      | ingredient1ToxicologyStatus                   | 1               |
-#      #Product ingredient toxicology reports
-#      | ingredient1AddToxicologyCardioPulmonary       | false           |
-#      | ingredient1AddToxicologyCardioPulmonaryReport | default         |
-#      | ingredient1AddToxicologyCmr                   | false           |
-#      | ingredient1AddToxicologyCmrReport             | default         |
-#      | ingredient1AddToxicologyOther                 | false           |
-#      | ingredient1AddToxicologyOtherReport           | default         |
-#      #Producct Emission
-#      | emission1                                     | random          |
-#      | emission1Quantity                             | 10              |
-#      | emission1Unit                                 | ±1.1mg/100puffs |
-#      | emission1Name                                 | 2               |
-#      | emission1Attachement                          | true            |
-
-
-
-
   Scenario: Verify xml notification generation of minimal data from excel sheet
     #Given I am logged into appian as "super1" user
     Given I create new xml notification with following data
       #Field values are : excelkey or none
-      | saveXMLOutputAs                 | Test.xml                              |
+      | saveXMLOutputAs                 | random                                |
+      #Submission Type
+      | submissionType                  | 1                                     |
       #Submitter
       | submitter1                      | valid.submitter.1                     |
       #Product
@@ -97,7 +58,7 @@ Feature: As a user I should be able to do an end to end invoice processing of no
     #Given I am logged into appian as "super1" user
     Given I create new xml notification with following data table
       #These are keys which will load data from excel file
-      | saveXMLOutputAs | submitter         | product         | ingredientAndToxicologyReportPairs                                                                 | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
-      |                 | valid.submitter.1 | valid.product.1 | valid.ingredient.1,valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
+      | saveXMLOutputAs         | submissionType | submitter         | product         | ingredientAndToxicologyReportPairs                                                                 | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
+      | verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.1,valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
 
 

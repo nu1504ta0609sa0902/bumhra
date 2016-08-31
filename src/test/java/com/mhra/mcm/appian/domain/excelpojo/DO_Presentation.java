@@ -1,5 +1,7 @@
 package com.mhra.mcm.appian.domain.excelpojo;
 
+import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
+
 /**
  * Created by TPD_Auto on 26/08/2016.
  */
@@ -40,8 +42,43 @@ public class DO_Presentation {
         }
     }
 
+    public DO_Presentation(String[] dataUpdated) {
+        for(String dt: dataUpdated){
+            String fieldName = ExcelUtils.getFieldValue(dt, 0);
+            String fieldValue = ExcelUtils.getFieldValue(dt, 1);
+            if(fieldName!=null)
+                populateCorrectField(fieldName, fieldValue);
+        }
+    }
 
+    private void populateCorrectField(String fieldName, String fieldValue) {
+        String field = fieldName.toLowerCase().trim();
+        //System.out.println(field);
+        if(field.equals("key")){
+            key = fieldValue;
+        }else if(field.equals("nationalmarket")){
+            nationalMarket = fieldValue;
+        }else if(field.equals("brandname")){
+            brandName = fieldValue;
+        }else if(field.equals("brandsubtypenameexists")){
+            brandSubtypeNameExists = fieldValue;
+        }else if(field.equals("brandsubtypename")){
+            brandSubtypeName = fieldValue;
+        }else if(field.equals("launchdate")){
+            launchDate = fieldValue;
+        }else if(field.equals("withdrawalindication")){
+            withdrawalIndication = fieldValue;
+        }else if(field.equals("productnumbertype")){
+            productNumberType = fieldValue;
+        }else if(field.equals("productnumber")){
+            productNumber = fieldValue;
+        }else if(field.equals("packageunits")){
+            packageUnits = fieldValue;
+        }else if(field.equals("unitpacketpicturefile")){
+            unitPacketPictureFile = fieldValue;
+        }
 
+    }
     @Override
     public boolean equals(Object obj) {
         DO_Presentation o = (DO_Presentation) obj;

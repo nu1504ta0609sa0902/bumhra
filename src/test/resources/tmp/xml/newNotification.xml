@@ -1,0 +1,946 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EcigProductSubmission>
+  <Submitter confidential="false" submitterID="00170">
+    <SubmitterType>MANUFACTURER</SubmitterType>
+    <HasParent>true</HasParent>
+    <Parent confidential="false">
+      <Name>Nicoventures Holdings Limited</Name>
+      <Address>Registered office: Globe House, 1 Water Street, London WC2R 3LA</Address>
+      <Country>GB</Country>
+      <PhoneNumber>44 0207 845 1910</PhoneNumber>
+      <Email>trade@nicoventures.co.uk</Email>
+    </Parent>
+    <HasAffiliates>false</HasAffiliates>
+    <HasEnterer>false</HasEnterer>
+  </Submitter>
+  <SubmissionType confidential="false">1</SubmissionType>
+  <Product>
+    <ProductID confidential="false">00170-16-10485</ProductID>
+    <OtherProductsExist confidential="false">false</OtherProductsExist>
+    <SameCompositionProductsExist confidential="false">false</SameCompositionProductsExist>
+    <ProductType confidential="false">7</ProductType>
+    <Weight confidential="false">1.79</Weight>
+    <Volume confidential="false">1.63</Volume>
+    <ClpClassification confidential="false">None</ClpClassification>
+    <Presentations>
+      <Presentation>
+        <NationalMarket confidential="false">GB</NationalMarket>
+        <BrandName confidential="false">Vype</BrandName>
+        <BrandSubtypeNameExists confidential="false">true</BrandSubtypeNameExists>
+        <BrandSubtypeName confidential="false">ePEN</BrandSubtypeName>
+        <LaunchDate confidential="false">2014-10-01</LaunchDate>
+        <WithdrawalIndication confidential="false">false</WithdrawalIndication>
+        <ProductNumberType confidential="false">SUBMITTER</ProductNumberType>
+        <ProductNumber confidential="false">10010485</ProductNumber>
+        <PackageUnits confidential="false">3</PackageUnits>
+        <UnitPacketPictureFile attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+      </Presentation>
+    </Presentations>
+    <Ingredients>
+      <Ingredient>
+        <Name confidential="true">Propylene Glycol</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">57-55-6</CasNumber>
+        <FemaNumber confidential="true">2940</FemaNumber>
+        <AdditiveNumber confidential="true">E1520</AdditiveNumber>
+        <EcNumber confidential="true">200-338-0</EcNumber>
+        <RecipeQuantity confidential="true">0.857052</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">13</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">true</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxEmissionFiles>
+            <Attachment attachmentID="200a4b75-d1c5-44ff-bcb5-5bc7843dd037"/>
+          </ToxEmissionFiles>
+          <ToxCmrFiles>
+            <Attachment attachmentID="200a4b75-d1c5-44ff-bcb5-5bc7843dd037"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="200a4b75-d1c5-44ff-bcb5-5bc7843dd037"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="200a4b75-d1c5-44ff-bcb5-5bc7843dd037"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Propylene Glycol</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">57-55-6</CasNumber>
+        <FemaNumber confidential="true">2940</FemaNumber>
+        <AdditiveNumber confidential="true">E1520</AdditiveNumber>
+        <EcNumber confidential="true">200-338-0</EcNumber>
+        <RecipeQuantity confidential="true">0.19057056</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">13</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">true</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxEmissionFiles>
+            <Attachment attachmentID="200a4b75-d1c5-44ff-bcb5-5bc7843dd037"/>
+          </ToxEmissionFiles>
+          <ToxCmrFiles>
+            <Attachment attachmentID="200a4b75-d1c5-44ff-bcb5-5bc7843dd037"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="200a4b75-d1c5-44ff-bcb5-5bc7843dd037"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="200a4b75-d1c5-44ff-bcb5-5bc7843dd037"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Maltol</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">118-71-8</CasNumber>
+        <FemaNumber confidential="true">2656</FemaNumber>
+        <FlNumber confidential="true">7.014</FlNumber>
+        <EcNumber confidential="true">204-271-8</EcNumber>
+        <RecipeQuantity confidential="true">0.00021480</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="9a8a6a9b-c41b-463e-9966-2d265e59730f"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="9a8a6a9b-c41b-463e-9966-2d265e59730f"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="9a8a6a9b-c41b-463e-9966-2d265e59730f"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Butyl Acetate</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">123-86-4</CasNumber>
+        <FemaNumber confidential="true">2174</FemaNumber>
+        <FlNumber confidential="true">9.004</FlNumber>
+        <EcNumber confidential="true">204-658-1</EcNumber>
+        <RecipeQuantity confidential="true">0.00210504</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">2</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">true</ClpWhetherClassification>
+        <ClpStot confidential="true">3</ClpStot>
+        <ClpStotDescription confidential="true">May cause drowsiness or dizziness</ClpStotDescription>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="8193183a-14dc-46a8-894d-d1fc11d55b38"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="8193183a-14dc-46a8-894d-d1fc11d55b38"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="8193183a-14dc-46a8-894d-d1fc11d55b38"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Hexyl Acetate</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">142-92-7</CasNumber>
+        <FemaNumber confidential="true">2565</FemaNumber>
+        <FlNumber confidential="true">9.006</FlNumber>
+        <EcNumber confidential="true">205-572-7</EcNumber>
+        <RecipeQuantity confidential="true">0.00085920</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="8d19309b-8f15-4957-badf-4612cc8f00cc"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="8d19309b-8f15-4957-badf-4612cc8f00cc"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="8d19309b-8f15-4957-badf-4612cc8f00cc"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Ethyl Acetate</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">141-78-6</CasNumber>
+        <FemaNumber confidential="true">2414</FemaNumber>
+        <FlNumber confidential="true">9.001</FlNumber>
+        <EcNumber confidential="true">205-500-4</EcNumber>
+        <RecipeQuantity confidential="true">0.00229836</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">2</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">true</ClpWhetherClassification>
+        <ClpEyeDamageIrritation confidential="true">2</ClpEyeDamageIrritation>
+        <ClpStot confidential="true">3</ClpStot>
+        <ClpStotDescription confidential="true">May cause drowsiness or dizziness</ClpStotDescription>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="b86d00ad-5f21-4844-94b6-b6461bb78e63"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="b86d00ad-5f21-4844-94b6-b6461bb78e63"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="b86d00ad-5f21-4844-94b6-b6461bb78e63"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Glycerol</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">56-81-5</CasNumber>
+        <FemaNumber confidential="true">2525</FemaNumber>
+        <AdditiveNumber confidential="true">E422</AdditiveNumber>
+        <EcNumber confidential="true">200-289-5</EcNumber>
+        <RecipeQuantity confidential="true">0.3580</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">13</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">true</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxEmissionFiles>
+            <Attachment attachmentID="c7422b04-96c0-491d-b533-d2b3541b93a8"/>
+          </ToxEmissionFiles>
+          <ToxCmrFiles>
+            <Attachment attachmentID="c7422b04-96c0-491d-b533-d2b3541b93a8"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="c7422b04-96c0-491d-b533-d2b3541b93a8"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="c7422b04-96c0-491d-b533-d2b3541b93a8"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Ethyl propionate</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">105-37-3</CasNumber>
+        <FemaNumber confidential="true">2456</FemaNumber>
+        <FlNumber confidential="true">9.121</FlNumber>
+        <EcNumber confidential="true">203-291-4</EcNumber>
+        <RecipeQuantity confidential="true">0.00045108</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="afb907cb-2b2f-4fbf-8def-a9c9ae5e960b"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="afb907cb-2b2f-4fbf-8def-a9c9ae5e960b"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="afb907cb-2b2f-4fbf-8def-a9c9ae5e960b"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Ethyl Isovalerate</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">108-64-5</CasNumber>
+        <FemaNumber confidential="true">2463</FemaNumber>
+        <FlNumber confidential="true">9.447</FlNumber>
+        <EcNumber confidential="true">203-602-3</EcNumber>
+        <RecipeQuantity confidential="true">0.00040812</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">false</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="97a09a02-4f88-45c7-a1fc-f119b64ac465"/>
+          </ToxCmrFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="97a09a02-4f88-45c7-a1fc-f119b64ac465"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Isobutyl Acetate</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">110-19-0</CasNumber>
+        <FemaNumber confidential="true">2175</FemaNumber>
+        <FlNumber confidential="true">9.005</FlNumber>
+        <EcNumber confidential="true">203-745-1</EcNumber>
+        <RecipeQuantity confidential="true">0.01490712</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="efed982d-89de-433c-b90f-0d2d512995f1"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="efed982d-89de-433c-b90f-0d2d512995f1"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="efed982d-89de-433c-b90f-0d2d512995f1"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Isoamyl Butyrate</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">106-27-4</CasNumber>
+        <FemaNumber confidential="true">2060</FemaNumber>
+        <FlNumber confidential="true">9.055</FlNumber>
+        <EcNumber confidential="true">203-380-8</EcNumber>
+        <RecipeQuantity confidential="true">0.00060144</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">false</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="de2529a5-8109-42f0-8873-7bde0238e2e8"/>
+          </ToxCmrFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="de2529a5-8109-42f0-8873-7bde0238e2e8"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Isoamyl Acetate</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">123-92-2</CasNumber>
+        <FemaNumber confidential="true">2055</FemaNumber>
+        <FlNumber confidential="true">9.024</FlNumber>
+        <EcNumber confidential="true">204-662-3</EcNumber>
+        <RecipeQuantity confidential="true">0.00103104</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="a7b56db6-7315-4dda-a981-8ca67ee6ae97"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="a7b56db6-7315-4dda-a981-8ca67ee6ae97"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="a7b56db6-7315-4dda-a981-8ca67ee6ae97"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Menthol</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">89-78-1</CasNumber>
+        <AdditionalCasNumbers>
+          <CasNumber confidential="true">2216-51-5</CasNumber>
+          <CasNumber confidential="true">15356-60-2</CasNumber>
+          <CasNumber confidential="true">1490-04-6</CasNumber>
+        </AdditionalCasNumbers>
+        <FemaNumber confidential="true">2665</FemaNumber>
+        <FlNumber confidential="true">2.015</FlNumber>
+        <EcNumber confidential="true">201-939-0</EcNumber>
+        <RecipeQuantity confidential="true">0.002148</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="617b2ea6-ce3c-45c6-bf54-e94a0890e7cb"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="617b2ea6-ce3c-45c6-bf54-e94a0890e7cb"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="617b2ea6-ce3c-45c6-bf54-e94a0890e7cb"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Water</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">7732-18-5</CasNumber>
+        <EcNumber confidential="true">231-791-2</EcNumber>
+        <RecipeQuantity confidential="true">0.3580</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">17</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">1</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">false</ToxCmr>
+          <ToxCardioPulmonary confidential="true">false</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">false</ToxOther>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Ethyl Butyrate</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">105-54-4</CasNumber>
+        <FemaNumber confidential="true">2427</FemaNumber>
+        <FlNumber confidential="true">9.039</FlNumber>
+        <EcNumber confidential="true">203-306-4</EcNumber>
+        <RecipeQuantity confidential="true">0.00088068</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">true</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="11858e6a-149c-4d9f-aa62-b42c869c0fec"/>
+          </ToxCmrFiles>
+          <ToxCardioPulmonaryFiles>
+            <Attachment attachmentID="11858e6a-149c-4d9f-aa62-b42c869c0fec"/>
+          </ToxCardioPulmonaryFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="11858e6a-149c-4d9f-aa62-b42c869c0fec"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Isoamyl Propionate</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">105-68-0</CasNumber>
+        <FemaNumber confidential="true">2082</FemaNumber>
+        <FlNumber confidential="true">9.136</FlNumber>
+        <EcNumber confidential="true">203-322-1</EcNumber>
+        <RecipeQuantity confidential="true">0.00012888</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">1</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">2</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">true</ToxCmr>
+          <ToxCardioPulmonary confidential="true">false</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">true</ToxOther>
+          <ToxCmrFiles>
+            <Attachment attachmentID="ae3a365c-a29a-490c-be42-af12012fec35"/>
+          </ToxCmrFiles>
+          <ToxOtherFiles>
+            <Attachment attachmentID="ae3a365c-a29a-490c-be42-af12012fec35"/>
+          </ToxOtherFiles>
+        </ToxicologicalDetails>
+      </Ingredient>
+      <Ingredient>
+        <Name confidential="true">Dimethyl-5-Heptenal (2,6-)</Name>
+        <CasNumberExists confidential="true">true</CasNumberExists>
+        <CasNumber confidential="true">106-72-9</CasNumber>
+        <FemaNumber confidential="true">2389</FemaNumber>
+        <FlNumber confidential="true">5.074</FlNumber>
+        <EcNumber confidential="true">203-427-2</EcNumber>
+        <RecipeQuantity confidential="true">0.00034368</RecipeQuantity>
+        <Functions>
+          <Function confidential="true">12</Function>
+        </Functions>
+        <ToxicityStatus confidential="true">0</ToxicityStatus>
+        <ReachRegistration confidential="true">EXEMPTED</ReachRegistration>
+        <ClpWhetherClassification confidential="true">false</ClpWhetherClassification>
+        <ToxicologicalDetails>
+          <ToxicologicalDataAvailable confidential="true">1</ToxicologicalDataAvailable>
+          <ToxEmission confidential="true">false</ToxEmission>
+          <ToxCmr confidential="true">false</ToxCmr>
+          <ToxCardioPulmonary confidential="true">false</ToxCardioPulmonary>
+          <ToxAddictive confidential="true">false</ToxAddictive>
+          <ToxOther confidential="true">false</ToxOther>
+        </ToxicologicalDetails>
+      </Ingredient>
+    </Ingredients>
+    <Emissions>
+      <Emission>
+        <CasNumber confidential="false">54-11-5</CasNumber>
+        <IupacName confidential="false">3-(1-methyl-2-pyrrolidinyl)pyridine</IupacName>
+        <Quantity confidential="false">0</Quantity>
+        <Unit confidential="false">mg/g (+/- SD 0.42)</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">1</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">50-00-0</CasNumber>
+        <IupacName confidential="false">Methanal</IupacName>
+        <Quantity confidential="false">0.325030</Quantity>
+        <Unit confidential="false">ug/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">4</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">75-07-0</CasNumber>
+        <IupacName confidential="false">Ethanal</IupacName>
+        <Quantity confidential="false">0.308630</Quantity>
+        <Unit confidential="false">ug/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">5</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">107-02-8</CasNumber>
+        <IupacName confidential="false">Prop-2-enal</IupacName>
+        <Quantity confidential="false">0.094420</Quantity>
+        <Unit confidential="false">ug/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">6</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">123-73-9</CasNumber>
+        <IupacName confidential="false">(2E)-but-2-enal</IupacName>
+        <Quantity confidential="false">0</Quantity>
+        <Unit confidential="false">ug/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">7</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">7440-47-3</CasNumber>
+        <IupacName confidential="false">Cr</IupacName>
+        <Quantity confidential="false">0.339090</Quantity>
+        <Unit confidential="false">ng/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">11</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">7440-22-4</CasNumber>
+        <IupacName confidential="false">Ag</IupacName>
+        <Quantity confidential="false">0</Quantity>
+        <Unit confidential="false">ng/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">12</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">7440-02-0</CasNumber>
+        <IupacName confidential="false">Ni</IupacName>
+        <Quantity confidential="false">0</Quantity>
+        <Unit confidential="false">ng/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">14</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">7439-89-6</CasNumber>
+        <IupacName confidential="false">Fe</IupacName>
+        <Quantity confidential="false">0.889330</Quantity>
+        <Unit confidential="false">ng/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">22</Name>
+        <NameOther confidential="false">Fe</NameOther>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">123-72-8</CasNumber>
+        <IupacName confidential="false">butanal</IupacName>
+        <Quantity confidential="false">0</Quantity>
+        <Unit confidential="false">ug/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">22</Name>
+        <NameOther confidential="false">Butaraldehyde</NameOther>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">67-64-1</CasNumber>
+        <IupacName confidential="false">acetone or propanone</IupacName>
+        <Quantity confidential="false">0.122960</Quantity>
+        <Unit confidential="false">ug/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">22</Name>
+        <NameOther confidential="false">Acetone</NameOther>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">78-93-3</CasNumber>
+        <IupacName confidential="false">butan-2-one or 2-Hydroperoxy-2-((2-hydroperoxybutan-2-yl)peroxy)butane</IupacName>
+        <Quantity confidential="false">0</Quantity>
+        <Unit confidential="false">ug/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">22</Name>
+        <NameOther confidential="false">Methyl ethyl ketone</NameOther>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">123-38-6</CasNumber>
+        <IupacName confidential="false">Propanal</IupacName>
+        <Quantity confidential="false">0.072980</Quantity>
+        <Unit confidential="false">ug/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">22</Name>
+        <NameOther confidential="false">Propionaldehyde</NameOther>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">56-81-5</CasNumber>
+        <IupacName confidential="false">propane-1,2,3-triol</IupacName>
+        <Quantity confidential="false">204.338050</Quantity>
+        <Unit confidential="false">mg/g</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">22</Name>
+        <NameOther confidential="false">Gly</NameOther>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">57-55-6</CasNumber>
+        <IupacName confidential="false">Propane-1,2-diol</IupacName>
+        <Quantity confidential="false">496.411530</Quantity>
+        <Unit confidential="false">mg/g</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">22</Name>
+        <NameOther confidential="false">PG</NameOther>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">7440-31-5</CasNumber>
+        <IupacName confidential="false">Sn</IupacName>
+        <Quantity confidential="false">0</Quantity>
+        <Unit confidential="false">ng/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">22</Name>
+        <NameOther confidential="false">Sn</NameOther>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">7440-66-6</CasNumber>
+        <IupacName confidential="false">Zn</IupacName>
+        <Quantity confidential="false">0.754760</Quantity>
+        <Unit confidential="false">ng/puff</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="97338f9d-6ce2-4c68-9fcf-5f8cc2b67348"/>
+        </MethodsFile>
+        <AdditionalProducts>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN device</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">Vype ePEN caps</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">UK</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">DE</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">IT</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">PL</ProductIdentification>
+          <ProductIdentification type="TEXT" confidential="false">FR</ProductIdentification>
+        </AdditionalProducts>
+        <ProductCombination confidential="false">0</ProductCombination>
+        <Name confidential="false">22</Name>
+        <NameOther confidential="false">Zn</NameOther>
+      </Emission>
+    </Emissions>
+    <Design>
+      <Description confidential="false">The E-PEN cartomiser (containing the formulation) is disposable, and is engineered to only be used in combination with the E-Pen battery component by virtue of a non-standard, specially designed connector component.  The cartomiser formulations, E-CAP, will also be sold as a refill soft pack containing up to 3 cartomisers.</Description>
+      <LiquidVolumeCapacity confidential="false">1.50</LiquidVolumeCapacity>
+      <NicotineConcentration confidential="false">0</NicotineConcentration>
+      <VoltageWattageAdjustable confidential="false">4</VoltageWattageAdjustable>
+      <Voltage confidential="false">0</Voltage>
+      <Wattage confidential="false">0</Wattage>
+      <NicotineDoseUptakeFile attachmentID="65da4094-d0cd-4322-ab6c-782e2f46bb21"/>
+      <ProductionFile attachmentID="c454c4fc-1930-452a-b53a-434014617347"/>
+      <ProductionConformity confidential="false">true</ProductionConformity>
+      <QualitySafety confidential="false">true</QualitySafety>
+      <OpeningRefillFile attachmentID="ead14ac1-8392-489b-a777-7a84bb1b0de5"/>
+      <ChildTamperProof confidential="false">false</ChildTamperProof>
+      <HighPurity confidential="false">true</HighPurity>
+      <NonRisk confidential="false">false</NonRisk>
+      <ConsistentDosing confidential="false">true</ConsistentDosing>
+      <LeafletFile attachmentID="93459d62-b50c-40ba-8aa1-4611a323d6b8"/>
+      <CoilResistance confidential="false">2.80</CoilResistance>
+    </Design>
+  </Product>
+</EcigProductSubmission>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><EcigProductSubmission>
+    <Submitter confidential="false" submitterId="91153">
+        <SubmitterType>MANUFACTURER</SubmitterType>
+        <HasEnterer>true</HasEnterer>
+        <HasParent>false</HasParent>
+        <HasAffiliate>false</HasAffiliate>
+        <Enterer confidential="false">
+            <Name>Test MHRA ENTERER</Name>
+            <Address>151 Buckingham Palace Parent Road, London</Address>
+            <Country>GB</Country>
+            <PhoneNumber>+44 20 8524 04 98</PhoneNumber>
+            <Email>mhra.uat@gmail.com</Email>
+        </Enterer>
+    </Submitter>
+    <SubmissionType confidential="false">2</SubmissionType>
+    <Product>
+        <ProductID confidential="false">91153-16-85167</ProductID>
+        <OtherProductsExist confidential="false">false</OtherProductsExist>
+        <SameCompositionProductsExist confidential="false">false</SameCompositionProductsExist>
+        <Manufacturers/>
+        <ProductType confidential="false">5</ProductType>
+        <Weight confidential="false">10.0</Weight>
+        <Volume confidential="false">10.0</Volume>
+        <ClpClassification confidential="false">None</ClpClassification>
+        <Presentations/>
+        <Emissions>
+            <Emission>
+                <CasNumber confidential="false">45-94-98</CasNumber>
+                <Quantity confidential="false">18.84</Quantity>
+                <Unit confidential="false">&lt;12.56ug/218puffs</Unit>
+                <Name confidential="false">22</Name>
+                <MethodsFile>
+                    <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                </MethodsFile>
+            </Emission>
+            <Emission>
+                <CasNumber confidential="false">63-10-16</CasNumber>
+                <Quantity confidential="false">11.51</Quantity>
+                <Unit confidential="false">&lt;63.87ug/181puffs</Unit>
+                <Name confidential="false">24</Name>
+                <MethodsFile>
+                    <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                </MethodsFile>
+            </Emission>
+            <Emission>
+                <CasNumber confidential="false">16-44-43</CasNumber>
+                <Quantity confidential="false">63.87</Quantity>
+                <Unit confidential="false">&lt;11.51ug/175puffs</Unit>
+                <Name confidential="false">25</Name>
+                <MethodsFile>
+                    <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                </MethodsFile>
+            </Emission>
+        </Emissions>
+        <Ingredients>
+            <Ingredient>
+                <Name confidential="false">Supplement_25_8_912586</Name>
+                <CasNumberExists confidential="false">false</CasNumberExists>
+                <CasNumber confidential="false">45-94-98</CasNumber>
+                <FlNumber confidential="false"/>
+                <FemaNumber confidential="false"/>
+                <EcNumber confidential="false"/>
+                <RecipeQuantity confidential="false"/>
+                <Functions>
+                    <Function confidential="false">8</Function>
+                    <Function confidential="false">20</Function>
+                </Functions>
+                <ToxicityStatus confidential="false">1</ToxicityStatus>
+                <ReachRegistration confidential="false"/>
+                <ClpWhetherClassification confidential="false"/>
+                <ToxicologicalDetails>
+                    <ToxicologicalDataAvailable confidential="false">2</ToxicologicalDataAvailable>
+                    <ToxEmission confidential="false">false</ToxEmission>
+                    <ToxCmr confidential="false">true</ToxCmr>
+                    <ToxCardioPulmonary confidential="false">true</ToxCardioPulmonary>
+                    <ToxAddictive confidential="false">false</ToxAddictive>
+                    <ToxOther confidential="false">true</ToxOther>
+                    <ToxCmrFiles/>
+                    <ToxCardioPulmonaryFiles>
+                        <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                    </ToxCardioPulmonaryFiles>
+                    <ToxOtherFiles>
+                        <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                    </ToxOtherFiles>
+                </ToxicologicalDetails>
+            </Ingredient>
+            <Ingredient>
+                <Name confidential="false">Supplement_25_8_264998</Name>
+                <CasNumberExists confidential="false">false</CasNumberExists>
+                <CasNumber confidential="false">63-10-16</CasNumber>
+                <FlNumber confidential="false"/>
+                <FemaNumber confidential="false"/>
+                <EcNumber confidential="false"/>
+                <RecipeQuantity confidential="false"/>
+                <Functions>
+                    <Function confidential="false">2</Function>
+                    <Function confidential="false">1</Function>
+                </Functions>
+                <ToxicityStatus confidential="false">1</ToxicityStatus>
+                <ReachRegistration confidential="false"/>
+                <ClpWhetherClassification confidential="false"/>
+                <ToxicologicalDetails>
+                    <ToxicologicalDataAvailable confidential="false">2</ToxicologicalDataAvailable>
+                    <ToxEmission confidential="false">false</ToxEmission>
+                    <ToxCmr confidential="false">true</ToxCmr>
+                    <ToxCardioPulmonary confidential="false">true</ToxCardioPulmonary>
+                    <ToxAddictive confidential="false">false</ToxAddictive>
+                    <ToxOther confidential="false">true</ToxOther>
+                    <ToxCmrFiles>
+                        <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                    </ToxCmrFiles>
+                    <ToxCardioPulmonaryFiles>
+                        <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                    </ToxCardioPulmonaryFiles>
+                    <ToxOtherFiles>
+                        <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                    </ToxOtherFiles>
+                </ToxicologicalDetails>
+            </Ingredient>
+            <Ingredient>
+                <Name confidential="false">Supplement_25_8_233642</Name>
+                <CasNumberExists confidential="false">false</CasNumberExists>
+                <CasNumber confidential="false">16-44-43</CasNumber>
+                <FlNumber confidential="false"/>
+                <FemaNumber confidential="false"/>
+                <EcNumber confidential="false"/>
+                <RecipeQuantity confidential="false"/>
+                <Functions>
+                    <Function confidential="false">12</Function>
+                    <Function confidential="false">8</Function>
+                </Functions>
+                <ToxicityStatus confidential="false">1</ToxicityStatus>
+                <ReachRegistration confidential="false"/>
+                <ClpWhetherClassification confidential="false"/>
+                <ToxicologicalDetails>
+                    <ToxicologicalDataAvailable confidential="false">2</ToxicologicalDataAvailable>
+                    <ToxEmission confidential="false">false</ToxEmission>
+                    <ToxCmr confidential="false">true</ToxCmr>
+                    <ToxCardioPulmonary confidential="false">true</ToxCardioPulmonary>
+                    <ToxAddictive confidential="false">false</ToxAddictive>
+                    <ToxOther confidential="false">true</ToxOther>
+                    <ToxCmrFiles/>
+                    <ToxCardioPulmonaryFiles/>
+                    <ToxOtherFiles>
+                        <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                    </ToxOtherFiles>
+                </ToxicologicalDetails>
+            </Ingredient>
+        </Ingredients>
+    </Product>
+</EcigProductSubmission>

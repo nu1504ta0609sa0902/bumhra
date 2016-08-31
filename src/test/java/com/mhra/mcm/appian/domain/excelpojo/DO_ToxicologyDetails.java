@@ -1,5 +1,7 @@
 package com.mhra.mcm.appian.domain.excelpojo;
 
+import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
+
 /**
  * Created by TPD_Auto on 26/08/2016.
  */
@@ -35,6 +37,36 @@ public class DO_ToxicologyDetails {
         }
     }
 
+    public DO_ToxicologyDetails(String[] dataUpdated) {
+        for(String dt: dataUpdated){
+            String fieldName = ExcelUtils.getFieldValue(dt, 0);
+            String fieldValue = ExcelUtils.getFieldValue(dt, 1);
+            if(fieldName!=null)
+                populateCorrectField(fieldName, fieldValue);
+        }
+    }
+
+    private void populateCorrectField(String fieldName, String fieldValue) {
+        String field = fieldName.toLowerCase().trim();
+        //System.out.println(field);
+        if(field.equals("key")){
+            key = fieldValue;
+        }else if(field.equals("toxicologicaldataavailable")){
+            toxicologicalDataAvailable = fieldValue;
+        }else if(field.equals("toxemission")){
+            toxEmision = fieldValue;
+        }else if(field.equals("toxcmr")){
+            toxCmr = fieldValue;
+        }else if(field.equals("toxcardiopulmonary")){
+            toxCardioPulmonary = fieldValue;
+        }else if(field.equals("toxaddictive")){
+            toxAdditive = fieldValue;
+        }else if(field.equals("toxother")){
+            toxOther = fieldValue;
+        }else if(field.equals("attachment")){
+            attachment = fieldValue;
+        }
+    }
 
 
     @Override

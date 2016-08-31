@@ -2,7 +2,6 @@ package com.mhra.mcm.appian.utils.helpers.page;
 
 import java.io.File;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import com.mhra.mcm.appian.domain.excelpojo.*;
@@ -355,6 +354,87 @@ public class NotificationUtils {
     }
 
 
+    public static EcigProductSubmission generateXMLFromExcelData(){
+
+        ExcelUtils excelUtils = new ExcelUtils();
+        //mapOfExcelData = excelUtils.getAllData("configs/data/xmlTestData1.xlsx");
+        Map<String, Map> mapOfExcelData = excelUtils.getAllDataAsMap("configs/data/xmlTestData2.xlsx");
+        System.out.println("TEST DATA LOADED FROM : configs/data/xmlTestData2.xlsx");
+
+        EcigProductSubmission notification = new EcigProductSubmission();
+        Map<String, String> dataValues = null;
+        for(int i = 1; i <= 1; i++){
+            if(true){
+                //SET UP DATA FOR NOTIFICATIONS
+
+                String submitter1 = "valid.submitter." + i;
+                String product1 = "valid.product." + i;
+                String ingredient1 = "valid.ingredient." + i;
+                String toxicology1 = "valid.toxicology." + i;
+                String emission1 = "valid.emission." + i;
+                String manufacturer1 = "valid.manufacturer." + i;
+                String presentation1 = "valid.presentation." + i;
+                String design1 = "valid.design." + i;
+
+                //Set submission type
+                String submissionType = "1";
+                SubmissionType st = notification.getSubmissionType();
+                if(submissionType!=null){
+                    st.type = submissionType;
+                }
+
+                //Submitter
+                Submitter submitter = notification.getSubmitter();
+                if(submitter1!=null && !submitter1.equals("none")){
+                    DO_Submitter doSubmitter = (DO_Submitter) mapOfExcelData.get("Submitter").get(submitter1);
+                    submitter.addSubmitter(dataValues, doSubmitter );
+                }
+                submitter.evaluate();
+
+                //Product: Emissions,Ingredient,Presentations,Design
+                Product product = notification.getProduct();
+                String casNumber = product.getCasNumber();
+                if(product1!=null && !product1.equals("none")) {
+                    DO_Product doProduct = (DO_Product) mapOfExcelData.get("Product").get(product1);
+                    if(doProduct!=null)
+                        product.addProductDetail(notification.getEcIDNumber(), dataValues, doProduct);
+                }
+
+                if(manufacturer1!=null && !manufacturer1.equals("none")){
+                    DO_Manufacturer doManufacturer = (DO_Manufacturer) mapOfExcelData.get("Manufacturer").get(manufacturer1);
+                    if (doManufacturer != null) {
+                        product.addManufacturer(mapOfExcelData, doManufacturer);
+                    }
+                }
+
+                if(presentation1!=null && !presentation1.equals("none")){
+                    DO_Presentation doPresentation = (DO_Presentation) mapOfExcelData.get("Presentation").get(presentation1);
+                    if(doPresentation!=null)
+                        product.addPresentation(presentation1, dataValues, doPresentation);
+                }
+                if(emission1!=null && !emission1.equals("none")){
+                    DO_Emission doEmission = (DO_Emission) mapOfExcelData.get("Emission").get(emission1);
+                    if(doEmission!=null)
+                        casNumber = product.addEmission(emission1, casNumber, dataValues, doEmission);
+                }
+                if(ingredient1!=null && !ingredient1.equals("none")){
+                    DO_Ingredient doIngredient = (DO_Ingredient) mapOfExcelData.get("Ingredient").get(ingredient1);
+                    DO_ToxicologyDetails doToxicologyDetails = (DO_ToxicologyDetails) mapOfExcelData.get("ToxicologicalDetails").get(toxicology1);
+                    if(doToxicologyDetails!=null && doIngredient!=null)
+                        product.addIngredients(ingredient1, casNumber, dataValues, doIngredient, doToxicologyDetails);
+                }
+                if(design1!=null && !design1.equals("none")){
+                    DO_Design doDesign = (DO_Design) mapOfExcelData.get("Design").get(design1);
+                    if(doDesign!=null)
+                        product.addDesign(design1, dataValues, doDesign);
+                }
+            }
+        }
+
+        return notification;
+    }
+
+
     /**
      * Creates an XML file which will be uploaded
      * @param notification
@@ -394,7 +474,7 @@ public class NotificationUtils {
 
             String sn = new Date().toString().substring(0, 18).replaceAll(" ", "").replace(":", "");
             sn = "";
-            String tmp = FileUtils.getFileFullPath("tmp", "test" + sn + ".xml");
+            String tmp = FileUtils.getFileFullPath("tmp"+File.separator+"xml", "test" + sn + ".xml");
             System.out.println(tmp);
             m.marshal(notification, new File(tmp));
 

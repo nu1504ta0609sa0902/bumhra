@@ -1,5 +1,7 @@
 package com.mhra.mcm.appian.domain.excelpojo;
 
+import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
+
 /**
  * Created by TPD_Auto on 26/08/2016.
  */
@@ -28,7 +30,30 @@ public class DO_Manufacturer {
         }
     }
 
+    public DO_Manufacturer(String[] dataUpdated) {
+        for(String dt: dataUpdated){
+            String fieldName = ExcelUtils.getFieldValue(dt, 0);
+            String fieldValue = ExcelUtils.getFieldValue(dt, 1);
+            if(fieldName!=null)
+                populateCorrectField(fieldName, fieldValue);
+        }
+    }
 
+    private void populateCorrectField(String fieldName, String fieldValue) {
+        String field = fieldName.toLowerCase().trim();
+        //System.out.println(field);
+        if(field.equals("key")){
+            key = fieldValue;
+        }else if(field.equals("name")){
+            name = fieldValue;
+        }else if(field.equals("manufactureraddress")){
+            manufacturerAddress = fieldValue;
+        }else if(field.equals("productionsiteaddresses")){
+            prodcutionSiteAddress1Key = fieldValue;
+        }else if(field.equals("productionsiteaddresses2")){
+            prodcutionSiteAddress2Key = fieldValue;
+        }
+    }
 
     @Override
     public boolean equals(Object obj) {

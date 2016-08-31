@@ -1,5 +1,7 @@
 package com.mhra.mcm.appian.domain.excelpojo;
 
+import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
+
 /**
  * Created by TPD_Auto on 26/08/2016.
  */
@@ -42,6 +44,42 @@ public class DO_Ingredient {
         }
     }
 
+    public DO_Ingredient(String[] dataUpdated) {
+        for(String dt: dataUpdated){
+            String fieldName = ExcelUtils.getFieldValue(dt, 0);
+            String fieldValue = ExcelUtils.getFieldValue(dt, 1);
+            if(fieldName!=null)
+                populateCorrectField(fieldName, fieldValue);
+        }
+    }
+
+    private void populateCorrectField(String fieldName, String fieldValue) {
+        String field = fieldName.toLowerCase().trim();
+        //System.out.println(field);
+        if(field.equals("key")){
+            key = fieldValue;
+        }else if(field.equals("name")){
+            name = fieldValue;
+        }else if(field.equals("casnumberexists")){
+            casNumberExists = fieldValue;
+        }else if(field.equals("casnumber")){
+            casNumber = fieldValue;
+        }else if(field.equals("flnumber")){
+            fINumber = fieldValue;
+        }else if(field.equals("femanumber")){
+            femaNumber = fieldValue;
+        }else if(field.equals("ecnumber")){
+            ecNumber = fieldValue;
+        }else if(field.equals("recipequantity")){
+            recipeQuantity = fieldValue;
+        }else if(field.equals("toxicitystatus")){
+            toxicityStatus = fieldValue;
+        }else if(field.equals("reachregistration")){
+            reachRegistration = fieldValue;
+        }else if(field.equals("clpwhetherclassification")){
+            clpWhetherClassification = fieldValue;
+        }
+    }
 
 
     @Override

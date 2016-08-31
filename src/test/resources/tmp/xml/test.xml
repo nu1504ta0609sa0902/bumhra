@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EcigProductSubmission>
+    <Submitter confidential="false" submitterId="82158">
+        <SubmitterType>IMPORTER</SubmitterType>
+        <HasEnterer>true</HasEnterer>
+        <HasParent>false</HasParent>
+        <HasAffiliate>false</HasAffiliate>
+        <Enterer confidential="false">
+            <Name>Test MHRA ENTERER</Name>
+            <Address>151 Buckingham Palace Parent Road, London</Address>
+            <Country>GB</Country>
+            <PhoneNumber>+44 20 8524 04 98</PhoneNumber>
+            <Email>mhra.uat@gmail.com</Email>
+        </Enterer>
+    </Submitter>
+    <SubmissionType confidential="false">Testing</SubmissionType>
+    <Product>
+        <ProductID confidential="false">82158-16-42466</ProductID>
+        <OtherProductsExist confidential="false">TRUE</OtherProductsExist>
+        <SameCompositionProductsExist confidential="false">FALSE</SameCompositionProductsExist>
+        <Manufacturers>
+            <Manufacturer>
+                <Name>Manufacturer_31_8_905633</Name>
+                <Address>141 Buckingham Palace Road++ London++ SW1V</Address>
+                <Country>GB</Country>
+                <PhoneNumber>(07) 8980890898</PhoneNumber>
+                <Email>mhra.uat@gmail.com</Email>
+                <ProductionSiteAddresses>
+                    <ProductionSiteAddress confidential="false">
+                        <Address>121 Production Address++ Shenzhen++ China.</Address>
+                        <Country>CN</Country>
+                        <PhoneNumber>86(0)777-888441095</PhoneNumber>
+                        <Email>mhra.uat@gmail.com</Email>
+                    </ProductionSiteAddress>
+                    <ProductionSiteAddress confidential="false">
+                        <Address>122 Production Address++ Shenzhen++ China.</Address>
+                        <Country>CN</Country>
+                        <PhoneNumber>86(0)777-888441095</PhoneNumber>
+                        <Email>mhra.uat@gmail.com</Email>
+                    </ProductionSiteAddress>
+                </ProductionSiteAddresses>
+            </Manufacturer>
+            <Manufacturer>
+                <Name>Manufacturer_31_8_759457</Name>
+                <Address>141 Buckingham Palace Road++ London++ SW1V</Address>
+                <Country>GB</Country>
+                <PhoneNumber>(07) 8980890898</PhoneNumber>
+                <Email>mhra.uat@gmail.com</Email>
+                <ProductionSiteAddresses>
+                    <ProductionSiteAddress confidential="false">
+                        <Address>121 Production Address++ Shenzhen++ China.</Address>
+                        <Country>CN</Country>
+                        <PhoneNumber>86(0)777-888441095</PhoneNumber>
+                        <Email>mhra.uat@gmail.com</Email>
+                    </ProductionSiteAddress>
+                    <ProductionSiteAddress confidential="false">
+                        <Address>122 Production Address++ Shenzhen++ China.</Address>
+                        <Country>CN</Country>
+                        <PhoneNumber>86(0)777-888441095</PhoneNumber>
+                        <Email>mhra.uat@gmail.com</Email>
+                    </ProductionSiteAddress>
+                </ProductionSiteAddresses>
+            </Manufacturer>
+        </Manufacturers>
+        <ProductType confidential="false">10.0</ProductType>
+        <Weight confidential="false">10.0</Weight>
+        <Volume confidential="false">10.0</Volume>
+        <ClpClassification confidential="false">None</ClpClassification>
+        <Presentations>
+            <Presentation>
+                <NationalMarket confidential="false">GB</NationalMarket>
+                <BrandName confidential="false">BrandName_31_8_943105</BrandName>
+                <BrandSubtypeNameExists confidential="false">TRUE</BrandSubtypeNameExists>
+                <BrandSubtypeName confidential="false">EPEN</BrandSubtypeName>
+                <LaunchDate confidential="false">2017-2-28</LaunchDate>
+                <WithdrawalIndication confidential="false">FALSE</WithdrawalIndication>
+                <ProductNumberType confidential="false">SUBMITTER</ProductNumberType>
+                <ProductNumber confidential="false">76649.0</ProductNumber>
+                <PackageUnits confidential="false">12.0</PackageUnits>
+                <UnitPacketPictureFile attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+            </Presentation>
+            <Presentation>
+                <NationalMarket confidential="false">GB</NationalMarket>
+                <BrandName confidential="false">BrandName_31_8_959793</BrandName>
+                <BrandSubtypeNameExists confidential="false">TRUE</BrandSubtypeNameExists>
+                <BrandSubtypeName confidential="false">EPEN</BrandSubtypeName>
+                <LaunchDate confidential="false">2017-2-28</LaunchDate>
+                <WithdrawalIndication confidential="false">FALSE</WithdrawalIndication>
+                <ProductNumberType confidential="false">SUBMITTER</ProductNumberType>
+                <ProductNumber confidential="false">76649.0</ProductNumber>
+                <PackageUnits confidential="false">12.0</PackageUnits>
+                <UnitPacketPictureFile attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+            </Presentation>
+        </Presentations>
+        <Emissions>
+            <Emission>
+                <CasNumber confidential="false">93-97-15</CasNumber>
+                <Quantity confidential="false">39.7</Quantity>
+                <Unit confidential="false">&lt;13.61ug/336puffs</Unit>
+                <Name confidential="false">11.0</Name>
+                <MethodsFile/>
+            </Emission>
+            <Emission>
+                <CasNumber confidential="false">81-75-52</CasNumber>
+                <Quantity confidential="false">39.7</Quantity>
+                <Unit confidential="false">&lt;13.61ug/336puffs</Unit>
+                <Name confidential="false">11.0</Name>
+                <MethodsFile/>
+            </Emission>
+        </Emissions>
+        <Ingredients>
+            <Ingredient>
+                <Name confidential="false">Supplement2</Name>
+                <CasNumberExists confidential="false">FALSE</CasNumberExists>
+                <CasNumber confidential="false">93-97-15</CasNumber>
+                <FlNumber confidential="false">123456.0</FlNumber>
+                <FemaNumber confidential="false">657567.0</FemaNumber>
+                <EcNumber confidential="false">876768.0</EcNumber>
+                <RecipeQuantity confidential="false">3.0</RecipeQuantity>
+                <Functions>
+                    <Function confidential="false">15</Function>
+                    <Function confidential="false">9</Function>
+                </Functions>
+                <ToxicityStatus confidential="false">TRUE</ToxicityStatus>
+                <ReachRegistration confidential="false">FALSE</ReachRegistration>
+                <ClpWhetherClassification confidential="false">None</ClpWhetherClassification>
+                <ToxicologicalDetails>
+                    <ToxicologicalDataAvailable confidential="false">1.0</ToxicologicalDataAvailable>
+                    <ToxEmission confidential="false">FALSE</ToxEmission>
+                    <ToxCmr confidential="false">TRUE</ToxCmr>
+                    <ToxCardioPulmonary confidential="false">FALSE</ToxCardioPulmonary>
+                    <ToxAddictive confidential="false">FALSE</ToxAddictive>
+                    <ToxOther confidential="false">TRUE</ToxOther>
+                    <ToxCmrFiles>
+                        <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                    </ToxCmrFiles>
+                    <ToxCardioPulmonaryFiles/>
+                    <ToxOtherFiles>
+                        <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                    </ToxOtherFiles>
+                </ToxicologicalDetails>
+            </Ingredient>
+            <Ingredient>
+                <Name confidential="false">Supplement1</Name>
+                <CasNumberExists confidential="false">TRUE</CasNumberExists>
+                <CasNumber confidential="false">81-75-52</CasNumber>
+                <FlNumber confidential="false">123456.0</FlNumber>
+                <FemaNumber confidential="false">234567.0</FemaNumber>
+                <EcNumber confidential="false">345678.0</EcNumber>
+                <RecipeQuantity confidential="false">5.0</RecipeQuantity>
+                <Functions>
+                    <Function confidential="false">12</Function>
+                    <Function confidential="false">7</Function>
+                </Functions>
+                <ToxicityStatus confidential="false">TRUE</ToxicityStatus>
+                <ReachRegistration confidential="false">TRUE</ReachRegistration>
+                <ClpWhetherClassification confidential="false">None</ClpWhetherClassification>
+                <ToxicologicalDetails>
+                    <ToxicologicalDataAvailable confidential="false">1.0</ToxicologicalDataAvailable>
+                    <ToxEmission confidential="false">FALSE</ToxEmission>
+                    <ToxCmr confidential="false">TRUE</ToxCmr>
+                    <ToxCardioPulmonary confidential="false">FALSE</ToxCardioPulmonary>
+                    <ToxAddictive confidential="false">FALSE</ToxAddictive>
+                    <ToxOther confidential="false">TRUE</ToxOther>
+                    <ToxCmrFiles>
+                        <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                    </ToxCmrFiles>
+                    <ToxCardioPulmonaryFiles/>
+                    <ToxOtherFiles>
+                        <Attachment attachmentID="d31e0105-ed9c-4a95-8ccb-2ba71e5b69f5"/>
+                    </ToxOtherFiles>
+                </ToxicologicalDetails>
+            </Ingredient>
+            <Ingredient>
+                <Name confidential="false">Supplement1</Name>
+                <CasNumberExists confidential="false">TRUE</CasNumberExists>
+                <CasNumber confidential="false">89-3-61</CasNumber>
+                <FlNumber confidential="false">123456.0</FlNumber>
+                <FemaNumber confidential="false">234567.0</FemaNumber>
+                <EcNumber confidential="false">345678.0</EcNumber>
+                <RecipeQuantity confidential="false">5.0</RecipeQuantity>
+                <Functions>
+                    <Function confidential="false">8</Function>
+                    <Function confidential="false">15</Function>
+                </Functions>
+                <ToxicityStatus confidential="false">TRUE</ToxicityStatus>
+                <ReachRegistration confidential="false">TRUE</ReachRegistration>
+                <ClpWhetherClassification confidential="false">None</ClpWhetherClassification>
+            </Ingredient>
+        </Ingredients>
+        <Design>
+            <Description confidential="false">Super cool vape</Description>
+            <LiquidVolumeCapacity confidential="false">1.5</LiquidVolumeCapacity>
+            <NicotineConcentration confidential="false">0.9</NicotineConcentration>
+            <VoltageWattageAdjustable confidential="false">4.0</VoltageWattageAdjustable>
+            <Voltage confidential="false">0.0</Voltage>
+            <Wattage confidential="false">0.0</Wattage>
+            <NicotineDoseUptakeFile attachmentID="65da4094-d0cd-4322-ab6c-782e2f46bb21"/>
+            <ProductionFile attachmentID="65da4094-d0cd-4322-ab6c-782e2f46bb21"/>
+            <ProductionConformity confidential="false">TRUE</ProductionConformity>
+            <QualitySafety confidential="false">TRUE</QualitySafety>
+            <OpeningRefillFile attachmentID="ead14ac1-8392-489b-a777-7a84bb1b0de5"/>
+            <ChildTamperProof confidential="false">TRUE</ChildTamperProof>
+            <HighPurity confidential="false">TRUE</HighPurity>
+            <NonRisk confidential="false">TRUE</NonRisk>
+            <ConsistentDosing confidential="false">TRUE</ConsistentDosing>
+            <LeafletFile attachmentID="93459d62-b50c-40ba-8aa1-4611a323d6b8"/>
+            <CoilResistance confidential="false">2.8</CoilResistance>
+        </Design>
+    </Product>
+</EcigProductSubmission>

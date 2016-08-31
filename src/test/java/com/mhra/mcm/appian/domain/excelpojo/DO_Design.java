@@ -1,5 +1,7 @@
 package com.mhra.mcm.appian.domain.excelpojo;
 
+import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
+
 /**
  * Created by TPD_Auto on 26/08/2016.
  */
@@ -54,7 +56,56 @@ public class DO_Design {
         }
     }
 
+    public DO_Design(String[] dataUpdated) {
+        for(String dt: dataUpdated){
+            String fieldName = ExcelUtils.getFieldValue(dt, 0);
+            String fieldValue = ExcelUtils.getFieldValue(dt, 1);
+            if(fieldName!=null)
+                populateCorrectField(fieldName, fieldValue);
+        }
+    }
 
+    private void populateCorrectField(String fieldName, String fieldValue) {
+        String field = fieldName.toLowerCase().trim();
+        //System.out.println(field);
+        if(field.equals("key")){
+            key = fieldValue;
+        }else if(field.equals("liquidvolumecapacity")){
+            liquidVolumeCapacity = fieldValue;
+        }else if(field.equals("nicotineconcentration")){
+            nicotineConcentration = fieldValue;
+        }else if(field.equals("voltagewattageadjustable")){
+            voltageWattageAdjustable = fieldValue;
+        }else if(field.equals("voltage")){
+            voltage = fieldValue;
+        }else if(field.equals("wattage")){
+            wattage = fieldValue;
+        }else if(field.equals("nicotinedoseuptakefile")){
+            nicotineDoseUptakeFile = fieldValue;
+        }else if(field.equals("productionfile")){
+            productionFile = fieldValue;
+        }else if(field.equals("productionconformity")){
+            productionConformity = fieldValue;
+        }else if(field.equals("qualitysafety")){
+            qualitySafety = fieldValue;
+        }else if(field.equals("openingrefillfile")){
+            openningRefillFile = fieldValue;
+        }else if(field.equals("childtamperproof")){
+            childTemperProof = fieldValue;
+        }else if(field.equals("highpurity")){
+            highPurity = fieldValue;
+        }else if(field.equals("nonrisk")){
+            nonRisk = fieldValue;
+        }else if(field.equals("consistentdosing")){
+            consistentDosing = fieldValue;
+        }else if(field.equals("leafletfile")){
+            leafletFile = fieldValue;
+        }else if(field.equals("coilresistance")){
+            coilResistance = fieldValue;
+        }else if(field.equals("description")){
+            description = fieldValue;
+        }
+    }
 
     @Override
     public boolean equals(Object obj) {

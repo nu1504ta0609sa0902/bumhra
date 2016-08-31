@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone='yes'?>
+<EcigProductSubmission>
+  <Submitter confidential="true" submitterID="00999">
+    <SubmitterType>IMPORTER</SubmitterType>
+    <HasParent>true</HasParent>
+    <Parent confidential="true">
+      <Name>MHRA Parent</Name>
+      <Address>151 Buckingham Palace Parent Road, London</Address>
+      <Country>UK</Country>
+      <PhoneNumber>+44 20 8524 04 98</PhoneNumber>
+      <Email> mhra.uat@gmail.com</Email>
+    </Parent>
+    <HasAffiliates>false</HasAffiliates>
+    <HasEnterer>false</HasEnterer>
+  </Submitter>
+  <SubmissionType confidential="true">1</SubmissionType>
+  <GeneralComment confidential="true">General Comment Vape</GeneralComment>
+  <Product>
+    <ProductID confidential="true">00999-16-10990</ProductID>
+    <OtherProductsExist confidential="false">false</OtherProductsExist>
+    <SameCompositionProductsExist confidential="false">false</SameCompositionProductsExist>
+    <Manufacturers>
+      <Manufacturer confidential="false">
+        <Name>MHRA TEST</Name>
+        <Address>151 Buckingham Palace Road, London, SW1V</Address>
+        <Country>GB</Country>
+        <PhoneNumber>44(0)20-31787094</PhoneNumber>
+        <Email>lambros.poullais@mhra.gsi.gov.uk</Email>
+        <ProductionSiteAddresses>
+          <ProductionSiteAddress confidential="false">
+            <Address>123 Production Address, Shenzhen, China.</Address>
+            <Country>CN</Country>
+            <PhoneNumber>86(0)777-888441094</PhoneNumber>
+            <Email>poullais.lambros@mhra.gsi.gov.uk</Email>
+          </ProductionSiteAddress>
+        </ProductionSiteAddresses>
+      </Manufacturer>
+    </Manufacturers>
+    <ProductType confidential="true">5</ProductType>
+    <Presentations>
+      <Presentation>
+        <NationalMarket confidential="true">GB</NationalMarket>
+        <BrandName confidential="true">Lambs Vape</BrandName>
+        <BrandSubtypeNameExists confidential="false">true</BrandSubtypeNameExists>
+        <BrandSubtypeName confidential="false">Lambs Sub Type</BrandSubtypeName>
+        <LaunchDate confidential="true">2016-05-18+08:00</LaunchDate>
+        <WithdrawalIndication confidential="false">false</WithdrawalIndication>
+        <ProductNumberType confidential="true">EAN</ProductNumberType>
+        <ProductNumber confidential="false">6956916403111</ProductNumber>
+        <PackageUnits confidential="true">1</PackageUnits>
+      </Presentation>
+    </Presentations>
+    <Emissions>
+      <Emission>
+        <CasNumber confidential="false">54-11-5</CasNumber>
+        <Quantity confidential="false">13.2</Quantity>
+        <Unit confidential="false">±1.1mg/100puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="false">1</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">431-03-8</CasNumber>
+        <Quantity confidential="false">6.0</Quantity>
+        <Unit confidential="false">&lt;ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="false">20</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="true">600-14-6</CasNumber>
+        <Quantity confidential="false">50.0</Quantity>
+        <Unit confidential="false">&lt;ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="false">22</Name>
+        <NameOther confidential="true">acetyl propionyl</NameOther>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="true">513-86-0</CasNumber>
+        <Quantity confidential="true">50.0</Quantity>
+        <Unit confidential="true">&lt;ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="false">22</Name>
+        <NameOther confidential="true">acetion</NameOther>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="true">500-00-0</CasNumber>
+        <Quantity confidential="true">40.0</Quantity>
+        <Unit confidential="true">&lt;ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="true">4</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="true">75-07-0</CasNumber>
+        <Quantity confidential="true">344.0</Quantity>
+        <Unit confidential="false">&lt;29ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="false">5</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">107-02-8</CasNumber>
+        <Quantity confidential="false">8.0</Quantity>
+        <Unit confidential="false">&lt;ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="false">6</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="true">7440-36-0</CasNumber>
+        <Quantity confidential="true">1.0</Quantity>
+        <Unit confidential="true">&lt;ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="true">22</Name>
+        <NameOther confidential="true">antimony</NameOther>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="true">7440-02-0</CasNumber>
+        <Quantity confidential="true">0.3</Quantity>
+        <Unit confidential="true">&lt;ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="false">14</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">7440-47-3</CasNumber>
+        <Quantity confidential="false">1.1</Quantity>
+        <Unit confidential="false">&lt;ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="false">11</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="true">7440-43-9</CasNumber>
+        <Quantity confidential="true">0.2</Quantity>
+        <Unit confidential="true">&lt;ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="true">10</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">7439-92-1</CasNumber>
+        <Quantity confidential="false">0.3</Quantity>
+        <Unit confidential="false">&lt;ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="false">13</Name>
+      </Emission>
+      <Emission>
+        <CasNumber confidential="false">7440-38-2</CasNumber>
+        <Quantity confidential="false">0.2</Quantity>
+        <Unit confidential="false">&lt;ug/200puffs</Unit>
+        <MethodsFile>
+          <Attachment attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+        </MethodsFile>
+        <Name confidential="false">15</Name>
+      </Emission>
+    </Emissions>
+    <Design>
+      <Description confidential="false">The Lambs Vape is so good, with a steel pipe, lithium polymer battery, sealed tank, PCB with LED lights, atomizer volume 2ml. All in one power.
+</Description>
+      <LiquidVolumeCapacity confidential="true">2.0</LiquidVolumeCapacity>
+      <BatteryType confidential="true">Li-polymer</BatteryType>
+      <BatteryCapacity confidential="true">1500.0</BatteryCapacity>
+      <VoltageWattageAdjustable confidential="true">4</VoltageWattageAdjustable>
+      <Voltage confidential="true">3.7</Voltage>
+      <VoltageLowerRange confidential="true">3.0</VoltageLowerRange>
+      <VoltageUpperRange confidential="true">4.0</VoltageUpperRange>
+      <Wattage confidential="true">22.8</Wattage>
+      <WattageLowerRange confidential="true">15.0</WattageLowerRange>
+      <WattageUpperRange confidential="true">26.0</WattageUpperRange>
+      <AirflowAdjustable confidential="true">true</AirflowAdjustable>
+      <WickChangeable confidential="false">false</WickChangeable>
+      <Microprocessor confidential="true">true</Microprocessor>
+      <CoilComposition confidential="false">SS316</CoilComposition>
+      <NicotineDoseUptakeFile attachmentID="41da3cd9-5220-4b26-830c-d6fc991407b5"/>
+      <ProductionFile attachmentID="5b7b88aa-2194-4937-acbd-49b6e2cb9742"/>
+      <ProductionConformity confidential="true">true</ProductionConformity>
+      <QualitySafety confidential="true">true</QualitySafety>
+      <OpeningRefillFile attachmentID="97c66351-17be-4cbd-8a3a-59459f47a7e1"/>
+      <ChildTamperProof confidential="true">true</ChildTamperProof>
+      <HighPurity confidential="false">false</HighPurity>
+      <NonRisk confidential="false">false</NonRisk>
+      <ConsistentDosing confidential="true">true</ConsistentDosing>
+      <ConsistentDosingMethodsFile attachmentID="85d66f7b-0724-4009-887a-28e57b356c84"/>
+      <CoilResistance confidential="true">0.6</CoilResistance>
+    </Design>
+  </Product>
+</EcigProductSubmission>

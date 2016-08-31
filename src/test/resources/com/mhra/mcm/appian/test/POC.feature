@@ -32,6 +32,7 @@ Feature: Perform a POC of end to end invoicing process to stakeholders
     Examples:
       | user | type | price | status | ingredient  | status2    |
       | rdt1 | 1    | 150   | Paid   | SUPPLEMENT1 | Successful |
+      | rdt1 | 1    | 150   | Paid   | SUPPLEMENT1 | Successful |
 
 
   @poce2e3

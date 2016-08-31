@@ -27,8 +27,13 @@ import org.xml.sax.SAXException;
  */
 public class AnonymiseXMLDataUtility {
 
-    public static void XMLReplaceTextWith(String original, String created, String searchForTag, String replaceWith, List<String> ignoreTagList) {
+    public static void XMLReplaceTextWith(boolean useBarylsChanges, boolean overrideSpecificTags, String original, String created, String searchForTag, String replaceWith, List<String> listOfIgnoreTags) {
         try {
+            //Beryl has specified list of tags which will be displayed even if users have set it to confidential=true
+            if(!useBarylsChanges){
+                listOfIgnoreTags = new ArrayList<>();
+            }
+
             String filepath = original;
             String writeTo = created;
             System.out.println("Input : " + filepath);
@@ -54,7 +59,7 @@ public class AnonymiseXMLDataUtility {
 
                     Node node = list.item(i);
                     String parentName = node.getNodeName();
-                    boolean contains = ignoreTagList.contains(parentName);
+                    boolean contains = listOfIgnoreTags.contains(parentName);
                     if(!contains) {
                         NodeList children = node.getChildNodes();
                         if (children.getLength() > 1) {
@@ -62,11 +67,11 @@ public class AnonymiseXMLDataUtility {
                                 Node child = children.item(x);
                                 if (child.getNodeType() == Node.ELEMENT_NODE) {
                                     String childName = child.getNodeName();
-                                    contains = ignoreTagList.contains(childName);
+                                    contains = listOfIgnoreTags.contains(childName);
                                     if(!contains) {
-                                        String childText = child.getTextContent();
                                         child.setTextContent(replaceWith);
                                     }
+                                    //String childText = child.getTextContent();
                                     //System.out.println(child.getNodeName() + " " + childText);
                                 }
                             }
@@ -75,13 +80,15 @@ public class AnonymiseXMLDataUtility {
                             node.setTextContent(replaceWith);
                         }
                     }
-
-
 //                    Node node = list.item(i);
 //                    node.setTextContent("CONFIDENTIAL_DATA");
 
 
                 }
+
+                //Override and replace specific ones with any info which can identify the product owner or company details
+                if(overrideSpecificTags)
+                overrideAndReplaceSpecificTags(replaceWith, xpath, doc);
 
                 //Write new file to disk
                 Transformer xformer = TransformerFactory.newInstance().newTransformer();
@@ -106,17 +113,20 @@ public class AnonymiseXMLDataUtility {
         }
     }
 
-//    private static boolean itsInTheSpecialList(String parentName, String childName) {
-//        boolean isInSpecialList = false;
-//        if(parentName.equals("Ingredient"))
-//            isInSpecialList = true;
-//        if(parentName.equals("Manufacturer") && childName.equals("Name"))
-//            isInSpecialList = true;
-//        if(parentName.equals("Manufacturer") && childName.equals("Country"))
-//            isInSpecialList = true;
-//
-//        return isInSpecialList;
-//    }
+
+    private static void replaceSpecificTags(String expr, String replaceWith, XPath xpath, Document doc) throws XPathExpressionException {
+
+        XPathExpression expr2 = xpath.compile(expr);
+        NodeList list2 = (NodeList) expr2.evaluate(doc, XPathConstants.NODESET);
+
+        for (int i = 0; i < list2.getLength(); i++) {
+            //System.out.println(list2.getLength());
+            //System.out.println(node.getTextContent());
+            Node node = list2.item(i);
+            node.setTextContent(replaceWith);
+        }
+    }
+
 
     public static boolean isNumeric(String str) {
         for (char c : str.toCharArray()) {
@@ -125,44 +135,8 @@ public class AnonymiseXMLDataUtility {
         return true;
     }
 
-    public static void main(String args[]) {
-        String os = System.getProperty("os.name");
-        String xmlFolderLocation = "C:\\Selenium\\xmlData\\originalFiles";
-        File locationOutput = new File("C:\\Selenium\\xmlData\\AnonymisedFiles" + new Date().toString().substring(0, 16).replace(":", "").replace(" ", "").trim());
-
-        if(os.toLowerCase().contains("mac")){
-            xmlFolderLocation = "/Users/tayyibah/Downloads/xml/originalFiles";
-            locationOutput = new File("/Users/tayyibah/Downloads/xml/AnonymisedFiles" + new Date().toString().substring(0, 16).replace(":", "").replace(" ", "").trim());
-        }
-
-        locationOutput.mkdir();
-        File location = new File(xmlFolderLocation);
-        String locationInputFullPath = location.getAbsolutePath();
-        String locationOutputFullPath = locationOutput.getAbsolutePath();
-
-        List<String> listOfIgnoreTags = getListOfIgnoreTags();
-
-
-        String[] listOfXmlFiles = location.list();
-
-        AnonymiseXMLDataUtility fr = new AnonymiseXMLDataUtility();
-        for (String fileName : listOfXmlFiles) {
-            try {
-                String original = locationInputFullPath + File.separator + fileName;
-                String created = locationOutputFullPath + File.separator + fileName;
-
-                File isFile = new File(original);
-                if(isFile.isFile())
-                fr.XMLReplaceTextWith(original, created, ".//*[@confidential='true']", "CONFIDENTIAL DATA", listOfIgnoreTags);
-            } catch (Exception e) {
-
-            }
-        }
-
-    }
-
     /**
-     * This list of items received from Chris Dale
+     * This list of items received from Chris Dale, requested by Beryl
      * @return
      */
     private static List<String> getListOfIgnoreTags() {
@@ -195,5 +169,105 @@ public class AnonymiseXMLDataUtility {
 
 
         return listOfIgnoreTags;
+    }
+
+
+    /**
+     * ONLY USED FOR ReferenceData Team
+     * @param replaceWith
+     * @param xpath
+     * @param doc
+     * @throws XPathExpressionException
+     */
+    private static void overrideAndReplaceSpecificTags(String replaceWith, XPath xpath, Document doc) throws XPathExpressionException {
+        String testPhone= "+44 207 845 1234567";
+        String testEmail = "mhra.uat@gmail.com";
+
+        //replaceSpecificTags(".//Parent/Name", replaceWith, xpath, doc);
+        //replaceSpecificTags(".//Parent/Address", replaceWith, xpath, doc);
+        //replaceSpecificTags(".//Parent/PhoneNumber", testPhone, xpath, doc);
+        //replaceSpecificTags(".//Parent/Email", testEmail, xpath, doc);
+        //replaceSpecificTags(".//Parent/Country", replaceWith, xpath, doc);
+
+        //replaceSpecificTags(".//Enterer/Name", replaceWith, xpath, doc);
+        //replaceSpecificTags(".//Enterer/Address", replaceWith, xpath, doc);
+        //replaceSpecificTags(".//Enterer/PhoneNumber", testPhone, xpath, doc);
+        //replaceSpecificTags(".//Enterer/Email", testEmail, xpath, doc);
+        //replaceSpecificTags(".//Enterer/Country", replaceWith, xpath, doc);
+
+        //replaceSpecificTags(".//Affiliate/Name", replaceWith, xpath, doc);
+        //replaceSpecificTags(".//Affiliate/Address", replaceWith, xpath, doc);
+        //replaceSpecificTags(".//Affiliate/PhoneNumber", testPhone, xpath, doc);
+        //replaceSpecificTags(".//Affiliate/Email", testEmail, xpath, doc);
+        //replaceSpecificTags(".//Affiliate/Country", replaceWith, xpath, doc);
+
+        //replaceSpecificTags(".//ProductionSiteAddress/Address", replaceWith, xpath, doc);
+        //replaceSpecificTags(".//ProductionSiteAddress/PhoneNumber", testPhone, xpath, doc);
+        //replaceSpecificTags(".//ProductionSiteAddress/Email", testEmail, xpath, doc);
+
+        //replaceSpecificTags(".//ProductionSiteAddress/Address", replaceWith, xpath, doc);
+        //replaceSpecificTags(".//ProductionSiteAddress/PhoneNumber", testPhone, xpath, doc);
+        //replaceSpecificTags(".//ProductionSiteAddress/Email", testEmail, xpath, doc);
+
+        //replaceSpecificTags(".//OtherProducts/ProductIdentification", replaceWith, xpath, doc);
+        //replaceSpecificTags(".//Design/Description", replaceWith, xpath, doc);
+
+        //replaceSpecificTags(".//Presentation/BrandName", replaceWith, xpath, doc);
+        //replaceSpecificTags(".//Presentation/BrandSubtypeName", replaceWith, xpath, doc);
+
+
+        replaceSpecificTags(".//PhoneNumber", testPhone, xpath, doc);
+        replaceSpecificTags(".//Email", testEmail, xpath, doc);
+    }
+
+
+
+    public static void main(String args[]) {
+        boolean applyTagsSpecifiedByBeryl = true;
+        boolean overrideSpecificTags = true;
+
+        String os = System.getProperty("os.name");
+        String xmlFolderLocation = "C:\\Selenium\\xmlData\\originalFiles";
+        File locationOutput = new File("C:\\Selenium\\xmlData\\" + getFileName(applyTagsSpecifiedByBeryl) + new Date().toString().substring(0, 16).replace(":", "").replace(" ", "").trim());
+
+        if(os.toLowerCase().contains("mac")){
+            xmlFolderLocation = "/Users/tayyibah/Downloads/xml/originalFiles";
+            locationOutput = new File("/Users/tayyibah/Downloads/xml/AnonymisedFiles" + new Date().toString().substring(0, 16).replace(":", "").replace(" ", "").trim());
+        }
+
+        locationOutput.mkdir();
+        File location = new File(xmlFolderLocation);
+        String locationInputFullPath = location.getAbsolutePath();
+        String locationOutputFullPath = locationOutput.getAbsolutePath();
+
+        List<String> listOfIgnoreTags = getListOfIgnoreTags();
+
+
+        String[] listOfXmlFiles = location.list();
+
+        AnonymiseXMLDataUtility fr = new AnonymiseXMLDataUtility();
+        for (String fileName : listOfXmlFiles) {
+            try {
+                String createdFileName = fileName.replaceAll(".xml", "_ANON.xml");
+                String original = locationInputFullPath + File.separator + fileName;
+                String created = locationOutputFullPath + File.separator + createdFileName;
+
+                File isFile = new File(original);
+                if(isFile.isFile()) {
+                    fr.XMLReplaceTextWith(applyTagsSpecifiedByBeryl, overrideSpecificTags, original, created, ".//*[@confidential='true']", "CONFIDENTIAL DATA", listOfIgnoreTags);
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+    }
+
+    private static String getFileName(boolean useBarylsChanges) {
+        String beginsWith = "Anonymised";
+        if(useBarylsChanges){
+            beginsWith = "AnonymisedWithBerylsChanges";
+        }
+        return beginsWith;
     }
 }

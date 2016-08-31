@@ -225,4 +225,23 @@ public class Product {
 
         manufacturers.add(new Manufacturer(name, address, country, phoneNumber, email, site1, site2));
     }
+
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productID=" + productID +
+                ", otherProductsExist=" + otherProductsExist +
+                ", sameCompositionProductsExist=" + sameCompositionProductsExist +
+                ", manufacturers=" + manufacturers +
+                ", productType=" + productType +
+                ", weight=" + weight +
+                ", volume=" + volume +
+                ", clpClassification=" + clpClassification +
+                ", presentations=" + presentations +
+                ", emissions=" + emissions +
+                ", ingredients=" + ingredients +
+                ", design=" + design +
+                '}';
+    }
 }

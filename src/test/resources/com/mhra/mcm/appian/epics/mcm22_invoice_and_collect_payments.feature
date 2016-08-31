@@ -13,8 +13,8 @@ Feature: Each notification will have a fee associated with it. No processing of 
     Then The notification status should update to "<status>"
     Examples:
       | user | type | price | status | ingredient |
-      | rdt1 | 1    | 150   | Paid   | SUPPA1     |
-#      | rdt1 | 2    | 80   | Paid   |
+#      | rdt1 | 1    | 150   | Paid   | SUPPA1     |
+      | rdt1 | 2    | 80   | Paid   |    SUPPA80         |
 #      | rdt1 | 3    | 150   | Paid   |
 #      | rdt1 | 4    | 150   | Paid   |
 #      | rdt1 | 5    | 150   | Paid   |

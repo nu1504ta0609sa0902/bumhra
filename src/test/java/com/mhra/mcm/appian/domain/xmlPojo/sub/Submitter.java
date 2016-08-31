@@ -128,4 +128,19 @@ public class Submitter {
 //            }
 //        }
     }
+
+    @Override
+    public String toString() {
+        return "Submitter{" +
+                "confidential=" + confidential +
+                ", submitterId='" + submitterId + '\'' +
+                ", submitterType='" + submitterType + '\'' +
+                ", hasEnterer=" + hasEnterer +
+                ", hasParent=" + hasParent +
+                ", hasAffiliate=" + hasAffiliate +
+                ", parent=" + parent +
+                ", enterer=" + enterer +
+                ", affiliate=" + affiliate +
+                '}';
+    }
 }
