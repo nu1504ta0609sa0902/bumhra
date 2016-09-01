@@ -82,7 +82,7 @@ public class RecordsPage extends _Page {
 
     public RecordsPage clickNotificationsLink() {
         WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 5);
-        PageUtils.doubleClick(driver, notificationsLink);
+        PageUtils.singleClick(driver, notificationsLink);
         //notificationsLink.click();
         return new RecordsPage(driver);
     }

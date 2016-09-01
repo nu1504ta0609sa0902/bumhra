@@ -1,9 +1,9 @@
-Feature: Create notifications and invoices for type 1 submissions
-  So that I can verify system is processing type 1 notifications correctly
+Feature: Create notifications and invoices for type 3 submissions
+  So that I can verify system is processing type 3 notifications correctly
 
 
-  @type1 @e2e
-  Scenario Outline: Create an invoice processing of type 1 notification
+  @type3 @e2e
+  Scenario Outline: Create an invoice processing of type 3 notification
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
       | type       | <type>       |
@@ -15,11 +15,11 @@ Feature: Create notifications and invoices for type 1 submissions
     Then The notification status should update to "<status>"
     Examples:
       | user | type | price | status | ingredient |
-      | rdt1 | 1    | 150   | Paid   | SUPPA1     |
+      | rdt1 | 3    | 150   | Paid   | SUPPA1     |
 
 
-  @type1 @e2e
-  Scenario Outline: Verify invoice processing  of type 1 notification with TCA number
+  @type3 @e2e
+  Scenario Outline: Verify invoice processing  of type 3 notification with TCA number
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data
       | type | <type> |
@@ -31,12 +31,12 @@ Feature: Create notifications and invoices for type 1 submissions
     Then The notification status should update to "<statusInvoicePaid>"
     Examples:
       | type | statusWithTCANumber | statusWhenInvoiced | statusInvoicePaid | amountToInvoice |
-      | 1    | Ready for Invoicing | Unpaid             | Paid              | 150             |
+      | 3    | Ready for Invoicing | Unpaid             | Paid              | 150             |
 
 
 
-  @type1 @e2e
-  Scenario Outline: Verify invoice processing of type 1 notification without a TCA number
+  @type3 @e2e
+  Scenario Outline: Verify invoice processing of type 3 notification without a TCA number
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data
       | type          | <type>                    |
@@ -53,12 +53,12 @@ Feature: Create notifications and invoices for type 1 submissions
     Then The notification status should update to "<statusInvoicePaid>"
     Examples:
       | type | statusWithTCANumber | statusWhenInvoiced | statusInvoicePaid | amountToInvoice | initialStatus | submitterNameGeneration |
-      | 1    | Ready for Invoicing | Unpaid             | Paid              | 150             | Uploaded      | random                  |
+      | 3    | Ready for Invoicing | Unpaid             | Paid              | 150             | Uploaded      | random                  |
 
 
 
-  @type1 @e2e
-  Scenario Outline: POC example of invoice processing of type 1 notification with ingredient and toxicology report
+  @type3 @e2e
+  Scenario Outline: POC example of invoice processing of type 3 notification with ingredient and toxicology report
     Given I am logged into appian as "<user>" user
     When I create new notification with following data
       | type       | <type>       |
@@ -71,5 +71,5 @@ Feature: Create notifications and invoices for type 1 submissions
     Then The notification status should update to "<status2>"
     Examples:
       | user | type | price | status | ingredient  | status2    |
-      | rdt1 | 1    | 150   | Paid   | SUPPLEMENT1 | Successful |
+      | rdt1 | 3    | 150   | Paid   | SUPPLEMENT1 | Successful |
 

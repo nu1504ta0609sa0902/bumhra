@@ -3,6 +3,7 @@ package com.mhra.mcm.appian.steps.common;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import com.mhra.mcm.appian.pageobjects.sections.contents.*;
 import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -18,10 +19,6 @@ import com.mhra.mcm.appian.pageobjects.RecordsPage;
 import com.mhra.mcm.appian.pageobjects.ReportsPage;
 import com.mhra.mcm.appian.pageobjects.TasksPage;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
-import com.mhra.mcm.appian.pageobjects.sections.contents.CreateNotification;
-import com.mhra.mcm.appian.pageobjects.sections.contents.EditNotification;
-import com.mhra.mcm.appian.pageobjects.sections.contents.Exceptions;
-import com.mhra.mcm.appian.pageobjects.sections.contents.NotificationDetails;
 import com.mhra.mcm.appian.session.ScenarioSession;
 
 
@@ -70,6 +67,8 @@ public class CommonSteps {
     public CreateNotification createNotification;
     @Autowired
     public Exceptions exception;
+    @Autowired
+    public UpdateQAPercentage updateQAPercentage;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {

@@ -1,12 +1,13 @@
 package com.mhra.mcm.appian.steps.v1;
 
-import java.util.Date;
 import java.util.Map;
 
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
+import com.mhra.mcm.appian.pageobjects.sections.contents.UpdateQAPercentage;
 import com.mhra.mcm.appian.utils.helpers.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.StepsUtils;
 import cucumber.api.DataTable;
+import cucumber.api.java.en.Then;
 import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
@@ -16,6 +17,10 @@ import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 
 import cucumber.api.java.en.Given;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.is;
 
 /**
  * Created by TPD_Auto on 18/07/2016.
@@ -214,4 +219,26 @@ public class ActionsPageSteps extends CommonSteps {
     }
 
 
+    @Given("^I update qa percentage to \"([^\"]*)\"$")
+    public void i_update_qa_percentage_to(String qaPercentage) throws Throwable {
+        actionsPage = mainNavigationBar.clickActions();
+        updateQAPercentage = actionsPage.clickUpdateQAPercentage();
+        updateQAPercentage = updateQAPercentage.setQAPercentage(qaPercentage);
+        updateQAPercentage.acceptDialog(true);
+    }
+
+
+    @Then("^I should see \"([^\"]*)\" in the error message$")
+    public void i_should_see_in_the_error_message(String expectedMessage) throws Throwable {
+        boolean correct = updateQAPercentage.isErrorMessageCorrect(expectedMessage);
+        assertThat("Error message should contains : " + expectedMessage , correct, is(true));
+    }
+
+    @Then("^I should see qa percentage updated to \"([^\"]*)\"$")
+    public void i_should_see_qa_percentage_updated_to(String expectedQAPercentage) throws Throwable {
+        actionsPage = mainNavigationBar.clickActions();
+        updateQAPercentage = actionsPage.clickUpdateQAPercentage();
+        boolean correct = updateQAPercentage.isQAPercentageCorrect(expectedQAPercentage);
+        assertThat("QA Percentage should be updated to : " + expectedQAPercentage , correct, is(true));
+    }
 }

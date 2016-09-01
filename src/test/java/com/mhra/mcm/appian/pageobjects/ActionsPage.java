@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.pageobjects;
 
+import com.mhra.mcm.appian.pageobjects.sections.contents.UpdateQAPercentage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,6 +22,9 @@ public class ActionsPage extends _Page {
 
     @FindBy(partialLinkText = "Create Standard Invoices")
     WebElement createStandardNotification;
+
+    @FindBy(partialLinkText = "Update QA Percentage")
+    WebElement updateQAPercentage;
 
     @Autowired
     public ActionsPage(WebDriver driver) {
@@ -48,5 +52,11 @@ public class ActionsPage extends _Page {
         }catch (Exception e){
             return false;
         }
+    }
+
+    public UpdateQAPercentage clickUpdateQAPercentage() {
+        WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, 10, false);
+        PageUtils.doubleClick(driver, updateQAPercentage);
+        return new UpdateQAPercentage(driver);
     }
 }

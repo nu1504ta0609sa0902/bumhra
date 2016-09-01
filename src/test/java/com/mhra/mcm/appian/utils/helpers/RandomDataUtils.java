@@ -29,7 +29,7 @@ public class RandomDataUtils {
     public static String getECID(String euIdentifier) {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         year = year % 2000;
-        String productId = getRandomNumberBetween(30000, 90000);
+        String productId = getSimpleRandomNumberBetween(10000, 99999);
         return euIdentifier + "-" + year + "-" + productId;
     }
 
@@ -63,6 +63,14 @@ public class RandomDataUtils {
         return String.valueOf(val);
     }
 
+    public static String getSimpleRandomNumberBetween(int min, int max) {
+        int val = ( int )( Math.random() * max );
+        if(val < min){
+            val = val + min;
+        }
+        return String.valueOf(val);
+    }
+
     public static String generateCASNumber() {
         String a = getRandomNumberBetween(1, 100);
         String b = getRandomNumberBetween(1, 100);
@@ -83,4 +91,12 @@ public class RandomDataUtils {
         double td = ((int)(x * 100))/100.0;
         return String.valueOf(td);
     }
+
+//    public static void main(String[] args){
+//        for(int x = 0; x < 99; x++) {
+//            String v = getSimpleRandomNumberBetween(10000, 99999);
+//            System.out.println(v);
+//        }
+//    }
+
 }

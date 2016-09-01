@@ -161,7 +161,9 @@ public class Notification {
     public static void main(String args[]){
         Notification n = new Notification(10,10,null);
         System.out.println(n);
+        System.out.println(n.ecIDNumber);
 
+        //Generate XML output
         try {
             JAXBContext context = JAXBContext.newInstance(Notification.class);
 
