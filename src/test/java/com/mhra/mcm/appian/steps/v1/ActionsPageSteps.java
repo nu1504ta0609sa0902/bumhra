@@ -31,7 +31,19 @@ public class ActionsPageSteps extends CommonSteps {
         Notification random = new Notification(2, 2, null);
         log.info("Create Notification With ECID : " +  random.ecIDNumber);
         actionsPage = createNotification.createRandomNotification(random);
-        actionsPage.isInCorrectPage();
+
+        //Retry if fields are not correctly filled
+        boolean isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
+        if(!isInCorrectPage){
+            int count = 1;
+            do {
+                actionsPage = createNotification.clickCancel();
+                createNotification = actionsPage.clickUploadSampleNotification();
+                actionsPage = createNotification.createRandomNotification(random);
+                isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
+                count++;
+            }while (!isInCorrectPage && count <= 3 );
+        }
 
         //Stored ecId for future use
         String ecId = random.ecIDNumber;
@@ -52,7 +64,19 @@ public class ActionsPageSteps extends CommonSteps {
         actionsPage = mainNavigationBar.clickActions();
         createNotification = actionsPage.clickUploadSampleNotification();
         actionsPage = createNotification.createRandomNotification(random);
-        actionsPage.isInCorrectPage();
+
+        //Retry if fields are not correctly filled
+        boolean isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
+        if(!isInCorrectPage){
+            int count = 1;
+            do {
+                actionsPage = createNotification.clickCancel();
+                createNotification = actionsPage.clickUploadSampleNotification();
+                actionsPage = createNotification.createRandomNotification(random);
+                isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
+                count++;
+            }while (!isInCorrectPage && count <= 3 );
+        }
 
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
@@ -74,7 +98,20 @@ public class ActionsPageSteps extends CommonSteps {
         actionsPage = mainNavigationBar.clickActions();
         createNotification = actionsPage.clickUploadSampleNotification();
         actionsPage = createNotification.createRandomNotification(random);
-        actionsPage.isInCorrectPage();
+
+        //Retry if fields are not correctly filled
+        boolean isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
+        if(!isInCorrectPage){
+            int count = 1;
+            do {
+                actionsPage = createNotification.clickCancel();
+                createNotification = actionsPage.clickUploadSampleNotification();
+                actionsPage = createNotification.createRandomNotification(random);
+                isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
+                count++;
+            }while (!isInCorrectPage && count <= 3 );
+        }
+
         log.info("Created Notification With ECID : " +  ecId);
 
         //Add a toxicology report
@@ -100,7 +137,20 @@ public class ActionsPageSteps extends CommonSteps {
                 createNotification = actionsPage.clickUploadSampleNotification();
                 Notification random = new Notification(2, 2, null);
                 actionsPage = createNotification.createRandomNotification(random);
-                actionsPage.isInCorrectPage();
+
+                //Retry if fields are not correctly filled
+                boolean isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
+                if(!isInCorrectPage){
+                    int count = 1;
+                    do {
+                        actionsPage = createNotification.clickCancel();
+                        createNotification = actionsPage.clickUploadSampleNotification();
+                        actionsPage = createNotification.createRandomNotification(random);
+                        isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
+                        count++;
+                    }while (!isInCorrectPage && count <= 3 );
+                }
+
             }catch(Exception e){
                 e.printStackTrace();
             }

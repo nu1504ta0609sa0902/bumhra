@@ -56,4 +56,19 @@ Feature: Create notifications and invoices for type 1 submissions
 
 
 
+  @type1 @e2e
+  Scenario Outline: POC example of invoice processing of type 1 notification with ingredient and toxicology report
+    Given I am logged into appian as "<user>" user
+    When I create new notification with following data
+      | type       | <type>       |
+      | ingredient | <ingredient> |
+    And I attach a toxicology report for "<ingredient>"
+    When I login as "fin1" and generate a standard invoice
+    Then I should receive an invoice email from appian in next 2 min with correct price "<price>" for the stored notification
+    When I send paid email response back to appian
+    Then The notification status should update to "<status>"
+    Then The notification status should update to "<status2>"
+    Examples:
+      | user | type | price | status | ingredient  | status2    |
+      | rdt1 | 1    | 150   | Paid   | SUPPLEMENT1 | Successful |
 

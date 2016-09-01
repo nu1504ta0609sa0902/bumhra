@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.domain.webPagePojo.sub.Invoice;
-import com.mhra.mcm.appian.po.sections.MainNavigationBar;
+import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.emails.GmailEmail;

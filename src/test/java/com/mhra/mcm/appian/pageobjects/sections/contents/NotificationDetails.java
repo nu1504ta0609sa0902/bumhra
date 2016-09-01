@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.po.sections.contents;
+package com.mhra.mcm.appian.pageobjects.sections.contents;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mhra.mcm.appian.po._Page;
+import com.mhra.mcm.appian.pageobjects._Page;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 
 /**

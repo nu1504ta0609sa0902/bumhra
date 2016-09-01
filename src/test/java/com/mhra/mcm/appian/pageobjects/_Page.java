@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.po;
+package com.mhra.mcm.appian.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;

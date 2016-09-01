@@ -29,9 +29,15 @@ public class TasksPageSteps extends CommonSteps {
         log.info("Expected tasks for submitter : " + submitterName);
 
         //Verify new task generated
-        tasksPage = mainNavigationBar.clickTasks();
-        tasksPage = tasksPage.clickTaskWithSubmitterName(submitterName);
-        boolean contains = tasksPage.isCorrectECID(data.ecIDNumber);
+        boolean contains = false;
+        int count = 0;
+        do {
+            tasksPage = mainNavigationBar.clickTasks();
+            tasksPage = tasksPage.clickTaskWithSubmitterName(submitterName);
+            contains = tasksPage.isCorrectECID(data.ecIDNumber);
+            count++;
+        }while(!contains && count <= 3);
+
         assertThat("Expected task with EC ID : " + ecId , contains, is(equalTo(true)));
     }
 
@@ -41,10 +47,15 @@ public class TasksPageSteps extends CommonSteps {
     @Given("^I should see new task generated for the submitter \"([^\"]*)\" with ecid \"([^\"]*)\"$")
     public void i_should_see_new_task_generated_for_the_submitter(String submitterName, String ecId) throws Throwable {
 
-        //Verify new task generated
-        tasksPage = mainNavigationBar.clickTasks();
-        tasksPage = tasksPage.clickTaskWithSubmitterName(submitterName);
-        boolean contains = tasksPage.isCorrectECID(ecId);
+        boolean contains = false;
+        int count = 0;
+        do {
+            tasksPage = mainNavigationBar.clickTasks();
+            tasksPage = tasksPage.clickTaskWithSubmitterName(submitterName);
+            contains = tasksPage.isCorrectECID(ecId);
+            count++;
+        }while(!contains && count <= 3);
+
         assertThat("Expected task with EC ID : " + ecId , contains, is(equalTo(true)));
     }
 

@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.po;
+package com.mhra.mcm.appian.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mhra.mcm.appian.po.sections.contents.CreateNotification;
+import com.mhra.mcm.appian.pageobjects.sections.contents.CreateNotification;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 
@@ -41,8 +41,12 @@ public class ActionsPage extends _Page {
         return new ActionsPage(driver);
     }
 
-    public boolean isInCorrectPage() {
-        WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 5, true);
-        return true;
+    public boolean isNotificationGeneratedSuccessfully() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 10, false);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }

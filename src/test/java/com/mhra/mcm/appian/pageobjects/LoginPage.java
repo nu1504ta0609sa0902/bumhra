@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.po;
+package com.mhra.mcm.appian.pageobjects;
 
 import java.util.Properties;
 
@@ -10,7 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mhra.mcm.appian.po.sections.MainNavigationBar;
+import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.utils.helpers.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 

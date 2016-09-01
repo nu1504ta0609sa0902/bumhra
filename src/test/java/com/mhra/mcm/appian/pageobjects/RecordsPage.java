@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.po;
+package com.mhra.mcm.appian.pageobjects;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mhra.mcm.appian.po.sections.contents.EditNotification;
-import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
-import com.mhra.mcm.appian.po.sections.filters.RecordsFilter;
+import com.mhra.mcm.appian.pageobjects.sections.contents.EditNotification;
+import com.mhra.mcm.appian.pageobjects.sections.contents.NotificationDetails;
+import com.mhra.mcm.appian.pageobjects.sections.filters.RecordsFilter;
 import com.mhra.mcm.appian.utils.helpers.GenericUtils;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;

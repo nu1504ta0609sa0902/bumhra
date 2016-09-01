@@ -1,8 +1,6 @@
-package com.mhra.mcm.appian.po.sections.contents;
+package com.mhra.mcm.appian.pageobjects.sections.contents;
 
 import com.mhra.mcm.appian.domain.webPagePojo.sub.*;
-import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
-import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
-import com.mhra.mcm.appian.po.ActionsPage;
-import com.mhra.mcm.appian.po._Page;
+import com.mhra.mcm.appian.pageobjects.ActionsPage;
+import com.mhra.mcm.appian.pageobjects._Page;
 import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 
@@ -133,6 +131,8 @@ public class CreateNotification extends _Page {
     WebElement upcNumber;
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
+    @FindBy(xpath = ".//button[.='Cancel']")
+    WebElement cancelBtn;
     @FindBy(css = ".buttonContainer")
     WebElement page;
 
@@ -259,5 +259,10 @@ public class CreateNotification extends _Page {
         PageUtils.selectByIndex(submissionType, summary.submissionType);
         PageUtils.selectByIndex(status, summary.status);
         PageUtils.enterDate(driver, endDate, summary.endDate);
+    }
+
+    public ActionsPage clickCancel() {
+        PageUtils.doubleClick(driver, cancelBtn);
+        return new ActionsPage(driver);
     }
 }

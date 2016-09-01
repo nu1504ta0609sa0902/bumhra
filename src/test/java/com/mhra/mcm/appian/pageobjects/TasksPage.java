@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.po;
+package com.mhra.mcm.appian.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -46,6 +46,7 @@ public class TasksPage extends _Page {
                 task.click();
                 found = true;
             }catch(Exception e){
+                found = false;
             }
 
             //refresh page
@@ -60,10 +61,14 @@ public class TasksPage extends _Page {
     }
 
     public boolean isCorrectECID(String ecIDNumber) {
-        WaitUtils.waitForElementToBeClickable(driver, ecid, 5);
-        String text = ecid.getText();
-        boolean contains = text.equals(ecIDNumber);
-        return contains;
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, ecid, 10, false);
+            String text = ecid.getText();
+            boolean contains = text.equals(ecIDNumber);
+            return contains;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     public TasksPage acceptTask() {

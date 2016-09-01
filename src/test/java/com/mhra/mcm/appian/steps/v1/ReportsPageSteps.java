@@ -4,7 +4,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
 import cucumber.api.java.en.When;
 import org.springframework.context.annotation.Scope;
 

@@ -6,8 +6,8 @@ import static org.hamcrest.Matchers.*;
 import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
-import com.mhra.mcm.appian.po.RecordsPage;
-import com.mhra.mcm.appian.po.sections.filters.RecordsFilter;
+import com.mhra.mcm.appian.pageobjects.RecordsPage;
+import com.mhra.mcm.appian.pageobjects.sections.filters.RecordsFilter;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;

@@ -1,7 +1,5 @@
 package com.mhra.mcm.appian.steps.v1;
 
-import com.mhra.mcm.appian.po.LoginPage;
-import com.mhra.mcm.appian.po.sections.MainNavigationBar;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;

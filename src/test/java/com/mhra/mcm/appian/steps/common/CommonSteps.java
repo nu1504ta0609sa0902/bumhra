@@ -1,6 +1,5 @@
 package com.mhra.mcm.appian.steps.common;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -12,17 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 
-import com.mhra.mcm.appian.po.ActionsPage;
-import com.mhra.mcm.appian.po.LoginPage;
-import com.mhra.mcm.appian.po.NewsPage;
-import com.mhra.mcm.appian.po.RecordsPage;
-import com.mhra.mcm.appian.po.ReportsPage;
-import com.mhra.mcm.appian.po.TasksPage;
-import com.mhra.mcm.appian.po.sections.MainNavigationBar;
-import com.mhra.mcm.appian.po.sections.contents.CreateNotification;
-import com.mhra.mcm.appian.po.sections.contents.EditNotification;
-import com.mhra.mcm.appian.po.sections.contents.Exceptions;
-import com.mhra.mcm.appian.po.sections.contents.NotificationDetails;
+import com.mhra.mcm.appian.pageobjects.ActionsPage;
+import com.mhra.mcm.appian.pageobjects.LoginPage;
+import com.mhra.mcm.appian.pageobjects.NewsPage;
+import com.mhra.mcm.appian.pageobjects.RecordsPage;
+import com.mhra.mcm.appian.pageobjects.ReportsPage;
+import com.mhra.mcm.appian.pageobjects.TasksPage;
+import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
+import com.mhra.mcm.appian.pageobjects.sections.contents.CreateNotification;
+import com.mhra.mcm.appian.pageobjects.sections.contents.EditNotification;
+import com.mhra.mcm.appian.pageobjects.sections.contents.Exceptions;
+import com.mhra.mcm.appian.pageobjects.sections.contents.NotificationDetails;
 import com.mhra.mcm.appian.session.ScenarioSession;
 
 
