@@ -281,10 +281,17 @@ public class ExcelUtils {
 
         String[] linesOfCSVData = linesOfData.split("\n");
         int lineCount = 0;
+        boolean errors = false;
+        String message = null;
         for(String line: linesOfCSVData){
             try {
                 //First line is heading
-                if (lineCount > 0) {
+                if (lineCount > 0 && !isEmptyLine(line)) {
+                    message = areAllTheLinesValidInExcelDataSheet(dataFile, sheet, headers, line, lineCount);
+                    if(message!=null){
+                        errors = true;
+                        break;
+                    }
                     int columnCount = 0;
                     String[] data = line.split(",");
                     String key = data[0];
@@ -293,6 +300,7 @@ public class ExcelUtils {
                 }else{
                     String [] headings = line.split(",");
                     for(String hd: headings){
+                        if(!hd.trim().equals(""))
                         headers.add(hd);
                     }
                 }
@@ -319,10 +327,17 @@ public class ExcelUtils {
 
         String[] linesOfCSVData = linesOfData.split("\n");
         int lineCount = 0;
+        boolean errors = false;
+        String message = null;
         for(String line: linesOfCSVData){
             try {
                 //First line is heading
-                if (lineCount > 0) {
+                if (lineCount > 0 && !isEmptyLine(line)) {
+                    message = areAllTheLinesValidInExcelDataSheet(dataFile, sheet, headers, line, lineCount);
+                    if(message!=null){
+                        errors = true;
+                        break;
+                    }
                     int columnCount = 0;
                     String[] data = line.split(",");
                     String key = data[0];
@@ -331,6 +346,7 @@ public class ExcelUtils {
                 }else{
                     String [] headings = line.split(",");
                     for(String hd: headings){
+                        if(!hd.trim().equals(""))
                         headers.add(hd);
                     }
                 }
@@ -358,10 +374,17 @@ public class ExcelUtils {
 
         String[] linesOfCSVData = linesOfData.split("\n");
         int lineCount = 0;
+        boolean errors = false;
+        String message = null;
         for(String line: linesOfCSVData){
             try {
                 //First line is heading
-                if (lineCount > 0) {
+                if (lineCount > 0 && !isEmptyLine(line)) {
+                    message = areAllTheLinesValidInExcelDataSheet(dataFile, sheet, headers, line, lineCount);
+                    if(message!=null){
+                        errors = true;
+                        break;
+                    }
                     int columnCount = 0;
                     String[] data = line.split(",");
                     String key = data[0];
@@ -370,6 +393,7 @@ public class ExcelUtils {
                 }else{
                     String [] headings = line.split(",");
                     for(String hd: headings){
+                        if(!hd.trim().equals(""))
                         headers.add(hd);
                     }
                 }
@@ -397,10 +421,17 @@ public class ExcelUtils {
 
         String[] linesOfCSVData = linesOfData.split("\n");
         int lineCount = 0;
+        boolean errors = false;
+        String message = null;
         for(String line: linesOfCSVData){
             try {
                 //First line is heading
-                if (lineCount > 0) {
+                if (lineCount > 0 && !isEmptyLine(line)) {
+                    message = areAllTheLinesValidInExcelDataSheet(dataFile, sheet, headers, line, lineCount);
+                    if(message!=null){
+                        errors = true;
+                        break;
+                    }
                     int columnCount = 0;
                     String[] data = line.split(",");
                     String key = data[0];
@@ -409,6 +440,7 @@ public class ExcelUtils {
                 }else{
                     String [] headings = line.split(",");
                     for(String hd: headings){
+                        if(!hd.trim().equals(""))
                         headers.add(hd);
                     }
                 }
@@ -435,10 +467,17 @@ public class ExcelUtils {
 
         String[] linesOfCSVData = linesOfData.split("\n");
         int lineCount = 0;
+        boolean errors = false;
+        String message = null;
         for(String line: linesOfCSVData){
             try {
                 //First line is heading
-                if (lineCount > 0) {
+                if (lineCount > 0 && !isEmptyLine(line)) {
+                    message = areAllTheLinesValidInExcelDataSheet(dataFile, sheet, headers, line, lineCount);
+                    if(message!=null){
+                        errors = true;
+                        break;
+                    }
                     int columnCount = 0;
                     String[] data = line.split(",");
                     String key = data[0];
@@ -447,6 +486,7 @@ public class ExcelUtils {
                 }else{
                     String [] headings = line.split(",");
                     for(String hd: headings){
+                        if(!hd.trim().equals(""))
                         headers.add(hd);
                     }
                 }
@@ -473,10 +513,17 @@ public class ExcelUtils {
 
         String[] linesOfCSVData = linesOfData.split("\n");
         int lineCount = 0;
+        boolean errors = false;
+        String message = null;
         for(String line: linesOfCSVData){
             try {
                 //First line is heading
-                if (lineCount > 0) {
+                if (lineCount > 0 && !isEmptyLine(line)) {
+                    message = areAllTheLinesValidInExcelDataSheet(dataFile, sheet, headers, line, lineCount);
+                    if(message!=null){
+                        errors = true;
+                        break;
+                    }
                     int columnCount = 0;
                     String[] data = line.split(",");
                     String key = data[0];
@@ -485,6 +532,7 @@ public class ExcelUtils {
                 }else{
                     String [] headings = line.split(",");
                     for(String hd: headings){
+                        if(!hd.trim().equals(""))
                         headers.add(hd);
                     }
                 }
@@ -512,10 +560,17 @@ public class ExcelUtils {
 
         String[] linesOfCSVData = linesOfData.split("\n");
         int lineCount = 0;
+        boolean errors = false;
+        String message = null;
         for(String line: linesOfCSVData){
             try {
                 //First line is heading
-                if (lineCount > 0) {
+                if (lineCount > 0 && !isEmptyLine(line)) {
+                    message = areAllTheLinesValidInExcelDataSheet(dataFile, sheet, headers, line, lineCount);
+                    if(message!=null){
+                        errors = true;
+                        break;
+                    }
                     int columnCount = 0;
                     String[] data = line.split(",");
                     String key = data[0];
@@ -524,7 +579,8 @@ public class ExcelUtils {
                 }else{
                     String [] headings = line.split(",");
                     for(String hd: headings){
-                        headers.add(hd);
+                        if(!hd.trim().equals(""))
+                            headers.add(hd);
                     }
                 }
                 lineCount++;
@@ -533,6 +589,10 @@ public class ExcelUtils {
             }catch (Exception e){
                 //break;
             }
+        }
+
+        if(errors){
+            throw new RuntimeException(message);
         }
 
         return mapOfItems;
@@ -552,10 +612,17 @@ public class ExcelUtils {
 
         String[] linesOfCSVData = linesOfData.split("\n");
         int lineCount = 0;
+        boolean errors = false;
+        String message = null;
         for(String line: linesOfCSVData){
             try {
                 //First line is heading
-                if (lineCount > 0) {
+                if (lineCount > 0 && !isEmptyLine(line)) {
+                    message = areAllTheLinesValidInExcelDataSheet(dataFile, sheet, headers, line, lineCount);
+                    if(message!=null){
+                        errors = true;
+                        break;
+                    }
                     int columnCount = 0;
                     String[] data = line.split(",");
                     String key = data[0];
@@ -564,6 +631,7 @@ public class ExcelUtils {
                 }else{
                     String [] headings = line.split(",");
                     for(String hd: headings){
+                        if(!hd.trim().equals(""))
                         headers.add(hd);
                     }
                 }
@@ -590,10 +658,17 @@ public class ExcelUtils {
 
         String[] linesOfCSVData = linesOfData.split("\n");
         int lineCount = 0;
+        boolean errors = false;
+        String message = null;
         for(String line: linesOfCSVData){
             try {
                 //First line is heading
-                if (lineCount > 0) {
+                if (lineCount > 0 && !isEmptyLine(line)) {
+                    message = areAllTheLinesValidInExcelDataSheet(dataFile, sheet, headers, line, lineCount);
+                    if(message!=null){
+                        errors = true;
+                        break;
+                    }
                     int columnCount = 0;
                     String[] data = line.split(",");
                     String key = data[0];
@@ -602,6 +677,7 @@ public class ExcelUtils {
                 }else{
                     String [] headings = line.split(",");
                     for(String hd: headings){
+                        if(!hd.trim().equals(""))
                         headers.add(hd);
                     }
                 }
@@ -696,6 +772,23 @@ public class ExcelUtils {
         }
 
         return o;
+    }
+
+    private boolean isEmptyLine(String line) {
+        boolean empty = false;
+        if(line == null || line.trim().equals(""))
+            empty = true;
+
+        return empty;
+    }
+
+    private String areAllTheLinesValidInExcelDataSheet(String dataFile, String sheet, List<String> headers, String line, int count) {
+        String message = null;
+        String[] data = line.split(",");
+        if(headers.size() != data.length){
+            message = ("\nExcel Data File : " + dataFile + "\nSheet : " + sheet + "\nLine number : " + count + "\nInvalid line : " + line + "\nEmpty cells are not allowed, replace with : 'none'" + "\nRead : HowToUse section of excel data file" + "\n");
+        }
+        return message;
     }
 
 
