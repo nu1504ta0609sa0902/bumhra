@@ -2,7 +2,7 @@ Feature: As an IPU user, I want the ability to see a list of notifications that 
   so that I can take the appropriate action
 
 
-  @mcm-89 @mcm-72
+  @mcm-89 @mcm-72 @regression
   Scenario Outline: Create a new notification and update status to Exception
     Given I am logged into appian as "<user>" user
     And I create new notification with following data

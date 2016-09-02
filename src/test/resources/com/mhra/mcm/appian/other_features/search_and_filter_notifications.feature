@@ -2,7 +2,7 @@ Feature: As an Appian user I should be able to search and filter notifications
   So that I can select the correct notification quickly
 
 
-  @mcm-32
+  @mcm-32 @regression
   Scenario Outline: Search for notification using the ecid and than submitter name
     Given I am logged into appian as "<user>" user
     When I search for an existing notification by "<searchBy>"

@@ -2,7 +2,7 @@ Feature: As a ipumanager user I should be able to direct certain percentage of n
   So that we can make sure the system is working as expected
 
 
-  @mcm-67
+  @mcm-67 @regression
   Scenario Outline: Verify error message is displayed when value are more than 100 or less than 0 for quality assurance
     Given I am logged into appian as "<user>" user
     And I update qa percentage to "<qa_percentage>"

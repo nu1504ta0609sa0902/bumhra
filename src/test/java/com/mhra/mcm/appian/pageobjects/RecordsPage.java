@@ -193,10 +193,10 @@ public class RecordsPage extends _Page {
                 }else{
                     element = driver.findElement(By.xpath(".//*[.='" + ecID + "']//following::p[4]"));
                     String currentStatus = element.getText();
-                    System.out.println("Status " + currentStatus);
+                    //System.out.println("Status " + currentStatus);
 
                     //Bug: Failed notifications can't be edited
-                    if(currentStatus.equals(status) || currentStatus.equals("Failed")){
+                    if(currentStatus.equals(status) || currentStatus.equals("Failed") || currentStatus.equals("Withdrawn")){
                        ecID = null;
                     }
                 }

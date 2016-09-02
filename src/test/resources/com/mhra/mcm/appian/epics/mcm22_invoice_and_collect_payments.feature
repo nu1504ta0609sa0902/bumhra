@@ -1,6 +1,6 @@
 Feature: Each notification will have a fee associated with it. No processing of the notification will take place unless the payment has been completed.
 
-  @mcm-22 @mcm-36 @e2e
+  @mcm-22 @mcm-36 @e2e @regression
   Scenario Outline: Create an invoice processing of different types of notification
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
@@ -13,9 +13,9 @@ Feature: Each notification will have a fee associated with it. No processing of 
     Then The notification status should update to "<status>"
     Examples:
       | user | type | price | status | ingredient |
-#      | rdt1 | 1    | 150   | Paid   | SUPPA1     |
+      | rdt1 | 1    | 150   | Paid   | SUPPA1     |
       | rdt1 | 2    | 80   | Paid   |    SUPPA80         |
-#      | rdt1 | 3    | 150   | Paid   |
+      | rdt1 | 3    | 150   | Paid   | SUPPA3            |
 #      | rdt1 | 4    | 150   | Paid   |
 #      | rdt1 | 5    | 150   | Paid   |
 #      | rdt1 | 6    | 150   | Paid   |
@@ -36,8 +36,8 @@ Feature: Each notification will have a fee associated with it. No processing of 
     Examples:
       | type | statusWithTCANumber | statusWhenInvoiced | statusInvoicePaid | amountToInvoice |
       | 1    | Ready for Invoicing | Unpaid             | Paid              | 150             |
-#      | 2    | Ready for Invoicing | Unpaid             | Paid              | 150             |
-#      | 3    | Ready for Invoicing | Unpaid             | Paid              | 150             |
+      | 2    | Ready for Invoicing | Unpaid             | Paid              | 80             |
+      | 3    | Ready for Invoicing | Unpaid             | Paid              | 150             |
 #      | 4    | Ready for Invoicing | Unpaid             | Paid              | 150             |
 
 
@@ -60,8 +60,8 @@ Feature: Each notification will have a fee associated with it. No processing of 
     Examples:
       | type | statusWithTCANumber | statusWhenInvoiced | statusInvoicePaid | amountToInvoice | initialStatus | submitterNameGeneration |
       | 1    | Ready for Invoicing | Unpaid             | Paid              | 150             | Uploaded      | random                  |
-#      | 2    | Ready for Invoicing | Unpaid             | Paid              | 150             | Uploaded      |random                  |
-#      | 3    | Ready for Invoicing | Unpaid             | Paid              | 150             | Uploaded      |random                  |
+      | 2    | Ready for Invoicing | Unpaid             | Paid              | 80             | Uploaded      |random                  |
+      | 3    | Ready for Invoicing | Unpaid             | Paid              | 150             | Uploaded      |random                  |
 #      | 4    | Ready for Invoicing | Unpaid             | Paid              | 150             | Uploaded      |random                  |
 
 
