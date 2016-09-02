@@ -26,6 +26,12 @@ public class ReportsPageSteps extends CommonSteps {
         String ecId = (String) scenarioSession.getData(SessionKey.ECID);
 
         boolean isDisplayed = exception.isNotificationDisplayed(ecId);
+        if(!isDisplayed){
+            //Try again : exception may not have appeared in the system yet
+            reportsPage = mainNavigationBar.clickReports();
+            exception = reportsPage.gotoExceptionsPage();
+            isDisplayed = exception.isNotificationDisplayed(ecId);
+        }
         assertThat("Exception page should display a notification with EC ID : " + ecId , isDisplayed, is(equalTo(true)));
     }
 

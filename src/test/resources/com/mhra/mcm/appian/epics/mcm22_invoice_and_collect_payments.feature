@@ -1,6 +1,6 @@
 Feature: Each notification will have a fee associated with it. No processing of the notification will take place unless the payment has been completed.
 
-  @mcm-22 @mcm-36 @e2e @regression
+  @mcm-22 @mcm-36 @e2e
   Scenario Outline: Create an invoice processing of different types of notification
     Given I am logged into appian as "<user>" user
     And I create new notification with following data

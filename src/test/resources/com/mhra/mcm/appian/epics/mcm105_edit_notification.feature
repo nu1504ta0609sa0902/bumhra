@@ -1,6 +1,6 @@
 Feature: As an IPU super user, I want the ability to edit notification
 
-  @mcm-106 @mcm-107 @regression
+  @mcm-106 @mcm-107
   Scenario: Edit notification is only available to IPU super users
     Given I login to appian as "super1" user
     And I have notifications

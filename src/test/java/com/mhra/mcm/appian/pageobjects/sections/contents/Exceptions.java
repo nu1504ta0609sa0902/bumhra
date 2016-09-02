@@ -31,7 +31,14 @@ public class Exceptions extends _Page {
         super(driver);
     }
 
+
+    /**
+     * This will need to iterate over the pages if required
+     * @param ecId
+     * @return
+     */
     public boolean isNotificationDisplayed(String ecId) {
+        //driver.navigate().refresh();
         boolean found = false;
         int attempt = 0;
         do {
@@ -44,12 +51,11 @@ public class Exceptions extends _Page {
                 found = true;
                 break;
             }catch(Exception e){
+                found = false;
             }
 
             //refresh page
             if(!found) {
-                driver.navigate().refresh();
-                //PageFactory.initElements(driver, this);
                 //It may be on the next page
                 WaitUtils.waitForElementToBeClickable(driver, nextPage, 7, false);
                 PageUtils.doubleClick(driver, nextPage);

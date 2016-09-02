@@ -1,7 +1,7 @@
 Feature:Appian system will provide the ability for an RDT user to upload the notification XML file and related attachments manually.
 
 
-  @mcm-20 @regression
+  @mcm-20
   Scenario Outline: Upload different types of notification
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
