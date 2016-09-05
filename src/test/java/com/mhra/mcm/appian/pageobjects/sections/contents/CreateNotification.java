@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.pageobjects.ActionsPage;
 import com.mhra.mcm.appian.pageobjects._Page;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 
 /**

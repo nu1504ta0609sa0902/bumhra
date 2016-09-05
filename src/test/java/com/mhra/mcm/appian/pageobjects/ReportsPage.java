@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mhra.mcm.appian.pageobjects.sections.contents.Exceptions;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 
 /**
  * Created by TPD_Auto on 18/07/2016.

@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.nullValue;
 
 import java.util.List;
 
+import com.mhra.mcm.appian.utils.helpers.GenericUtils;
 import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
@@ -17,8 +18,8 @@ import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.emails.GmailEmail;
-import com.mhra.mcm.appian.utils.helpers.StepsUtils;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.StepsUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -61,9 +62,12 @@ public class EmailSteps extends CommonSteps {
             Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
 
             //Verify details
-            String netAmount = invoice.Net_Amount;
             scenarioSession.putData(SessionKey.invoice, invoice);
-            assertThat("Price should be : " + amount , amount, is((equalTo(netAmount))));
+            scenarioSession.putData(SessionKey.listOfInvoices, listOfInvoices);
+            if(amount!=null && !amount.equals("")) {
+                String netAmount = invoice.Net_Amount;
+                assertThat("Price should be : " + amount, amount, is((equalTo(netAmount))));
+            }
         }else{
             assertThat("No email received from appian related to invoices : mhra.uat@gmail.com" , listOfInvoices.size(), is(not(equalTo(0))));
         }
@@ -166,5 +170,26 @@ public class EmailSteps extends CommonSteps {
         String newStatus = notificationDetails.getCurrentStatus();
 
         assertThat("Status should be : " + expectedStatus , newStatus, is((equalTo(expectedStatus))));
+    }
+
+
+    @Then("^The invoice should contain correct code \"([^\"]*)\" and other details$")
+    public void the_invoice_should_contain_correct_code_and_other_details(String expectedGlcode) throws Throwable {
+        Invoice invoice = (Invoice) scenarioSession.getData(SessionKey.invoice);
+        Notification data = (Notification) scenarioSession.getData(SessionKey.storedNotification);
+        String expectedNotificationID = data.ecIDNumber;
+        String glCode = invoice.Natural_Account;
+        String description = invoice.Description;
+        assertThat("Expected GLCode : " + expectedGlcode , glCode, is((equalTo(expectedGlcode))));
+        assertThat("Description should contain : " + expectedNotificationID , description.contains(expectedNotificationID), is((equalTo(true))));
+    }
+
+
+    @Then("^The invoices should be unique by invoice id$")
+    public void the_invoices_should_be_unique_by_invoice_id() throws Throwable {
+        List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);
+        boolean isUniqueInvoiceIds = GenericUtils.isInvoiceUnique(loi);
+
+        assertThat("Expected unique invoice ids "  , isUniqueInvoiceIds, is((equalTo(true))));
     }
 }

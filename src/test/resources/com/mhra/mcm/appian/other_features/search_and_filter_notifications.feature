@@ -52,7 +52,6 @@ Feature: As an Appian user I should be able to search and filter notifications
     Given I am logged into appian as "<user>" user
     When I go to the notifications page
     And I filter by status "<filterBy>"
-    #Then I should only see notifications where status is "<filterBy>"
     When I clear the selected filter "<filterBy>"
     And I filter by status "<filterBy2>"
     Then I should only see notifications where status is "<filterBy2>"

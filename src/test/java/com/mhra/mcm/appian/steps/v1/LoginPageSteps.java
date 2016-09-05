@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.steps.common.CommonSteps;
-import com.mhra.mcm.appian.utils.helpers.AssertUtils;
+import com.mhra.mcm.appian.utils.helpers.page.AssertUtils;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

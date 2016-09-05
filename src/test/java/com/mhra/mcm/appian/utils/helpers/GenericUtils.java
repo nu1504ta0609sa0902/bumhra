@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.mhra.mcm.appian.domain.webPagePojo.sub.Invoice;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -47,5 +48,14 @@ public class GenericUtils {
         }
         System.out.println("Number of items with status " + filterBy + " is : " + setOfStatuses.size());
         return matched;
+    }
+
+    public static boolean isInvoiceUnique(List<Invoice> loi) {
+        Set<String> setOfEcid = new HashSet<>();
+        for(Invoice e: loi){
+            setOfEcid.add(e.Invoice_Id);
+        }
+
+        return setOfEcid.size() == loi.size();
     }
 }

@@ -1,15 +1,11 @@
 package com.mhra.mcm.appian.pageobjects.sections.contents;
 
-import com.mhra.mcm.appian.pageobjects.ActionsPage;
 import com.mhra.mcm.appian.pageobjects._Page;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
-import gherkin.lexer.Pa;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Wait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

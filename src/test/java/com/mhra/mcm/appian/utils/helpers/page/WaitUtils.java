@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.utils.helpers;
+package com.mhra.mcm.appian.utils.helpers.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

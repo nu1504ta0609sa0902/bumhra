@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mhra.mcm.appian.pageobjects.sections.contents.CreateNotification;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 
 /**

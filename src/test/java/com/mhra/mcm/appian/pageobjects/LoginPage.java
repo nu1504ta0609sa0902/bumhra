@@ -2,7 +2,7 @@ package com.mhra.mcm.appian.pageobjects;
 
 import java.util.Properties;
 
-import com.mhra.mcm.appian.utils.helpers.AssertUtils;
+import com.mhra.mcm.appian.utils.helpers.page.AssertUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.utils.helpers.FileUtils;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 
 /**
  * Created by TPD_Auto on 14/07/2016.

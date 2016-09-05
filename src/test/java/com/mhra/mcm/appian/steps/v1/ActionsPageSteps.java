@@ -3,9 +3,8 @@ package com.mhra.mcm.appian.steps.v1;
 import java.util.Map;
 
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
-import com.mhra.mcm.appian.pageobjects.sections.contents.UpdateQAPercentage;
 import com.mhra.mcm.appian.utils.helpers.FileUtils;
-import com.mhra.mcm.appian.utils.helpers.StepsUtils;
+import com.mhra.mcm.appian.utils.helpers.page.StepsUtils;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 import org.springframework.context.annotation.Scope;
@@ -13,13 +12,12 @@ import org.springframework.context.annotation.Scope;
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 
 import cucumber.api.java.en.Given;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
 
 /**

@@ -15,7 +15,7 @@ import com.mhra.mcm.appian.pageobjects.sections.contents.EditNotification;
 import com.mhra.mcm.appian.pageobjects.sections.contents.NotificationDetails;
 import com.mhra.mcm.appian.pageobjects.sections.filters.RecordsFilter;
 import com.mhra.mcm.appian.utils.helpers.GenericUtils;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 
 /**

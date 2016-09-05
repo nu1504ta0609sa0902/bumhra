@@ -9,6 +9,7 @@ Feature: As a ipumanager user I should be able to direct certain percentage of n
     Then I should see "<error_msg>" in the error message
     Examples:
       | user        | qa_percentage | error_msg             |
+      | ipumanager1 |            | value must be between |
       | ipumanager1 | 101           | value must be between |
       | ipumanager1 | -1            | value must be between |
       | ipumanager1 | 1010          | value must be between |

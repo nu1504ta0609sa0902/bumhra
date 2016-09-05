@@ -17,7 +17,6 @@ import org.openqa.selenium.WebElement;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
-import com.mhra.mcm.appian.utils.helpers.WaitUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -43,20 +42,20 @@ public class NotificationUtils {
             String submitterName = dataValues.get("submitterName");
             String ingredient = dataValues.get("ingredient");
 
-            if (type != null) {
+            if (type != null  && !type.trim().equals("")) {
                 notification.getSummary().submissionType = type;
             }
-            if (tcaNumber != null) {
+            if (tcaNumber != null && !tcaNumber.trim().equals("")) {
                 notification.getSubmitter().tcaNumber = tcaNumber;
             }
-            if (submitterName != null) {
+            if (submitterName != null && !submitterName.trim().equals("")) {
                 if (submitterName.equals("random")) {
                     String sn = notification.getSubmitter().name;
                     sn = sn + RandomDataUtils.getRandomNumberBetween(1000, 10000);
                     notification.getSubmitter().name = sn;
                 }
             }
-            if (ingredient != null) {
+            if (ingredient != null && !ingredient.trim().equals("")) {
                 notification.getIngredient().ingredientName = ingredient;
             }
 
