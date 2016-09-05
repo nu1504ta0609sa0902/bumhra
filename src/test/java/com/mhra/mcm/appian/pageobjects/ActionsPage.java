@@ -26,6 +26,9 @@ public class ActionsPage extends _Page {
     @FindBy(partialLinkText = "Update QA Percentage")
     WebElement updateQAPercentage;
 
+    @FindBy(partialLinkText = "Create Annual Invoices")
+    WebElement createAnnualInvoices;
+
     @Autowired
     public ActionsPage(WebDriver driver) {
         super(driver);
@@ -41,7 +44,12 @@ public class ActionsPage extends _Page {
     public ActionsPage generateStandardInvoices() {
         WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 5);
         PageUtils.singleClick(driver, createStandardNotification);
-        //createStandardNotification.click();
+        return new ActionsPage(driver);
+    }
+
+    public ActionsPage generateAnnualInvoices() {
+        WaitUtils.waitForElementToBeClickable(driver, createAnnualInvoices, 5);
+        PageUtils.singleClick(driver, createAnnualInvoices);
         return new ActionsPage(driver);
     }
 

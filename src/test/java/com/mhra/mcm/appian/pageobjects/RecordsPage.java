@@ -133,6 +133,7 @@ public class RecordsPage extends _Page {
                 found = true;
                 break;
             }catch(Exception e){
+                found = false;
             }
 
             //refresh page
@@ -198,6 +199,52 @@ public class RecordsPage extends _Page {
                     //Bug: Failed notifications can't be edited
                     if(currentStatus.equals(status) || currentStatus.equals("Failed") || currentStatus.equals("Withdrawn")){
                        ecID = null;
+                    }
+                }
+
+                if(count>maxNumberOfTimesToIterate){
+                    break;
+                }
+            }while(ecID == null);
+            return ecID;
+        }else{
+            return null;
+        }
+    }
+
+    public String getARandomNotificationWithStatusEqualTo(String status, int maxNumberOfTimesToIterate) {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
+        if(listOfECIDLinks.size() > 0){
+            maxNumberOfTimesToIterate  = listOfECIDLinks.size();
+            String ecID = null;
+            int count = 0;
+            do{
+                count++;
+                WebElement element = listOfECIDLinks.get(listOfECIDLinks.size() - count);
+                ecID = element.getText();
+                if(ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")){
+                    ecID = null;
+                }else{
+                    element = driver.findElement(By.xpath(".//*[.='" + ecID + "']//following::p[4]"));
+                    String currentStatus = element.getText();
+
+                    System.out.println(currentStatus + ", " + status);
+                    if(currentStatus.equals(status)) {
+                        WebElement elementSub = listOfECIDLinks.get(listOfECIDLinks.size() - count);
+                        ecID = elementSub.getText();
+                        break;
+                    }
+
+                    //Bug: Failed notifications can't be edited
+                    if(!currentStatus.equals(status) || currentStatus.equals("Failed") || currentStatus.equals("Withdrawn")){
+                        ecID = null;
+                    }else{
+//                        System.out.println(currentStatus + ", " + status);
+//                        if(currentStatus.equals(status)) {
+//                            WebElement elementSub = listOfECIDLinks.get(listOfECIDLinks.size() - count);
+//                            ecID = elementSub.getText();
+//                            break;
+//                        }
                     }
                 }
 

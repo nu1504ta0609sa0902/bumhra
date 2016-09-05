@@ -21,7 +21,7 @@ Feature: As a tester I would like to debug
     Given I am logged into appian as "fin1" user
     And I have a notification "79894-16-47650" generated
     When I generate a standard invoice
-    Then I should receive an invoice email from appian in next 100 min with correct price "150" for the stored notification
+    Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 100 min with correct price "150" for the stored notification
     When I send paid email response back to appian
     Then The notification status should update to "Paid"
 

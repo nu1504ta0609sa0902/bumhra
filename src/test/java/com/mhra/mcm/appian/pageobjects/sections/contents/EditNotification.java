@@ -54,7 +54,7 @@ public class EditNotification extends _Page {
     }
 
     public NotificationDetails updateStatusTo(String updatedStatus) {
-        WaitUtils.waitForElementToBeClickable(driver, status, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, status, 15, false);
         PageUtils.selectByText(status, updatedStatus);
         PageUtils.doubleClick(driver, submitBtn);
         return new NotificationDetails(driver);

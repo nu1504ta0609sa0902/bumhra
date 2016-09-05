@@ -35,6 +35,7 @@ Feature: As an IPU user, I want the ability to see a list of notifications that 
       | user   | status              |
       | super1 | Uploaded            |
       | super2 | Ready for Invoicing |
+      | super2 | Exception |
 
 
 

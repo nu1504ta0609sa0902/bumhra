@@ -72,6 +72,22 @@ public class RecordsPageSteps extends CommonSteps {
         notificationDetails = editNotification.updateStatusTo(updatedStatus);
     }
 
+
+    @Given("^I select notification with status \"([^\"]*)\" and update status to \"([^\"]*)\"$")
+    public void i_update_status_of_existing_notification_to(String status, String updatedStatus) throws Throwable {
+        //Select an existing notification from the page
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+        String ecid = recordsPage.getARandomNotificationWithStatusEqualTo(status, 50);
+        log.info("ECID selected : " + ecid);
+        scenarioSession.putData(SessionKey.ECID, ecid);
+
+        //update notification
+        notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+        editNotification = notificationDetails.clickManageNotification();
+        notificationDetails = editNotification.updateStatusTo(updatedStatus);
+    }
+
     @Given("^I update status of stored notification to \"([^\"]*)\"$")
     public void i_update_status_of_stored_notification_to(String updatedStatus) throws Throwable {
         //Select an existing notification from the page

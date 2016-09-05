@@ -31,8 +31,8 @@ import cucumber.api.java.en.When;
 @Scope("cucumber-glue")
 public class EmailSteps extends CommonSteps {
 
-    @Then("^I should receive an invoice email from appian in next (.*) min with correct price \"([^\"]*)\" for the stored notification$")
-    public void iShouldReceiveAnInvoiceEmailWithCorrectPriceForTheStoredNotification(int min, String amount) throws Throwable {
+    @Then("^I should receive an invoice email with heading \"([^\"]*)\" from appian in next (.*) min with correct price \"([^\"]*)\" for the stored notification$")
+    public void iShouldReceiveAnInvoiceEmailWithCorrectPriceForTheStoredNotification(String heading, int min, String amount) throws Throwable {
         //Properties emailDetails = FileUtils.loadPropertiesFile("users.properties");
 
         List<Invoice> listOfInvoices = null;
@@ -40,7 +40,7 @@ public class EmailSteps extends CommonSteps {
         int attempt = 0;
         do {
             String ecID = (String) scenarioSession.getData(SessionKey.ECID);
-            listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, ecID);
+            listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, ecID, heading);
 
             //Break from loop if invoices read from the email server
             if(listOfInvoices.size()>0){
@@ -62,12 +62,14 @@ public class EmailSteps extends CommonSteps {
             Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
 
             //Verify details
-            scenarioSession.putData(SessionKey.invoice, invoice);
-            scenarioSession.putData(SessionKey.listOfInvoices, listOfInvoices);
             if(amount!=null && !amount.equals("")) {
                 String netAmount = invoice.Net_Amount;
                 assertThat("Price should be : " + amount, amount, is((equalTo(netAmount))));
             }
+
+            //Store data in map
+            scenarioSession.putData(SessionKey.invoice, invoice);
+            scenarioSession.putData(SessionKey.listOfInvoices, listOfInvoices);
         }else{
             assertThat("No email received from appian related to invoices : mhra.uat@gmail.com" , listOfInvoices.size(), is(not(equalTo(0))));
         }
@@ -75,15 +77,15 @@ public class EmailSteps extends CommonSteps {
     }
 
 
-    @Then("^If I receive an invoice email from appian in next (.*) min than the invoice should not contain my notification$")
-    public void iShouldReceiveAnInvoiceEmailButItShouldNotContainMyNotification(int min) throws Throwable {
+    @Then("^If I receive an invoice email with heading \"([^\"]*)\" from appian in next (.*) min than the invoice should not contain my notification$")
+    public void iShouldReceiveAnInvoiceEmailButItShouldNotContainMyNotification(String heading, int min) throws Throwable {
 
         String ecID = (String) scenarioSession.getData(SessionKey.ECID);
         List<Invoice> listOfInvoices = null;
         boolean foundInvoices = false;
         int attempt = 0;
         do {
-            listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, ecID);
+            listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, ecID, heading);
 
             //Break from loop if invoices read from the email server
             if(listOfInvoices.size()>0){
@@ -176,8 +178,9 @@ public class EmailSteps extends CommonSteps {
     @Then("^The invoice should contain correct code \"([^\"]*)\" and other details$")
     public void the_invoice_should_contain_correct_code_and_other_details(String expectedGlcode) throws Throwable {
         Invoice invoice = (Invoice) scenarioSession.getData(SessionKey.invoice);
-        Notification data = (Notification) scenarioSession.getData(SessionKey.storedNotification);
-        String expectedNotificationID = data.ecIDNumber;
+        String expectedNotificationID = (String) scenarioSession.getData(SessionKey.ECID);
+        //Notification data = (Notification) scenarioSession.getData(SessionKey.storedNotification);
+        //String expectedNotificationID = data.ecIDNumber;
         String glCode = invoice.Natural_Account;
         String description = invoice.Description;
         assertThat("Expected GLCode : " + expectedGlcode , glCode, is((equalTo(expectedGlcode))));

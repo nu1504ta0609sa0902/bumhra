@@ -10,7 +10,7 @@ Feature: Create notifications and invoices for type 1 submissions
       | ingredient | <ingredient> |
     And I attach a toxicology report for "<ingredient>"
     When I login as "fin1" and generate a standard invoice
-    Then I should receive an invoice email from appian in next 2 min with correct price "<price>" for the stored notification
+    Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<price>" for the stored notification
     When I send paid email response back to appian
     Then The notification status should update to "<status>"
     Examples:
@@ -26,7 +26,7 @@ Feature: Create notifications and invoices for type 1 submissions
     Then I should see the stored notification with status set to "<statusWithTCANumber>"
     When I login as "fin1" and generate a standard invoice
     Then I should see the stored notification with status set to "<statusWhenInvoiced>"
-    Then I should receive an invoice email from appian in next 2 min with correct price "<amountToInvoice>" for the stored notification
+    Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<amountToInvoice>" for the stored notification
     When I send paid email response back to appian
     Then The notification status should update to "<statusInvoicePaid>"
     Examples:
@@ -48,7 +48,7 @@ Feature: Create notifications and invoices for type 1 submissions
     Then I should see the stored notification with status set to "<statusWithTCANumber>"
     When I login as "fin1" and generate a standard invoice
     Then I should see the stored notification with status set to "<statusWhenInvoiced>"
-    Then I should receive an invoice email from appian in next 2 min with correct price "<amountToInvoice>" for the stored notification
+    Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<amountToInvoice>" for the stored notification
     When I send paid email response back to appian
     Then The notification status should update to "<statusInvoicePaid>"
     Examples:
@@ -65,7 +65,7 @@ Feature: Create notifications and invoices for type 1 submissions
       | ingredient | <ingredient> |
     And I attach a toxicology report for "<ingredient>"
     When I login as "fin1" and generate a standard invoice
-    Then I should receive an invoice email from appian in next 2 min with correct price "<price>" for the stored notification
+    Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<price>" for the stored notification
     When I send paid email response back to appian
     Then The notification status should update to "<status>"
     Then The notification status should update to "<status2>"

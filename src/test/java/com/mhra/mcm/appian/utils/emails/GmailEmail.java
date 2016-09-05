@@ -66,9 +66,9 @@ public class GmailEmail {
     }
 
 
-    public static List<Invoice> getListOfInvoicesFromGmail(int min, String ecID) {
+    public static List<Invoice> getListOfInvoicesFromGmail(int min, String ecID, String subjectHeading) {
         //generate list of invoices
-        read(min);
+        read(min, subjectHeading);
         filterListOfInvoicesByEcid(ecID);
         return listOfInvoices;
     }
@@ -90,7 +90,7 @@ public class GmailEmail {
         }
     }
 
-    public static void read(int min) {
+    public static void read(int min, String subjectHeading) {
 
         Properties props = new Properties();
         try {
@@ -138,8 +138,8 @@ public class GmailEmail {
                     String emailAddress = froms == null ? null : ((InternetAddress) from).getAddress();
                     if (emailAddress != null && emailAddress.contains("appian")) {
 
-                        boolean isMessageReceivedToday = isMessageReceivedToday(subject);
-                        if (isMessageReceivedToday && subject.contains("Uninvoiced Notifications")) {
+                        boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
+                        if (isMessageReceivedToday && subject.contains(subjectHeading)) {
                             boolean isRecent = receivedInLast(min, sentDate);
                             if (isRecent) {
                                 System.out.println("---------------------------------");
@@ -304,21 +304,27 @@ public class GmailEmail {
      * We are only interested in todays email
      *
      * @param subject
-     * @return
+     * @param subjectHeading
+     *@param sentDate @return
      */
-    private static boolean isMessageReceivedToday(String subject) {
-        Calendar calendar = Calendar.getInstance();
-        int dom = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int year = calendar.get(Calendar.YEAR);
+    private static boolean isMessageReceivedToday(String subject, String subjectHeading, Date sentDate) {
 
-        String f1 = dom + "/" + month + "/" + year;
-        String f2 = dom + "/0" + month + "/" + year;
-
-        if (subject.contains(f1) || subject.contains(f2))
+        if(subjectHeading.contains("Annual Notification Invoices")){
             return true;
-        else
-            return false;
+        }else {
+            Calendar calendar = Calendar.getInstance();
+            int dom = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int year = calendar.get(Calendar.YEAR);
+
+            String f1 = dom + "/" + month + "/" + year;
+            String f2 = dom + "/0" + month + "/" + year;
+
+            if (subject.contains(f1) || subject.contains(f2))
+                return true;
+            else
+                return false;
+        }
     }
 
     /**

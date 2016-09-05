@@ -1,4 +1,4 @@
-@regression
+@regressionAll
 Feature: As a user I need to quickly verify there is no regression issues
   So that I can trust the system
 
@@ -51,7 +51,7 @@ Feature: As a user I need to quickly verify there is no regression issues
       | ingredient | <ingredient> |
     And I attach a toxicology report for "<ingredient>"
     When I login as "fin1" and generate a standard invoice
-    Then I should receive an invoice email from appian in next 2 min with correct price "<price>" for the stored notification
+    Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<price>" for the stored notification
     When I send paid email response back to appian
     Then The notification status should update to "<status>"
     Then The notification status should update to "<status2>"
