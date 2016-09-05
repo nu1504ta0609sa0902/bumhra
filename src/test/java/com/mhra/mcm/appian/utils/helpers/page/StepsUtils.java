@@ -14,7 +14,7 @@ import gherkin.formatter.model.DataTableRow;
 public class StepsUtils {
 
     /**
-     * Find the invoice associated with notification
+     * Find the invoice associated with notifications
      *
      * @param listOfInvoices
      * @return
