@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.mhra.mcm.appian.pageobjects.sections.contents.*;
-import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
+import com.mhra.mcm.appian.utils.helpers.datadriven.ExcelUtils;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

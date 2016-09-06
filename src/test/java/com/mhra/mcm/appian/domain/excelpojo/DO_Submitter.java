@@ -1,8 +1,6 @@
 package com.mhra.mcm.appian.domain.excelpojo;
 
-import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
-
-import java.util.List;
+import com.mhra.mcm.appian.utils.helpers.datadriven.ExcelUtils;
 
 /**
  * Created by TPD_Auto on 26/08/2016.

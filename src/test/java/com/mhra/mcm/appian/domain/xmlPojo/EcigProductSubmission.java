@@ -1,20 +1,11 @@
 package com.mhra.mcm.appian.domain.xmlPojo;
 
-import com.mhra.mcm.appian.domain.excelpojo.*;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.*;
-import com.mhra.mcm.appian.utils.helpers.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
-import com.mhra.mcm.appian.utils.helpers.others.datadriven.ExcelUtils;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.File;
-import java.util.Date;
-import java.util.Map;
 
 /**
  * Created by TPD_Auto on 22/07/2016.

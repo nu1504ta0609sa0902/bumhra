@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.utils.helpers.others.datadriven;
+package com.mhra.mcm.appian.utils.helpers.datadriven;
 
 import com.mhra.mcm.appian.domain.excelpojo.*;
 

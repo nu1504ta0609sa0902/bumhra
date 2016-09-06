@@ -82,8 +82,21 @@ public class RecordsPageSteps extends CommonSteps {
         log.info("ECID selected : " + ecid);
         scenarioSession.putData(SessionKey.ECID, ecid);
 
-        //update notification
+        //Click on selected notificatioins
+        recordsPage = new RecordsPage(driver);
         notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+        boolean isCorrectPage = notificationDetails.isCorrectPage();
+        if(!isCorrectPage){
+            int count = 1;
+            do {
+                recordsPage = mainNavigationBar.clickRecords();
+                recordsPage = recordsPage.clickNotificationsLink();
+                notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+                isCorrectPage = notificationDetails.isCorrectPage();
+                count++;
+            }while (!isCorrectPage && count <= 3 );
+        }
+
         editNotification = notificationDetails.clickManageNotification();
         notificationDetails = editNotification.updateStatusTo(updatedStatus);
     }

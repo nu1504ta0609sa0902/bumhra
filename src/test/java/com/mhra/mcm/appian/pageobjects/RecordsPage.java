@@ -129,7 +129,8 @@ public class RecordsPage extends _Page {
             try {
                 WaitUtils.waitForElementToBeClickable(driver, By.linkText(expectedNotificationID), 7, false);
                 WebElement notification = driver.findElement(By.linkText(expectedNotificationID));
-                notification.click();
+                PageUtils.doubleClick(driver, notification);
+                //notification.click();
                 found = true;
                 break;
             }catch(Exception e){
@@ -229,22 +230,14 @@ public class RecordsPage extends _Page {
                     String currentStatus = element.getText();
 
                     System.out.println(currentStatus + ", " + status);
-                    if(currentStatus.equals(status)) {
-                        WebElement elementSub = listOfECIDLinks.get(listOfECIDLinks.size() - count);
-                        ecID = elementSub.getText();
-                        break;
-                    }
 
                     //Bug: Failed notifications can't be edited
                     if(!currentStatus.equals(status) || currentStatus.equals("Failed") || currentStatus.equals("Withdrawn")){
                         ecID = null;
-                    }else{
-//                        System.out.println(currentStatus + ", " + status);
-//                        if(currentStatus.equals(status)) {
-//                            WebElement elementSub = listOfECIDLinks.get(listOfECIDLinks.size() - count);
-//                            ecID = elementSub.getText();
-//                            break;
-//                        }
+                    }else if(currentStatus.equals(status)) {
+                        WebElement elementSub = listOfECIDLinks.get(listOfECIDLinks.size() - count);
+                        ecID = elementSub.getText();
+                        break;
                     }
                 }
 

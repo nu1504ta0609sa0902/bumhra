@@ -60,8 +60,8 @@ Feature: As a Finance user I should receive invoice email with correct data
   @mcm-87
   Scenario Outline: Test GL code for 1772 TPD Annual Periodic Fee
     Given I am logged into appian as "<user>" user
-    #And I select notification with status "<statusFrom>" and update status to "<statusTo>"
-    And I update status of an existing notification to "<statusTo>"
+    And I select notification with status "<statusFrom>" and update status to "<statusTo>"
+    #And I update status of an existing notification to "<statusTo>"
     Then I expect the notification status should be "<statusTo>"
     When I login as "fin1" and generate an annual invoice
     Then I should receive an invoice email with heading "Annual Notification Invoices" from appian in next 2 min with correct price "<price>" for the stored notification
@@ -69,5 +69,5 @@ Feature: As a Finance user I should receive invoice email with correct data
     And The invoices should be unique by invoice id
     Examples:
       | user   | glcode | price | statusFrom | statusTo  |
-      | super1 | 1772   | 60    | Unpaid     | Published |
+      | super1 | 1772   | 60    | Paid     | Published |
       #| super2 | 1772 | 60 |Successful | | Successful    |

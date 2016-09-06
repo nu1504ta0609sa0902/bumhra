@@ -87,4 +87,13 @@ public class NotificationDetails extends _Page {
         manageNotificationBtn.click();
         return new EditNotification(driver);
     }
+
+    public boolean isCorrectPage() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, manageDocuments, 5, false);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
 }
