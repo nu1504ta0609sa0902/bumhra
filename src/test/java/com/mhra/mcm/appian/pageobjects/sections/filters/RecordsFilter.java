@@ -60,50 +60,69 @@ public class RecordsFilter extends _Page {
     @FindBy(css = "li.selected a")
     List<WebElement> listOfSelectedFilters;
 
+    @FindBy(xpath = ".//h3[.='Status']//following::li[@title='Show All']")
+    WebElement filteredBy;
+
     @Autowired
     public RecordsFilter(WebDriver driver) {
         super(driver);
     }
 
     public RecordsPage filterByStatus(String filterByStatus) {
-        if(filterByStatus!=null){
+        if (filterByStatus != null) {
             WebElement element = null;
-            switch (filterByStatus){
+            switch (filterByStatus) {
                 case "Uploaded":
-                    element = uploaded;break;
+                    element = uploaded;
+                    break;
                 case "Ready for Payment":
-                    element = readyForPayment;break;
+                    element = readyForPayment;
+                    break;
                 case "Paid":
-                    element = paid;break;
+                    element = paid;
+                    break;
                 case "Unpaid":
-                    element = unpaid;break;
+                    element = unpaid;
+                    break;
                 case "Failed":
-                    element = failed;break;
+                    element = failed;
+                    break;
                 case "Successful":
-                    element = successful;break;
+                    element = successful;
+                    break;
                 case "Quality Assurance":
-                    element = qualityAssurance;break;
+                    element = qualityAssurance;
+                    break;
                 case "Published":
-                    element = published;break;
+                    element = published;
+                    break;
                 case "Last 30 days":
-                    element = last30Days;break;
+                    element = last30Days;
+                    break;
                 case "Last 60 days":
-                    element = last60Days;break;
+                    element = last60Days;
+                    break;
                 case "Last 90 days":
-                    element = last90Days;break;
+                    element = last90Days;
+                    break;
                 case "Last 180 days":
-                    element = last180Days;break;
+                    element = last180Days;
+                    break;
                 case "<A":
-                    element = lessThanA;break;
+                    element = lessThanA;
+                    break;
                 case "A-L":
-                    element = aToL;break;
+                    element = aToL;
+                    break;
                 case "M-Z":
-                    element = mToZ;break;
+                    element = mToZ;
+                    break;
                 case ">A":
-                    element = greaterThanA;break;
+                    element = greaterThanA;
+                    break;
             }
 
-            if(element!=null){
+            if (element != null) {
                 WaitUtils.waitForElementToBeClickable(driver, element, 20, false);
                 element.click();
             }
@@ -116,14 +135,14 @@ public class RecordsFilter extends _Page {
         try {
             WaitUtils.waitForElementToBeClickable(driver, more, 20, false);
             more.click();
-        }catch (Exception e){
+        } catch (Exception e) {
             //More link may not be visible
         }
         return new RecordsFilter(driver);
     }
 
     public RecordsFilter clearSelection() {
-        if(listOfSelectedFilters.size() > 0){
+        if (listOfSelectedFilters.size() > 0) {
             //Clear selection
             listOfSelectedFilters.get(0).click();
         }
@@ -150,5 +169,11 @@ public class RecordsFilter extends _Page {
 
     public void waitForOptionsToBeClickable() {
         WaitUtils.waitForElementToBeClickable(driver, uploaded, 20, false);
+    }
+
+    public boolean isFiteredBy(String filterByStatus) {
+        WaitUtils.waitForElementToBeClickable(driver, filteredBy, 20, false);
+        boolean matched = filteredBy.getText().contains(filterByStatus);
+        return matched;
     }
 }

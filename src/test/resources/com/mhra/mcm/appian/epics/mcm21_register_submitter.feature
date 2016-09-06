@@ -45,7 +45,7 @@ Feature: Once Appian has parsed the notification data, the system will register 
       | submitterName | <submitterNameGeneration> |
     Then I should see the stored notification with status set to "<initialStatus>"
     When I login as "fin1" and generate a standard invoice
-    Then If I receive an invoice email with heading "" from appian in next 2 min than the invoice should not contain my notification
+    Then I receive an invoice email with heading "" from appian in next 2 min than the invoice should not contain my notification
     Examples:
       | type | submitterNameGeneration | initialStatus |
       | 1    | random                  | Uploaded      |

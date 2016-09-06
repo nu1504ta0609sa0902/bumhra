@@ -83,14 +83,13 @@ public class RecordsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.ECID, ecid);
 
         //Click on selected notificatioins
-        recordsPage = new RecordsPage(driver);
         notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
         boolean isCorrectPage = notificationDetails.isCorrectPage();
         if(!isCorrectPage){
             int count = 1;
             do {
-                recordsPage = mainNavigationBar.clickRecords();
-                recordsPage = recordsPage.clickNotificationsLink();
+//                recordsPage = mainNavigationBar.clickRecords();
+//                recordsPage = recordsPage.clickNotificationsLink();
                 notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
                 isCorrectPage = notificationDetails.isCorrectPage();
                 count++;
@@ -262,6 +261,13 @@ public class RecordsPageSteps extends CommonSteps {
         filterSection = filterSection.expand();
         //recordsPage = filterSection.filterByStatus(filterByStatus);
         recordsPage = filterSection.clickFilterText(filterByStatus);
+        boolean isFitered = filterSection.isFiteredBy(filterByStatus);
+        if(!isFitered){
+            recordsPage = filterSection.clickFilterText(filterByStatus);
+        }
+        int count = recordsPage.getTotalNotificationCount();
+        log.info("Number of " + filterByStatus + " notifications is : " + count);
+        scenarioSession.putData(SessionKey.notificationCount, count);
     }
 
     @Then("^I should only see notifications where status is \"([^\"]*)\"$")

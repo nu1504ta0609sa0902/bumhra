@@ -44,6 +44,7 @@ public class EmailSteps extends CommonSteps {
 
             //Break from loop if invoices read from the email server
             if(listOfInvoices.size()>0){
+                foundInvoices = true;
                 break;
             }else{
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
@@ -77,7 +78,7 @@ public class EmailSteps extends CommonSteps {
     }
 
 
-    @Then("^If I receive an invoice email with heading \"([^\"]*)\" from appian in next (.*) min than the invoice should not contain my notification$")
+    @Then("^I receive an invoice email with heading \"([^\"]*)\" from appian in next (.*) min than the invoice should not contain my notification$")
     public void iShouldReceiveAnInvoiceEmailButItShouldNotContainMyNotification(String heading, int min) throws Throwable {
 
         String ecID = (String) scenarioSession.getData(SessionKey.ECID);
@@ -89,6 +90,7 @@ public class EmailSteps extends CommonSteps {
 
             //Break from loop if invoices read from the email server
             if(listOfInvoices.size()>0){
+                foundInvoices = true;
                 break;
             }else{
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
@@ -104,6 +106,30 @@ public class EmailSteps extends CommonSteps {
             //verify the price and other details
             assertThat("We should not receive any invoice for notification with ecid : " + ecID + " because it has no TCANumber check email : mhra.uat@gmail.com", listOfInvoices.size(), is((equalTo(0))));
         }
+    }
+
+    @Then("^I receive an invoice email with heading \"([^\"]*)\" from appian in next (.*) min for \"([^\"]*)\" notifications$")
+    public void iShouldReceiveAnInvoiceEmailButItShouldNotContainMyNotification(String heading, int min, String status) throws Throwable {
+
+        String ecID = (String) scenarioSession.getData(SessionKey.ECID);
+        List<Invoice> listOfInvoices = null;
+        boolean foundInvoices = false;
+        int attempt = 0;
+        do {
+            listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, heading);
+
+            //Break from loop if invoices read from the email server
+            if(listOfInvoices.size()>0){
+                foundInvoices = true;
+                break;
+            }else{
+                //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
+                WaitUtils.nativeWait(1);
+            }
+            attempt++;
+        }while(!foundInvoices && attempt < 12);
+
+        scenarioSession.putData(SessionKey.listOfInvoices, listOfInvoices);
     }
 
 
@@ -194,5 +220,23 @@ public class EmailSteps extends CommonSteps {
         boolean isUniqueInvoiceIds = GenericUtils.isInvoiceUnique(loi);
 
         assertThat("Expected unique invoice ids "  , isUniqueInvoiceIds, is((equalTo(true))));
+    }
+
+
+    @Then("^The invoices should all have unit price as \"([^\"]*)\"$")
+    public void the_invoices_should_be_unique_by_invoice_id(String price) throws Throwable {
+        List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);
+        boolean allMatched = GenericUtils.isUnitPriceMatch(price, loi);
+
+        assertThat("Expected unit price to be : £" + price  , allMatched, is((equalTo(true))));
+    }
+
+
+    @When("^The number of invoices should match with count of \"([^\"]*)\" notifications$")
+    public void the_number_of_invoices_should_match_with_count_of_notifications(String status) throws Throwable {
+        List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);
+        Integer count = (Integer) scenarioSession.getData(SessionKey.notificationCount);
+        boolean matched = loi.size() == count;
+        assertThat("Expected " + count + " invoices but system returned atleast : " + loi.size() + " notifications" , matched, is((equalTo(true))));
     }
 }

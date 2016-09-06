@@ -21,4 +21,5 @@ public class SessionKey {
 	public static String notificationStatus = "Notification Status";
 	public static String submitter = "Submitter";
 	public static String listOfInvoices = "List Of Invoices";
+	public static String notificationCount = "Notifications Count";
 }

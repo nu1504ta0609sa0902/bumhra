@@ -45,6 +45,9 @@ public class RecordsPage extends _Page {
     @FindBy(xpath=".//img//following::input[1]")
     WebElement searchField;
 
+    @FindBy(xpath=".//*[.='Previous']//following::span[2]")
+    WebElement totalCount;
+
     @Autowired
     public RecordsPage(WebDriver driver) {
         super(driver);
@@ -221,7 +224,7 @@ public class RecordsPage extends _Page {
             int count = 0;
             do{
                 count++;
-                WebElement element = listOfECIDLinks.get(listOfECIDLinks.size() - count);
+                WebElement element = listOfECIDLinks.get(maxNumberOfTimesToIterate - count);
                 ecID = element.getText();
                 if(ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")){
                     ecID = null;
@@ -229,13 +232,12 @@ public class RecordsPage extends _Page {
                     element = driver.findElement(By.xpath(".//*[.='" + ecID + "']//following::p[4]"));
                     String currentStatus = element.getText();
 
-                    System.out.println(currentStatus + ", " + status);
-
                     //Bug: Failed notifications can't be edited
                     if(!currentStatus.equals(status) || currentStatus.equals("Failed") || currentStatus.equals("Withdrawn")){
                         ecID = null;
                     }else if(currentStatus.equals(status)) {
-                        WebElement elementSub = listOfECIDLinks.get(listOfECIDLinks.size() - count);
+                        System.out.println(currentStatus + ", " + status);
+                        WebElement elementSub = listOfECIDLinks.get(maxNumberOfTimesToIterate - count);
                         ecID = elementSub.getText();
                         break;
                     }
@@ -281,5 +283,13 @@ public class RecordsPage extends _Page {
         boolean allStatusSame = GenericUtils.isAllStatusMatching(listOfMatchingNotificationsWithStatus, filterBy);
         return allStatusSame;
     }
-    
+
+    public int getTotalNotificationCount() {
+        WaitUtils.waitForElementToBeClickable(driver, totalCount, 10, false);
+        String count = totalCount.getText();
+        if(count!=null){
+            count = count.replace("of", "").trim();
+        }
+        return Integer.parseInt(count);
+    }
 }

@@ -73,6 +73,12 @@ public class GmailEmail {
         return listOfInvoices;
     }
 
+    public static List<Invoice> getListOfInvoicesFromGmail(int min, String subjectHeading) {
+        //generate list of invoices
+        read(min, subjectHeading);
+        return listOfInvoices;
+    }
+
     private static void filterListOfInvoicesByEcid(String ecID) {
         boolean contains = false;
         //check invoice with ecid exists

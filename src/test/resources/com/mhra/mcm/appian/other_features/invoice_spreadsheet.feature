@@ -38,36 +38,29 @@ Feature: As a Finance user I should receive invoice email with correct data
       | rdt1 | 1     | SUPPLEMENT1 | 2     | SUPPLEMENT2 |
 
 
-#  Scenario Outline: Test GL code for 1772 TPD Annual Periodic Fee
-#    Given I am logged into appian as "<user>" user
-#    And Update the status of stored notification to "<status>"
-#    Then I expect the notification status should be "<status>"
-#    When I create new notification with following data
-#      | type       | <type>       |
-#      | ingredient | <ingredient> |
-#    And I attach a toxicology report for "<ingredient>"
-#    When I login as "fin1" and generate a standard invoice
-#    Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<price>" for the stored notification
-#    When I send paid email response back to appian
-#    Then The notification status should update to "<status>"
-#    Then The notification status should update to "<status2>"
-#    When I login as "fin1" and generate a annual invoice
-#  Examples:
-#  | user | type | price | status | ingredient  | status2    |
-#  | rdt1 | 1    | 150   | Paid   | SUPPLEMENT1 | Successful |
-
-
   @mcm-87
   Scenario Outline: Test GL code for 1772 TPD Annual Periodic Fee
     Given I am logged into appian as "<user>" user
-    And I select notification with status "<statusFrom>" and update status to "<statusTo>"
-    #And I update status of an existing notification to "<statusTo>"
+    #And I select notification with status "<statusFrom>" and update status to "<statusTo>"
+    And I update status of an existing notification to "<statusTo>"
     Then I expect the notification status should be "<statusTo>"
     When I login as "fin1" and generate an annual invoice
-    Then I should receive an invoice email with heading "Annual Notification Invoices" from appian in next 2 min with correct price "<price>" for the stored notification
+    Then I should receive an invoice email with heading "Annual Notification Invoices" from appian in next 2 min with correct price "" for the stored notification
     And The invoice should contain correct code "<glcode>" and other details
     And The invoices should be unique by invoice id
+    And The invoices should all have unit price as "<price>"
     Examples:
       | user   | glcode | price | statusFrom | statusTo  |
-      | super1 | 1772   | 60    | Paid     | Published |
+      | super1 | 1772   | 60    | Unpaid     | Published |
       #| super2 | 1772 | 60 |Successful | | Successful    |
+
+
+
+  @mcm-87
+  Scenario: Verify number of TPD Annual Invoices should matched number of published notifications
+    Given I am logged into appian as "super1" user
+    When I go to the notifications page
+    When I filter by status "Published"
+    When I login as "fin1" and generate an annual invoice
+    Then I receive an invoice email with heading "Annual Notification Invoices" from appian in next 2 min for "Published" notifications
+    And The number of invoices should match with count of "Published" notifications

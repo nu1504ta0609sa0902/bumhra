@@ -50,6 +50,11 @@ public class GenericUtils {
         return matched;
     }
 
+    /**
+     * Invoice ID should be unique
+     * @param loi
+     * @return
+     */
     public static boolean isInvoiceUnique(List<Invoice> loi) {
         Set<String> setOfEcid = new HashSet<>();
         for(Invoice e: loi){
@@ -57,5 +62,23 @@ public class GenericUtils {
         }
 
         return setOfEcid.size() == loi.size();
+    }
+
+    /**
+     * Annual price should be £60 at the time of writing 06/09/2016
+     * @param price
+     * @param loi
+     * @return
+     */
+    public static boolean isUnitPriceMatch(String price, List<Invoice> loi) {
+        boolean allMatched = true;
+        for(Invoice i: loi){
+            String unit_price = i.Unit_price;
+            if(!unit_price.equals(price)){
+                allMatched = false;
+                break;
+            }
+        }
+        return allMatched;
     }
 }
