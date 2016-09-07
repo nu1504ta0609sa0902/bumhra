@@ -41,7 +41,7 @@ public class TasksPage extends _Page {
             attempt++;
 
             try {
-                WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(submitterName), 5);
+                WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(submitterName), 5, false);
                 WebElement task = driver.findElement(By.partialLinkText(submitterName));
                 task.click();
                 found = true;

@@ -45,7 +45,7 @@ public class NotificationUtils {
             if (type != null  && !type.trim().equals("")) {
                 notification.getSummary().submissionType = type;
             }
-            if (tcaNumber != null && !tcaNumber.trim().equals("")) {
+            if (tcaNumber != null) {
                 notification.getSubmitter().tcaNumber = tcaNumber;
             }
             if (submitterName != null && !submitterName.trim().equals("")) {

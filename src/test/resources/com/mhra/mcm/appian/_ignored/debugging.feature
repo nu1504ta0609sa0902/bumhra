@@ -1,3 +1,4 @@
+@ignore
 Feature: As a tester I would like to debug
 
   @ignore

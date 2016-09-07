@@ -38,7 +38,7 @@ Feature: As a Finance user I should receive invoice email with correct data
       | rdt1 | 1     | SUPPLEMENT1 | 2     | SUPPLEMENT2 |
 
 
-  @mcm-87
+  @mcm-87 @mcm-37
   Scenario Outline: Test GL code for 1772 TPD Annual Periodic Fee
     Given I am logged into appian as "<user>" user
     #And I select notification with status "<statusFrom>" and update status to "<statusTo>"
@@ -56,7 +56,7 @@ Feature: As a Finance user I should receive invoice email with correct data
 
 
 
-  @mcm-87
+  @mcm-87 @mcm-37
   Scenario: Verify number of TPD Annual Invoices should matched number of published notifications
     Given I am logged into appian as "super1" user
     When I go to the notifications page
@@ -64,3 +64,21 @@ Feature: As a Finance user I should receive invoice email with correct data
     When I login as "fin1" and generate an annual invoice
     Then I receive an invoice email with heading "Annual Notification Invoices" from appian in next 2 min for "Published" notifications
     And The number of invoices should match with count of "Published" notifications
+
+
+  @mcm-87 @mcm-37
+  Scenario: Verify number of TPD Annual Invoices should matched number of published or successful notifications
+    Given I am logged into appian as "super1" user
+    When I go to the notifications page
+    When I count the number of notifications in "Published,Successful" status
+    When I login as "fin1" and generate an annual invoice
+    Then I receive an invoice email with heading "Annual Notification Invoices" from appian in next 2 min for "Published" notifications
+    And The number of invoices should match with count of "Published,Successful" notifications
+
+
+    @mcm-87 @ignore
+    Scenario: Verify TPD Annual Invoice payment works as expected
+      Given I am logged into appian as "super1" user
+      When I login as "fin1" and generate an annual invoice
+      Then I receive an invoice email with heading "Annual Notification Invoices" from appian in next 2 min for "Published" notifications
+      When I select a random invoice and send paid email response back to appian

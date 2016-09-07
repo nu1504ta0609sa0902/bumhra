@@ -270,6 +270,31 @@ public class RecordsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.notificationCount, count);
     }
 
+
+    @When("^I count the number of notifications in \"([^\"]*)\" status$")
+    public void i_filter_by_statuses(String filterByStatuses) throws Throwable {
+        String[] statuses = filterByStatuses.split(",");
+        int totalCount = 0;
+        for(String filterByStatus: statuses){
+            RecordsFilter filterSection = recordsPage.getFilterSection();
+            filterSection = filterSection.expand();
+            recordsPage = filterSection.clickFilterText(filterByStatus);
+            boolean isFitered = filterSection.isFiteredBy(filterByStatus);
+            if(!isFitered){
+                recordsPage = filterSection.clickFilterText(filterByStatus);
+            }
+            int count = recordsPage.getTotalNotificationCount();
+            totalCount = totalCount + count;
+
+            if(statuses.length > 1){
+                //Return to page
+                filterSection = filterSection.clearSelection();
+            }
+        }
+        log.info("Number of notifications in following statuses " + filterByStatuses + " count : " + totalCount);
+        scenarioSession.putData(SessionKey.notificationCount, totalCount);
+    }
+
     @Then("^I should only see notifications where status is \"([^\"]*)\"$")
     public void i_should_only_see_notifications_in_the_selected_status(String filterBy) throws Throwable {
         recordsPage = new RecordsPage(driver);
@@ -308,5 +333,11 @@ public class RecordsPageSteps extends CommonSteps {
 
         assertThat("Status should be : " + currentStatus , newStatus, is(isOneOf(expectedStatus,"Quality Assurance")));
         scenarioSession.putData(SessionKey.notificationStatus, newStatus);
+    }
+
+    @Then("^Audit log displays correct user name \"([^\"]*)\" and comment$")
+    public void audit_log_displays_correct_user_name_and_comment(String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 }

@@ -393,7 +393,7 @@ public class GmailEmail {
                         if (lineNumber > 0) {
                             sb.append(line + "\n");
                             Invoice invoice = new Invoice(line);
-                            if (!listOfInvoices.contains(invoice))
+                            //if (!listOfInvoices.contains(invoice))
                                 listOfInvoices.add(invoice);
                         }
                         lineNumber++;

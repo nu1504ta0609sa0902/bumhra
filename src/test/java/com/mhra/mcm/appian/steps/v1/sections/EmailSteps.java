@@ -152,6 +152,28 @@ public class EmailSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.notificationStatus, currentStatus);
     }
 
+    @When("^I select a random invoice and send paid email response back to appian$")
+    public void i_select_a_random_invoice_send_paid_email_response_back_to_appian_than_the_status_should_update_to() throws Throwable {
+        List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);
+        Invoice invoice = GenericUtils.getRandomInvoice(loi);
+        String ecid = invoice.Description;
+
+        //Keep track of current status
+        mainNavigationBar = new MainNavigationBar(driver);
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+        notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+        String currentStatus = notificationDetails.getCurrentStatus();
+
+        //send the paid email and wait for status to change
+        boolean emailSent = GmailEmail.sendPaidEmailToAppian(invoice);
+
+        //Store the notification status
+        scenarioSession.putData(SessionKey.notificationStatus, currentStatus);
+        scenarioSession.putData(SessionKey.invoice, invoice);
+        scenarioSession.putData(SessionKey.ECID, invoice.Description);
+    }
+
     @When("^The notification status should update to \"([^\"]*)\"$")
     public void the_status_should_update_to(String expectedStatus) throws Throwable {
         String currentStatus = (String) scenarioSession.getData(SessionKey.notificationStatus);
@@ -237,6 +259,6 @@ public class EmailSteps extends CommonSteps {
         List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);
         Integer count = (Integer) scenarioSession.getData(SessionKey.notificationCount);
         boolean matched = loi.size() == count;
-        assertThat("Expected " + count + " invoices but system returned atleast : " + loi.size() + " notifications" , matched, is((equalTo(true))));
+        assertThat("Expected " + count + " invoices but system returned : " + loi.size() + " notifications" , matched, is((equalTo(true))));
     }
 }

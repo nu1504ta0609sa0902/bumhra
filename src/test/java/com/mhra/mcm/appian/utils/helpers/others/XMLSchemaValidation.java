@@ -11,6 +11,7 @@ import javax.xml.bind.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
@@ -37,7 +38,7 @@ public class XMLSchemaValidation {
 
     public static void main(String args[]) {
 
-        String schemaDefinitionFile = "C:\\Selenium\\xmlData\\originalFiles\\schema\\submissions2.xsd";
+        String schemaDefinitionFile = "C:\\Selenium\\xmlData\\originalFiles\\schema\\submissions.xsd";
         String xmlOriginalFiles = "C:\\Selenium\\xmlData\\originalFiles";
 
         //XML files to validate
@@ -53,28 +54,40 @@ public class XMLSchemaValidation {
                 if (isFile.isFile()) {
                     //Validate xml files against XSD
                     XMLSchemaValidation xsv = new XMLSchemaValidation();
-                    boolean valid = xsv.simpleValidation(xmlToValidate, schemaDefinitionFile);
-                    //boolean valid = xsv.validateXMLSchema(xmlToValidate, schemaDefinitionFile);
-                    //boolean valid = xsv.validateJAXBXmlSchema(xmlToValidate, schemaDefinitionFile);
-                    System.out.println("Is valid : " + valid + "\n");
+                    System.out.println("\n----------------------------------------------------\n");
+                    //boolean valid = xsv.simpleValidation(xmlToValidate, schemaDefinitionFile);
+                    boolean valid = xsv.validateXMLSchema(xmlToValidate, schemaDefinitionFile);
+                    System.out.println("IS VALID : " + valid);
+//                    if(!valid){
+//                        System.out.println("\n----------------------------------------------------\n");
+//                        System.out.println("INVALID FILE FOUND : " + xmlToValidate + "\n");
+//                        System.out.println("Validate File : " + xmlToValidate);
+//                        System.out.println("Schema Definition File : " + schemaDefinitionFile);
+//                        System.out.println("\n----------------------------------------------------\n");
+//                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("Done");
+
+        System.out.println("\n----------------------------------------------------\n");
+        System.out.println("ALL SCHEMA VALIDATION COMPLETE");
+        System.out.println("\n----------------------------------------------------\n");
     }
 
 
     public static boolean simpleValidation(String xmlFilePath, String xsdPath) {
+        System.out.println("\nValidate File : " + xmlFilePath);
+        System.out.println("Schema File : " + xsdPath);
         boolean valid = true;
         InputSource is = null;
-        StreamSource xmlFileSource = new StreamSource(new File(xmlFilePath));
+        Source xmlFileSource = new StreamSource(new File(xmlFilePath));
         try {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = factory.newSchema(new File(xsdPath));
             Validator validator = schema.newValidator();
-            validator.validate(xmlFileSource, new SAXResult());
+            validator.validate(xmlFileSource);
         } catch (IOException e) {
             System.out.println(xmlFileSource.getSystemId() + " is NOT valid");
             System.out.println("IOException: " + e.getMessage());
@@ -93,16 +106,12 @@ public class XMLSchemaValidation {
     }
 
     public static boolean validateXMLSchema(String xmlFilePath, String xsdPath) {
-
+        boolean isValid = true;
         final List<SAXParseException> exceptions = new ArrayList<>();
         try {
+            //XML file and schema definition file
             System.out.println("\nValidate File : " + xmlFilePath);
             System.out.println("Schema File : " + xsdPath);
-
-//            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-//            docFactory.setNamespaceAware(true);
-//            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-//            Document document = docBuilder.parse(xmlFilePath);
 
             //Validate xml
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -126,70 +135,35 @@ public class XMLSchemaValidation {
                     exceptions.add(exception);
                 }
 
-
             });
 
             validator.validate(new StreamSource(new File(xmlFilePath)));
-            //validator.validate(new DOMSource(document));
-        } catch (IOException e) {
-            System.out.println("Exception: " + e.getMessage());
-            return false;
-        } catch (SAXException e1) {
-            System.out.println("SAX Exception: " + e1.getMessage());
-            //return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(exceptions);
 
-        return true;
+        } catch (IOException e) {
+            System.out.println("IOException: " + e.getMessage());
+            isValid = false;
+        } catch (SAXException e) {
+            System.out.println("SAX Exception: " + e.getMessage());
+            isValid = false;
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+            isValid = false;
+        }
+
+        if(!isValid || exceptions.size() > 0){
+            isValid = false;
+            for(SAXParseException e: exceptions){
+                System.out.println();
+                //Print any issues found
+                System.out.println("INVALID File Name : " + e.getSystemId());
+                System.out.println("Issue : " + e.getLocalizedMessage());
+                System.out.println("Line Number : " + e.getLineNumber());
+            }
+        }
+
+        return isValid;
 
     }
 
 
-//    public static boolean validateJAXBXmlSchema(String xmlFile, String schemaFile){
-//        try{
-//            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-//            Schema schema = sf.newSchema(new File(schemaFile));
-//
-//            JAXBContext jc = JAXBContext.newInstance();
-//
-////            Unmarshaller unmarshaller = jc.createUnmarshaller();
-////            unmarshaller.setSchema(schema);
-////            unmarshaller.setEventHandler(new MyValidationEventHandler());
-////            unmarshaller.unmarshal(new File(xmlFile));
-//
-//            Marshaller marshaller = jc.createMarshaller();
-//            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-//            marshaller.setSchema(schema);
-//            marshaller.setEventHandler(new MyValidationEventHandler());
-//            marshaller.marshal(new File(xmlFile), System.out);
-//        }catch(SAXException e1){
-//            System.out.println("SAX Exception: "+e1.getMessage());
-//            return false;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return true;
-//    }
-//
-//    static class MyValidationEventHandler implements ValidationEventHandler {
-//
-//        public boolean handleEvent(ValidationEvent event) {
-//            System.out.println("\nEVENT");
-//            System.out.println("SEVERITY:  " + event.getSeverity());
-//            System.out.println("MESSAGE:  " + event.getMessage());
-//            System.out.println("LINKED EXCEPTION:  " + event.getLinkedException());
-//            System.out.println("LOCATOR");
-//            System.out.println("    LINE NUMBER:  " + event.getLocator().getLineNumber());
-//            System.out.println("    COLUMN NUMBER:  " + event.getLocator().getColumnNumber());
-//            System.out.println("    OFFSET:  " + event.getLocator().getOffset());
-//            System.out.println("    OBJECT:  " + event.getLocator().getObject());
-//            System.out.println("    NODE:  " + event.getLocator().getNode());
-//            System.out.println("    URL:  " + event.getLocator().getURL());
-//            return true;
-//        }
-//
-//    }
 }

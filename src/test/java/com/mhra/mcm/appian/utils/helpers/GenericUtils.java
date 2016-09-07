@@ -81,4 +81,10 @@ public class GenericUtils {
         }
         return allMatched;
     }
+
+    public static Invoice getRandomInvoice(List<Invoice> loi) {
+        String index = RandomDataUtils.getSimpleRandomNumberBetween(0, loi.size() - 1);
+        Invoice i = loi.get(Integer.parseInt(index));
+        return i;
+    }
 }

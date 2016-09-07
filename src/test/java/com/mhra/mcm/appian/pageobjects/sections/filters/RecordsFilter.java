@@ -133,7 +133,7 @@ public class RecordsFilter extends _Page {
 
     public RecordsFilter expand() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, more, 20, false);
+            WaitUtils.waitForElementToBeClickable(driver, more, 5, false);
             more.click();
         } catch (Exception e) {
             //More link may not be visible

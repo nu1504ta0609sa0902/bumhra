@@ -36,7 +36,7 @@ public class TasksPageSteps extends CommonSteps {
             tasksPage = tasksPage.clickTaskWithSubmitterName(submitterName);
             contains = tasksPage.isCorrectECID(data.ecIDNumber);
             count++;
-        }while(!contains && count <= 3);
+        }while(!contains && count <= 1);
 
         assertThat("Expected task with EC ID : " + ecId , contains, is(equalTo(true)));
     }
