@@ -74,6 +74,7 @@ public class TasksPage extends _Page {
     public TasksPage acceptTask() {
         try
         {
+            WaitUtils.waitForElementToBeVisible(driver, accept, 10, false);
             if(accept.isDisplayed()){
                 accept.click();
             }

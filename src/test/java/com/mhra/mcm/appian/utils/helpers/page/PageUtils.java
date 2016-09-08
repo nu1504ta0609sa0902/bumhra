@@ -1,10 +1,13 @@
 package com.mhra.mcm.appian.utils.helpers.page;
 
+import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 /**
  * Created by TPD_Auto on 22/07/2016.
@@ -82,4 +85,9 @@ public class PageUtils {
         WaitUtils.nativeWait(6);
     }
 
+    public static WebElement getRandomNotification(List<WebElement> listOfECIDLinks) {
+        String index = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfECIDLinks.size() - 1);
+        WebElement element = listOfECIDLinks.get(Integer.parseInt(index));
+        return element;
+    }
 }

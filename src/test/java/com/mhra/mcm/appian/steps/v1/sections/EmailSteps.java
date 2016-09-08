@@ -130,13 +130,17 @@ public class EmailSteps extends CommonSteps {
         }while(!foundInvoices && attempt < 12);
 
         scenarioSession.putData(SessionKey.listOfInvoices, listOfInvoices);
+
     }
 
 
     @When("^I send paid email response back to appian$")
     public void i_send_paid_email_response_back_to_appian_than_the_status_should_update_to() throws Throwable {
+        List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);
+        String ecid = (String) scenarioSession.getData(SessionKey.ECID);
         Invoice invoice = (Invoice) scenarioSession.getData(SessionKey.invoice);
-        String ecid = invoice.Description;
+        if(invoice == null)
+            invoice = GenericUtils.getInvoiceForECID(loi, ecid);
 
         //Keep track of current status
         mainNavigationBar = new MainNavigationBar(driver);

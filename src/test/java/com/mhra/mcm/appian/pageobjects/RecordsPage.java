@@ -56,6 +56,7 @@ public class RecordsPage extends _Page {
 
 
     public RecordsFilter getFilterSection() {
+        WaitUtils.waitForElementToBeClickable(driver, searchField, 10, false);
         return new RecordsFilter(driver);
     }
 
@@ -253,6 +254,33 @@ public class RecordsPage extends _Page {
         }
     }
 
+
+    public String getARandomNotification(int maxNumberOfTimesToIterate) {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
+        if(listOfECIDLinks.size() > 0){
+            maxNumberOfTimesToIterate  = listOfECIDLinks.size();
+            String ecID = null;
+            int count = 0;
+            do{
+                count++;
+                WebElement element = PageUtils.getRandomNotification(listOfECIDLinks);
+                ecID = element.getText();
+                if(ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")){
+                    ecID = null;
+                }else{
+                    break;
+                }
+
+                if(count>maxNumberOfTimesToIterate){
+                    break;
+                }
+            }while(ecID == null);
+            return ecID;
+        }else{
+            return null;
+        }
+    }
+
     public int getNotificationCount(String ecid) {
         WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(ecid), 5);
         List<WebElement> listOfMatches = driver.findElements(By.partialLinkText(ecid));
@@ -285,7 +313,7 @@ public class RecordsPage extends _Page {
     }
 
     public int getTotalNotificationCount() {
-        WaitUtils.waitForElementToBeClickable(driver, totalCount, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, totalCount, 15, false);
         String count = totalCount.getText();
         if(count!=null){
             count = count.replace("of", "").trim();

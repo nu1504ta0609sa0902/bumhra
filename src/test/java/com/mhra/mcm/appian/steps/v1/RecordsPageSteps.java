@@ -336,10 +336,62 @@ public class RecordsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.notificationStatus, newStatus);
     }
 
+
+//
+//    @When("^I view an existing notification with ecid  \"([^\"]*)\" in exception page$")
+//    public void i_view_an_existing_notification_displayed_in_exception_page(String ecid) throws Throwable {
+//        reportsPage = mainNavigationBar.clickReports();
+//        exception = reportsPage.gotoExceptionsPage();
+//
+//        scenarioSession.putData(SessionKey.ECID, ecid);
+//
+//        notificationDetails = exception.clickOnNotificationWithEcid(ecid);
+//        log.info("Clicked notification with ecid : " + ecid);
+//    }
+
+
+    @Then("^I view an random notification with status \"([^\"]*)\"$")
+    public void i_view_random_notification(String status) throws Throwable {
+
+//        recordsPage = mainNavigationBar.clickRecords();
+//        recordsPage = recordsPage.clickNotificationsLink();
+        String ecid = recordsPage.getARandomNotificationWithStatusEqualTo(status, 50);
+        log.info("View notification with ecid : " + ecid);
+
+        //View notifications
+        notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+    }
+
+
+    @Then("^I view a random notification$")
+    public void i_view_random_notification() throws Throwable {
+
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+        String ecid = recordsPage.getARandomNotification(50);
+        log.info("View notification with ecid : " + ecid);
+
+        //View notifications
+        notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+    }
+
+
+    @Then("^Verify \"([^\"]*)\" details are correct$")
+    public void i_verify_uploaded_details_are_correct(String status) throws Throwable {
+        auditHistory = notificationDetails.clickAuditHistory();
+        boolean isCorrect = auditHistory.isUploadedDataCorrect(status);
+        assertThat("Uploaded user details should be related to RDT users", isCorrect, is(equalTo(true)));
+    }
+
     @Then("^Audit log displays correct status \"([^\"]*)\" user name \"([^\"]*)\" and comment$")
     public void audit_log_displays_correct_user_name_and_comment(String status, String userNameOrEmail) throws Throwable {
         auditHistory = notificationDetails.clickAuditHistory();
-        boolean statusIsPaid = auditHistory.isStatus("Paid");
+        boolean statusIsPaid = auditHistory.isStatus(status);
+        boolean userNameCorrect = true;
+        if(userNameOrEmail!=null && !userNameOrEmail.trim().equals(""))
+            userNameCorrect = auditHistory.isUserNameEqualTo(userNameOrEmail);
+
         assertThat("Status should be : " + status , statusIsPaid, is(equalTo(true)));
+        assertThat("User should be : " + userNameOrEmail , userNameCorrect, is(equalTo(true)));
     }
 }

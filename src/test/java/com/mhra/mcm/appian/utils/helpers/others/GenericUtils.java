@@ -87,4 +87,17 @@ public class GenericUtils {
         Invoice i = loi.get(Integer.parseInt(index));
         return i;
     }
+
+    public static Invoice getInvoiceForECID(List<Invoice> loi, String ecid) {
+        Invoice invoice = null;
+        for(Invoice i: loi){
+            String description = i.Description;
+            if(description.equals(ecid)){
+                invoice = i;
+                break;
+            }
+        }
+
+        return invoice;
+    }
 }

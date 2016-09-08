@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.pageobjects.sections.contents;
 
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,7 +22,7 @@ public class NotificationDetails extends _Page {
 
     @FindBy(linkText = "Manage Documents")
     WebElement manageDocuments;
-    @FindBy(linkText = "Audit History")
+    @FindBy(xpath = ".//*[.='Audit History']")
     WebElement auditHistory;
 
     @FindBy(css = ".GJEWJWHDFR")
@@ -44,7 +45,7 @@ public class NotificationDetails extends _Page {
     }
 
     public String getCurrentStatus() {
-        WaitUtils.waitForElementToBeClickable(driver, currentStatus, 5);
+        WaitUtils.waitForElementToBeClickable(driver, currentStatus, 5, false);
         return currentStatus.getText();
     }
 
@@ -101,8 +102,9 @@ public class NotificationDetails extends _Page {
     }
 
     public AuditHistory clickAuditHistory() {
-        WaitUtils.waitForElementToBeClickable(driver, auditHistory, 5);
-        auditHistory.click();
+        WaitUtils.waitForElementToBeClickable(driver, auditHistory, 10, false);
+        PageUtils.singleClick(driver, auditHistory);
+        //auditHistory.click();
         return new AuditHistory(driver);
     }
 }

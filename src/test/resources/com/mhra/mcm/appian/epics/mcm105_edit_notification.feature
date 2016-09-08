@@ -26,3 +26,16 @@ Feature: As an IPU super user, I want the ability to edit notification
     And I make change to submitter name by appending "Test1234"
     Then I should see the submitter name containing "Test1234"
 
+
+  @mcm-103
+  Scenario Outline: Verify audit log for existing notifications
+    Given I am logged into appian as "<user>" user
+    When I go to the notifications page
+    And I filter by status "<status>"
+    And I view an random notification with status "<status>"
+    And
+    Examples:
+    | user | status |
+    | super1 | Unpaid |
+
+
