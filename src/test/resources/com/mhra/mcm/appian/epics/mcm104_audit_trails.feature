@@ -14,7 +14,7 @@ Feature: The Appian system shall support a full end to end audit trail for each 
     #Then I receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min for "" notifications
     When I send paid email response back to appian
     Then The notification status should update to "<status>"
-    And Audit log displays correct user name "<user_name>" and comment
+    And Audit log displays correct status "<status>" user name "<user_name>" and comment
     Examples:
       | user | type | price | status | ingredient | user_name          |
       | rdt1 | 1    | 150   | Paid   | SUPPA1     | mhra.uat@gmail.com |
@@ -29,7 +29,7 @@ Feature: The Appian system shall support a full end to end audit trail for each 
     #When I send paid email response back to appian
     When I select a random invoice and send paid email response back to appian
     Then The notification status should update to "<status>"
-    And Audit log displays correct user name "<user_name>" and comment
+    And Audit log displays correct status "<status>" user name "<user_name>" and comment
     Examples:
       | user | type | price | status | ingredient | user_name          |
       | rdt1 | 1    | 150   | Paid   | SUPPA1     | mhra.uat@gmail.com |

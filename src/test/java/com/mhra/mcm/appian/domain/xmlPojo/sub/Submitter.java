@@ -4,7 +4,6 @@ import com.mhra.mcm.appian.domain.excelpojo.DO_Submitter;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.submitter.HasAffiliate;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.submitter.HasEnterer;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.submitter.Parent;
-import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
 import javax.xml.bind.annotation.*;
 import java.util.Map;

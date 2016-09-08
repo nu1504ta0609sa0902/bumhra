@@ -47,8 +47,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.mhra.mcm.appian.domain.sort.SortByMessageNumber;
 import com.mhra.mcm.appian.domain.webPagePojo.sub.Invoice;
-import com.mhra.mcm.appian.utils.helpers.FileUtils;
-import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
+import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 
 
 public class GmailEmail {

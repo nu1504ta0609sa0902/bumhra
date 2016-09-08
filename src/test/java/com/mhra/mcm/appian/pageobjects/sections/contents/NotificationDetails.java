@@ -18,8 +18,11 @@ public class NotificationDetails extends _Page {
 
     @FindBy(xpath = ".//label[.='Name']//following::input[1]")
     WebElement submitterName;
+
     @FindBy(linkText = "Manage Documents")
     WebElement manageDocuments;
+    @FindBy(linkText = "Audit History")
+    WebElement auditHistory;
 
     @FindBy(css = ".GJEWJWHDFR")
     WebElement header;
@@ -95,5 +98,11 @@ public class NotificationDetails extends _Page {
         }catch (Exception e){
             return false;
         }
+    }
+
+    public AuditHistory clickAuditHistory() {
+        WaitUtils.waitForElementToBeClickable(driver, auditHistory, 5);
+        auditHistory.click();
+        return new AuditHistory(driver);
     }
 }

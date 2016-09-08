@@ -1,7 +1,7 @@
 package com.mhra.mcm.appian.domain.webPagePojo;
 
 import com.mhra.mcm.appian.domain.webPagePojo.sub.*;
-import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

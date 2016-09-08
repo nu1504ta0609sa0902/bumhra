@@ -1,10 +1,13 @@
 package com.mhra.mcm.appian.steps.common;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.mhra.mcm.appian.pageobjects.sections.contents.*;
 import com.mhra.mcm.appian.utils.helpers.datadriven.ExcelUtils;
+import com.mhra.mcm.appian.utils.helpers.others.NetworkUtils;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,6 +72,8 @@ public class CommonSteps {
     public Exceptions exception;
     @Autowired
     public UpdateQAPercentage updateQAPercentage;
+    @Autowired
+    public AuditHistory auditHistory;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {
@@ -77,13 +82,19 @@ public class CommonSteps {
         if (selectedProfile.equals("mhra")) {
             baseUrl = baseUrl.replace("mhra.", "www.");
         }
-        if(mapOfExcelDataAsMap == null && driver == null){
-            //Load excel test data
-            ExcelUtils excelUtils = new ExcelUtils();
-            //mapOfExcelDataAsMap = excelUtils.getAllData("configs/data/xmlTestData1.xlsx");
-            mapOfExcelDataAsMap = excelUtils.getAllDataAsMap("configs/data/xmlTestData2.xlsx");
-            log.info("TEST DATA LOADED FROM : configs/data/xmlTestData2.xlsx");
+
+        //Make sure network connection is available
+        String testUrl = NetworkUtils.getTestUrl(baseUrl);
+        boolean connected = NetworkUtils.verifyConnectedToNetwork(testUrl, 10);
+        if(!connected){
+            NetworkUtils.shutdownIfRequired(connected, testUrl, log);
+        }else {
+            loadMapOfExcelData();
+            addShutdownHooks();
         }
+    }
+
+    private void addShutdownHooks() {
         if(driver==null){
             if(!onlyOnce){
                 onlyOnce=true;
@@ -91,6 +102,16 @@ public class CommonSteps {
             }
         }else{
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        }
+    }
+
+    private void loadMapOfExcelData() {
+        if(mapOfExcelDataAsMap == null && driver == null){
+            //Load excel test data
+            ExcelUtils excelUtils = new ExcelUtils();
+            //mapOfExcelDataAsMap = excelUtils.getAllData("configs/data/xmlTestData1.xlsx");
+            mapOfExcelDataAsMap = excelUtils.getAllDataAsMap("configs/data/xmlTestData2.xlsx");
+            log.info("TEST DATA LOADED FROM : configs/data/xmlTestData2.xlsx");
         }
     }
 

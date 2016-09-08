@@ -1,13 +1,7 @@
 package com.mhra.mcm.appian.domain.xmlPojo.sub.product.props;
 
 import com.mhra.mcm.appian.domain.excelpojo.DO_Address;
-import com.mhra.mcm.appian.domain.xmlPojo.sub.product.Attachment;
-import com.mhra.mcm.appian.domain.xmlPojo.sub.product.emission.CasNumber;
-import com.mhra.mcm.appian.domain.xmlPojo.sub.product.emission.EmissionName;
-import com.mhra.mcm.appian.domain.xmlPojo.sub.product.emission.Quantity;
-import com.mhra.mcm.appian.domain.xmlPojo.sub.product.emission.Unit;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.manufacturer.ProductionSiteAddress;
-import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

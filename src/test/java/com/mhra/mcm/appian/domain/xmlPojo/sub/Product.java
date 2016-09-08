@@ -6,7 +6,7 @@ import com.mhra.mcm.appian.domain.xmlPojo.sub.product.ingredient.toxicology.ToxC
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.ingredient.toxicology.ToxCmr;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.ingredient.toxicology.ToxOther;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.props.*;
-import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

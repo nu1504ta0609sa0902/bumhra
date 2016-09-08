@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.utils.helpers;
+package com.mhra.mcm.appian.utils.helpers.others;
 
 import java.util.HashSet;
 import java.util.List;

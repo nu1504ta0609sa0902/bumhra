@@ -9,14 +9,14 @@ import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.Product;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.SubmissionType;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.Submitter;
-import com.mhra.mcm.appian.utils.helpers.FileUtils;
+import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.datadriven.ExcelUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
-import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

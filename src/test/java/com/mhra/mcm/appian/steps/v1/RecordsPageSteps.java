@@ -24,6 +24,7 @@ import cucumber.api.java.en.When;
 public class RecordsPageSteps extends CommonSteps {
 
 
+
     @And("^I have notifications$")
     public void i_have_notifications() throws Throwable {
         recordsPage = mainNavigationBar.clickRecords();
@@ -335,9 +336,10 @@ public class RecordsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.notificationStatus, newStatus);
     }
 
-    @Then("^Audit log displays correct user name \"([^\"]*)\" and comment$")
-    public void audit_log_displays_correct_user_name_and_comment(String arg1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @Then("^Audit log displays correct status \"([^\"]*)\" user name \"([^\"]*)\" and comment$")
+    public void audit_log_displays_correct_user_name_and_comment(String status, String userNameOrEmail) throws Throwable {
+        auditHistory = notificationDetails.clickAuditHistory();
+        boolean statusIsPaid = auditHistory.isStatus("Paid");
+        assertThat("Status should be : " + status , statusIsPaid, is(equalTo(true)));
     }
 }

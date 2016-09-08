@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.nullValue;
 
 import java.util.List;
 
-import com.mhra.mcm.appian.utils.helpers.GenericUtils;
+import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
 import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;

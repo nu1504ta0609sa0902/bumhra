@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
-import com.mhra.mcm.appian.utils.helpers.FileUtils;
+import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 
 /**

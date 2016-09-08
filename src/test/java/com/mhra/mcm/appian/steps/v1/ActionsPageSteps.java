@@ -3,7 +3,7 @@ package com.mhra.mcm.appian.steps.v1;
 import java.util.Map;
 
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
-import com.mhra.mcm.appian.utils.helpers.FileUtils;
+import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.page.StepsUtils;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;

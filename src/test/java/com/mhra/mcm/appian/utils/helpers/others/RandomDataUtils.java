@@ -1,4 +1,4 @@
-package com.mhra.mcm.appian.utils.helpers;
+package com.mhra.mcm.appian.utils.helpers.others;
 
 import java.util.Calendar;
 import java.util.Random;

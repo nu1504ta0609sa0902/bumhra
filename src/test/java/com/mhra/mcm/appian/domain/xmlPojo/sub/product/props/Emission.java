@@ -2,7 +2,7 @@ package com.mhra.mcm.appian.domain.xmlPojo.sub.product.props;
 
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.Attachment;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.emission.*;
-import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

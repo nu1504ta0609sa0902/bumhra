@@ -1,7 +1,7 @@
 package com.mhra.mcm.appian.domain.xmlPojo;
 
 import com.mhra.mcm.appian.domain.xmlPojo.sub.*;
-import com.mhra.mcm.appian.utils.helpers.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 
 import javax.xml.bind.annotation.XmlElement;
