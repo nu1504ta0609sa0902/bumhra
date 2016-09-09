@@ -3,6 +3,8 @@ package com.mhra.mcm.appian.steps.v1;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
+import cucumber.api.java.eo.Se;
 import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
@@ -421,5 +423,25 @@ public class RecordsPageSteps extends CommonSteps {
 
         assertThat("Status should be : " + status , statusIsPaid, is(equalTo(true)));
         assertThat("User should be : " + userNameOrEmail , userNameCorrect, is(equalTo(true)));
+    }
+
+    @When("^I add comment \"([^\"]*)\" to selected notification$")
+    public void i_add_comment_to_selected_notification(String commentTxt) throws Throwable {
+        commentSection = notificationDetails.clickCommentsLink();
+        if(commentTxt.equals("random")){
+            commentTxt = "Test Comment " + RandomDataUtils.getSimpleRandomNumberBetween(1000, 1000000);
+        }
+        scenarioSession.putData(SessionKey.comment, commentTxt);
+        commentSection = commentSection.clickOnAddNewCommentButton(commentTxt);
+        commentSection.addNewComment(commentTxt);
+    }
+
+    @Then("^I should see comment \"([^\"]*)\" displayed in notification for user \"([^\"]*)\"$")
+    public void i_should_see_comment_displayed_in_notification(String commentTxt, String username) throws Throwable {
+        if(commentTxt==null || commentTxt.trim().equals("") || commentTxt.equals("random")){
+            commentTxt = (String) scenarioSession.getData(SessionKey.comment);
+        }
+        boolean isCommentDisplayed = commentSection.isCommentDisplayed(commentTxt, username);
+        assertThat("Expected to see comments : " + commentTxt , isCommentDisplayed, is(equalTo(true)));
     }
 }

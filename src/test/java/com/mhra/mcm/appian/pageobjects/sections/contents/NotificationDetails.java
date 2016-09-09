@@ -24,6 +24,8 @@ public class NotificationDetails extends _Page {
     WebElement manageDocuments;
     @FindBy(xpath = ".//*[.='Audit History']")
     WebElement auditHistory;
+    @FindBy(xpath = ".//*[.='Comments']")
+    WebElement comments;
 
     @FindBy(css = ".GJEWJWHDFR")
     WebElement header;
@@ -106,5 +108,11 @@ public class NotificationDetails extends _Page {
         PageUtils.singleClick(driver, auditHistory);
         //auditHistory.click();
         return new AuditHistory(driver);
+    }
+
+    public Comments clickCommentsLink() {
+        WaitUtils.waitForElementToBeClickable(driver, comments, 10, false);
+        PageUtils.singleClick(driver, comments);
+        return new Comments(driver);
     }
 }

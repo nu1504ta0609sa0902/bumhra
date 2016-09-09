@@ -55,3 +55,15 @@ Feature: As an IPU super user, I want the ability to edit notification
       | super1 | Failed     | Uploaded |
 
 
+  @mcm-97
+  Scenario Outline: Add comments to notifications
+    Given I am logged into appian as "<user>" user
+    When I go to the notifications page
+    And I filter by status "<status>"
+    And I view an random notification with status "<status>"
+    When I add comment "<comment>" to selected notification
+    Then I should see comment "" displayed in notification for user "<userName>"
+    Examples:
+      | user   | status | comment | userName |
+      | rdt1   | Unpaid | random  | RDT 1    |
+      | super1 | Paid   | random  | Super 1  |

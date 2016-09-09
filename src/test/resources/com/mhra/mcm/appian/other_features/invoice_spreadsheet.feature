@@ -2,7 +2,7 @@ Feature: As a Finance user I should receive invoice email with correct data
   So that I am able to bill the right client
 
 
-  @mcm-87 @mcm-91 @mcm-90
+  @mcm-87 @mcm-91 @mcm-90 @mcm-109
   Scenario Outline: Invoice spreadsheet should contain GL Code and other necessary invoice details
     Given I am logged into appian as "<user>" user
     When I create new notification with following data
@@ -38,7 +38,7 @@ Feature: As a Finance user I should receive invoice email with correct data
       | rdt1 | 1     | SUPPLEMENT1 | 2     | SUPPLEMENT2 |
 
 
-  @mcm-87 @mcm-37
+  @mcm-87 @mcm-37 @mcm-109
   Scenario Outline: Test GL code for 1772 TPD Annual Periodic Fee
     Given I am logged into appian as "<user>" user
     #And I select notification with status "<statusFrom>" and update status to "<statusTo>"
@@ -56,7 +56,7 @@ Feature: As a Finance user I should receive invoice email with correct data
 
 
 
-  @mcm-87 @mcm-37
+  @mcm-87 @mcm-37 @mcm-109
   Scenario: Verify number of TPD Annual Invoices should matched number of published notifications
     Given I am logged into appian as "super1" user
     When I go to the notifications page
@@ -66,7 +66,7 @@ Feature: As a Finance user I should receive invoice email with correct data
     And The number of invoices should match with count of "Published" notifications
 
 
-  @mcm-87 @mcm-37
+  @mcm-87 @mcm-37 @mcm-109
   Scenario: Verify number of TPD Annual Invoices should matched number of published or successful notifications
     Given I am logged into appian as "super1" user
     When I go to the notifications page

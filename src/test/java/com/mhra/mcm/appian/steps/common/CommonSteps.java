@@ -74,6 +74,8 @@ public class CommonSteps {
     public UpdateQAPercentage updateQAPercentage;
     @Autowired
     public AuditHistory auditHistory;
+    @Autowired
+    public Comments commentSection;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {
