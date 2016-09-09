@@ -14,6 +14,6 @@ Feature: As an RDT user, IPU user or a Finance User
   @mcm-89 @mcm-72
   Scenario: Update existing notification to Exception status
     Given I am logged into appian as "super1" user
-    And I update status of an existing notification to "Exception"
+    And I goto notifications page and update status of an existing notification to "Exception"
     Then I should see the notification displayed in exception page
 

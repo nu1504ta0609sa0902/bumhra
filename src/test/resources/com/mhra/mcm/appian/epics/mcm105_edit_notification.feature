@@ -27,15 +27,31 @@ Feature: As an IPU super user, I want the ability to edit notification
     Then I should see the submitter name containing "Test1234"
 
 
-  @mcm-103
-  Scenario Outline: Verify audit log for existing notifications
+  @mcm-107
+  Scenario Outline: Add new ingredient to existing notification
     Given I am logged into appian as "<user>" user
     When I go to the notifications page
     And I filter by status "<status>"
     And I view an random notification with status "<status>"
-    And
+    And Add a new ingredient called "<ingredient>"
     Examples:
-    | user | status |
-    | super1 | Unpaid |
+      | user   | status   | ingredient      |
+      | super1 | Unpaid   | SUPPLEMENT_NEW1 |
+      | super1 | Uploaded | SUPPLEMENT_NEW2 |
+
+
+  @mcm-107
+  Scenario Outline: Change status of existing notifications
+    Given I am logged into appian as "<user>" user
+    When I go to the notifications page
+    And I filter by status "<statusFrom>"
+    When I update status of an existing notification to "<status>"
+    Then The notification status should update to "<status>"
+    Examples:
+      | user   | statusFrom | status   |
+      | super1 | Uploaded   | Unpaid   |
+      | super1 | Unpaid     | Uploaded |
+      | super1 | Uploaded   | Failed   |
+      | super1 | Failed     | Uploaded |
 
 

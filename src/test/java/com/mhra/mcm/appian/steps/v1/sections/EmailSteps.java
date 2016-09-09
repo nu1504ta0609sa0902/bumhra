@@ -179,7 +179,8 @@ public class EmailSteps extends CommonSteps {
     }
 
     @When("^The notification status should update to \"([^\"]*)\"$")
-    public void the_status_should_update_to(String expectedStatus) throws Throwable {
+    public void
+    the_status_should_update_to(String expectedStatus) throws Throwable {
         String currentStatus = (String) scenarioSession.getData(SessionKey.notificationStatus);
         //boolean statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
         boolean statusChanged = false;

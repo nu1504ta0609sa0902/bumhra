@@ -47,15 +47,36 @@ public class AuditHistory extends _Page {
     }
 
     public boolean isUploadedDataCorrect(String status) {
-        WebElement action = driver.findElement(By.xpath(".//*[.='" + status + "']//following::td[1]"));
-        WebElement user = driver.findElement(By.xpath(".//*[.='" + status + "']//following::td[2]"));
-        WebElement comment = driver.findElement(By.xpath(".//*[.='" + status + "']//following::td[3]"));
-        WebElement timestamp = driver.findElement(By.xpath(".//*[.='" + status + "']//following::td[3]"));
+        WebElement action = driver.findElement(By.xpath(".//td[.='" + status + "']//following::td[1]"));
+        WebElement user = driver.findElement(By.xpath(".//td[.='" + status + "']//following::td[2]"));
+        WebElement comment = driver.findElement(By.xpath(".//td[.='" + status + "']//following::td[3]"));
+        WebElement timestamp = driver.findElement(By.xpath(".//td[.='" + status + "']//following::td[4]"));
 
         boolean actionTxtCorrect = action.getText().contains("Set Up Complete");
         boolean userTxtCorrect = user.getText().toLowerCase().contains("RDT ");
         boolean commentTxtCorrect = comment.getText().contains("Create Notification");
         boolean timestampTxtCorrect = timestamp.getText().contains("GMT+");
+        return actionTxtCorrect && userTxtCorrect && commentTxtCorrect && timestampTxtCorrect;
+    }
+
+
+
+    public boolean isDataCorrect(String status, String actionTxt, String userTxt, String commentTxt, String timestampTxt) {
+        WaitUtils.waitForElementToBeClickable(driver,user, 5 ,false);
+
+        WebElement action = driver.findElement(By.xpath(".//td[.='" + status + "']//following::td[1]"));
+        String at = action.getText();
+        WebElement user = driver.findElement(By.xpath(".//td[.='" + status + "']//following::td[2]"));
+        String ut = user.getText();
+        WebElement comment = driver.findElement(By.xpath(".//td[.='" + status + "']//following::td[3]"));
+        String ct = comment.getText();
+        WebElement timestamp = driver.findElement(By.xpath(".//td[.='" + status + "']//following::td[4]"));
+        String tt = timestamp.getText();
+
+        boolean actionTxtCorrect = at.contains(actionTxt);
+        boolean userTxtCorrect = ut.contains(userTxt);
+        boolean commentTxtCorrect = ct.contains(commentTxt);
+        boolean timestampTxtCorrect = tt.contains(timestampTxt);
         return actionTxtCorrect && userTxtCorrect && commentTxtCorrect && timestampTxtCorrect;
     }
 }

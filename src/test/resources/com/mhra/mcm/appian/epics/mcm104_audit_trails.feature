@@ -55,4 +55,20 @@ Feature: The Appian system shall support a full end to end audit trail for each 
       | ipu1   | Unpaid     |                    |
       | super1 | Uploaded   |                    |
       | fin1   | Successful |                    |
-      | fin1   | Published |                    |
+      | fin1   | Published  |                    |
+
+
+  @mcm-107
+  Scenario Outline: Check audit log shows correct details after manual updates of notifications
+    Given I am logged into appian as "<user>" user
+    When I go to the notifications page
+    And I filter by status "<statusFrom>"
+    When I update status of an existing notification to "<status>"
+    Then The notification status should update to "<status>"
+    And Verify generic details "<status>,<details>" are correct
+    Examples:
+      | user   | statusFrom | status   | user_name | details                                 |
+      | super1 | Uploaded   | Unpaid   | Super 1   | Update,Super 1,Manage Notification,GMT+ |
+      | super1 | Unpaid     | Uploaded | Super 1   | Update,Super,Manage Notification,GMT+   |
+      | super1 | Uploaded   | Failed   | Super 1   | Update,Super,Manage Notification,GMT+   |
+      | super1 | Failed     | Uploaded | Super 1   | Update,Super,Manage Notification,GMT+   |

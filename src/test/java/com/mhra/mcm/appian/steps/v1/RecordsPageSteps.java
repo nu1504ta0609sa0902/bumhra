@@ -58,11 +58,24 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
 
-    @Given("^I update status of an existing notification to \"([^\"]*)\"$")
-    public void i_update_status_of_existing_notification_to(String updatedStatus) throws Throwable {
+    @Given("^I goto notifications page and update status of an existing notification to \"([^\"]*)\"$")
+    public void i_goto_notifications_page_and_update_status_of_existing_notification_to(String updatedStatus) throws Throwable {
         //Select an existing notification from the page
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
+        String ecid = recordsPage.getARandomNotificationWithStatusNotEqualTo(updatedStatus, 10);
+        log.info("ECID selected : " + ecid);
+        scenarioSession.putData(SessionKey.ECID, ecid);
+
+        //update notification
+        notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+        editNotification = notificationDetails.clickManageNotification();
+        notificationDetails = editNotification.updateStatusTo(updatedStatus);
+    }
+
+    @Given("^I update status of an existing notification to \"([^\"]*)\"$")
+    public void i_update_status_of_existing_notification_to(String updatedStatus) throws Throwable {
+        //Select an existing notification from the page
         String ecid = recordsPage.getARandomNotificationWithStatusNotEqualTo(updatedStatus, 10);
         log.info("ECID selected : " + ecid);
         scenarioSession.putData(SessionKey.ECID, ecid);
@@ -269,6 +282,7 @@ public class RecordsPageSteps extends CommonSteps {
         int count = recordsPage.getTotalNotificationCount();
         log.info("Number of " + filterByStatus + " notifications is : " + count);
         scenarioSession.putData(SessionKey.notificationCount, count);
+        scenarioSession.putData(SessionKey.notificationStatus, filterByStatus);
     }
 
 
@@ -381,6 +395,20 @@ public class RecordsPageSteps extends CommonSteps {
         auditHistory = notificationDetails.clickAuditHistory();
         boolean isCorrect = auditHistory.isUploadedDataCorrect(status);
         assertThat("Uploaded user details should be related to RDT users", isCorrect, is(equalTo(true)));
+    }
+
+    @Then("^Verify generic details \"([^\"]*)\" are correct$")
+    public void i_verify_status_details_are_correct(String details) throws Throwable {
+        auditHistory = notificationDetails.clickAuditHistory();
+        String[] data = details.split(",");
+        String status = data[0];
+        String action = data[1];
+        String user = data[2];
+        String comment = data[3];
+        String timestamp = data[4];
+
+        boolean isCorrect = auditHistory.isDataCorrect(status, action, user, comment, timestamp);
+        assertThat("Audit details should be : " + details, isCorrect, is(equalTo(true)));
     }
 
     @Then("^Audit log displays correct status \"([^\"]*)\" user name \"([^\"]*)\" and comment$")

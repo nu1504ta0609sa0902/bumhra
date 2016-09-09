@@ -18,7 +18,7 @@ Feature: As an IPU user, I want the ability to see a list of notifications that 
   @mcm-89 @mcm-72
   Scenario Outline: Update existing notification to Exception status
     Given I am logged into appian as "<user>" user
-    And I update status of an existing notification to "Exception"
+    And I goto notifications page and update status of an existing notification to "Exception"
     Then I should see the notification displayed in exception page
     Examples:
       | user   |
