@@ -67,3 +67,20 @@ Feature: As an IPU super user, I want the ability to edit notification
       | user   | status | comment | userName |
       | rdt1   | Unpaid | random  | RDT 1    |
       | super1 | Paid   | random  | Super 1  |
+
+
+  @mcm-97
+  Scenario Outline: Manage documents should be available to all users
+    Given I login to appian as "<user>" user
+    When I go to the notifications page
+    And I filter by status "<status>"
+    And I view an random notification with status "<status>"
+    Then I should be able to manage documents
+    Examples:
+      | user  | status |
+      | super1  | Uploaded |
+      | ipu1  | Uploaded |
+      | fin1  | Unpaid |
+      | rdt1  | Uploaded |
+      | vrmm1 | Unpaid |
+      | comm1 | Unpaid |

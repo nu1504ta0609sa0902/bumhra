@@ -56,7 +56,7 @@ public class RecordsPage extends _Page {
 
 
     public RecordsFilter getFilterSection() {
-        WaitUtils.waitForElementToBeClickable(driver, searchField, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, searchField, 15, false);
         return new RecordsFilter(driver);
     }
 

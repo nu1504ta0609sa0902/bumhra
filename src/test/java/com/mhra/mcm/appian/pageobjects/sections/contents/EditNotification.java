@@ -59,4 +59,13 @@ public class EditNotification extends _Page {
         PageUtils.doubleClick(driver, submitBtn);
         return new NotificationDetails(driver);
     }
+
+    public boolean isCorrectPage() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, submitBtn, 10, false);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
 }

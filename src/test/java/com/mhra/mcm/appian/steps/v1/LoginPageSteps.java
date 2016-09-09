@@ -33,18 +33,7 @@ public class LoginPageSteps extends CommonSteps {
 
     @When("^I am logged into appian as \"([^\"]*)\" user$")
     public void i_am_logged_into_appian_as_user(String username) throws Throwable {
-        //loginPage = new LoginPage(driver).loadPage(baseUrl);
-//        boolean loggedIn = loginPage.isAlreadyLoggedInAsUser(username);
-//        if(!loggedIn) {
-//            loginPage = new LoginPage(driver).loadPage(baseUrl);
-//            try {
-//                mainNavigationBar = loginPage.login(username);
-//            } catch (Exception e) {
-//                mainNavigationBar = loginPage.reloginUsing(username);
-//            }
-//        }else{
-//            mainNavigationBar = new MainNavigationBar(driver);
-//        }
+
         loginPage = loginPage.loadPage(baseUrl);
         try {
             mainNavigationBar = loginPage.login(username);

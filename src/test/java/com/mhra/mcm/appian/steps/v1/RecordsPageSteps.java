@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import cucumber.api.java.eo.Se;
 import org.springframework.context.annotation.Scope;
 
@@ -444,4 +445,13 @@ public class RecordsPageSteps extends CommonSteps {
         boolean isCommentDisplayed = commentSection.isCommentDisplayed(commentTxt, username);
         assertThat("Expected to see comments : " + commentTxt , isCommentDisplayed, is(equalTo(true)));
     }
+
+    @Then("^I should be able to manage documents$")
+    public void i_should_be_able_to_manage_documents() throws Throwable {
+        editNotification = notificationDetails.clickManageDocuments();
+        boolean isCorrectPage = editNotification.isCorrectPage();
+        assertThat("Expected to be on edit notification page" , isCorrectPage, is(equalTo(true)));
+        WaitUtils.nativeWait(1);
+    }
+
 }

@@ -2,7 +2,7 @@ Feature: Create notifications and invoices for type 2 submissions
   So that I can verify system is processing type 2 notifications correctly
 
 
-  @type2 @e2e @mcm-38 @mcm-109
+  @type2 @e2e @mcm-38 @mcm-109 @mcm-97
   Scenario Outline: Create an invoice processing of type 2 notification
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
@@ -57,7 +57,7 @@ Feature: Create notifications and invoices for type 2 submissions
 
 
 
-  @type2 @e2e @mcm-38 @mcm-109
+  @type2 @e2e @mcm-38 @mcm-109 @mcm-97
   Scenario Outline: POC example of invoice processing of type 2 notification with ingredient and toxicology report
     Given I am logged into appian as "<user>" user
     When I create new notification with following data

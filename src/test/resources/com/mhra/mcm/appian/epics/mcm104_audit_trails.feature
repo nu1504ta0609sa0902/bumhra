@@ -2,7 +2,7 @@
 Feature: The Appian system shall support a full end to end audit trail for each notification viewable by users
   so that users are aware of the stages a notification has gone through.
 
-  @mcm-103 @mcm-94 @mcm-38
+  @mcm-103 @mcm-94 @mcm-38 @mcm-97
   Scenario Outline: Verify audit log after a new notification invoice is paid
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
