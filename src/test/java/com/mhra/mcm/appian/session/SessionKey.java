@@ -23,4 +23,5 @@ public class SessionKey {
 	public static String listOfInvoices = "List Of Invoices";
 	public static String notificationCount = "Notifications Count";
 	public static String comment = "Comments";
+	public static String substance = "Substance";
 }

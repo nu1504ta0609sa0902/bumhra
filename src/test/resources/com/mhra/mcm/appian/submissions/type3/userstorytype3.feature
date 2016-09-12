@@ -2,7 +2,7 @@ Feature: Create notifications and invoices for type 3 submissions
   So that I can verify system is processing type 3 notifications correctly
 
 
-  @type3 @e2e @mcm-38 @mcm-109 @mcm-97
+  @type3 @e2e @mcm-38 @mcm-109 @mcm-97 @mcm-68
   Scenario Outline: Create an invoice processing of type 3 notification
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
@@ -18,7 +18,7 @@ Feature: Create notifications and invoices for type 3 submissions
       | rdt1 | 3    | 150   | Paid   | SUPPA1     |
 
 
-  @type3 @e2e @mcm-38 @mcm-109 @mcm-97
+  @type3 @e2e @mcm-38 @mcm-109 @mcm-97 @mcm-68
   Scenario Outline: Verify invoice processing  of type 3 notification with TCA number
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data
@@ -35,7 +35,7 @@ Feature: Create notifications and invoices for type 3 submissions
 
 
 
-  @type3 @e2e @mcm-38 @mcm-109
+  @type3 @e2e @mcm-38 @mcm-109 @mcm-68
   Scenario Outline: Verify invoice processing of type 3 notification without a TCA number
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data
@@ -57,7 +57,7 @@ Feature: Create notifications and invoices for type 3 submissions
 
 
 
-  @type3 @e2e @mcm-38 @mcm-109
+  @type3 @e2e @mcm-38 @mcm-109 @mcm-68
   Scenario Outline: POC example of invoice processing of type 3 notification with ingredient and toxicology report
     Given I am logged into appian as "<user>" user
     When I create new notification with following data

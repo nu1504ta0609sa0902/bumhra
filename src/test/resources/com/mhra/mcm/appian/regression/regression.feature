@@ -2,6 +2,15 @@
 Feature: As a user I need to quickly verify there is no regression issues
   So that I can trust the system
 
+  @regression
+  Scenario Outline: Add a new banned substances
+    Given I am logged into appian as "<user>" user
+    When I go to manage substance page
+    And I add a banned substance "<substance>" to appian
+    Then I should see the new substance in the manage substance page
+    Examples:
+      | user | substance |
+      | ipu1 | random    |
 
   @regression
   Scenario: Verify error message is displayed when value are more than 100 or less than 0 for quality assurance

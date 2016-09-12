@@ -41,6 +41,7 @@ public class RecordsPageSteps extends CommonSteps {
         recordsPage = recordsPage.clickNotificationNumber(1);
         boolean edited = recordsPage.isNotificationEditable();
         assertThat(edited, is(equalTo(true)));
+        WaitUtils.nativeWait(2);
     }
 
     @Then("^I should not be able to edit notification$")

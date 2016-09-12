@@ -12,7 +12,7 @@ Feature: As an IPU super user, I want the ability to edit notification
     And I have notifications
     Then I should not be able to edit notification
     Examples:
-      | user  |
+      | user
       | ipu1  |
       | fin1  |
       | rdt1  |

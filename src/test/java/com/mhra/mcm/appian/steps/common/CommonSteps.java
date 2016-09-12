@@ -76,6 +76,8 @@ public class CommonSteps {
     public AuditHistory auditHistory;
     @Autowired
     public Comments commentSection;
+    @Autowired
+    public ManageSubstances manageSubstances;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {

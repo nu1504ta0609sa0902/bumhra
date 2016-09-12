@@ -2,7 +2,7 @@ Feature: As a Finance user I should receive invoice email with correct data
   So that I am able to bill the right client
 
 
-  @mcm-87 @mcm-91 @mcm-90 @mcm-109 @mcm-97
+  @mcm-87 @mcm-91 @mcm-90 @mcm-109 @mcm-97 @mcm-68
   Scenario Outline: Invoice spreadsheet should contain GL Code and other necessary invoice details
     Given I am logged into appian as "<user>" user
     When I create new notification with following data

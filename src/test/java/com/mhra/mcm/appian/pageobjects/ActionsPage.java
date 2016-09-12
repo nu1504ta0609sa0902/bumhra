@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.pageobjects;
 
+import com.mhra.mcm.appian.pageobjects.sections.contents.ManageSubstances;
 import com.mhra.mcm.appian.pageobjects.sections.contents.UpdateQAPercentage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,6 +29,9 @@ public class ActionsPage extends _Page {
 
     @FindBy(partialLinkText = "Create Annual Invoices")
     WebElement createAnnualInvoices;
+
+    @FindBy(partialLinkText = "Manage Substances")
+    WebElement manageSubstances;
 
     @Autowired
     public ActionsPage(WebDriver driver) {
@@ -66,5 +70,15 @@ public class ActionsPage extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, 10, false);
         PageUtils.doubleClick(driver, updateQAPercentage);
         return new UpdateQAPercentage(driver);
+    }
+
+    public ManageSubstances clickManageSubstances() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 10, false);
+            PageUtils.singleClick(driver, manageSubstances);
+            return new ManageSubstances(driver);
+        }catch (Exception e){
+            return null;
+        }
     }
 }
