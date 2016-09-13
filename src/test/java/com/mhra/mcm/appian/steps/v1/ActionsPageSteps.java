@@ -5,6 +5,7 @@ import java.util.Map;
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.page.AssertUtils;
 import com.mhra.mcm.appian.utils.helpers.page.StepsUtils;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
@@ -255,6 +256,9 @@ public class ActionsPageSteps extends CommonSteps {
         } else {
             assertThat("Manage substance page be displayed", manageSubstances, is(notNullValue()));
         }
+
+        //Appian system can't handle the automation script requesting too many logins
+        WaitUtils.nativeWait(2);
     }
 
 //    @When("^I click on new substance$")
@@ -280,39 +284,151 @@ public class ActionsPageSteps extends CommonSteps {
 
         log.info("Added new substance : " + substance);
         scenarioSession.putData(SessionKey.substance, substance);
+        scenarioSession.putData(SessionKey.bannedTxt, isBanned);
     }
 
     @Then("^I should see the new substance in the manage substance page$")
     public void i_should_see_the_new_substance_in_the_manage_substance_page() throws Throwable {
         String substance = (String) scenarioSession.getData(SessionKey.substance);
+        String isBanned = (String) scenarioSession.getData(SessionKey.bannedTxt);
         manageSubstances = actionsPage.clickManageSubstances();
-        boolean substanceAdded = manageSubstances.verifyNewSubstanceAdded(substance);
-        assertThat("Expected to see new substance called : " + substance, substanceAdded, is(true));
+        boolean substanceAdded = false;
+        if(isBanned.equals("is")) {
+            substanceAdded = manageSubstances.verifyNewSubstanceAdded(substance, true);
+            assertThat("Expected to see new substance called : " + substance, substanceAdded, is(true));
+        }else{
+            substanceAdded = manageSubstances.verifyNewSubstanceAdded(substance, false);
+            assertThat("Expected to see new substance called : " + substance, substanceAdded, is(true));
+        }
     }
 
 
-    @And("^I search for substance containing \"([^\"]*)\" and \"([^\"]*)\" banned$")
+    @And("^I search for substance name containing \"([^\"]*)\" and \"([^\"]*)\" banned$")
     public void i_search_for_substance_in_the_manage_substance_page(String substance, String isBanned) throws Throwable {
-        //If its empty
-        if (substance.equals("")) {
-            substance = (String) scenarioSession.getData(SessionKey.substance);
+        manageSubstances = actionsPage.clickManageSubstances();
+        boolean substanceAdded = false;
+        if(isBanned.equals("is")) {
+            substanceAdded = manageSubstances.verifyNewSubstanceAdded(substance, true);
+            assertThat("Expected to see new substance called : " + substance, substanceAdded, is(true));
+        }else{
+            substanceAdded = manageSubstances.verifyNewSubstanceAdded(substance, false);
+            assertThat("Expected to see new substance called : " + substance, substanceAdded, is(true));
         }
 
-        if(isBanned.equals("is not")) {
-            manageSubstances = manageSubstances.searchForSubstance(substance, false);
+        scenarioSession.putData(SessionKey.substance, substance);
+        scenarioSession.putData(SessionKey.bannedTxt, isBanned);
+    }
+
+
+    @And("^I search for stored substance name which \"([^\"]*)\" banned$")
+    public void i_search_for_stored_substance_which_is_banned_page(String isBanned) throws Throwable {
+        //If its empty
+        String substance = (String) scenarioSession.getData(SessionKey.substance);
+        manageSubstances = actionsPage.clickManageSubstances();
+        boolean substanceAdded = false;
+        if(isBanned.equals("is")) {
+            substanceAdded = manageSubstances.verifyNewSubstanceAdded(substance, true);
+            assertThat("Expected to see new substance called : " + substance, substanceAdded, is(true));
         }else{
-            manageSubstances = manageSubstances.searchForSubstance(substance, true);
+            substanceAdded = manageSubstances.verifyNewSubstanceAdded(substance, false);
+            assertThat("Expected to see new substance called : " + substance, substanceAdded, is(true));
         }
+    }
+
+    @And("^I search for stored substance name$")
+    public void i_search_for_stored_substance_name() throws Throwable {
+        //If its empty
+        String substance = (String) scenarioSession.getData(SessionKey.substance);
+        //manageSubstances = actionsPage.clickManageSubstances();
+        manageSubstances = manageSubstances.searchForSubstance(substance, true);
+        boolean isItemDisplayed = manageSubstances.isAtleastOneItemDisplayed();
+        if(!isItemDisplayed)
+            manageSubstances = manageSubstances.searchForSubstance(substance, false);
     }
 
     @Then("^I should see substance \"([^\"]*)\" banned$")
     public void i_should_see_substance_banned(String isBanned) throws Throwable {
         String substance = (String) scenarioSession.getData(SessionKey.substance);
-        boolean isSubstanceBanned = manageSubstances.isSubstanceBanned(substance);
+        boolean isSubstanceBanned = manageSubstances.isSubstanceBanned();
         if(isBanned.equals("is")) {
             assertThat("Expected substance to be banned", isSubstanceBanned, is(true));
         }else{
-            assertThat("Expected substance not to be banned", isSubstanceBanned, is(true));
+            assertThat("Expected substance not to be banned", isSubstanceBanned, is(false));
         }
+    }
+
+    @When("^I update a random substance name by appending \"([^\"]*)\"$")
+    public void i_update_a_random_substance_name_by_appending(String appendText) throws Throwable {
+        manageSubstances = manageSubstances.updateARandomSubstance(appendText);
+    }
+
+    @When("^I update a stored substance name by appending \"([^\"]*)\"$")
+    public void i_update_a_stored_substance_name_by_appending(String appendText) throws Throwable {
+        String substance = (String) scenarioSession.getData(SessionKey.substance);
+        String isBanned = (String) scenarioSession.getData(SessionKey.bannedTxt);
+        String substanceAppended = substance + appendText;
+
+        if(manageSubstances == null){
+            manageSubstances = actionsPage.clickManageSubstances();
+        }
+
+        //Search for substance
+        if(isBanned.equals("is")){
+            manageSubstances = manageSubstances.searchForSubstance(substance, true);
+        }else{
+            manageSubstances = manageSubstances.searchForSubstance(substance, false);
+        }
+
+        //Update the substance name
+        manageSubstances = manageSubstances.viewSubstance(substance);
+        actionsPage = manageSubstances.updateSubstance(substanceAppended);
+
+        scenarioSession.putData(SessionKey.substance, substanceAppended);
+        scenarioSession.putData(SessionKey.bannedTxt, isBanned);
+    }
+
+
+
+    @Then("^I should see stored substance$")
+    public void i_should_see_stored_substance() throws Throwable {
+        String substance = (String) scenarioSession.getData(SessionKey.substance);
+        String isBanned = (String) scenarioSession.getData(SessionKey.bannedTxt);
+        manageSubstances = actionsPage.clickManageSubstances();
+
+        //Is item displayed
+        boolean isItemDisplayed = false;
+        if(isBanned.equals("is")){
+            manageSubstances = manageSubstances.searchForSubstance(substance, true);
+            isItemDisplayed = manageSubstances.isAtleastOneItemDisplayed();
+        }else{
+            manageSubstances = manageSubstances.searchForSubstance(substance, false);
+            isItemDisplayed = manageSubstances.isAtleastOneItemDisplayed();
+        }
+
+        assertThat("Expected to see substance : " + substance, isItemDisplayed, is(true));
+    }
+
+
+    @When("^I add a substance \"([^\"]*)\" with following details \"([^\"]*)\"$")
+    public void i_add_a__substance_with_following_details(String substance, String commanDelimitedDetails) throws Throwable {
+        if (substance.equals("random")) {
+            substance = RandomDataUtils.getRandomTestName("Substance");
+        }
+
+        //Add substance
+        manageSubstances = manageSubstances.clickOnAddNewSubstances();
+
+        String isBanned = commanDelimitedDetails.split(",")[0];
+
+        if(isBanned.equals("banned=true")) {
+            isBanned = "is";
+        }else{
+            isBanned = "is not";
+        }
+        actionsPage = manageSubstances.addNewSubstanceForDelimitedData(substance, commanDelimitedDetails);
+
+        log.info("Added new substance : " + substance);
+        scenarioSession.putData(SessionKey.substance, substance);
+        scenarioSession.putData(SessionKey.bannedTxt, isBanned);
     }
 }

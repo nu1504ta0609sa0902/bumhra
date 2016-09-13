@@ -5,6 +5,7 @@ import com.mhra.mcm.appian.pageobjects._Page;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
+import org.apache.xpath.operations.Bool;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by TPD_Auto on 18/07/2016.
@@ -23,6 +26,8 @@ public class ManageSubstances extends _Page {
     WebElement addANewSubstance;
     @FindBy(xpath = ".//label[.='Substance Name']//following::input[1]")
     WebElement substanceName;
+    @FindBy(xpath = ".//*[.='Edit']//following::input[1]")
+    WebElement editSubstanceName;
 
     @FindBy(xpath = ".//*[contains(text(),'Actively Banned')]//following::input[1]")
     WebElement activelyBannedYes;
@@ -55,6 +60,12 @@ public class ManageSubstances extends _Page {
     @FindBy(xpath = ".//button[.='Search']")
     WebElement searchSubmit;
 
+    //Actively banned logo
+    @FindBy(xpath = ".//*[.='Actively Banned']//following::img")
+    List<WebElement> listOfImgActivelyBannedAfterSearch;
+    @FindBy(xpath = ".//*[.='Actively Banned']//following::img[1]")
+    WebElement imgActivelyBannedAfterSearch;
+
 
     @Autowired
     public ManageSubstances(WebDriver driver) {
@@ -70,29 +81,33 @@ public class ManageSubstances extends _Page {
     public ActionsPage addNewSubstance(String substance, boolean isBanned ) {
         WaitUtils.waitForElementToBeClickable(driver, substanceName, 10, false);
         substanceName.sendKeys(substance);
-        casNumbers.sendKeys(RandomDataUtils.generateCASNumber());
-        comments.sendKeys("Test Comment for banned substances");
 
         if(isBanned) {
             PageUtils.singleClick(driver, activelyBannedYes);
         }else {
             PageUtils.singleClick(driver, activelyBannedNo);
         }
+        PageUtils.singleClick(driver, casNumberRequiredYes);
         PageUtils.singleClick(driver, substancePermissableYes);
-        PageUtils.singleClick(driver, casNumberRequiredNo);
+        casNumbers.sendKeys(RandomDataUtils.generateCASNumber());
+        comments.sendKeys("Test Comment for banned substances");
         PageUtils.singleClick(driver, submit);
 
         return new ActionsPage(driver);
     }
 
 
-    public boolean verifyNewSubstanceAdded(String substance) {
+    public boolean verifyNewSubstanceAdded(String substance, boolean isBanned) {
         boolean found = false;
         WaitUtils.waitForElementToBeClickable(driver, searchSubstanceName, 10, false);
         searchSubstanceName.sendKeys(substance);
 
         //This should not be necessary
-        //PageUtils.singleClick(driver, searchActivelyBannedNo);
+        if(isBanned)
+            PageUtils.singleClick(driver, searchActivelyBannedYes);
+        else
+            PageUtils.singleClick(driver, searchActivelyBannedNo);
+
         PageUtils.singleClick(driver, searchSubmit);
 
         //Wait for partialLinks
@@ -108,6 +123,7 @@ public class ManageSubstances extends _Page {
 
     public ManageSubstances searchForSubstance(String substance, boolean activelyBanned) {
         WaitUtils.waitForElementToBeClickable(driver, searchSubstanceName, 10, false);
+        searchSubstanceName.clear();
         searchSubstanceName.sendKeys(substance);
 
         //This should not be necessary
@@ -115,7 +131,78 @@ public class ManageSubstances extends _Page {
             PageUtils.singleClick(driver, searchActivelyBannedYes);
         else
             PageUtils.singleClick(driver, searchActivelyBannedNo);
+
         PageUtils.singleClick(driver, searchSubmit);
         return new ManageSubstances(driver);
+    }
+
+    public boolean isSubstanceBanned() {
+        boolean isBanned = false;
+        WaitUtils.waitForElementToBeClickable(driver, imgActivelyBannedAfterSearch, 10, false);
+        String bannedTxt = imgActivelyBannedAfterSearch.getAttribute("aria-label");
+        if(bannedTxt.equals("Banned"))
+            isBanned = true;
+        return isBanned;
+    }
+
+    public boolean isAtleastOneItemDisplayed(){
+        return listOfImgActivelyBannedAfterSearch.size() > 0;
+    }
+
+    public ManageSubstances updateARandomSubstance(String appendText) {
+        return null;
+    }
+
+    public ActionsPage updateSubstance(String substanceAppended) {
+        WaitUtils.waitForElementToBeClickable(driver, editSubstanceName, 10, false);
+        editSubstanceName.clear();
+        editSubstanceName.sendKeys(substanceAppended);
+        submit.click();
+        return new ActionsPage(driver);
+    }
+
+    public ManageSubstances viewSubstance(String substance) {
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(substance), 10, false);
+        WebElement link = driver.findElement(By.partialLinkText(substance));
+        link.click();
+        return new ManageSubstances(driver);
+    }
+
+    public ActionsPage addNewSubstanceForDelimitedData(String substance, String commanDelimitedDetails) {
+        String[] data = commanDelimitedDetails.split(",");
+        String isBanned = data[0].split("=")[1];
+        String permissible = data[0].split("=")[1];
+        String casNumber = data[0].split("=")[1];
+
+        WaitUtils.waitForElementToBeClickable(driver, substanceName, 10, false);
+        substanceName.sendKeys(substance);
+
+        if(Boolean.valueOf(isBanned)) {
+            PageUtils.singleClick(driver, activelyBannedYes);
+        }else {
+            PageUtils.singleClick(driver, activelyBannedNo);
+        }
+
+        if(Boolean.valueOf(permissible)) {
+            PageUtils.singleClick(driver, substancePermissableYes);
+            PageFactory.initElements(driver, this);
+            WaitUtils.waitForElementToBeClickable(driver, casNumbers, 10, false);
+            casNumbers.sendKeys(RandomDataUtils.generateCASNumber());
+        }else{
+            PageUtils.singleClick(driver, substancePermissableNo);
+        }
+
+        if(Boolean.valueOf(casNumber)) {
+            PageUtils.singleClick(driver, casNumberRequiredYes);
+            PageFactory.initElements(driver, this);
+            WaitUtils.waitForElementToBeClickable(driver, casNumbers, 10, false);
+            casNumbers.sendKeys(RandomDataUtils.generateCASNumber());
+        }else{
+            PageUtils.singleClick(driver, casNumberRequiredNo);
+        }
+        comments.sendKeys("Test Comment for banned substances");
+        PageUtils.singleClick(driver, submit);
+
+        return new ActionsPage(driver);
     }
 }

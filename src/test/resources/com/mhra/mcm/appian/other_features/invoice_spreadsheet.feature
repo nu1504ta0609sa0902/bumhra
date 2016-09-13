@@ -2,7 +2,7 @@ Feature: As a Finance user I should receive invoice email with correct data
   So that I am able to bill the right client
 
 
-  @mcm-87 @mcm-91 @mcm-90 @mcm-109 @mcm-97 @mcm-68
+  @mcm-87 @mcm-91 @mcm-90 @mcm-109 @mcm-97 @mcm-68 @mcm-101
   Scenario Outline: Invoice spreadsheet should contain GL Code and other necessary invoice details
     Given I am logged into appian as "<user>" user
     When I create new notification with following data
@@ -19,7 +19,7 @@ Feature: As a Finance user I should receive invoice email with correct data
       | rdt1 | 3    | 150   | SUPPLEMENT3 | 1770   |
 
 
-  @mcm-90 @mcm-97
+  @mcm-90 @mcm-97 @mcm-101
   Scenario Outline: Invoice spreadsheet should only have unique invoice ids
     Given I am logged into appian as "<user>" user
     When I create new notification with following data
@@ -38,7 +38,7 @@ Feature: As a Finance user I should receive invoice email with correct data
       | rdt1 | 1     | SUPPLEMENT1 | 2     | SUPPLEMENT2 |
 
 
-  @mcm-87 @mcm-37 @mcm-109
+  @mcm-87 @mcm-37 @mcm-109 @mcm-101
   Scenario Outline: Test GL code for 1772 TPD Annual Periodic Fee
     Given I am logged into appian as "<user>" user
     #And I select notification with status "<statusFrom>" and update status to "<statusTo>"
@@ -50,10 +50,9 @@ Feature: As a Finance user I should receive invoice email with correct data
     And The invoices should be unique by invoice id
     And The invoices should all have unit price as "<price>"
     Examples:
-      | user   | glcode | price | statusFrom | statusTo  |
-      | super1 | 1772   | 60    | Unpaid     | Published |
-      #| super2 | 1772 | 60 |Successful | | Successful    |
-
+      | user   | glcode | price | statusFrom | statusTo   |
+      | super1 | 1772   | 60    | Unpaid     | Published  |
+      | super2 | 1772   | 60    | Successful | Successful |
 
 
   @mcm-87 @mcm-37 @mcm-109
@@ -76,9 +75,9 @@ Feature: As a Finance user I should receive invoice email with correct data
     And The number of invoices should match with count of "Published,Successful" notifications
 
 
-    @mcm-87 @ignore
-    Scenario: Verify TPD Annual Invoice payment works as expected
-      Given I am logged into appian as "super1" user
-      When I login as "fin1" and generate an annual invoice
-      Then I receive an invoice email with heading "Annual Notification Invoices" from appian in next 2 min for "Published" notifications
-      When I select a random invoice and send paid email response back to appian
+  @mcm-87 @ignore
+  Scenario: Verify TPD Annual Invoice payment works as expected
+    Given I am logged into appian as "super1" user
+    When I login as "fin1" and generate an annual invoice
+    Then I receive an invoice email with heading "Annual Notification Invoices" from appian in next 2 min for "Published" notifications
+    When I select a random invoice and send paid email response back to appian

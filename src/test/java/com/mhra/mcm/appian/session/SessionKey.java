@@ -24,4 +24,5 @@ public class SessionKey {
 	public static String notificationCount = "Notifications Count";
 	public static String comment = "Comments";
 	public static String substance = "Substance";
+	public static String bannedTxt = "Product Banned";
 }

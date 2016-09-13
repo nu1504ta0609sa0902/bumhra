@@ -72,9 +72,9 @@ public class RandomDataUtils {
     }
 
     public static String generateCASNumber() {
-        String a = getRandomNumberBetween(1, 100);
-        String b = getRandomNumberBetween(1, 100);
-        String c = getRandomNumberBetween(1, 100);
+        String a = getRandomNumberBetween(1, 1000);
+        String b = getRandomNumberBetween(1, 10000);
+        String c = getRandomNumberBetween(1, 100000);
         return a + "-" + b + "-" + c;
     }
 

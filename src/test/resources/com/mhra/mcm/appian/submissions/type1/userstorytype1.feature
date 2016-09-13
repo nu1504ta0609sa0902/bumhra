@@ -2,7 +2,7 @@ Feature: Create notifications and invoices for type 1 submissions
   So that I can verify system is processing type 1 notifications correctly
 
 
-  @type1 @e2e @mcm-38 @mcm-109 @mcm-97 @mcm-68
+  @type1 @e2e @mcm-38 @mcm-109 @mcm-97 @mcm-68 @mcm-101
   Scenario Outline: Create an invoice processing of type 1 notification
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
@@ -18,7 +18,7 @@ Feature: Create notifications and invoices for type 1 submissions
       | rdt1 | 1    | 150   | Paid   | SUPPA1     |
 
 
-  @type1 @e2e @mcm-38 @mcm-109 @mcm-68
+  @type1 @e2e @mcm-38 @mcm-109 @mcm-68 @mcm-101
   Scenario Outline: Verify invoice processing  of type 1 notification with TCA number
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data
@@ -35,7 +35,7 @@ Feature: Create notifications and invoices for type 1 submissions
 
 
 
-  @type1 @e2e @mcm-38 @mcm-109 @mcm-68
+  @type1 @e2e @mcm-38 @mcm-109 @mcm-68 @mcm-101
   Scenario Outline: Verify invoice processing of type 1 notification without a TCA number
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data
@@ -57,7 +57,7 @@ Feature: Create notifications and invoices for type 1 submissions
 
 
 
-  @type1 @e2e @mcm-38 @mcm-109 @mcm-97 @mcm-68
+  @type1 @e2e @mcm-38 @mcm-109 @mcm-97 @mcm-68 @mcm-101
   Scenario Outline: POC example of invoice processing of type 1 notification with ingredient and toxicology report
     Given I am logged into appian as "<user>" user
     When I create new notification with following data

@@ -20,7 +20,7 @@ public class BatteryWattageVoltage {
 
     public BatteryWattageVoltage(){
         this.liquidVolumeCapacity = "2";
-        this.nicotineConcentration = "21";
+        this.nicotineConcentration = "20";
         createDefault();
     }
 

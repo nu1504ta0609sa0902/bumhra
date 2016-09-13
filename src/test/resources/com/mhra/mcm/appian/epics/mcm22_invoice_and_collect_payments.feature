@@ -1,6 +1,6 @@
 Feature: Each notification will have a fee associated with it. No processing of the notification will take place unless the payment has been completed.
 
-  @mcm-22 @mcm-36 @e2e @mcm-38 @mcm-109 @mcm-97 @mcm-68
+  @mcm-22 @mcm-36 @e2e @mcm-38 @mcm-109 @mcm-97 @mcm-68 @mcm-101
   Scenario Outline: Create an invoice processing of different types of notification
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
@@ -22,7 +22,7 @@ Feature: Each notification will have a fee associated with it. No processing of 
 #      | rdt1 | 7    | 150   | Paid   |
 
 
-  @mcm-22 @mcm-36 @e2e @mcm-38 @mcm-109 @mcm-68
+  @mcm-22 @mcm-36 @e2e @mcm-38 @mcm-109 @mcm-68 @mcm-101
   Scenario Outline: Verify invoice processing of different types of notification with TCA number
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data
@@ -41,7 +41,7 @@ Feature: Each notification will have a fee associated with it. No processing of 
 #      | 4    | Ready for Invoicing | Unpaid             | Paid              | 150             |
 
 
-  @mcm-22 @mcm-36 @e2e @mcm-38 @mcm-109 @mcm-68
+  @mcm-22 @mcm-36 @e2e @mcm-38 @mcm-109 @mcm-68 @mcm-101
   Scenario Outline: Verify invoice processing of different types of notification without a TCA number
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data

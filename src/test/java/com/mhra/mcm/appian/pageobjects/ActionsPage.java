@@ -75,7 +75,7 @@ public class ActionsPage extends _Page {
     public ManageSubstances clickManageSubstances() {
         try {
             WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 10, false);
-            PageUtils.singleClick(driver, manageSubstances);
+            PageUtils.doubleClick(driver, manageSubstances);
             return new ManageSubstances(driver);
         }catch (Exception e){
             return null;

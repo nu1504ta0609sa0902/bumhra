@@ -1,4 +1,4 @@
-@poc
+@poc @ignore
 Feature: Perform a POC of end to end invoicing process to stakeholders
   So that we can better understand the purpose of automation testing
 
