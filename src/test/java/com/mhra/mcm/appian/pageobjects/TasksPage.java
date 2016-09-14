@@ -85,7 +85,7 @@ public class TasksPage extends _Page {
     }
 
     public void enterTCANumber(String newTCANumber) {
-        WaitUtils.waitForElementToBeClickable(driver, tcaNumber, 5);
+        WaitUtils.waitForElementToBeClickable(driver, tcaNumber, 10, false);
         tcaNumber.sendKeys(newTCANumber);
     }
 

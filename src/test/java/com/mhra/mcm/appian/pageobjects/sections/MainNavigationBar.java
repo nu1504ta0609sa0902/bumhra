@@ -42,41 +42,41 @@ public class MainNavigationBar extends _Page {
     }
 
     public NewsPage clickNews() {
-        WaitUtils.waitForElementToBeClickable(driver, news, 5);
+        WaitUtils.waitForElementToBeClickable(driver, news, 10, false);
         PageUtils.doubleClick(driver, news);
         //news.click();
         return new NewsPage(driver);
     }
 
     public TasksPage clickTasks() {
-        WaitUtils.waitForElementToBeClickable(driver, tasks, 5);
+        WaitUtils.waitForElementToBeClickable(driver, tasks, 10, false);
         PageUtils.doubleClick(driver, tasks);
         //tasks.click();
         return new TasksPage(driver);
     }
 
     public RecordsPage clickRecords() {
-        WaitUtils.waitForElementToBeClickable(driver, records, 5);
+        WaitUtils.waitForElementToBeClickable(driver, records, 10, false);
         PageUtils.doubleClick(driver, records);
         //records.click();
         return new RecordsPage(driver);
     }
 
     public ReportsPage clickReports() {
-        WaitUtils.waitForElementToBeClickable(driver, reports, 5);
+        WaitUtils.waitForElementToBeClickable(driver, reports, 10, false);
         PageUtils.doubleClick(driver, reports);
         //reports.click();
         return new ReportsPage(driver);
     }
 
     public String getCurrentSelectedMenu() {
-        WaitUtils.waitForElementToBeClickable(driver, currentSelection, 5);
+        WaitUtils.waitForElementToBeClickable(driver, currentSelection, 10, false);
         String selectedMenu = currentSelection.getText();
         return selectedMenu;
     }
 
     public ActionsPage clickActions() {
-        WaitUtils.waitForElementToBeClickable(driver, actions, 5);
+        WaitUtils.waitForElementToBeClickable(driver, actions, 10, false);
         PageUtils.doubleClick(driver, actions);
         //actions.click();
         return new ActionsPage(driver);

@@ -54,7 +54,7 @@ public class NotificationDetails extends _Page {
     public boolean hasPageStatusChangedTo(String currentStatusText) {
 
         boolean statusChanged = false;
-        WaitUtils.waitForElementToBeVisible(driver, currentStatus, 5, false);
+        WaitUtils.waitForElementToBeVisible(driver, currentStatus, 10, false);
         String updatedStatus = getCurrentStatus();
         if(!updatedStatus.equals(currentStatusText)){
             statusChanged = true;

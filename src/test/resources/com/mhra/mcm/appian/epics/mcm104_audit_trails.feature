@@ -32,7 +32,7 @@ Feature: The Appian system shall support a full end to end audit trail for each 
     Given I am logged into appian as "fin1" user
     And I generate a standard invoice
     #Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<price>" for the stored notification
-    Then I receive an invoice email with heading "Unwifiinvoiced Notifications" from appian in next 2 min for "" notifications
+    Then I receive an invoice email with heading "Uniinvoiced Notifications" from appian in next 2 min for "" notifications
     #When I send paid email response back to appian
     When I select a random invoice and send paid email response back to appian
     Then The notification status should update to "<status>"

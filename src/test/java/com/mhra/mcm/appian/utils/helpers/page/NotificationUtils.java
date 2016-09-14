@@ -41,6 +41,7 @@ public class NotificationUtils {
             String tcaNumber = dataValues.get("tcaNumber");
             String submitterName = dataValues.get("submitterName");
             String ingredient = dataValues.get("ingredient");
+            String eLiquidVolume = dataValues.get("eLiquidVolume");
 
             if (type != null  && !type.trim().equals("")) {
                 notification.getSummary().submissionType = type;
@@ -57,6 +58,10 @@ public class NotificationUtils {
             }
             if (ingredient != null && !ingredient.trim().equals("")) {
                 notification.getIngredient().ingredientName = ingredient;
+            }
+
+            if(eLiquidVolume!=null && !eLiquidVolume.equals("")){
+                notification.getProductDesign().volumeELiquid = Double.parseDouble(eLiquidVolume);
             }
 
         }

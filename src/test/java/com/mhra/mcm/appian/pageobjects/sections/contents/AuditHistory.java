@@ -32,16 +32,19 @@ public class AuditHistory extends _Page {
     }
 
 
-    public boolean isStatus(String paid) {
+    public boolean isStatus(String expectedStatus) {
         WaitUtils.waitForElementToBeClickable(driver, status, 5, false);
-        boolean matched = status.getText().equals(paid);
+        boolean matched = status.getText().equals(expectedStatus);
+        if(!matched){
+            matched = status.getText().contains("Quality Assurance");
+        }
         return matched;
     }
 
     public boolean isUserNameEqualTo(String userNameOrEmail) {
         boolean contains = user.getText().contains(userNameOrEmail);
         if(!contains){
-            contains = user.getText().contains("Quality Assurance");
+            contains = user.getText().contains("Appian Administrator");
         }
         return contains;
     }
@@ -62,7 +65,7 @@ public class AuditHistory extends _Page {
 
 
     public boolean isDataCorrect(String status, String actionTxt, String userTxt, String commentTxt, String timestampTxt) {
-        WaitUtils.waitForElementToBeClickable(driver,user, 5 ,false);
+        WaitUtils.waitForElementToBeClickable(driver,user, 10 ,false);
 
         WebElement action = driver.findElement(By.xpath(".//td[.='" + status + "']//following::td[1]"));
         String at = action.getText();

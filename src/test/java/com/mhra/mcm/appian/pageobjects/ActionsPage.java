@@ -40,19 +40,19 @@ public class ActionsPage extends _Page {
 
     public CreateNotification clickUploadSampleNotification() {
 
-        WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 5);
+        WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 10, false);
         uploadSampleNotification.click();
         return new CreateNotification(driver);
     }
 
     public ActionsPage generateStandardInvoices() {
-        WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 5);
+        WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 10, false);
         PageUtils.singleClick(driver, createStandardNotification);
         return new ActionsPage(driver);
     }
 
     public ActionsPage generateAnnualInvoices() {
-        WaitUtils.waitForElementToBeClickable(driver, createAnnualInvoices, 5);
+        WaitUtils.waitForElementToBeClickable(driver, createAnnualInvoices, 10, false);
         PageUtils.singleClick(driver, createAnnualInvoices);
         return new ActionsPage(driver);
     }
