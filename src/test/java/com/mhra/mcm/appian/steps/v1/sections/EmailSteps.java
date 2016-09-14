@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.nullValue;
 import java.util.List;
 
 import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
+import com.mhra.mcm.appian.utils.helpers.page.AssertUtils;
 import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
@@ -228,7 +229,7 @@ public class EmailSteps extends CommonSteps {
     }
 
 
-    @Then("^The invoice should contain correct code \"([^\"]*)\" and other details$")
+    @Then("^The invoice should contain correct glcode \"([^\"]*)\" and other details$")
     public void the_invoice_should_contain_correct_code_and_other_details(String expectedGlcode) throws Throwable {
         Invoice invoice = (Invoice) scenarioSession.getData(SessionKey.invoice);
         String expectedNotificationID = (String) scenarioSession.getData(SessionKey.ECID);
@@ -236,8 +237,14 @@ public class EmailSteps extends CommonSteps {
         //String expectedNotificationID = data.ecIDNumber;
         String glCode = invoice.Natural_Account;
         String description = invoice.Description;
+        String orderDate = invoice.Order_Date;
+
         assertThat("Expected GLCode : " + expectedGlcode , glCode, is((equalTo(expectedGlcode))));
         assertThat("Description should contain : " + expectedNotificationID , description.contains(expectedNotificationID), is((equalTo(true))));
+        assertThat("Order Date : " + orderDate , orderDate!=null && !orderDate.equals(""), is((equalTo(true))));
+
+        //boolean isBritishDateFormat = AssertUtils.isBritishFormat(orderDate);
+        //assertThat("Order Date Should Be British Format : " + orderDate , isBritishDateFormat, is((equalTo(true))));
     }
 
 

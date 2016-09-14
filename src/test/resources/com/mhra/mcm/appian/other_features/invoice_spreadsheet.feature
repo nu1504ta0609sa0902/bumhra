@@ -11,7 +11,7 @@ Feature: As a Finance user I should receive invoice email with correct data
     And I attach a toxicology report for "<ingredient>"
     When I login as "fin1" and generate a standard invoice
     Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<price>" for the stored notification
-    And The invoice should contain correct code "<glcode>" and other details
+    And The invoice should contain correct glcode "<glcode>" and other details
     Examples:
       | user | type | price | ingredient  | glcode |
       | rdt1 | 1    | 150   | SUPPLEMENT1 | 1770   |
@@ -46,7 +46,7 @@ Feature: As a Finance user I should receive invoice email with correct data
     Then I expect the notification status should be "<statusTo>"
     When I login as "fin1" and generate an annual invoice
     Then I should receive an invoice email with heading "Annual Notification Invoices" from appian in next 2 min with correct price "" for the stored notification
-    And The invoice should contain correct code "<glcode>" and other details
+    And The invoice should contain correct glcode "<glcode>" and other details
     And The invoices should be unique by invoice id
     And The invoices should all have unit price as "<price>"
     Examples:

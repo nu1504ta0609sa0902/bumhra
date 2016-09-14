@@ -59,6 +59,7 @@ public class GenericUtils {
         Set<String> setOfEcid = new HashSet<>();
         for(Invoice e: loi){
             setOfEcid.add(e.Invoice_Id);
+            System.out.println(e.Invoice_Id);
         }
 
         return setOfEcid.size() == loi.size();

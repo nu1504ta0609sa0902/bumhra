@@ -1,5 +1,11 @@
 package com.mhra.mcm.appian.utils.helpers.page;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by TPD_Auto on 15/07/2016.
  */
@@ -18,4 +24,34 @@ public class AssertUtils {
         }
         return val;
     }
+
+//    public static boolean isBritishFormat(String orderDate) {
+//        boolean isBritish = false;
+//        System.out.println(orderDate);
+//        if(orderDate!=null && !orderDate.equals("")){
+//            String[] data = orderDate.split("/");
+//            Calendar instance = Calendar.getInstance();
+//            instance.set(Calendar.DAY_OF_MONTH, Integer.parseInt(data[0]));
+//            instance.set(Calendar.MONTH, Integer.parseInt(data[1])-1);
+//            instance.set(Calendar.YEAR, Integer.parseInt(data[2]));
+//
+//            int style = DateFormat.DEFAULT;
+//            //Also try with style = DateFormat.FULL and DateFormat.SHORT
+//            Date date = instance.getTime();
+//            DateFormat df = DateFormat.getDateInstance(style, Locale.UK);
+//            df = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
+//            System.out.println("United Kingdom: " + df.format(date));
+//            df = DateFormat.getDateInstance(style, Locale.US);
+//            System.out.println("USA: " + df.format(date));
+//        }
+//
+//
+//        return isBritish;
+//    }
+//
+//    public static void main(String[] args){
+//        boolean isBritish = AssertUtils.isBritishFormat("11/30/2016");
+//        System.out.println(isBritish);
+//    }
 }
+
