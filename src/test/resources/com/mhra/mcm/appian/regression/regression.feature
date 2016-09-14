@@ -3,14 +3,15 @@ Feature: As a user I need to quickly verify there is no regression issues
   So that I can trust the system
 
   @regression
-  Scenario Outline: Add a new banned substances
+  Scenario Outline: Add a new banned substances with and without cas number
     Given I am logged into appian as "<user>" user
     When I go to manage substance page
-    And I add a banned substance "<substance>" to appian
+    And I add a substance "<substance>" with following details "<commaDelimitedDetails>"
     Then I should see the new substance in the manage substance page
     Examples:
-      | user | substance |
-      | ipu1 | random    |
+      | user | substance | commaDelimitedDetails                    |
+      | ipu1 | random    | banned=true,permissible=true,cas=true    |
+      | ipu1 | random    | banned=true,permissible=true,cas=true    |
 
   @regression
   Scenario: Verify error message is displayed when value are more than 100 or less than 0 for quality assurance
@@ -53,7 +54,7 @@ Feature: As a user I need to quickly verify there is no regression issues
 
 
   @regression
-  Scenario Outline: POC example of invoice processing of type 1 notification with ingredient and toxicology report
+  Scenario Outline: POC example of invoice processing of type 1 2 and 3 notification with ingredient and toxicology report
     Given I am logged into appian as "<user>" user
     When I create new notification with following data
       | type       | <type>       |
