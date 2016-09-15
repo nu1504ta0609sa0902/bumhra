@@ -65,6 +65,9 @@ public class LoginPageSteps extends CommonSteps {
     public void i_login_as_and_generate_a_standard_invoice(String username) throws Throwable {
         mainNavigationBar = loginPage.reloginUsing(username);
         actionsPage = mainNavigationBar.clickActions();
+        if(actionsPage == null){
+            actionsPage = mainNavigationBar.clickActions();
+        }
         //only FINANCE users should see this option
         actionsPage = actionsPage.generateStandardInvoices();
     }
@@ -73,6 +76,9 @@ public class LoginPageSteps extends CommonSteps {
     public void i_login_as_and_generate_a_annual_invoice(String username) throws Throwable {
         mainNavigationBar = loginPage.reloginUsing(username);
         actionsPage = mainNavigationBar.clickActions();
+        if(actionsPage == null){
+            actionsPage = mainNavigationBar.clickActions();
+        }
         //only FINANCE users should see this option
         actionsPage = actionsPage.generateAnnualInvoices();
     }
@@ -80,6 +86,9 @@ public class LoginPageSteps extends CommonSteps {
     @When("^I generate a standard invoice$")
     public void i_generate_a_standard_invoice() throws Throwable {
         actionsPage = mainNavigationBar.clickActions();
+        if(actionsPage == null){
+            actionsPage = mainNavigationBar.clickActions();
+        }
         //only FINANCE users should see this option
         actionsPage = actionsPage.generateStandardInvoices();
     }

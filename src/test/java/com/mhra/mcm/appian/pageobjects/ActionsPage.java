@@ -40,36 +40,52 @@ public class ActionsPage extends _Page {
 
     public CreateNotification clickUploadSampleNotification() {
 
-        WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 10, false);
-        uploadSampleNotification.click();
-        return new CreateNotification(driver);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 10, false);
+            uploadSampleNotification.click();
+            return new CreateNotification(driver);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public ActionsPage generateStandardInvoices() {
-        WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 10, false);
-        PageUtils.singleClick(driver, createStandardNotification);
-        return new ActionsPage(driver);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 10, false);
+            PageUtils.singleClick(driver, createStandardNotification);
+            return new ActionsPage(driver);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public ActionsPage generateAnnualInvoices() {
-        WaitUtils.waitForElementToBeClickable(driver, createAnnualInvoices, 10, false);
-        PageUtils.singleClick(driver, createAnnualInvoices);
-        return new ActionsPage(driver);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, createAnnualInvoices, 10, false);
+            PageUtils.singleClick(driver, createAnnualInvoices);
+            return new ActionsPage(driver);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public boolean isNotificationGeneratedSuccessfully() {
         try {
             WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 10, false);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     public UpdateQAPercentage clickUpdateQAPercentage() {
-        WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, 10, false);
-        PageUtils.doubleClick(driver, updateQAPercentage);
-        return new UpdateQAPercentage(driver);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, 10, false);
+            PageUtils.doubleClick(driver, updateQAPercentage);
+            return new UpdateQAPercentage(driver);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public ManageSubstances clickManageSubstances() {
@@ -77,7 +93,7 @@ public class ActionsPage extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 10, false);
             PageUtils.doubleClick(driver, manageSubstances);
             return new ManageSubstances(driver);
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

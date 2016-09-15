@@ -33,6 +33,9 @@ public class TasksPageSteps extends CommonSteps {
         int count = 0;
         do {
             tasksPage = mainNavigationBar.clickTasks();
+            if(tasksPage == null){
+                tasksPage = mainNavigationBar.clickTasks();
+            }
             tasksPage = tasksPage.clickTaskWithSubmitterName(submitterName);
             contains = tasksPage.isCorrectECID(data.ecIDNumber);
             count++;
@@ -51,6 +54,9 @@ public class TasksPageSteps extends CommonSteps {
         int count = 0;
         do {
             tasksPage = mainNavigationBar.clickTasks();
+            if(tasksPage == null){
+                tasksPage = mainNavigationBar.clickTasks();
+            }
             tasksPage = tasksPage.clickTaskWithSubmitterName(submitterName);
             contains = tasksPage.isCorrectECID(ecId);
             count++;

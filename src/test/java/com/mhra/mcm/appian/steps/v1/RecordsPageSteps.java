@@ -27,10 +27,12 @@ import cucumber.api.java.en.When;
 public class RecordsPageSteps extends CommonSteps {
 
 
-
     @And("^I have notifications$")
     public void i_have_notifications() throws Throwable {
         recordsPage = mainNavigationBar.clickRecords();
+        if (recordsPage == null) {
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
         boolean hasNotifications = recordsPage.hasNotifications();
         assertThat(hasNotifications, is(equalTo(true)));
@@ -66,6 +68,9 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_goto_notifications_page_and_update_status_of_existing_notification_to(String updatedStatus) throws Throwable {
         //Select an existing notification from the page
         recordsPage = mainNavigationBar.clickRecords();
+        if (recordsPage == null) {
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = recordsPage.getARandomNotificationWithStatusNotEqualTo(updatedStatus, 10);
         log.info("ECID selected : " + ecid);
@@ -95,6 +100,9 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_update_status_of_existing_notification_to(String status, String updatedStatus) throws Throwable {
         //Select an existing notification from the page
         recordsPage = mainNavigationBar.clickRecords();
+        if(recordsPage == null){
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = recordsPage.getARandomNotificationWithStatusEqualTo(status, 50);
         log.info("ECID selected : " + ecid);
@@ -103,7 +111,7 @@ public class RecordsPageSteps extends CommonSteps {
         //Click on selected notificatioins
         notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
         boolean isCorrectPage = notificationDetails.isCorrectPage();
-        if(!isCorrectPage){
+        if (!isCorrectPage) {
             int count = 1;
             do {
 //                recordsPage = mainNavigationBar.clickRecords();
@@ -111,7 +119,7 @@ public class RecordsPageSteps extends CommonSteps {
                 notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
                 isCorrectPage = notificationDetails.isCorrectPage();
                 count++;
-            }while (!isCorrectPage && count <= 3 );
+            } while (!isCorrectPage && count <= 3);
         }
 
         editNotification = notificationDetails.clickManageNotification();
@@ -122,11 +130,14 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_update_status_of_stored_notification_to(String updatedStatus) throws Throwable {
         //Select an existing notification from the page
         recordsPage = mainNavigationBar.clickRecords();
+        if(recordsPage == null){
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = (String) scenarioSession.getData(SessionKey.ECID);
 
         //update notification
-        notificationDetails = recordsPage.clickNotificationNumber(ecid,10);
+        notificationDetails = recordsPage.clickNotificationNumber(ecid, 10);
         editNotification = notificationDetails.clickManageNotification();
         notificationDetails = editNotification.updateStatusTo(updatedStatus);
     }
@@ -143,6 +154,7 @@ public class RecordsPageSteps extends CommonSteps {
 
     /***
      * remove this : only created so we don't have 100s of notifications
+     *
      * @param expectedNotificationID
      * @throws Throwable
      */
@@ -150,14 +162,17 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_should_see_the_notification_generated(String expectedNotificationID) throws Throwable {
         scenarioSession.putData(SessionKey.ECID, expectedNotificationID);
         recordsPage = mainNavigationBar.clickRecords();
+        if(recordsPage == null){
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
-        assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
+        assertThat("Expected header to contains EC ID : " + expectedNotificationID, contains, is(equalTo(true)));
 
         //Add a toxicology report
         Notification random = NotificationUtils.updateDefaultNotification(null);
-        random.getIngredient().ingredientName="SUPPA1";
+        random.getIngredient().ingredientName = "SUPPA1";
         editNotification = notificationDetails.clickManageDocuments();
         notificationDetails = editNotification.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", random);
     }
@@ -166,12 +181,15 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^I should see the stored notification$")
     public void i_should_see_the_stored_notification() throws Throwable {
         recordsPage = mainNavigationBar.clickRecords();
+        if(recordsPage == null){
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
 
         String expectedNotificationID = (String) scenarioSession.getData(SessionKey.ECID);
         notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
-        assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
+        assertThat("Expected header to contains EC ID : " + expectedNotificationID, contains, is(equalTo(true)));
     }
 
     @Then("^I should see only (.*) notification$")
@@ -180,7 +198,7 @@ public class RecordsPageSteps extends CommonSteps {
         int count = recordsPage.getNotificationCount(ecid);
         String submitter = recordsPage.getSubmitterNameForEcid(ecid);
         scenarioSession.putData(SessionKey.submitter, submitter);
-        assertThat("Expected to see 1 notification but was : " + count , count, is(equalTo(countExpected)));
+        assertThat("Expected to see 1 notification but was : " + count, count, is(equalTo(countExpected)));
     }
 
 
@@ -190,7 +208,7 @@ public class RecordsPageSteps extends CommonSteps {
         int count = recordsPage.getNotificationCount(ecid);
         String submitter = recordsPage.getSubmitterNameForEcid(ecid);
         scenarioSession.putData(SessionKey.submitter, submitter);
-        assertThat("Expected to see at least 1 notification but was : " + count , count, is(greaterThanOrEqualTo(countExpected)));
+        assertThat("Expected to see at least 1 notification but was : " + count, count, is(greaterThanOrEqualTo(countExpected)));
     }
 
 
@@ -198,7 +216,7 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_should_see_atleaset_X_number_OF_notification(int countExpected) throws Throwable {
         String ecid = (String) scenarioSession.getData(SessionKey.ECID);
         int count = recordsPage.getNotificationCount(ecid);
-        assertThat("Expected to see at least 1 notification but was : " + count , count, is(greaterThanOrEqualTo(countExpected)));
+        assertThat("Expected to see at least 1 notification but was : " + count, count, is(greaterThanOrEqualTo(countExpected)));
     }
 
 
@@ -208,6 +226,9 @@ public class RecordsPageSteps extends CommonSteps {
         String ecId = notification.ecIDNumber;
 
         recordsPage = mainNavigationBar.clickRecords();
+        if (recordsPage == null) {
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(ecId, 5);
 
@@ -220,9 +241,12 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_search_for_an_existing_notification_by(String searchType) throws Throwable {
 
         recordsPage = mainNavigationBar.clickRecords();
+        if (recordsPage == null) {
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
 
-        if(searchType.trim().toLowerCase().equals("ecid")){
+        if (searchType.trim().toLowerCase().equals("ecid")) {
             //Select an existing notification from the page
             String ecid = recordsPage.getARandomNotificationECIDFromPosition(0, 10);
             scenarioSession.putData(SessionKey.ECID, ecid);
@@ -236,13 +260,16 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_search_for_an_existing_notification_by_partial(String searchType) throws Throwable {
 
         recordsPage = mainNavigationBar.clickRecords();
+        if (recordsPage == null) {
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
 
-        if(searchType.trim().toLowerCase().equals("ecid")){
+        if (searchType.trim().toLowerCase().equals("ecid")) {
             //Select an existing notification from the page
             String ecid = recordsPage.getARandomNotificationECIDFromPosition(0, 10);
-            if(ecid.contains("-"))
-            ecid = ecid.substring(0, ecid.indexOf("-"));
+            if (ecid.contains("-"))
+                ecid = ecid.substring(0, ecid.indexOf("-"));
             scenarioSession.putData(SessionKey.ECID, ecid);
 
             //Search for the ecid
@@ -252,15 +279,15 @@ public class RecordsPageSteps extends CommonSteps {
 
     @When("^I search for the stored submitter name$")
     public void i_search_for_the_stored_submitter_name() throws Throwable {
-        //String menu = mainNavigationBar.getCurrentSelectedMenu();
-        //if(menu==null || !menu.equals("Records")){
+        recordsPage = mainNavigationBar.clickRecords();
+        if (recordsPage == null) {
             recordsPage = mainNavigationBar.clickRecords();
-            recordsPage = recordsPage.clickNotificationsLink();
-        //}
+        }
+        recordsPage = recordsPage.clickNotificationsLink();
 
         String submitter = (String) scenarioSession.getData(SessionKey.submitter);
 
-        if(submitter!=null){
+        if (submitter != null) {
             //Search for the ecid
             recordsPage = recordsPage.searchForECIDSubmitterOrOthers(submitter);
         }
@@ -269,6 +296,9 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I go to the notifications page$")
     public void i_go_to_the_notifications_page() throws Throwable {
         recordsPage = mainNavigationBar.clickRecords();
+        if (recordsPage == null) {
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
     }
 
@@ -280,7 +310,7 @@ public class RecordsPageSteps extends CommonSteps {
         //recordsPage = filterSection.filterByStatus(filterByStatus);
         recordsPage = filterSection.clickFilterText(filterByStatus);
         boolean isFitered = filterSection.isFiteredBy(filterByStatus);
-        if(!isFitered){
+        if (!isFitered) {
             recordsPage = filterSection.clickFilterText(filterByStatus);
         }
         int count = recordsPage.getTotalNotificationCount();
@@ -294,18 +324,18 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_filter_by_statuses(String filterByStatuses) throws Throwable {
         String[] statuses = filterByStatuses.split(",");
         int totalCount = 0;
-        for(String filterByStatus: statuses){
+        for (String filterByStatus : statuses) {
             RecordsFilter filterSection = recordsPage.getFilterSection();
             filterSection = filterSection.expand();
             recordsPage = filterSection.clickFilterText(filterByStatus);
             boolean isFitered = filterSection.isFiteredBy(filterByStatus);
-            if(!isFitered){
+            if (!isFitered) {
                 recordsPage = filterSection.clickFilterText(filterByStatus);
             }
             int count = recordsPage.getTotalNotificationCount();
             totalCount = totalCount + count;
 
-            if(statuses.length > 1){
+            if (statuses.length > 1) {
                 //Return to page
                 filterSection = filterSection.clearSelection();
             }
@@ -318,7 +348,7 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_should_only_see_notifications_in_the_selected_status(String filterBy) throws Throwable {
         recordsPage = new RecordsPage(driver);
         boolean allStatusSame = recordsPage.isAllNotificationStatusOfType(filterBy);
-        assertThat("Expected to see notifications with status : " + filterBy , allStatusSame, is(equalTo(true)));
+        assertThat("Expected to see notifications with status : " + filterBy, allStatusSame, is(equalTo(true)));
     }
 
 
@@ -341,16 +371,16 @@ public class RecordsPageSteps extends CommonSteps {
         String currentStatus = (String) scenarioSession.getData(SessionKey.notificationStatus);
         boolean statusMatched = false;
         int attempt = 0;
-        do{
+        do {
             statusMatched = notificationDetails.expectedStatusToBe(expectedStatus);
-            if(statusMatched)
+            if (statusMatched)
                 break;
             attempt++;
-        }while (!statusMatched && attempt < 15);
+        } while (!statusMatched && attempt < 15);
 
         String newStatus = notificationDetails.getCurrentStatus();
 
-        assertThat("Status should be : " + currentStatus , newStatus, is(isOneOf(expectedStatus,"Quality Assurance")));
+        assertThat("Status should be : " + currentStatus, newStatus, is(isOneOf(expectedStatus, "Quality Assurance")));
         scenarioSession.putData(SessionKey.notificationStatus, newStatus);
     }
 
@@ -385,6 +415,9 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_view_random_notification() throws Throwable {
 
         recordsPage = mainNavigationBar.clickRecords();
+        if(recordsPage == null){
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = recordsPage.getARandomNotification(50);
         log.info("View notification with ecid : " + ecid);
@@ -394,22 +427,22 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
 
-    @Then("^Verify \"([^\"]*)\" details are correct$")
+    @Then("^Verify audit log details \"([^\"]*)\" are correct$")
     public void i_verify_uploaded_details_are_correct(String status) throws Throwable {
         auditHistory = notificationDetails.clickAuditHistory();
         boolean isCorrect = auditHistory.isUploadedDataCorrect(status);
         assertThat("Uploaded user details should be related to RDT users", isCorrect, is(equalTo(true)));
     }
 
-    @Then("^Verify generic details \"([^\"]*)\" are correct$")
+    @Then("^Verify audit log details \"([^\"]*)\"$")
     public void i_verify_status_details_are_correct(String details) throws Throwable {
         auditHistory = notificationDetails.clickAuditHistory();
         String[] data = details.split(",");
         String status = data[0];
-        String action = data[1];
-        String user = data[2];
-        String comment = data[3];
-        String timestamp = data[4];
+        String action = data[1].split("=")[1];
+        String user = data[2].split("=")[1];
+        String comment = data[3].split("=")[1];
+        String timestamp = data[4].split("=")[1];
 
         boolean isCorrect = auditHistory.isDataCorrect(status, action, user, comment, timestamp);
         assertThat("Audit details should be : " + details, isCorrect, is(equalTo(true)));
@@ -420,17 +453,17 @@ public class RecordsPageSteps extends CommonSteps {
         auditHistory = notificationDetails.clickAuditHistory();
         boolean statusIsPaid = auditHistory.isStatus(status);
         boolean userNameCorrect = true;
-        if(userNameOrEmail!=null && !userNameOrEmail.trim().equals(""))
+        if (userNameOrEmail != null && !userNameOrEmail.trim().equals(""))
             userNameCorrect = auditHistory.isUserNameEqualTo(userNameOrEmail);
 
-        assertThat("Status should be : " + status , statusIsPaid, is(equalTo(true)));
-        assertThat("User should be : " + userNameOrEmail , userNameCorrect, is(equalTo(true)));
+        assertThat("Status should be : " + status, statusIsPaid, is(equalTo(true)));
+        assertThat("User should be : " + userNameOrEmail, userNameCorrect, is(equalTo(true)));
     }
 
     @When("^I add comment \"([^\"]*)\" to selected notification$")
     public void i_add_comment_to_selected_notification(String commentTxt) throws Throwable {
         commentSection = notificationDetails.clickCommentsLink();
-        if(commentTxt.equals("random")){
+        if (commentTxt.equals("random")) {
             commentTxt = "Test Comment " + RandomDataUtils.getSimpleRandomNumberBetween(1000, 1000000);
         }
         scenarioSession.putData(SessionKey.comment, commentTxt);
@@ -440,18 +473,18 @@ public class RecordsPageSteps extends CommonSteps {
 
     @Then("^I should see comment \"([^\"]*)\" displayed in notification for user \"([^\"]*)\"$")
     public void i_should_see_comment_displayed_in_notification(String commentTxt, String username) throws Throwable {
-        if(commentTxt==null || commentTxt.trim().equals("") || commentTxt.equals("random")){
+        if (commentTxt == null || commentTxt.trim().equals("") || commentTxt.equals("random")) {
             commentTxt = (String) scenarioSession.getData(SessionKey.comment);
         }
         boolean isCommentDisplayed = commentSection.isCommentDisplayed(commentTxt, username);
-        assertThat("Expected to see comments : " + commentTxt , isCommentDisplayed, is(equalTo(true)));
+        assertThat("Expected to see comments : " + commentTxt, isCommentDisplayed, is(equalTo(true)));
     }
 
     @Then("^I should be able to manage documents$")
     public void i_should_be_able_to_manage_documents() throws Throwable {
         editNotification = notificationDetails.clickManageDocuments();
         boolean isCorrectPage = editNotification.isCorrectPage();
-        assertThat("Expected to be on edit notification page" , isCorrectPage, is(equalTo(true)));
+        assertThat("Expected to be on edit notification page", isCorrectPage, is(equalTo(true)));
         WaitUtils.nativeWait(1);
     }
 

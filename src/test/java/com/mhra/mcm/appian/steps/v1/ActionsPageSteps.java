@@ -34,7 +34,13 @@ public class ActionsPageSteps extends CommonSteps {
     @Given("^I create new notification$")
     public void i_create_a_new_notification() throws Throwable {
         actionsPage = mainNavigationBar.clickActions();
+        if(actionsPage == null){
+            actionsPage = mainNavigationBar.clickActions();
+        }
         createNotification = actionsPage.clickUploadSampleNotification();
+        if(createNotification == null){
+            createNotification = actionsPage.clickUploadSampleNotification();
+        }
         Notification random = new Notification(2, 2, null);
         log.info("Create Notification With ECID : " + random.ecIDNumber);
         actionsPage = createNotification.createRandomNotification(random);
@@ -46,6 +52,9 @@ public class ActionsPageSteps extends CommonSteps {
             do {
                 actionsPage = createNotification.clickCancel();
                 createNotification = actionsPage.clickUploadSampleNotification();
+                if(createNotification == null){
+                    createNotification = actionsPage.clickUploadSampleNotification();
+                }
                 actionsPage = createNotification.createRandomNotification(random);
                 isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
                 count++;
@@ -69,7 +78,13 @@ public class ActionsPageSteps extends CommonSteps {
 
         //UPLOAD NOTIFICATION
         actionsPage = mainNavigationBar.clickActions();
+        if(actionsPage == null){
+            actionsPage = mainNavigationBar.clickActions();
+        }
         createNotification = actionsPage.clickUploadSampleNotification();
+        if(createNotification == null){
+            createNotification = actionsPage.clickUploadSampleNotification();
+        }
         actionsPage = createNotification.createRandomNotification(random);
 
         //Retry if fields are not correctly filled
@@ -79,6 +94,9 @@ public class ActionsPageSteps extends CommonSteps {
             do {
                 actionsPage = createNotification.clickCancel();
                 createNotification = actionsPage.clickUploadSampleNotification();
+                if(createNotification == null){
+                    createNotification = actionsPage.clickUploadSampleNotification();
+                }
                 actionsPage = createNotification.createRandomNotification(random);
                 isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
                 count++;
@@ -102,7 +120,13 @@ public class ActionsPageSteps extends CommonSteps {
 
         //UPLOAD NOTIFICATION
         actionsPage = mainNavigationBar.clickActions();
+        if(actionsPage == null){
+            actionsPage = mainNavigationBar.clickActions();
+        }
         createNotification = actionsPage.clickUploadSampleNotification();
+        if(createNotification == null){
+            createNotification = actionsPage.clickUploadSampleNotification();
+        }
         actionsPage = createNotification.createRandomNotification(random);
 
         //Retry if fields are not correctly filled
@@ -112,6 +136,9 @@ public class ActionsPageSteps extends CommonSteps {
             do {
                 actionsPage = createNotification.clickCancel();
                 createNotification = actionsPage.clickUploadSampleNotification();
+                if(createNotification == null){
+                    createNotification = actionsPage.clickUploadSampleNotification();
+                }
                 actionsPage = createNotification.createRandomNotification(random);
                 isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
                 count++;
@@ -123,6 +150,9 @@ public class ActionsPageSteps extends CommonSteps {
         //Add a toxicology report
         if (createNotification.ingredientAdded) {
             recordsPage = mainNavigationBar.clickRecords();
+            if(recordsPage == null){
+                recordsPage = mainNavigationBar.clickRecords();
+            }
             recordsPage = recordsPage.clickNotificationsLink();
             notificationDetails = recordsPage.clickNotificationNumber(ecId, 5);
 
@@ -140,7 +170,13 @@ public class ActionsPageSteps extends CommonSteps {
         for (int x = 0; x < numberOfNotifications; x++) {
             try {
                 actionsPage = mainNavigationBar.clickActions();
+                if(actionsPage == null){
+                    actionsPage = mainNavigationBar.clickActions();
+                }
                 createNotification = actionsPage.clickUploadSampleNotification();
+                if(createNotification == null){
+                    createNotification = actionsPage.clickUploadSampleNotification();
+                }
                 Notification random = new Notification(2, 2, null);
                 actionsPage = createNotification.createRandomNotification(random);
 
@@ -151,6 +187,9 @@ public class ActionsPageSteps extends CommonSteps {
                     do {
                         actionsPage = createNotification.clickCancel();
                         createNotification = actionsPage.clickUploadSampleNotification();
+                        if(createNotification == null){
+                            createNotification = actionsPage.clickUploadSampleNotification();
+                        }
                         actionsPage = createNotification.createRandomNotification(random);
                         isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
                         count++;
@@ -222,6 +261,9 @@ public class ActionsPageSteps extends CommonSteps {
     @Given("^I update qa percentage to \"([^\"]*)\"$")
     public void i_update_qa_percentage_to(String qaPercentage) throws Throwable {
         actionsPage = mainNavigationBar.clickActions();
+        if(actionsPage == null){
+            actionsPage = mainNavigationBar.clickActions();
+        }
         updateQAPercentage = actionsPage.clickUpdateQAPercentage();
         updateQAPercentage = updateQAPercentage.setQAPercentage(qaPercentage);
         updateQAPercentage.acceptDialog(true);
@@ -237,6 +279,9 @@ public class ActionsPageSteps extends CommonSteps {
     @Then("^I should see qa percentage updated to \"([^\"]*)\"$")
     public void i_should_see_qa_percentage_updated_to(String expectedQAPercentage) throws Throwable {
         actionsPage = mainNavigationBar.clickActions();
+        if(actionsPage == null){
+            actionsPage = mainNavigationBar.clickActions();
+        }
         updateQAPercentage = actionsPage.clickUpdateQAPercentage();
         boolean correct = updateQAPercentage.isQAPercentageCorrect(expectedQAPercentage);
         assertThat("QA Percentage should be updated to : " + expectedQAPercentage, correct, is(true));
@@ -246,6 +291,9 @@ public class ActionsPageSteps extends CommonSteps {
     @When("^I go to manage substance page$")
     public void i_go_to_manage_substance_page() throws Throwable {
         actionsPage = mainNavigationBar.clickActions();
+        if(actionsPage == null){
+            actionsPage = mainNavigationBar.clickActions();
+        }
         manageSubstances = actionsPage.clickManageSubstances();
     }
 

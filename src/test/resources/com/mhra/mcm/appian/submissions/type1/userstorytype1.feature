@@ -57,7 +57,7 @@ Feature: Create notifications and invoices for type 1 submissions
 
 
 
-  @type1 @e2e @mcm-38 @mcm-109 @mcm-97 @mcm-68 @mcm-101
+  @type1 @e2e @mcm-38 @mcm-109 @mcm-97 @mcm-68 @mcm-101 @mcm-42
   Scenario Outline: POC example of invoice processing of type 1 notification with ingredient and toxicology report
     Given I am logged into appian as "<user>" user
     When I create new notification with following data

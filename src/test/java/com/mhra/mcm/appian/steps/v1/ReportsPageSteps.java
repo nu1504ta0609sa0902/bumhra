@@ -22,6 +22,9 @@ public class ReportsPageSteps extends CommonSteps {
     @Then("^I should see the notification displayed in exception page$")
     public void i_should_see_the_notification_displayed_in_exception_page() throws Throwable {
         reportsPage = mainNavigationBar.clickReports();
+        if(reportsPage == null){
+            reportsPage = mainNavigationBar.clickReports();
+        }
         exception = reportsPage.gotoExceptionsPage();
         String ecId = (String) scenarioSession.getData(SessionKey.ECID);
 
@@ -29,6 +32,9 @@ public class ReportsPageSteps extends CommonSteps {
         if(!isDisplayed){
             //Try again : exception may not have appeared in the system yet
             reportsPage = mainNavigationBar.clickReports();
+            if(reportsPage == null){
+                reportsPage = mainNavigationBar.clickReports();
+            }
             exception = reportsPage.gotoExceptionsPage();
             isDisplayed = exception.isNotificationDisplayed(ecId);
         }
@@ -39,6 +45,9 @@ public class ReportsPageSteps extends CommonSteps {
     @When("^I view a notification displayed in exception page$")
     public void i_select_a_notification_displayed_in_exception_page() throws Throwable {
         reportsPage = mainNavigationBar.clickReports();
+        if(reportsPage == null){
+            reportsPage = mainNavigationBar.clickReports();
+        }
         exception = reportsPage.gotoExceptionsPage();
 
         String ecid = exception.selectARandomException();
@@ -52,6 +61,9 @@ public class ReportsPageSteps extends CommonSteps {
     @When("^I view an existing notification with ecid  \"([^\"]*)\" in exception page$")
     public void i_view_an_existing_notification_displayed_in_exception_page(String ecid) throws Throwable {
         reportsPage = mainNavigationBar.clickReports();
+        if(reportsPage == null){
+            reportsPage = mainNavigationBar.clickReports();
+        }
         exception = reportsPage.gotoExceptionsPage();
 
         scenarioSession.putData(SessionKey.ECID, ecid);

@@ -42,6 +42,7 @@ public class NotificationUtils {
             String submitterName = dataValues.get("submitterName");
             String ingredient = dataValues.get("ingredient");
             String eLiquidVolume = dataValues.get("eLiquidVolume");
+            String batteryWattageLiquidVolume = dataValues.get("batteryWattageLiquidVolume");
 
             if (type != null  && !type.trim().equals("")) {
                 notification.getSummary().submissionType = type;
@@ -62,6 +63,10 @@ public class NotificationUtils {
 
             if(eLiquidVolume!=null && !eLiquidVolume.equals("")){
                 notification.getProductDesign().volumeELiquid = Double.parseDouble(eLiquidVolume);
+            }
+
+            if(batteryWattageLiquidVolume!=null && !batteryWattageLiquidVolume.equals("")){
+                notification.getBatteryWattageVoltage().liquidVolumeCapacity = batteryWattageLiquidVolume;
             }
 
         }

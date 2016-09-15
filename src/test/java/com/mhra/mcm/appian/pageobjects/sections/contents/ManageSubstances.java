@@ -171,8 +171,8 @@ public class ManageSubstances extends _Page {
     public ActionsPage addNewSubstanceForDelimitedData(String substance, String commanDelimitedDetails) {
         String[] data = commanDelimitedDetails.split(",");
         String isBanned = data[0].split("=")[1];
-        String permissible = data[0].split("=")[1];
-        String casNumber = data[0].split("=")[1];
+        String permissible = data[1].split("=")[1];
+        String casNumber = data[2].split("=")[1];
 
         WaitUtils.waitForElementToBeClickable(driver, substanceName, 10, false);
         substanceName.sendKeys(substance);

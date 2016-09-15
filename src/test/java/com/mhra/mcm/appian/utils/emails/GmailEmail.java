@@ -55,6 +55,7 @@ public class GmailEmail {
 
     private static final String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
     private static List<Invoice> listOfInvoices = new ArrayList<>();
+    private static boolean refusalEmailReceived;
 
     public static void main(String[] args) {
 
@@ -147,12 +148,17 @@ public class GmailEmail {
                         boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
                         if (isMessageReceivedToday && subject.contains(subjectHeading)) {
                             boolean isRecent = receivedInLast(min, sentDate);
-                            if (isRecent) {
+                            if (isRecent && !subject.contains("Refusal For Notification")) {
                                 System.out.println("---------------------------------");
                                 System.out.println("Recent email received");
                                 System.out.println("---------------------------------");
                                 writePart(message);
                                 System.out.println("Number of invoices : " + listOfInvoices.size());
+                            }else if (isRecent && subject.contains("Refusal For Notification")){
+                                System.out.println("---------------------------------");
+                                System.out.println("Recent email received");
+                                System.out.println("---------------------------------");
+                                refusalEmailReceived = true;
                             }
                         } else {
                             //System.out.println("Message is old or not relevant" );
@@ -295,6 +301,9 @@ public class GmailEmail {
         return temp2;
     }
 
+    public static boolean isRefusalEmailReceived(){
+        return refusalEmailReceived;
+    }
 
     private static String getTodaysDate(int format) {
         Calendar calendar = Calendar.getInstance();

@@ -33,7 +33,7 @@ public class AuditHistory extends _Page {
 
 
     public boolean isStatus(String expectedStatus) {
-        WaitUtils.waitForElementToBeClickable(driver, status, 5, false);
+        WaitUtils.waitForElementToBeClickable(driver, status, 10, false);
         boolean matched = status.getText().equals(expectedStatus);
         if(!matched){
             matched = status.getText().contains("Quality Assurance");
@@ -58,6 +58,9 @@ public class AuditHistory extends _Page {
         boolean actionTxtCorrect = action.getText().contains("Set Up Complete");
         boolean userTxtCorrect = user.getText().toLowerCase().contains("RDT ");
         boolean commentTxtCorrect = comment.getText().contains("Create Notification");
+        if(comment.getText().equals("")){
+            commentTxtCorrect = true;
+        }
         boolean timestampTxtCorrect = timestamp.getText().contains("GMT+");
         return actionTxtCorrect && userTxtCorrect && commentTxtCorrect && timestampTxtCorrect;
     }
@@ -78,7 +81,7 @@ public class AuditHistory extends _Page {
 
         boolean actionTxtCorrect = at.contains(actionTxt);
         boolean userTxtCorrect = ut.contains(userTxt);
-        boolean commentTxtCorrect = ct.contains(commentTxt);
+        boolean commentTxtCorrect = ct.contains(commentTxt.trim());
         boolean timestampTxtCorrect = tt.contains(timestampTxt);
         return actionTxtCorrect && userTxtCorrect && commentTxtCorrect && timestampTxtCorrect;
     }

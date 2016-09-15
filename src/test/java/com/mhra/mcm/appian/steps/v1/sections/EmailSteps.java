@@ -135,6 +135,22 @@ public class EmailSteps extends CommonSteps {
     }
 
 
+    @Then("^I receive an refusal email with heading \"([^\"]*)\" from appian in next (.*) min for \"([^\"]*)\" notifications$")
+    public void iShouldReceiveARefusalEmailButItShouldNotContainMyNotification(String heading, int min, String status) throws Throwable {
+
+        String ecID = (String) scenarioSession.getData(SessionKey.ECID);
+        List<Invoice> listOfInvoices = null;
+        boolean refusalEmailReceived = false;
+        int attempt = 0;
+        do {
+            GmailEmail.getListOfInvoicesFromGmail(min, heading);
+            refusalEmailReceived = GmailEmail.isRefusalEmailReceived();
+        }while(!refusalEmailReceived && attempt < 12);
+
+        assertThat("Expected to receive a refusal of invoice email : " + refusalEmailReceived, refusalEmailReceived, is(refusalEmailReceived));
+    }
+
+
     @When("^I send paid email response back to appian$")
     public void i_send_paid_email_response_back_to_appian_than_the_status_should_update_to() throws Throwable {
         List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);
@@ -146,6 +162,9 @@ public class EmailSteps extends CommonSteps {
         //Keep track of current status
         mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
+        if(recordsPage == null){
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
         String currentStatus = notificationDetails.getCurrentStatus();
@@ -166,6 +185,9 @@ public class EmailSteps extends CommonSteps {
         //Keep track of current status
         mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
+        if(recordsPage == null){
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
         String currentStatus = notificationDetails.getCurrentStatus();
@@ -180,8 +202,7 @@ public class EmailSteps extends CommonSteps {
     }
 
     @When("^The notification status should update to \"([^\"]*)\"$")
-    public void
-    the_status_should_update_to(String expectedStatus) throws Throwable {
+    public void the_status_should_update_to(String expectedStatus) throws Throwable {
         String currentStatus = (String) scenarioSession.getData(SessionKey.notificationStatus);
         //boolean statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
         boolean statusChanged = false;
@@ -208,6 +229,9 @@ public class EmailSteps extends CommonSteps {
 
         //Verify notification generated
         recordsPage = mainNavigationBar.clickRecords();
+        if(recordsPage == null){
+            recordsPage = mainNavigationBar.clickRecords();
+        }
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);

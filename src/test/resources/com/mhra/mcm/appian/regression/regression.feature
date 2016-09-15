@@ -2,16 +2,30 @@
 Feature: As a user I need to quickly verify there is no regression issues
   So that I can trust the system
 
+
   @regression
-  Scenario Outline: Add a new banned substances with and without cas number
+  Scenario Outline: Verify audit log functions correctly
+    Given I am logged into appian as "<user>" user
+    When I go to the notifications page
+    And I filter by status "<statusFrom>"
+    When I update status of an existing notification to "<status>"
+    Then The notification status should update to "<status>"
+    And Verify audit log details "<status>,<details>"
+    Examples:
+      | user   | statusFrom | status   | details                                                               |
+      | super1 | Uploaded   | Unpaid   | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+ |
+      | super1 | Unpaid     | Uploaded | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+ |
+
+  @regression
+  Scenario Outline: ~Verify adding a new banned substances with and without cas number
     Given I am logged into appian as "<user>" user
     When I go to manage substance page
     And I add a substance "<substance>" with following details "<commaDelimitedDetails>"
     Then I should see the new substance in the manage substance page
     Examples:
-      | user | substance | commaDelimitedDetails                    |
-      | ipu1 | random    | banned=true,permissible=true,cas=true    |
-      | ipu1 | random    | banned=true,permissible=true,cas=true    |
+      | user | substance | commaDelimitedDetails                 |
+      | ipu1 | random    | banned=true,permissible=true,cas=true |
+      | ipu1 | random    | banned=true,permissible=true,cas=true |
 
   @regression
   Scenario: Verify error message is displayed when value are more than 100 or less than 0 for quality assurance
@@ -28,14 +42,14 @@ Feature: As a user I need to quickly verify there is no regression issues
 
 
   @regression
-  Scenario: Edit notification is only available to IPU super users
+  Scenario: Verify edit notification is only available to IPU super users
     Given I login to appian as "super1" user
     And I have notifications
     Then I should be able to edit notification
 
 
   @regression
-  Scenario: Create a new notification and update status to Exception
+  Scenario: Verify users can create a new notification and update status to Exception
     Given I am logged into appian as "super1" user
     And I create new notification with following data
       | type | 1 |
@@ -45,7 +59,7 @@ Feature: As a user I need to quickly verify there is no regression issues
 
 
   @regression
-  Scenario: Search for notification using the ecid and than submitter name
+  Scenario: Verify users can search for notification using the ecid and than submitter name
     Given I am logged into appian as "super1" user
     When I search for an existing notification by "ecid"
     Then I should see only 1 notification
@@ -54,7 +68,7 @@ Feature: As a user I need to quickly verify there is no regression issues
 
 
   @regression
-  Scenario Outline: POC example of invoice processing of type 1 2 and 3 notification with ingredient and toxicology report
+  Scenario Outline: Verify invoice processing of type 1 2 and 3 notification with ingredient and toxicology report
     Given I am logged into appian as "<user>" user
     When I create new notification with following data
       | type       | <type>       |
