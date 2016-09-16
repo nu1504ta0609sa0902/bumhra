@@ -138,7 +138,7 @@ public class GmailEmail {
                 Message message = messages[i];
                 Date sentDate = message.getSentDate();
                 String subject = message.getSubject();
-                System.out.println(subject);
+                //System.out.println(subject);
                 Address[] froms = message.getFrom();
 
                 for (Address from : froms) {
@@ -156,7 +156,7 @@ public class GmailEmail {
                                 System.out.println("Number of invoices : " + listOfInvoices.size());
                             }else if (isRecent && subject.contains("Refusal For Notification")){
                                 System.out.println("---------------------------------");
-                                System.out.println("Recent email received");
+                                System.out.println("Recent email received for : Refusal For Notification");
                                 System.out.println("---------------------------------");
                                 refusalEmailReceived = true;
                                 break;

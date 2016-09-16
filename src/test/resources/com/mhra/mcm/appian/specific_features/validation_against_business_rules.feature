@@ -29,7 +29,7 @@ Feature: The system shall automatically check against the business rules defined
     And Audit log displays correct status "<statusWithTCANumber>" user name "<user_name>" and comment
     And Verify audit log details "<statusWithTCANumber>,<details>"
     Examples:
-      | user | type | ingredient | user_name | statusWithTCANumber | batteryWattageLiquidVolume | details                                                  |
+      | user | type | ingredient | user_name | statusWithTCANumber | batteryWattageLiquidVolume | details                                                                       |
       | rdt1 | 1    | SUPPA1     |           | Unpaid              | 12                         | action=Update,user=Periodic Invoicing Process,comment=Docuemnt,timestamp=GMT+ |
 
 
@@ -67,10 +67,11 @@ Feature: The system shall automatically check against the business rules defined
     Then I receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min for "" notifications
     When I send paid email response back to appian
     Then I expect the notification status should be "Unpaid"
-    And I receive an refusal email with heading "Refusal For Notification" from appian in next 3 min for "" notifications
+    And I receive an refusal email with heading "Refusal For Notification" from appian in next 2 min for "" notifications
+    And The notification status should update to "<statusWithTCANumber>"
     Examples:
-      | user | type | ingredient | user_name | statusWithTCANumber | batteryWattageLiquidVolume | details                                                          |
-      | rdt1 | 1    | Vitamin    | RDT       | Failed              | 12                         | action=Failed,user=Appian Administrator,comment= ,timestamp=GMT+ |
-      | rdt1 | 1    | Healthy    | RDT       | Failed              | 12                         | action=Failed,user=Appian Administrator,comment= ,timestamp=GMT+ |
+      | user | type | ingredient | statusWithTCANumber | details                                                          |
+      | rdt1 | 1    | Vitamin    | Failed              | action=Failed,user=Appian Administrator,comment= ,timestamp=GMT+ |
+      | rdt1 | 1    | Healthy    | Failed              | action=Failed,user=Appian Administrator,comment= ,timestamp=GMT+ |
 
 
