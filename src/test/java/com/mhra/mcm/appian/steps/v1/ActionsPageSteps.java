@@ -52,9 +52,9 @@ public class ActionsPageSteps extends CommonSteps {
             do {
                 actionsPage = createNotification.clickCancel();
                 createNotification = actionsPage.clickUploadSampleNotification();
-                if(createNotification == null){
-                    createNotification = actionsPage.clickUploadSampleNotification();
-                }
+//                if(createNotification == null){
+//                    createNotification = actionsPage.clickUploadSampleNotification();
+//                }
                 actionsPage = createNotification.createRandomNotification(random);
                 isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
                 count++;
@@ -94,9 +94,9 @@ public class ActionsPageSteps extends CommonSteps {
             do {
                 actionsPage = createNotification.clickCancel();
                 createNotification = actionsPage.clickUploadSampleNotification();
-                if(createNotification == null){
-                    createNotification = actionsPage.clickUploadSampleNotification();
-                }
+//                if(createNotification == null){
+//                    createNotification = actionsPage.clickUploadSampleNotification();
+//                }
                 actionsPage = createNotification.createRandomNotification(random);
                 isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
                 count++;
@@ -136,9 +136,9 @@ public class ActionsPageSteps extends CommonSteps {
             do {
                 actionsPage = createNotification.clickCancel();
                 createNotification = actionsPage.clickUploadSampleNotification();
-                if(createNotification == null){
-                    createNotification = actionsPage.clickUploadSampleNotification();
-                }
+//                if(createNotification == null){
+//                    createNotification = actionsPage.clickUploadSampleNotification();
+//                }
                 actionsPage = createNotification.createRandomNotification(random);
                 isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
                 count++;
@@ -187,9 +187,9 @@ public class ActionsPageSteps extends CommonSteps {
                     do {
                         actionsPage = createNotification.clickCancel();
                         createNotification = actionsPage.clickUploadSampleNotification();
-                        if(createNotification == null){
-                            createNotification = actionsPage.clickUploadSampleNotification();
-                        }
+//                        if(createNotification == null){
+//                            createNotification = actionsPage.clickUploadSampleNotification();
+//                        }
                         actionsPage = createNotification.createRandomNotification(random);
                         isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
                         count++;

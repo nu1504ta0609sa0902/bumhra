@@ -138,7 +138,7 @@ public class GmailEmail {
                 Message message = messages[i];
                 Date sentDate = message.getSentDate();
                 String subject = message.getSubject();
-                //System.out.println(subject);
+                System.out.println(subject);
                 Address[] froms = message.getFrom();
 
                 for (Address from : froms) {
@@ -146,7 +146,7 @@ public class GmailEmail {
                     if (emailAddress != null && emailAddress.contains("appian")) {
 
                         boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
-                        if (isMessageReceivedToday && subject.contains(subjectHeading)) {
+                        if ((isMessageReceivedToday && subject.contains(subjectHeading)) || subject.contains("Refusal For Notification")) {
                             boolean isRecent = receivedInLast(min, sentDate);
                             if (isRecent && !subject.contains("Refusal For Notification")) {
                                 System.out.println("---------------------------------");
@@ -159,6 +159,7 @@ public class GmailEmail {
                                 System.out.println("Recent email received");
                                 System.out.println("---------------------------------");
                                 refusalEmailReceived = true;
+                                break;
                             }
                         } else {
                             //System.out.println("Message is old or not relevant" );

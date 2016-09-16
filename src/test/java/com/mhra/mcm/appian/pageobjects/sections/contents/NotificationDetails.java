@@ -47,7 +47,7 @@ public class NotificationDetails extends _Page {
     }
 
     public String getCurrentStatus() {
-        WaitUtils.waitForElementToBeClickable(driver, currentStatus, 5, false);
+        WaitUtils.waitForElementToBeClickable(driver, currentStatus, 10, false);
         return currentStatus.getText();
     }
 

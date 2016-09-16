@@ -40,33 +40,21 @@ public class ActionsPage extends _Page {
 
     public CreateNotification clickUploadSampleNotification() {
 
-        try {
-            WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 10, false);
-            uploadSampleNotification.click();
-            return new CreateNotification(driver);
-        } catch (Exception e) {
-            return null;
-        }
+        WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 10, false);
+        uploadSampleNotification.click();
+        return new CreateNotification(driver);
     }
 
     public ActionsPage generateStandardInvoices() {
-        try {
-            WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 10, false);
-            PageUtils.singleClick(driver, createStandardNotification);
-            return new ActionsPage(driver);
-        } catch (Exception e) {
-            return null;
-        }
+        WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 10, false);
+        PageUtils.singleClick(driver, createStandardNotification);
+        return new ActionsPage(driver);
     }
 
     public ActionsPage generateAnnualInvoices() {
-        try {
-            WaitUtils.waitForElementToBeClickable(driver, createAnnualInvoices, 10, false);
-            PageUtils.singleClick(driver, createAnnualInvoices);
-            return new ActionsPage(driver);
-        } catch (Exception e) {
-            return null;
-        }
+        WaitUtils.waitForElementToBeClickable(driver, createAnnualInvoices, 10, false);
+        PageUtils.singleClick(driver, createAnnualInvoices);
+        return new ActionsPage(driver);
     }
 
     public boolean isNotificationGeneratedSuccessfully() {
@@ -79,13 +67,9 @@ public class ActionsPage extends _Page {
     }
 
     public UpdateQAPercentage clickUpdateQAPercentage() {
-        try {
-            WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, 10, false);
-            PageUtils.doubleClick(driver, updateQAPercentage);
-            return new UpdateQAPercentage(driver);
-        } catch (Exception e) {
-            return null;
-        }
+        WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, 10, false);
+        PageUtils.doubleClick(driver, updateQAPercentage);
+        return new UpdateQAPercentage(driver);
     }
 
     public ManageSubstances clickManageSubstances() {

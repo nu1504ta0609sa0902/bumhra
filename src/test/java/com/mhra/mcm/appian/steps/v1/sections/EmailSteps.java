@@ -95,7 +95,7 @@ public class EmailSteps extends CommonSteps {
                 break;
             }else{
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
-                WaitUtils.nativeWait(1);
+                WaitUtils.nativeWait(5);
             }
             attempt++;
         }while(!foundInvoices && attempt < 12);
@@ -125,12 +125,15 @@ public class EmailSteps extends CommonSteps {
                 break;
             }else{
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
-                WaitUtils.nativeWait(1);
+                WaitUtils.nativeWait(5);
             }
             attempt++;
         }while(!foundInvoices && attempt < 12);
 
+        Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
+
         scenarioSession.putData(SessionKey.listOfInvoices, listOfInvoices);
+        scenarioSession.putData(SessionKey.invoice, invoice);
 
     }
 
@@ -145,9 +148,15 @@ public class EmailSteps extends CommonSteps {
         do {
             GmailEmail.getListOfInvoicesFromGmail(min, heading);
             refusalEmailReceived = GmailEmail.isRefusalEmailReceived();
+
+            if(!refusalEmailReceived){
+                //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
+                WaitUtils.nativeWait(5);
+                attempt++;
+            }
         }while(!refusalEmailReceived && attempt < 12);
 
-        assertThat("Expected to receive a refusal of invoice email : " + refusalEmailReceived, refusalEmailReceived, is(refusalEmailReceived));
+        assertThat("Expected to receive a refusal of invoice email : " + refusalEmailReceived, refusalEmailReceived, is(true));
     }
 
 
