@@ -56,6 +56,7 @@ public class GmailEmail {
     private static final String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
     private static List<Invoice> listOfInvoices = new ArrayList<>();
     private static boolean refusalEmailReceived;
+    private static boolean withdrawalEmailReceived;
 
     public static void main(String[] args) {
 
@@ -146,7 +147,8 @@ public class GmailEmail {
                     if (emailAddress != null && emailAddress.contains("appian")) {
 
                         boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
-                        if ((isMessageReceivedToday && subject.contains(subjectHeading)) || subject.contains("Refusal For Notification")) {
+                        if ((isMessageReceivedToday && subject.contains(subjectHeading)) || subject.contains("Refusal For Notification")
+                                || subject.contains("Withdrawal")) {
                             boolean isRecent = receivedInLast(min, sentDate);
                             if (isRecent && !subject.contains("Refusal For Notification")) {
                                 System.out.println("---------------------------------");
@@ -159,6 +161,12 @@ public class GmailEmail {
                                 System.out.println("Recent email received for : Refusal For Notification");
                                 System.out.println("---------------------------------");
                                 refusalEmailReceived = true;
+                                break;
+                            } else if(isRecent && subject.contains("Refusal For Notification")){
+                                System.out.println("---------------------------------");
+                                System.out.println("Recent email received for : Withdrawal For Notification");
+                                System.out.println("---------------------------------");
+                                withdrawalEmailReceived = true;
                                 break;
                             }
                         } else {
@@ -300,10 +308,6 @@ public class GmailEmail {
         fileOut.close();
 
         return temp2;
-    }
-
-    public static boolean isRefusalEmailReceived(){
-        return refusalEmailReceived;
     }
 
     private static String getTodaysDate(int format) {
@@ -453,4 +457,13 @@ public class GmailEmail {
     }
 
 
+    public static boolean isWithdrawalEmailReceived() {
+        return withdrawalEmailReceived;
+    }
+
+
+
+    public static boolean isRefusalEmailReceived(){
+        return refusalEmailReceived;
+    }
 }

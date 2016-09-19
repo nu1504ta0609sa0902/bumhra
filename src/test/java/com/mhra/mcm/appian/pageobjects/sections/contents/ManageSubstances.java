@@ -99,7 +99,7 @@ public class ManageSubstances extends _Page {
 
     public boolean verifyNewSubstanceAdded(String substance, boolean isBanned) {
         boolean found = false;
-        WaitUtils.waitForElementToBeClickable(driver, searchSubstanceName, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, searchSubstanceName, 10);
         searchSubstanceName.sendKeys(substance);
 
         //This should not be necessary

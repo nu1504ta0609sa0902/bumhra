@@ -3,6 +3,7 @@ package com.mhra.mcm.appian.steps.v1;
 import java.util.Map;
 
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
+import com.mhra.mcm.appian.pageobjects.ActionsPage;
 import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.AssertUtils;
@@ -74,17 +75,14 @@ public class ActionsPageSteps extends CommonSteps {
 
         Notification random = NotificationUtils.updateDefaultNotification(dataValues);
         String ecId = random.ecIDNumber;
-        log.info("Create Notification With ECID : " + random.ecIDNumber);
+        log.warn("Create Notification With ECID : " + random.ecIDNumber);
 
         //UPLOAD NOTIFICATION
         actionsPage = mainNavigationBar.clickActions();
         if(actionsPage == null){
-            actionsPage = mainNavigationBar.clickActions();
+            actionsPage = new ActionsPage(driver);
         }
         createNotification = actionsPage.clickUploadSampleNotification();
-        if(createNotification == null){
-            createNotification = actionsPage.clickUploadSampleNotification();
-        }
         actionsPage = createNotification.createRandomNotification(random);
 
         //Retry if fields are not correctly filled
@@ -94,9 +92,6 @@ public class ActionsPageSteps extends CommonSteps {
             do {
                 actionsPage = createNotification.clickCancel();
                 createNotification = actionsPage.clickUploadSampleNotification();
-//                if(createNotification == null){
-//                    createNotification = actionsPage.clickUploadSampleNotification();
-//                }
                 actionsPage = createNotification.createRandomNotification(random);
                 isInCorrectPage = actionsPage.isNotificationGeneratedSuccessfully();
                 count++;
@@ -106,8 +101,8 @@ public class ActionsPageSteps extends CommonSteps {
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, random);
-        //log.debug("Notification Details : \n" + random);
-        log.info("Created Notification With ECID : " + random.ecIDNumber);
+        //log.info("Notification Details : \n" + random);
+        log.warn("Created Notification With ECID : " + random.ecIDNumber);
     }
 
 
@@ -226,7 +221,7 @@ public class ActionsPageSteps extends CommonSteps {
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
-        //log.debug("Notification Details : \n" + random);
+        //log.info("Notification Details : \n" + random);
         log.info("Created Notification With ECID : " + ecId);
     }
 
@@ -253,7 +248,7 @@ public class ActionsPageSteps extends CommonSteps {
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
-        //log.debug("Notification Details : \n" + random);
+        //log.info("Notification Details : \n" + random);
         log.info("Created Notification With ECID : " + ecId);
     }
 

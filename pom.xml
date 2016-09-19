@@ -24,11 +24,11 @@
     </properties>
 
     <build>
-        <!--<resources>-->
-        <!--<resource>-->
-        <!--<directory>src/test/resources</directory>-->
-        <!--</resource>-->
-        <!--</resources>-->
+        <resources>
+            <resource>
+                <directory>src/test/resources</directory>
+            </resource>
+        </resources>
 
         <plugins>
             <plugin>
@@ -39,6 +39,7 @@
                     <!--<argLine>-Dcurrent.browser=ie</argLine>-->
                     <includes>
                         <include>**/*Test.java</include>
+                        <include>src/test/resources/log4j.xml</include>
                     </includes>
                 </configuration>
             </plugin>

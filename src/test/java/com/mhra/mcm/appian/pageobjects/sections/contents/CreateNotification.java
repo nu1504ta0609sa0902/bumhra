@@ -256,9 +256,11 @@ public class CreateNotification extends _Page {
         PageUtils.enterDate(driver, startDate, summary.startDate);
         ecId.click();
         ecId.sendKeys(summary.ecId);
-        PageUtils.selectByIndex(submissionType, summary.submissionType);
-        PageUtils.selectByIndex(status, summary.status);
         PageUtils.enterDate(driver, endDate, summary.endDate);
+        PageUtils.selectByIndex(submissionType, summary.submissionType);
+
+        if(!summary.submissionType.equals("4"))
+        PageUtils.selectByIndex(status, summary.status);
     }
 
     public ActionsPage clickCancel() {

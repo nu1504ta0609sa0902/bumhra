@@ -14,10 +14,10 @@ Feature: As a user I need to quickly verify there is no regression issues
     Examples:
       | user   | statusFrom | status   | details                                                               |
       | super1 | Uploaded   | Unpaid   | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+ |
-      | super1 | Unpaid     | Uploaded | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+ |
+      #| super1 | Unpaid     | Uploaded | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+ |
 
   @regression
-  Scenario Outline: ~Verify adding a new banned substances with and without cas number
+  Scenario Outline: Verify adding a new banned substances with and without cas number
     Given I am logged into appian as "<user>" user
     When I go to manage substance page
     And I add a substance "<substance>" with following details "<commaDelimitedDetails>"
@@ -25,7 +25,7 @@ Feature: As a user I need to quickly verify there is no regression issues
     Examples:
       | user | substance | commaDelimitedDetails                 |
       | ipu1 | random    | banned=true,permissible=true,cas=true |
-      | ipu1 | random    | banned=true,permissible=true,cas=true |
+      #| ipu1 | random    | banned=true,permissible=true,cas=false |
 
   @regression
   Scenario: Verify error message is displayed when value are more than 100 or less than 0 for quality assurance
@@ -49,6 +49,15 @@ Feature: As a user I need to quickly verify there is no regression issues
 
 
   @regression
+  Scenario: Verify users can search for notification using the ecid and than submitter name
+    Given I am logged into appian as "super1" user
+    When I search for an existing notification by "ecid"
+    Then I should see only 1 notification
+    When I search for the stored submitter name
+    Then I should see 1 or more notification
+
+
+  @regression
   Scenario: Verify users can create a new notification and update status to Exception
     Given I am logged into appian as "super1" user
     And I create new notification with following data
@@ -56,15 +65,6 @@ Feature: As a user I need to quickly verify there is no regression issues
     Then I should see the stored notification
     And I update status of stored notification to "Exception"
     Then I should see the notification displayed in exception page
-
-
-  @regression
-  Scenario: Verify users can search for notification using the ecid and than submitter name
-    Given I am logged into appian as "super1" user
-    When I search for an existing notification by "ecid"
-    Then I should see only 1 notification
-    When I search for the stored submitter name
-    Then I should see 1 or more notification
 
 
   @regression

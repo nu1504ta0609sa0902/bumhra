@@ -160,6 +160,28 @@ public class EmailSteps extends CommonSteps {
     }
 
 
+    @Then("^I receive an withdrawal email with heading \"([^\"]*)\" from appian in next (.*) min for \"([^\"]*)\" notifications$")
+    public void iShouldReceiveAWithdrawalEmailButItShouldNotContainMyNotification(String heading, int min, String status) throws Throwable {
+
+        String ecID = (String) scenarioSession.getData(SessionKey.ECID);
+        List<Invoice> listOfInvoices = null;
+        boolean withdrawalEmailReceived = false;
+        int attempt = 0;
+        do {
+            GmailEmail.getListOfInvoicesFromGmail(min, heading);
+            withdrawalEmailReceived = GmailEmail.isWithdrawalEmailReceived();
+
+            if(!withdrawalEmailReceived){
+                //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
+                WaitUtils.nativeWait(5);
+                attempt++;
+            }
+        }while(!withdrawalEmailReceived && attempt < 12);
+
+        assertThat("Expected to receive a WITHDRAWAL of invoice email : " + withdrawalEmailReceived, withdrawalEmailReceived, is(true));
+    }
+
+
     @When("^I send paid email response back to appian$")
     public void i_send_paid_email_response_back_to_appian_than_the_status_should_update_to() throws Throwable {
         List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);

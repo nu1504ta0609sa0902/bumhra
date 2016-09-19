@@ -83,6 +83,17 @@ public class LoginPageSteps extends CommonSteps {
         actionsPage = actionsPage.generateAnnualInvoices();
     }
 
+    @When("^I login as \"([^\"]*)\" and generate a withdrawal invoice$")
+    public void i_login_as_and_generate_a_withdrwal_invoice(String username) throws Throwable {
+        mainNavigationBar = loginPage.reloginUsing(username);
+        actionsPage = mainNavigationBar.clickActions();
+        if(actionsPage == null){
+            actionsPage = mainNavigationBar.clickActions();
+        }
+        //only FINANCE users should see this option
+        actionsPage = actionsPage.generateWithdrawalInvoice();
+    }
+
     @When("^I generate a standard invoice$")
     public void i_generate_a_standard_invoice() throws Throwable {
         actionsPage = mainNavigationBar.clickActions();

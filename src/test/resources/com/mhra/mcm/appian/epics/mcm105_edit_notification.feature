@@ -12,7 +12,7 @@ Feature: As an IPU super user, I want the ability to edit notification
     And I have notifications
     Then I should not be able to edit notification
     Examples:
-      | user
+      | user  |
       | ipu1  |
       | fin1  |
       | rdt1  |
@@ -27,7 +27,7 @@ Feature: As an IPU super user, I want the ability to edit notification
     Then I should see the submitter name containing "Test1234"
 
 
-  @mcm-107
+  @mcm-107 @ignore
   Scenario Outline: Add new ingredient to existing notification
     Given I am logged into appian as "<user>" user
     When I go to the notifications page

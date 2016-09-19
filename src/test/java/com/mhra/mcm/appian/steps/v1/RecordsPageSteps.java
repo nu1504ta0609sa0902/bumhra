@@ -169,6 +169,7 @@ public class RecordsPageSteps extends CommonSteps {
         notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
         assertThat("Expected header to contains EC ID : " + expectedNotificationID, contains, is(equalTo(true)));
+        log.warn("Notification verified with ECID : " + expectedNotificationID);
 
         //Add a toxicology report
         Notification random = NotificationUtils.updateDefaultNotification(null);
@@ -190,6 +191,7 @@ public class RecordsPageSteps extends CommonSteps {
         notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
         assertThat("Expected header to contains EC ID : " + expectedNotificationID, contains, is(equalTo(true)));
+        log.warn("Notification verified with ECID : " + expectedNotificationID);
     }
 
     @Then("^I should see only (.*) notification$")
@@ -227,7 +229,7 @@ public class RecordsPageSteps extends CommonSteps {
 
         recordsPage = mainNavigationBar.clickRecords();
         if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
+            recordsPage = new RecordsPage(driver);
         }
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(ecId, 5);

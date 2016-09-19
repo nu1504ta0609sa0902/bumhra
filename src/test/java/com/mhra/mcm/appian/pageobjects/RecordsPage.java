@@ -85,7 +85,7 @@ public class RecordsPage extends _Page {
     }
 
     public RecordsPage clickNotificationsLink() {
-        WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 20, false);
+        WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 20);
         PageUtils.singleClick(driver, notificationsLink);
         //notificationsLink.click();
         return new RecordsPage(driver);
