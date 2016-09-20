@@ -1,8 +1,10 @@
 package com.mhra.mcm.appian.pageobjects.sections.contents;
 
+import com.mhra.mcm.appian.pageobjects.ActionsPage;
 import com.mhra.mcm.appian.pageobjects._Page;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,13 +49,7 @@ public class UpdateQAPercentage extends _Page {
             alertYes.click();
         else
             alertNo.click();
-//        WaitUtils.waitForAlert(driver, 5, false);
-//        Alert alert = driver.switchTo().alert();
-//        if(accept){
-//            alert.accept();
-//        }else{
-//            alert.dismiss();
-//        }
+        WaitUtils.nativeWait(1);
     }
 
     public boolean isErrorMessageCorrect(String expectedMessage) {
@@ -63,8 +59,8 @@ public class UpdateQAPercentage extends _Page {
     }
 
     public boolean isQAPercentageCorrect(String expectedQAPercentage) {
-        WaitUtils.waitForElementToBeClickable(driver, percentage, 5, false);
-        String currentQAPercentage = percentage.getText();
+        WaitUtils.waitForElementToBeClickable(driver, percentage, 5);
+        String currentQAPercentage = WaitUtils.getText(percentage);
         boolean matched = currentQAPercentage.equals(expectedQAPercentage);
         return matched;
     }

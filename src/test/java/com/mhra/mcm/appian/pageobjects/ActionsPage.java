@@ -70,8 +70,8 @@ public class ActionsPage extends _Page {
     }
 
     public UpdateQAPercentage clickUpdateQAPercentage() {
-        WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, 15);
-        PageUtils.doubleClick(driver, updateQAPercentage);
+        WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, 15, false);
+        PageUtils.singleClick(driver, updateQAPercentage);
         return new UpdateQAPercentage(driver);
     }
 

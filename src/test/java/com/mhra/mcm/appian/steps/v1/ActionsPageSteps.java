@@ -255,13 +255,16 @@ public class ActionsPageSteps extends CommonSteps {
 
     @Given("^I update qa percentage to \"([^\"]*)\"$")
     public void i_update_qa_percentage_to(String qaPercentage) throws Throwable {
-        actionsPage = mainNavigationBar.clickActions();
-        if(actionsPage == null){
-            actionsPage = mainNavigationBar.clickActions();
+        if(qaPercentage.equals("") || qaPercentage.equals("random")){
+            qaPercentage = RandomDataUtils.getSimpleRandomNumberBetween(10,50);
         }
+
+        actionsPage = mainNavigationBar.clickActions();
         updateQAPercentage = actionsPage.clickUpdateQAPercentage();
         updateQAPercentage = updateQAPercentage.setQAPercentage(qaPercentage);
         updateQAPercentage.acceptDialog(true);
+
+        scenarioSession.putData(SessionKey.qaPercentageValue, qaPercentage);
     }
 
 
@@ -273,10 +276,11 @@ public class ActionsPageSteps extends CommonSteps {
 
     @Then("^I should see qa percentage updated to \"([^\"]*)\"$")
     public void i_should_see_qa_percentage_updated_to(String expectedQAPercentage) throws Throwable {
-        actionsPage = mainNavigationBar.clickActions();
-        if(actionsPage == null){
-            actionsPage = mainNavigationBar.clickActions();
+        if(expectedQAPercentage.equals("") || expectedQAPercentage.equals("random")){
+            expectedQAPercentage = (String) scenarioSession.getData(SessionKey.qaPercentageValue);
         }
+
+        actionsPage = new ActionsPage(driver);
         updateQAPercentage = actionsPage.clickUpdateQAPercentage();
         boolean correct = updateQAPercentage.isQAPercentageCorrect(expectedQAPercentage);
         assertThat("QA Percentage should be updated to : " + expectedQAPercentage, correct, is(true));

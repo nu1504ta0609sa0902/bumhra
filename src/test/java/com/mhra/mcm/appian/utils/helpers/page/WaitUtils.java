@@ -42,11 +42,11 @@ public class WaitUtils {
         return maxTimeToWait;
     }
 
-    public static String getText(WebElement submitterName) {
-        submitterName.click();
-        String existingName = submitterName.getText();
+    public static String getText(WebElement element) {
+        element.click();
+        String existingName = element.getText();
         if(existingName.equals(""))
-            existingName = submitterName.getAttribute("value");
+            existingName = element.getAttribute("value");
         return existingName;
     }
 

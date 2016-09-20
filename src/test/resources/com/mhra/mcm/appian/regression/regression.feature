@@ -12,9 +12,10 @@ Feature: As a user I need to quickly verify there is no regression issues
     Then The notification status should update to "<status>"
     And Verify audit log details "<status>,<details>"
     Examples:
-      | user   | statusFrom | status   | details                                                               |
-      | super1 | Uploaded   | Unpaid   | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+ |
+      | user   | statusFrom | status | details                                                               |
+      | super1 | Uploaded   | Unpaid | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+ |
       #| super1 | Unpaid     | Uploaded | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+ |
+
 
   @regression
   Scenario Outline: Verify adding a new banned substances with and without cas number
@@ -37,8 +38,8 @@ Feature: As a user I need to quickly verify there is no regression issues
   @regression
   Scenario: Verify quality assurance is updated successfully
     Given I am logged into appian as "ipumanager1" user
-    And I update qa percentage to "1"
-    Then I should see qa percentage updated to "1"
+    And I update qa percentage to "random"
+    Then I should see qa percentage updated to "random"
 
 
   @regression
@@ -67,7 +68,7 @@ Feature: As a user I need to quickly verify there is no regression issues
     Then I should see the notification displayed in exception page
 
 
-  @regression
+  @regression @ignore
   Scenario Outline: Verify invoice processing of type 1 2 and 3 notification with ingredient and toxicology report
     Given I am logged into appian as "<user>" user
     When I create new notification with following data

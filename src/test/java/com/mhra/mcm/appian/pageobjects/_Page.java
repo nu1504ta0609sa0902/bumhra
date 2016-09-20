@@ -22,7 +22,7 @@ public class _Page {
     public _Page(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        log.info("Page : " + this.getClass().getCanonicalName());
+        //log.info("Page : " + this.getClass().getCanonicalName());
     }
 
     public WebDriver getDriver() {

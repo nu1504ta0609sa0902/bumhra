@@ -70,11 +70,12 @@ Feature: Each notification will have a fee associated with it. No processing of 
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
       | type       | <type>       |
-    #  | ingredient | <ingredient> |
-    #And I attach a toxicology report for "<ingredient>"
+    Then I should see the stored notification with status set to "<status>"
     When I login as "fin1" and generate a standard invoice
-    Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<price>" for the stored notification
+    Then I receive an refusal email with heading "<string>" from appian in next <string> min for "<string>" notifications
+    #Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<price>" for the stored notification
+    Then email
     Examples:
       | user | type | price | status | ingredient |
-      | rdt1 | 5    | 150   | Paid   | SUPPA1     |
+      | rdt1 | 5    | 150   | Ready for Invoicing   | SUPPA1     |
       #| rdt1 | 7    | 150   | Paid   | SUPPA1     |

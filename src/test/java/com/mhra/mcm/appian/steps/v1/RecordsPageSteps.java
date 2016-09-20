@@ -282,9 +282,6 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I search for the stored submitter name$")
     public void i_search_for_the_stored_submitter_name() throws Throwable {
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
-        }
         recordsPage = recordsPage.clickNotificationsLink();
 
         String submitter = (String) scenarioSession.getData(SessionKey.submitter);

@@ -97,8 +97,8 @@ public class MainNavigationBar extends _Page {
 
     public ActionsPage clickActions() {
         //try {
-            WaitUtils.waitForElementToBeClickable(driver, actions, 30, false);
-            PageUtils.doubleClick(driver, actions);
+            WaitUtils.waitForElementToBeClickable(driver, actions, 30);
+            PageUtils.singleClick(driver, actions);
             //actions.click();
             return new ActionsPage(driver);
 //        } catch (Exception e) {
