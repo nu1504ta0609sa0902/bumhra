@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 import com.mhra.mcm.appian.pageobjects.sections.contents.*;
 import com.mhra.mcm.appian.utils.helpers.datadriven.ExcelUtils;
 import com.mhra.mcm.appian.utils.helpers.others.NetworkUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,8 @@ public class CommonSteps {
 
     @Value("${base.url}")
     public String baseUrl;
+    @Value("${current.browser}")
+    public String currentBrowser;
 
     @Autowired
     public WebDriver driver;
@@ -105,7 +109,8 @@ public class CommonSteps {
                 quit();
             }
         }else{
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            WaitUtils.setImplicitWaits(driver);
+            PageUtils.setBrowserZoom(driver, currentBrowser);
         }
     }
 

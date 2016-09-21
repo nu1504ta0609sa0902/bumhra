@@ -102,4 +102,15 @@ public class PageUtils {
             existingName = element.getAttribute("value");
         return existingName;
     }
+
+
+
+    public static void setBrowserZoom(WebDriver driver, String currentBrowser) {
+        String selectedProfile = System.getProperty("current.browser");
+        System.out.println(currentBrowser);
+        if(currentBrowser!=null && currentBrowser.equals("ie")){
+            Actions action = new Actions(driver);
+            action.keyDown(Keys.CONTROL).sendKeys(String.valueOf(0)).perform();
+        }
+    }
 }

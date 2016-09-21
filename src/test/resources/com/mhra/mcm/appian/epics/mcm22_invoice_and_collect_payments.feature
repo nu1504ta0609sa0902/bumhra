@@ -65,17 +65,17 @@ Feature: Each notification will have a fee associated with it. No processing of 
 #      | 4    | Ready for Invoicing | Unpaid             | Paid              | 150             | Uploaded      |random                  |
 
 
-  @mcm-36
-  Scenario Outline: Invoices should not be created for submission type 5 and type 7
+  @mcm-36 @wip
+  Scenario Outline: Invoices should not be created for submission type 4 type 5 and type 7
     Given I am logged into appian as "<user>" user
-    And I create new notification with following data
-      | type       | <type>       |
+    And I select a previous notification with ecid "<previousECID>"
+    When I create new notification with following data
+      | type | <type> |
     Then I should see the stored notification with status set to "<status>"
     When I login as "fin1" and generate a standard invoice
-    Then I receive an refusal email with heading "<string>" from appian in next <string> min for "<string>" notifications
-    #Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<price>" for the stored notification
-    Then email
+    Then I should receive no invoice for stored notification from appian in next 2 min for "" notifications
     Examples:
-      | user | type | price | status | ingredient |
-      | rdt1 | 5    | 150   | Ready for Invoicing   | SUPPA1     |
-      #| rdt1 | 7    | 150   | Paid   | SUPPA1     |
+      | user | type | price | status              | ingredient | previousECID |
+      | rdt1 | 5    | 150   | Ready for Invoicing | SUPPA1     |              |
+      #| rdt1 | 4    | 150   | Paid   | SUPPA1     | random |
+      #| rdt1 | 7    | 150   | Paid   | SUPPA1     | random |

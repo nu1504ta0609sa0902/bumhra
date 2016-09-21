@@ -60,7 +60,7 @@ public class NotificationUtils {
                     notification.getSubmitter().name = sn;
                 }
             }
-            if (ingredient != null && !ingredient.trim().equals("")) {
+            if (ingredient != null && !ingredient.trim().equals("") && !ingredient.trim().equals("stored")) {
                 notification.getIngredient().ingredientName = ingredient;
             }
 
@@ -511,10 +511,14 @@ public class NotificationUtils {
      */
     public static Notification updateOtherDetails(ScenarioSession scenarioSession, Notification random) {
         String prevEcid = (String) scenarioSession.getData(SessionKey.previousECID);
+        String storedIngredient = (String) scenarioSession.getData(SessionKey.substance);
         if(prevEcid==null || !prevEcid.equals("")){
             random.getSummary().previousEcId = prevEcid;
         }
 
+        if(storedIngredient!=null && !storedIngredient.equals("")){
+            random.getIngredient().ingredientName = storedIngredient;
+        }
         return random;
     }
 }

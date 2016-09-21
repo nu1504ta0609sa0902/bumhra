@@ -76,9 +76,13 @@ public class ActionsPage extends _Page {
     }
 
     public ManageSubstances clickManageSubstances() {
-        WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 15, false);
-        PageUtils.doubleClick(driver, manageSubstances);
-        return new ManageSubstances(driver);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 15, false);
+            PageUtils.doubleClick(driver, manageSubstances);
+            return new ManageSubstances(driver);
+        }catch (Exception e){
+            return null;
+        }
     }
 
     public ActionsPage generateWithdrawalInvoice() {

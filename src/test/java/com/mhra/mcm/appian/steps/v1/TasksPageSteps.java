@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
+import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
@@ -32,10 +33,9 @@ public class TasksPageSteps extends CommonSteps {
         boolean contains = false;
         int count = 0;
         do {
+            mainNavigationBar = new MainNavigationBar(driver);
             tasksPage = mainNavigationBar.clickTasks();
-            if(tasksPage == null){
-                tasksPage = mainNavigationBar.clickTasks();
-            }
+
             tasksPage = tasksPage.clickTaskWithSubmitterName(submitterName);
             contains = tasksPage.isCorrectECID(data.ecIDNumber);
             count++;
@@ -53,10 +53,9 @@ public class TasksPageSteps extends CommonSteps {
         boolean contains = false;
         int count = 0;
         do {
+            mainNavigationBar = new MainNavigationBar(driver);
             tasksPage = mainNavigationBar.clickTasks();
-            if(tasksPage == null){
-                tasksPage = mainNavigationBar.clickTasks();
-            }
+
             tasksPage = tasksPage.clickTaskWithSubmitterName(submitterName);
             contains = tasksPage.isCorrectECID(ecId);
             count++;

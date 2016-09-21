@@ -201,9 +201,7 @@ public class EmailSteps extends CommonSteps {
         //Keep track of current status
         mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
-        }
+
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
         String currentStatus = notificationDetails.getCurrentStatus();
@@ -224,9 +222,7 @@ public class EmailSteps extends CommonSteps {
         //Keep track of current status
         mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
-        }
+
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
         String currentStatus = notificationDetails.getCurrentStatus();
@@ -267,6 +263,7 @@ public class EmailSteps extends CommonSteps {
         String expectedNotificationID = data.ecIDNumber;
 
         //Verify notification generated
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);

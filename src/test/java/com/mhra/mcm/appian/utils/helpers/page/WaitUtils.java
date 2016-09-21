@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by TPD_Auto on 15/07/2016.
  */
@@ -94,5 +96,9 @@ public class WaitUtils {
         if(overrideTimeSpecified)
             maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.alertIsPresent());
+    }
+
+    public static void setImplicitWaits(WebDriver driver) {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 }

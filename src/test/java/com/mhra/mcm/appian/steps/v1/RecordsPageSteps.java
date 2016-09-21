@@ -3,6 +3,7 @@ package com.mhra.mcm.appian.steps.v1;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import cucumber.api.java.eo.Se;
@@ -29,10 +30,9 @@ public class RecordsPageSteps extends CommonSteps {
 
     @And("^I have notifications$")
     public void i_have_notifications() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
-        }
+
         recordsPage = recordsPage.clickNotificationsLink();
         boolean hasNotifications = recordsPage.hasNotifications();
         assertThat(hasNotifications, is(equalTo(true)));
@@ -67,6 +67,7 @@ public class RecordsPageSteps extends CommonSteps {
     @Given("^I goto notifications page and update status of an existing notification to \"([^\"]*)\"$")
     public void i_goto_notifications_page_and_update_status_of_existing_notification_to(String updatedStatus) throws Throwable {
         //Select an existing notification from the page
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = recordsPage.getARandomNotificationWithStatusNotEqualTo(updatedStatus, 10);
@@ -96,10 +97,9 @@ public class RecordsPageSteps extends CommonSteps {
     @Given("^I select notification with status \"([^\"]*)\" and update status to \"([^\"]*)\"$")
     public void i_update_status_of_existing_notification_to(String status, String updatedStatus) throws Throwable {
         //Select an existing notification from the page
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
-        }
+
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = recordsPage.getARandomNotificationWithStatusEqualTo(status, 50);
         log.info("ECID selected : " + ecid);
@@ -126,6 +126,7 @@ public class RecordsPageSteps extends CommonSteps {
     @Given("^I update status of stored notification to \"([^\"]*)\"$")
     public void i_update_status_of_stored_notification_to(String updatedStatus) throws Throwable {
         //Select an existing notification from the page
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = (String) scenarioSession.getData(SessionKey.ECID);
@@ -155,10 +156,9 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^I have a notification \"([^\"]*)\" generated$")
     public void i_should_see_the_notification_generated(String expectedNotificationID) throws Throwable {
         scenarioSession.putData(SessionKey.ECID, expectedNotificationID);
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
-        }
+
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
@@ -175,10 +175,9 @@ public class RecordsPageSteps extends CommonSteps {
 
     @Then("^I should see the stored notification$")
     public void i_should_see_the_stored_notification() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
-        }
+
         recordsPage = recordsPage.clickNotificationsLink();
 
         String expectedNotificationID = (String) scenarioSession.getData(SessionKey.ECID);
@@ -228,6 +227,7 @@ public class RecordsPageSteps extends CommonSteps {
         Notification notification = (Notification) scenarioSession.getData(SessionKey.storedNotification);
         String ecId = notification.ecIDNumber;
 
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(ecId, 5);
@@ -240,10 +240,8 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I search for an existing notification by \"([^\"]*)\" for text \"([^\"]*)\"$")
     public void i_search_for_an_existing_notification_by(String searchType, String searchTextTerm) throws Throwable {
 
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
-        }
         recordsPage = recordsPage.clickNotificationsLink();
 
         if (searchType.trim().toLowerCase().equals("ecid")) {
@@ -294,10 +292,9 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I search for an existing notification by partial ecid \"([^\"]*)\"$")
     public void i_search_for_an_existing_notification_by_partial(String searchType) throws Throwable {
 
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
-        }
+
         recordsPage = recordsPage.clickNotificationsLink();
 
         if (searchType.trim().toLowerCase().equals("ecid")) {
@@ -314,6 +311,7 @@ public class RecordsPageSteps extends CommonSteps {
 
     @When("^I search for the stored submitter name$")
     public void i_search_for_the_stored_submitter_name() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
 
@@ -327,6 +325,7 @@ public class RecordsPageSteps extends CommonSteps {
 
     @When("^I go to the notifications page$")
     public void i_go_to_the_notifications_page() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
     }
@@ -443,6 +442,7 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^I view a random notification$")
     public void i_view_random_notification() throws Throwable {
 
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = recordsPage.getARandomNotification(50);
@@ -455,6 +455,7 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^I select a previous notification with ecid \"([^\"]*)\"$")
     public void i_view_random_notification_with_ecid(String prevID) throws Throwable {
 
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = prevID;
@@ -471,6 +472,7 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^I select a previous notification with ecid \"([^\"]*)\" and status \"([^\"]*)\"$")
     public void i_view_random_notification(String prevID, String status) throws Throwable {
 
+        mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = prevID;

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects.ActionsPage;
+import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.AssertUtils;
@@ -34,10 +35,8 @@ public class ActionsPageSteps extends CommonSteps {
 
     @Given("^I create new notification$")
     public void i_create_a_new_notification() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
         actionsPage = mainNavigationBar.clickActions();
-        if(actionsPage == null){
-            actionsPage = mainNavigationBar.clickActions();
-        }
         createNotification = actionsPage.clickUploadSampleNotification();
         if(createNotification == null){
             createNotification = actionsPage.clickUploadSampleNotification();
@@ -79,6 +78,7 @@ public class ActionsPageSteps extends CommonSteps {
         log.warn("Create Notification With ECID : " + random.ecIDNumber);
 
         //UPLOAD NOTIFICATION
+        mainNavigationBar = new MainNavigationBar(driver);
         actionsPage = mainNavigationBar.clickActions();
         createNotification = actionsPage.clickUploadSampleNotification();
         actionsPage = createNotification.createRandomNotification(random);
@@ -112,10 +112,9 @@ public class ActionsPageSteps extends CommonSteps {
         log.info("Create Notification With ECID : " + ecId);
 
         //UPLOAD NOTIFICATION
+        mainNavigationBar = new MainNavigationBar(driver);
         actionsPage = mainNavigationBar.clickActions();
-        if(actionsPage == null){
-            actionsPage = mainNavigationBar.clickActions();
-        }
+
         createNotification = actionsPage.clickUploadSampleNotification();
         if(createNotification == null){
             createNotification = actionsPage.clickUploadSampleNotification();
@@ -142,10 +141,9 @@ public class ActionsPageSteps extends CommonSteps {
 
         //Add a toxicology report
         if (createNotification.ingredientAdded) {
+            mainNavigationBar = new MainNavigationBar(driver);
             recordsPage = mainNavigationBar.clickRecords();
-            if(recordsPage == null){
-                recordsPage = mainNavigationBar.clickRecords();
-            }
+
             recordsPage = recordsPage.clickNotificationsLink();
             notificationDetails = recordsPage.clickNotificationNumber(ecId, 5);
 
@@ -162,10 +160,9 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_create_a_new_notification(int numberOfNotifications) throws Throwable {
         for (int x = 0; x < numberOfNotifications; x++) {
             try {
+                mainNavigationBar = new MainNavigationBar(driver);
                 actionsPage = mainNavigationBar.clickActions();
-                if(actionsPage == null){
-                    actionsPage = mainNavigationBar.clickActions();
-                }
+
                 createNotification = actionsPage.clickUploadSampleNotification();
                 if(createNotification == null){
                     createNotification = actionsPage.clickUploadSampleNotification();
@@ -210,12 +207,6 @@ public class ActionsPageSteps extends CommonSteps {
         log.info("Create Notification With ECID : " + ecId);
         log.info("XML Data File : " + xmlDataFileLocation);
 
-        //UPLOAD XML NOTIFICATION Data
-        //actionsPage = mainNavigationBar.clickActions();
-        //createNotification = actionsPage.clickUploadSampleNotification();
-        //actionsPage = createNotification.uploadXMLNotification(xmlDataFileLocation);
-        //actionsPage.isInCorrectPage();
-
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
@@ -237,12 +228,6 @@ public class ActionsPageSteps extends CommonSteps {
         log.info("Create Notification With ECID : " + ecId);
         log.info("XML Data File : " + xmlDataFileLocation);
 
-        //UPLOAD XML NOTIFICATION Data
-        //actionsPage = mainNavigationBar.clickActions();
-        //createNotification = actionsPage.clickUploadSampleNotification();
-        //actionsPage = createNotification.uploadXMLNotification(xmlDataFileLocation);
-        //actionsPage.isInCorrectPage();
-
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
@@ -257,6 +242,7 @@ public class ActionsPageSteps extends CommonSteps {
             qaPercentage = RandomDataUtils.getSimpleRandomNumberBetween(10,50);
         }
 
+        mainNavigationBar = new MainNavigationBar(driver);
         actionsPage = mainNavigationBar.clickActions();
         updateQAPercentage = actionsPage.clickUpdateQAPercentage();
         updateQAPercentage = updateQAPercentage.setQAPercentage(qaPercentage);
@@ -287,10 +273,9 @@ public class ActionsPageSteps extends CommonSteps {
 
     @When("^I go to manage substance page$")
     public void i_go_to_manage_substance_page() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
         actionsPage = mainNavigationBar.clickActions();
-        if(actionsPage == null){
-            actionsPage = mainNavigationBar.clickActions();
-        }
+
         manageSubstances = actionsPage.clickManageSubstances();
     }
 
@@ -327,7 +312,7 @@ public class ActionsPageSteps extends CommonSteps {
             actionsPage = manageSubstances.addNewSubstance(substance, false);
         }
 
-        log.info("Added new substance : " + substance);
+        log.warn("Added new substance : " + substance);
         scenarioSession.putData(SessionKey.substance, substance);
         scenarioSession.putData(SessionKey.bannedTxt, isBanned);
     }

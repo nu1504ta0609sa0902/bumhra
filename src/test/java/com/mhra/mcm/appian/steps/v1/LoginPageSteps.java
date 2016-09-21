@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.steps.v1;
 
+import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
@@ -65,9 +66,7 @@ public class LoginPageSteps extends CommonSteps {
     public void i_login_as_and_generate_a_standard_invoice(String username) throws Throwable {
         mainNavigationBar = loginPage.reloginUsing(username);
         actionsPage = mainNavigationBar.clickActions();
-        if(actionsPage == null){
-            actionsPage = mainNavigationBar.clickActions();
-        }
+
         //only FINANCE users should see this option
         actionsPage = actionsPage.generateStandardInvoices();
     }
@@ -76,9 +75,7 @@ public class LoginPageSteps extends CommonSteps {
     public void i_login_as_and_generate_a_annual_invoice(String username) throws Throwable {
         mainNavigationBar = loginPage.reloginUsing(username);
         actionsPage = mainNavigationBar.clickActions();
-        if(actionsPage == null){
-            actionsPage = mainNavigationBar.clickActions();
-        }
+
         //only FINANCE users should see this option
         actionsPage = actionsPage.generateAnnualInvoices();
     }
@@ -87,19 +84,16 @@ public class LoginPageSteps extends CommonSteps {
     public void i_login_as_and_generate_a_withdrwal_invoice(String username) throws Throwable {
         mainNavigationBar = loginPage.reloginUsing(username);
         actionsPage = mainNavigationBar.clickActions();
-        if(actionsPage == null){
-            actionsPage = mainNavigationBar.clickActions();
-        }
+
         //only FINANCE users should see this option
         actionsPage = actionsPage.generateWithdrawalInvoice();
     }
 
     @When("^I generate a standard invoice$")
     public void i_generate_a_standard_invoice() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
         actionsPage = mainNavigationBar.clickActions();
-        if(actionsPage == null){
-            actionsPage = mainNavigationBar.clickActions();
-        }
+
         //only FINANCE users should see this option
         actionsPage = actionsPage.generateStandardInvoices();
     }

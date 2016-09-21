@@ -1,5 +1,7 @@
 package com.mhra.mcm.appian.steps.common;
 
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
@@ -51,6 +53,8 @@ public class SharedSteps extends CommonSteps {
 
 	@Before
 	public void logScenarioNames(Scenario scenario) {
+		//WaitUtils.setImplicitWaits(driver);
+		//PageUtils.setBrowserZoom(driver, currentBrowser);
 		generatePrettyReportOnTheGo();
 		if(driver!=null){
 			log.info("\n==================================\n");
