@@ -42,14 +42,6 @@ public class WaitUtils {
         return maxTimeToWait;
     }
 
-    public static String getText(WebElement element) {
-        element.click();
-        String existingName = element.getText();
-        if(existingName.equals(""))
-            existingName = element.getAttribute("value");
-        return existingName;
-    }
-
     /**
      * Should be used for non selenium related tasks
      *

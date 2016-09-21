@@ -52,7 +52,7 @@ Feature: As a user I need to quickly verify there is no regression issues
   @regression
   Scenario: Verify users can search for notification using the ecid and than submitter name
     Given I am logged into appian as "super1" user
-    When I search for an existing notification by "ecid"
+    When I search for an existing notification by "ecid" for text "random"
     Then I should see only 1 notification
     When I search for the stored submitter name
     Then I should see 1 or more notification

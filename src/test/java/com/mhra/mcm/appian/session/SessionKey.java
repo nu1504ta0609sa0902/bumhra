@@ -25,4 +25,6 @@ public class SessionKey {
     public static String substance = "Substance";
     public static String bannedTxt = "Product Banned";
     public static String qaPercentageValue = "Quality Assurance";
+    public static String previousECID = "Previous ECID";
+    public static String searchTerm = "Search Term";
 }

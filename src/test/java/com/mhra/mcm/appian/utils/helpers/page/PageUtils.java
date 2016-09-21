@@ -92,4 +92,14 @@ public class PageUtils {
         WebElement element = listOfECIDLinks.get(Integer.parseInt(index));
         return element;
     }
+
+
+
+    public static String getText(WebElement element) {
+        element.click();
+        String existingName = element.getText();
+        if(existingName.equals(""))
+            existingName = element.getAttribute("value");
+        return existingName;
+    }
 }

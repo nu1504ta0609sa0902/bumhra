@@ -68,9 +68,6 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_goto_notifications_page_and_update_status_of_existing_notification_to(String updatedStatus) throws Throwable {
         //Select an existing notification from the page
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
-        }
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = recordsPage.getARandomNotificationWithStatusNotEqualTo(updatedStatus, 10);
         log.info("ECID selected : " + ecid);
@@ -100,7 +97,7 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_update_status_of_existing_notification_to(String status, String updatedStatus) throws Throwable {
         //Select an existing notification from the page
         recordsPage = mainNavigationBar.clickRecords();
-        if(recordsPage == null){
+        if (recordsPage == null) {
             recordsPage = mainNavigationBar.clickRecords();
         }
         recordsPage = recordsPage.clickNotificationsLink();
@@ -130,9 +127,6 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_update_status_of_stored_notification_to(String updatedStatus) throws Throwable {
         //Select an existing notification from the page
         recordsPage = mainNavigationBar.clickRecords();
-        if(recordsPage == null){
-            recordsPage = mainNavigationBar.clickRecords();
-        }
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = (String) scenarioSession.getData(SessionKey.ECID);
 
@@ -162,7 +156,7 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_should_see_the_notification_generated(String expectedNotificationID) throws Throwable {
         scenarioSession.putData(SessionKey.ECID, expectedNotificationID);
         recordsPage = mainNavigationBar.clickRecords();
-        if(recordsPage == null){
+        if (recordsPage == null) {
             recordsPage = mainNavigationBar.clickRecords();
         }
         recordsPage = recordsPage.clickNotificationsLink();
@@ -182,7 +176,7 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^I should see the stored notification$")
     public void i_should_see_the_stored_notification() throws Throwable {
         recordsPage = mainNavigationBar.clickRecords();
-        if(recordsPage == null){
+        if (recordsPage == null) {
             recordsPage = mainNavigationBar.clickRecords();
         }
         recordsPage = recordsPage.clickNotificationsLink();
@@ -201,6 +195,13 @@ public class RecordsPageSteps extends CommonSteps {
         String submitter = recordsPage.getSubmitterNameForEcid(ecid);
         scenarioSession.putData(SessionKey.submitter, submitter);
         assertThat("Expected to see 1 notification but was : " + count, count, is(equalTo(countExpected)));
+    }
+
+    @Then("^The showing search results text is correct$")
+    public void search_by_text_should_be_correct(){
+        String seachTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
+        boolean searchResultsForTextIsCorrect = recordsPage.isSearchResultsFor(seachTerm);
+        assertThat("Showing search results for : " + seachTerm, searchResultsForTextIsCorrect, is(equalTo(true)));
     }
 
 
@@ -228,9 +229,6 @@ public class RecordsPageSteps extends CommonSteps {
         String ecId = notification.ecIDNumber;
 
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = new RecordsPage(driver);
-        }
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(ecId, 5);
 
@@ -239,8 +237,8 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
 
-    @When("^I search for an existing notification by \"([^\"]*)\"$")
-    public void i_search_for_an_existing_notification_by(String searchType) throws Throwable {
+    @When("^I search for an existing notification by \"([^\"]*)\" for text \"([^\"]*)\"$")
+    public void i_search_for_an_existing_notification_by(String searchType, String searchTextTerm) throws Throwable {
 
         recordsPage = mainNavigationBar.clickRecords();
         if (recordsPage == null) {
@@ -249,16 +247,51 @@ public class RecordsPageSteps extends CommonSteps {
         recordsPage = recordsPage.clickNotificationsLink();
 
         if (searchType.trim().toLowerCase().equals("ecid")) {
-            //Select an existing notification from the page
-            String ecid = recordsPage.getARandomNotificationECIDFromPosition(0, 10);
-            scenarioSession.putData(SessionKey.ECID, ecid);
 
-            //Search for the ecid
-            recordsPage = recordsPage.searchForECIDSubmitterOrOthers(ecid);
+            if(searchTextTerm.equals("random")) {
+                //Select an existing notification from the page
+                //String ecid = recordsPage.getARandomNotificationECIDFromPosition(0, 50);
+                String ecid = recordsPage.getARandomNotification(5);
+                scenarioSession.putData(SessionKey.ECID, ecid);
+                scenarioSession.putData(SessionKey.searchTerm, ecid);
+
+                //Search for the ecid
+                recordsPage = recordsPage.searchForECIDSubmitterOrOthers(ecid);
+            }
+
+        }else if(searchType.trim().toLowerCase().equals("date")){
+
         }
     }
 
-    @When("^I search for an existing notification by partial \"([^\"]*)\"$")
+    @When("^I re search for previously searched notification$")
+    public void i_research_for_an_existing_notification_by_partial_searchTerm() throws Throwable {
+        String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
+        String subSearchString = searchTerm.substring(0,5);
+        recordsPage = recordsPage.searchForECIDSubmitterOrOthers(subSearchString);
+        scenarioSession.putData(SessionKey.searchTerm, subSearchString);
+
+        //Show all the notifications
+//        recordsPage = recordsPage.searchForECIDSubmitterOrOthers("");
+//
+//        //ASSUMES WE ARE IN THE SEARCH PAGE
+//        if (searchType.trim().toLowerCase().equals("ecid")) {
+//
+//            if(searchTextTerm.equals("random")) {
+//                String ecid = recordsPage.getARandomNotification(5);
+//                scenarioSession.putData(SessionKey.ECID, ecid);
+//                scenarioSession.putData(SessionKey.searchTerm, ecid);
+//
+//                //Search for the ecid
+//                recordsPage = recordsPage.searchForECIDSubmitterOrOthers(ecid);
+//            }
+//
+//        }else if(searchType.trim().toLowerCase().equals("date")){
+//
+//        }
+    }
+
+    @When("^I search for an existing notification by partial ecid \"([^\"]*)\"$")
     public void i_search_for_an_existing_notification_by_partial(String searchType) throws Throwable {
 
         recordsPage = mainNavigationBar.clickRecords();
@@ -295,9 +328,6 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I go to the notifications page$")
     public void i_go_to_the_notifications_page() throws Throwable {
         recordsPage = mainNavigationBar.clickRecords();
-        if (recordsPage == null) {
-            recordsPage = mainNavigationBar.clickRecords();
-        }
         recordsPage = recordsPage.clickNotificationsLink();
     }
 
@@ -414,15 +444,44 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_view_random_notification() throws Throwable {
 
         recordsPage = mainNavigationBar.clickRecords();
-        if(recordsPage == null){
-            recordsPage = mainNavigationBar.clickRecords();
-        }
         recordsPage = recordsPage.clickNotificationsLink();
         String ecid = recordsPage.getARandomNotification(50);
         log.info("View notification with ecid : " + ecid);
 
         //View notifications
         notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+    }
+
+    @Then("^I select a previous notification with ecid \"([^\"]*)\"$")
+    public void i_view_random_notification_with_ecid(String prevID) throws Throwable {
+
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+        String ecid = prevID;
+        if (!prevID.equals("") && prevID.equals("random")) {
+            ecid = recordsPage.getARandomNotification(50);
+            log.info("View notification with ecid : " + ecid);
+        }
+
+        //View notifications
+        //notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+        scenarioSession.putData(SessionKey.previousECID, ecid);
+    }
+
+    @Then("^I select a previous notification with ecid \"([^\"]*)\" and status \"([^\"]*)\"$")
+    public void i_view_random_notification(String prevID, String status) throws Throwable {
+
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+        String ecid = prevID;
+        if (!prevID.equals("") && prevID.equals("random")) {
+            ecid = recordsPage.getARandomNotificationWithStatusEqualTo(status, 50);
+            log.info("View notification with ecid : " + ecid);
+        }
+
+        //View notifications
+        //notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+        scenarioSession.putData(SessionKey.previousECID, ecid);
     }
 
 

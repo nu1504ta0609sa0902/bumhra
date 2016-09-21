@@ -32,6 +32,11 @@ public class CreatePrettyReport {
 	 * Monitors folder for changes and than generates pretty reports
 	 */
 	public void monitorFolder(String outFolderName) {
+		boolean cheat = true;
+		String target = "target";
+		if(cheat){
+			target = "bu";
+		}
 
 		if(outFolderName == null){
 			outFolderName = "PrettyReport";
@@ -41,11 +46,11 @@ public class CreatePrettyReport {
 	
 		String [] aaa = new String[4];
 		aaa[0] = "-f";
-		aaa[1] = res + File.separatorChar + "target" ;
+		aaa[1] = res + File.separatorChar + target ;
 		aaa[2] = "-o";
 		String fname = new Date().toString().replace(":", "").substring(0,16).replace(" ", "");
 		fname = formatName(fname);
-		String outFile = res + File.separatorChar + "target" + File.separatorChar + outFolderName + File.separatorChar + fname;
+		String outFile = res + File.separatorChar + target + File.separatorChar + outFolderName + File.separatorChar + fname;
 		
 		//Create folder
 		File f = new File(outFile);

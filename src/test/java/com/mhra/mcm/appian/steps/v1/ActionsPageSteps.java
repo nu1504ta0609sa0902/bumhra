@@ -74,14 +74,12 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_create_new_notification_with_following_data(Map<String, String> dataValues) throws Throwable {
 
         Notification random = NotificationUtils.updateDefaultNotification(dataValues);
+        random = NotificationUtils.updateOtherDetails(scenarioSession, random);
         String ecId = random.ecIDNumber;
         log.warn("Create Notification With ECID : " + random.ecIDNumber);
 
         //UPLOAD NOTIFICATION
         actionsPage = mainNavigationBar.clickActions();
-        if(actionsPage == null){
-            actionsPage = new ActionsPage(driver);
-        }
         createNotification = actionsPage.clickUploadSampleNotification();
         actionsPage = createNotification.createRandomNotification(random);
 

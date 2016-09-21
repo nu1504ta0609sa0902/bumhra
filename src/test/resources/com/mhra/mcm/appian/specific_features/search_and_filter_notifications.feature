@@ -5,20 +5,33 @@ Feature: As an Appian user I should be able to search and filter notifications
   @mcm-32
   Scenario Outline: Search for notification using the ecid and than submitter name
     Given I am logged into appian as "<user>" user
-    When I search for an existing notification by "<searchBy>"
+    When I search for an existing notification by "<searchBy>" for text "<searchTerm>"
     Then I should see only <numberOfNotifications> notification
     When I search for the stored submitter name
     Then I should see <numberOfNotifications> or more notification
     Examples:
-      | user   | searchBy | numberOfNotifications |
-      | super1 | ecid     | 1                     |
-      | rdt1   | ecid     | 1                     |
+      | user   | searchBy | numberOfNotifications | searchTerm |
+      | super1 | ecid     | 1                     | random     |
+      | rdt1   | ecid     | 1                     | random     |
+
+
+  @mcm-32
+  Scenario Outline: Verify search results for text is correct
+    Given I am logged into appian as "<user>" user
+    When I search for an existing notification by "<searchBy>" for text "<searchTerm>"
+    Then The showing search results text is correct
+    When I re search for previously searched notification
+    Then The showing search results text is correct
+    Examples:
+      | user   | searchBy | searchTerm |
+      | super1 | ecid     | random     |
+      | rdt1   | ecid     | random |
 
 
   @mcm-32
   Scenario Outline: Search for notification using partial ecid
     Given I am logged into appian as "<user>" user
-    When I search for an existing notification by partial "<searchBy>"
+    When I search for an existing notification by partial ecid "<searchBy>"
     Then I should see at least <numberOfNotifications> notification
     Examples:
       | user   | searchBy | numberOfNotifications |

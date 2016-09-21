@@ -35,7 +35,7 @@ public class EditNotification extends _Page {
 
     public String appendTextToSubmitterName(String append) {
         WaitUtils.waitForElementToBeVisible(driver, submitterName, 5);
-        String existingName = WaitUtils.getText(submitterName);
+        String existingName = PageUtils.getText(submitterName);
         submitterName.clear();
         submitterName.sendKeys(existingName + append);
         return existingName;

@@ -53,10 +53,17 @@ import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 
 public class GmailEmail {
 
+    public static final String REFUSAL_FOR_NOTIFICATION = "Refusal For Notification";
     private static final String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
+    public static final String NO_NEW_NOTIFICATIONS = "No new notifications";
+    public static final String UNINVOICED_NOTIFICATIONS = "Uninvoiced Notifications";
+    public static final String WITHDRAWAL = "Withdrawn Notifications";
+    public static final String NO_WITHDRAWN_NOTIFICATIONS = "No withdrawn notifications";
     private static List<Invoice> listOfInvoices = new ArrayList<>();
     private static boolean refusalEmailReceived;
     private static boolean withdrawalEmailReceived;
+    private static boolean noNewNotificaitonsEmailReceived;
+    private static boolean noWithdrawnNotificaitonsEmailReceived;
 
     public static void main(String[] args) {
 
@@ -147,27 +154,47 @@ public class GmailEmail {
                     if (emailAddress != null && emailAddress.contains("appian")) {
 
                         boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
-                        if ((isMessageReceivedToday && subject.contains(subjectHeading)) || subject.contains("Refusal For Notification")
-                                || subject.contains("Withdrawal")) {
+                        if ((isMessageReceivedToday && subject.contains(subjectHeading)) || subject.contains(REFUSAL_FOR_NOTIFICATION)
+                                || subject.contains(WITHDRAWAL) || subject.contains(NO_NEW_NOTIFICATIONS) || subject.contains(NO_WITHDRAWN_NOTIFICATIONS)) {
                             boolean isRecent = receivedInLast(min, sentDate);
-                            if (isRecent && !subject.contains("Refusal For Notification")) {
+                            if (isRecent && subject.contains(UNINVOICED_NOTIFICATIONS)) {
                                 System.out.println("---------------------------------");
                                 System.out.println("Recent email received");
                                 System.out.println("---------------------------------");
                                 writePart(message);
                                 System.out.println("Number of invoices : " + listOfInvoices.size());
-                            }else if (isRecent && subject.contains("Refusal For Notification")){
-                                System.out.println("---------------------------------");
-                                System.out.println("Recent email received for : Refusal For Notification");
-                                System.out.println("---------------------------------");
-                                refusalEmailReceived = true;
-                                break;
-                            } else if(isRecent && subject.contains("Refusal For Notification")){
-                                System.out.println("---------------------------------");
-                                System.out.println("Recent email received for : Withdrawal For Notification");
-                                System.out.println("---------------------------------");
-                                withdrawalEmailReceived = true;
-                                break;
+                            }else{
+                                if (isRecent && subject.contains(REFUSAL_FOR_NOTIFICATION)){
+                                    System.out.println("---------------------------------");
+                                    System.out.println("Recent email received for : Refusal For Notification");
+                                    System.out.println("---------------------------------");
+                                    refusalEmailReceived = true;
+                                    break;
+                                }
+
+                                if(isRecent && subject.contains(WITHDRAWAL)){
+                                    System.out.println("---------------------------------");
+                                    System.out.println("Recent email received for : Withdrawal For Notification");
+                                    System.out.println("---------------------------------");
+                                    withdrawalEmailReceived = true;
+                                    break;
+                                }
+
+                                if(isRecent && subject.contains(NO_NEW_NOTIFICATIONS)){
+                                    System.out.println("---------------------------------");
+                                    System.out.println("Recent email received for : No New Notifications");
+                                    System.out.println("---------------------------------");
+                                    noNewNotificaitonsEmailReceived = true;
+                                    break;
+                                }
+
+                                if(isRecent && subject.contains(NO_WITHDRAWN_NOTIFICATIONS)){
+                                    System.out.println("---------------------------------");
+                                    System.out.println("Recent email received for : No Withdrawn Notifications");
+                                    System.out.println("---------------------------------");
+                                    noWithdrawnNotificaitonsEmailReceived = true;
+                                    break;
+                                }
                             }
                         } else {
                             //System.out.println("Message is old or not relevant" );
@@ -329,7 +356,7 @@ public class GmailEmail {
      */
     private static boolean isMessageReceivedToday(String subject, String subjectHeading, Date sentDate) {
 
-        if(subjectHeading.contains("Annual Notification Invoices")){
+        if(subjectHeading == null || subjectHeading.equals("") || subjectHeading.contains("Annual Notification Invoices")){
             return true;
         }else {
             Calendar calendar = Calendar.getInstance();
@@ -460,10 +487,13 @@ public class GmailEmail {
     public static boolean isWithdrawalEmailReceived() {
         return withdrawalEmailReceived;
     }
-
-
-
     public static boolean isRefusalEmailReceived(){
         return refusalEmailReceived;
+    }
+    public static boolean isNoNewNotificationsEmailReceived(){
+        return noNewNotificaitonsEmailReceived;
+    }
+    public static boolean isNoWithdrawnNotificationsEmailReceived(){
+        return noWithdrawnNotificaitonsEmailReceived;
     }
 }

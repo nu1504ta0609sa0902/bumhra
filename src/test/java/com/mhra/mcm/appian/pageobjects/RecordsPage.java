@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.pageobjects;
 
 import java.util.List;
 
+import com.mhra.mcm.appian.utils.helpers.page.AssertUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -47,6 +48,9 @@ public class RecordsPage extends _Page {
 
     @FindBy(xpath=".//*[.='Previous']//following::span[2]")
     WebElement totalCount;
+
+    @FindBy(xpath=".//*[.='Notifications']//following::span/b")
+    WebElement searchResultsFor;
 
     @Autowired
     public RecordsPage(WebDriver driver) {
@@ -319,5 +323,12 @@ public class RecordsPage extends _Page {
             count = count.replace("of", "").trim();
         }
         return Integer.parseInt(count);
+    }
+
+    public boolean isSearchResultsFor(String searchTermText) {
+        WaitUtils.waitForElementToBeVisible(driver, searchResultsFor, 15, false);
+        String text = PageUtils.getText(searchResultsFor).trim();
+        boolean contains = searchTermText.contains(text);
+        return contains;
     }
 }

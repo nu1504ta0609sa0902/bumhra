@@ -24,6 +24,8 @@ public class CreateNotification extends _Page {
     //Summary
     @FindBy(xpath = ".//label[.='EC ID']//following::input[1]")
     WebElement ecId;
+    @FindBy(xpath = ".//label[.='Previous EC ID']//following::input[1]")
+    WebElement previousEcId;
     @FindBy(xpath = ".//label[.='Start Date']//following::input[1]")
     WebElement startDate;
     @FindBy(xpath = ".//label[.='End Date']//following::input[1]")
@@ -256,6 +258,7 @@ public class CreateNotification extends _Page {
         PageUtils.enterDate(driver, startDate, summary.startDate);
         ecId.click();
         ecId.sendKeys(summary.ecId);
+        previousEcId.sendKeys(summary.previousEcId);
         PageUtils.enterDate(driver, endDate, summary.endDate);
         PageUtils.selectByIndex(submissionType, summary.submissionType);
 

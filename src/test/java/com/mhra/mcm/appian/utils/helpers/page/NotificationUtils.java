@@ -9,6 +9,8 @@ import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.Product;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.SubmissionType;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.Submitter;
+import com.mhra.mcm.appian.session.ScenarioSession;
+import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.datadriven.ExcelUtils;
 import org.openqa.selenium.By;
@@ -498,5 +500,21 @@ public class NotificationUtils {
         }
 
         return fileName;
+    }
+
+
+    /**
+     * Use this to update data with previous ecid
+     * @param scenarioSession
+     * @param random
+     * @return
+     */
+    public static Notification updateOtherDetails(ScenarioSession scenarioSession, Notification random) {
+        String prevEcid = (String) scenarioSession.getData(SessionKey.previousECID);
+        if(prevEcid==null || !prevEcid.equals("")){
+            random.getSummary().previousEcId = prevEcid;
+        }
+
+        return random;
     }
 }

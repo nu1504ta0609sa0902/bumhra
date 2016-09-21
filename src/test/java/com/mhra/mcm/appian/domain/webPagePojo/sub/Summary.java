@@ -9,6 +9,7 @@ public class Summary {
 
     //Summary section
     public String ecId;
+    public String previousEcId;
     public String submissionType;
     public String startDate;
     public String endDate;
@@ -20,6 +21,7 @@ public class Summary {
     }
 
     private void createDefaultValues() {
+        previousEcId = "";
         submissionType = "1";
         startDate = RandomDataUtils.getDateInFutureMonths(7);
         endDate = RandomDataUtils.getDateInFutureMonths(24);

@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
 import com.mhra.mcm.appian.utils.helpers.page.AssertUtils;
+import cucumber.api.PendingException;
 import org.springframework.context.annotation.Scope;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
@@ -25,6 +26,7 @@ import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.springframework.util.Assert;
 
 /**
  * Created by TPD_Auto on 18/07/2016.
@@ -44,27 +46,27 @@ public class EmailSteps extends CommonSteps {
             listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, ecID, heading);
 
             //Break from loop if invoices read from the email server
-            if(listOfInvoices.size()>0){
+            if (listOfInvoices.size() > 0) {
                 foundInvoices = true;
                 break;
-            }else{
+            } else {
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
                 WaitUtils.nativeWait(8);
             }
             attempt++;
-        }while(!foundInvoices && attempt < 12);
+        } while (!foundInvoices && attempt < 12);
 
         //verify the price and other details
-        if(listOfInvoices!=null && listOfInvoices.size() > 0) {
+        if (listOfInvoices != null && listOfInvoices.size() > 0) {
             Notification notification = (Notification) scenarioSession.getData(SessionKey.storedNotification);
             String ecID = (String) scenarioSession.getData(SessionKey.ECID);
-            if(notification!=null){
+            if (notification != null) {
                 ecID = notification.ecIDNumber;
             }
             Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
 
             //Verify details
-            if(amount!=null && !amount.equals("")) {
+            if (amount != null && !amount.equals("")) {
                 String netAmount = invoice.Net_Amount;
                 assertThat("Price should be : " + amount, amount, is((equalTo(netAmount))));
             }
@@ -72,8 +74,8 @@ public class EmailSteps extends CommonSteps {
             //Store data in map
             scenarioSession.putData(SessionKey.invoice, invoice);
             scenarioSession.putData(SessionKey.listOfInvoices, listOfInvoices);
-        }else{
-            assertThat("No email received from appian related to invoices : mhra.uat@gmail.com" , listOfInvoices.size(), is(not(equalTo(0))));
+        } else {
+            assertThat("No email received from appian related to invoices : mhra.uat@gmail.com", listOfInvoices.size(), is(not(equalTo(0))));
         }
 
     }
@@ -90,20 +92,20 @@ public class EmailSteps extends CommonSteps {
             listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, ecID, heading);
 
             //Break from loop if invoices read from the email server
-            if(listOfInvoices.size()>0){
+            if (listOfInvoices.size() > 0) {
                 foundInvoices = true;
                 break;
-            }else{
+            } else {
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
                 WaitUtils.nativeWait(5);
             }
             attempt++;
-        }while(!foundInvoices && attempt < 12);
+        } while (!foundInvoices && attempt < 12);
 
-        if(listOfInvoices.size() > 0){
+        if (listOfInvoices.size() > 0) {
             Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
             assertThat("We should not receive any invoice for notification with ecid : " + ecID + " because it has no TCANumber check email : mhra.uat@gmail.com", invoice, nullValue());
-        }else {
+        } else {
             //verify the price and other details
             assertThat("We should not receive any invoice for notification with ecid : " + ecID + " because it has no TCANumber check email : mhra.uat@gmail.com", listOfInvoices.size(), is((equalTo(0))));
         }
@@ -120,15 +122,15 @@ public class EmailSteps extends CommonSteps {
             listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, heading);
 
             //Break from loop if invoices read from the email server
-            if(listOfInvoices.size()>0){
+            if (listOfInvoices.size() > 0) {
                 foundInvoices = true;
                 break;
-            }else{
+            } else {
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
                 WaitUtils.nativeWait(5);
             }
             attempt++;
-        }while(!foundInvoices && attempt < 12);
+        } while (!foundInvoices && attempt < 12);
 
         Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
 
@@ -149,36 +151,42 @@ public class EmailSteps extends CommonSteps {
             GmailEmail.getListOfInvoicesFromGmail(min, heading);
             refusalEmailReceived = GmailEmail.isRefusalEmailReceived();
 
-            if(!refusalEmailReceived){
+            if (!refusalEmailReceived) {
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
                 WaitUtils.nativeWait(5);
                 attempt++;
             }
-        }while(!refusalEmailReceived && attempt < 12);
+        } while (!refusalEmailReceived && attempt < 12);
 
         assertThat("Expected to receive a refusal of invoice email : " + refusalEmailReceived, refusalEmailReceived, is(true));
     }
 
 
     @Then("^I receive an withdrawal email with heading \"([^\"]*)\" from appian in next (.*) min for \"([^\"]*)\" notifications$")
-    public void iShouldReceiveAWithdrawalEmailButItShouldNotContainMyNotification(String heading, int min, String status) throws Throwable {
+    public void iShouldReceiveAWithdrawalEmailButItShouldNotContainMyNotification(String heading, int min, String price) throws Throwable {
 
         String ecID = (String) scenarioSession.getData(SessionKey.ECID);
         List<Invoice> listOfInvoices = null;
         boolean withdrawalEmailReceived = false;
         int attempt = 0;
         do {
-            GmailEmail.getListOfInvoicesFromGmail(min, heading);
+            listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, heading);
             withdrawalEmailReceived = GmailEmail.isWithdrawalEmailReceived();
 
-            if(!withdrawalEmailReceived){
+            if (!withdrawalEmailReceived) {
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
                 WaitUtils.nativeWait(5);
                 attempt++;
             }
-        }while(!withdrawalEmailReceived && attempt < 12);
+        } while (!withdrawalEmailReceived && attempt < 12);
 
         assertThat("Expected to receive a WITHDRAWAL of invoice email : " + withdrawalEmailReceived, withdrawalEmailReceived, is(true));
+    }
+
+    @Then("^The invoices should contains the stored ecid$")
+    public void the_invoices_should_contains_the_stored_ecid() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 
 
@@ -187,13 +195,13 @@ public class EmailSteps extends CommonSteps {
         List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);
         String ecid = (String) scenarioSession.getData(SessionKey.ECID);
         Invoice invoice = (Invoice) scenarioSession.getData(SessionKey.invoice);
-        if(invoice == null)
+        if (invoice == null)
             invoice = GenericUtils.getInvoiceForECID(loi, ecid);
 
         //Keep track of current status
         mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
-        if(recordsPage == null){
+        if (recordsPage == null) {
             recordsPage = mainNavigationBar.clickRecords();
         }
         recordsPage = recordsPage.clickNotificationsLink();
@@ -216,7 +224,7 @@ public class EmailSteps extends CommonSteps {
         //Keep track of current status
         mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();
-        if(recordsPage == null){
+        if (recordsPage == null) {
             recordsPage = mainNavigationBar.clickRecords();
         }
         recordsPage = recordsPage.clickNotificationsLink();
@@ -238,16 +246,16 @@ public class EmailSteps extends CommonSteps {
         //boolean statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
         boolean statusChanged = false;
         int attempt = 0;
-        do{
+        do {
             statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
-            if(statusChanged)
+            if (statusChanged)
                 break;
             attempt++;
-        }while (!statusChanged && attempt < 15);
+        } while (!statusChanged && attempt < 15);
 
         String newStatus = notificationDetails.getCurrentStatus();
 
-        assertThat("Status should not be : " + currentStatus , newStatus, is(isOneOf(expectedStatus,"Quality Assurance")));
+        assertThat("Status should not be : " + currentStatus, newStatus, is(isOneOf(expectedStatus, "Quality Assurance")));
         scenarioSession.putData(SessionKey.notificationStatus, newStatus);
     }
 
@@ -260,27 +268,24 @@ public class EmailSteps extends CommonSteps {
 
         //Verify notification generated
         recordsPage = mainNavigationBar.clickRecords();
-        if(recordsPage == null){
-            recordsPage = mainNavigationBar.clickRecords();
-        }
         recordsPage = recordsPage.clickNotificationsLink();
         notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
         boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
-        assertThat("Expected header to contains EC ID : " + expectedNotificationID , contains, is(equalTo(true)));
+        assertThat("Expected header to contains EC ID : " + expectedNotificationID, contains, is(equalTo(true)));
 
         //Verify status
         boolean statusMatched = false;
         int attempt = 0;
-        do{
+        do {
             statusMatched = notificationDetails.expectedStatusToBe(expectedStatus);
-            if(statusMatched)
+            if (statusMatched)
                 break;
             attempt++;
-        }while (!statusMatched && attempt < 15);
+        } while (!statusMatched && attempt < 15);
 
         String newStatus = notificationDetails.getCurrentStatus();
 
-        assertThat("Status should be : " + expectedStatus , newStatus, is((equalTo(expectedStatus))));
+        assertThat("Status should be : " + expectedStatus, newStatus, is((equalTo(expectedStatus))));
     }
 
 
@@ -294,9 +299,9 @@ public class EmailSteps extends CommonSteps {
         String description = invoice.Description;
         String orderDate = invoice.Order_Date;
 
-        assertThat("Expected GLCode : " + expectedGlcode , glCode, is((equalTo(expectedGlcode))));
-        assertThat("Description should contain : " + expectedNotificationID , description.contains(expectedNotificationID), is((equalTo(true))));
-        assertThat("Order Date : " + orderDate , orderDate!=null && !orderDate.equals(""), is((equalTo(true))));
+        assertThat("Expected GLCode : " + expectedGlcode, glCode, is((equalTo(expectedGlcode))));
+        assertThat("Description should contain : " + expectedNotificationID, description.contains(expectedNotificationID), is((equalTo(true))));
+        assertThat("Order Date : " + orderDate, orderDate != null && !orderDate.equals(""), is((equalTo(true))));
 
         //boolean isBritishDateFormat = AssertUtils.isBritishFormat(orderDate);
         //assertThat("Order Date Should Be British Format : " + orderDate , isBritishDateFormat, is((equalTo(true))));
@@ -308,7 +313,7 @@ public class EmailSteps extends CommonSteps {
         List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);
         boolean isUniqueInvoiceIds = GenericUtils.isInvoiceUnique(loi);
 
-        assertThat("Expected unique invoice ids "  , isUniqueInvoiceIds, is((equalTo(true))));
+        assertThat("Expected unique invoice ids ", isUniqueInvoiceIds, is((equalTo(true))));
     }
 
 
@@ -317,7 +322,7 @@ public class EmailSteps extends CommonSteps {
         List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);
         boolean allMatched = GenericUtils.isUnitPriceMatch(price, loi);
 
-        assertThat("Expected unit price to be : £" + price  , allMatched, is((equalTo(true))));
+        assertThat("Expected unit price to be : £" + price, allMatched, is((equalTo(true))));
     }
 
 
@@ -326,6 +331,47 @@ public class EmailSteps extends CommonSteps {
         List<Invoice> loi = (List<Invoice>) scenarioSession.getData(SessionKey.listOfInvoices);
         Integer count = (Integer) scenarioSession.getData(SessionKey.notificationCount);
         boolean matched = loi.size() == count;
-        assertThat("Expected " + count + " invoices but system returned : " + loi.size() + " notifications" , matched, is((equalTo(true))));
+        assertThat("Expected " + count + " invoices but system returned : " + loi.size() + " notifications", matched, is((equalTo(true))));
+    }
+
+    @Then("^I should receive no invoice for stored notification from appian in next (.*) min for \"([^\"]*)\" notifications$")
+    public void iShouldReceiveNoInvoiceForStoredNotification(int min, String heading) throws Throwable {
+
+        String ecID = (String) scenarioSession.getData(SessionKey.ECID);
+        List<Invoice> listOfInvoices = null;
+        boolean noInvoiceReceived = false;
+        int attempt = 0;
+        do {
+            listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, heading);
+            noInvoiceReceived = GmailEmail.isRefusalEmailReceived();
+            if (!noInvoiceReceived)
+                noInvoiceReceived = GmailEmail.isWithdrawalEmailReceived();
+            if (!noInvoiceReceived)
+                noInvoiceReceived = GmailEmail.isNoNewNotificationsEmailReceived();
+            if (!noInvoiceReceived)
+                noInvoiceReceived = GmailEmail.isNoWithdrawnNotificationsEmailReceived();
+
+            //No invoices should be noInvoiceReceived
+            if (listOfInvoices.size() > 0 || noInvoiceReceived) {
+
+                if(noInvoiceReceived){
+                    break;
+                }else {
+                    Invoice invoice = GenericUtils.getInvoiceForECID(listOfInvoices, ecID);
+                    if (invoice != null) {
+                        noInvoiceReceived = false;
+                    }
+                    break;
+                }
+            }
+
+            //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
+            if (!noInvoiceReceived) {
+                WaitUtils.nativeWait(5);
+                attempt++;
+            }
+        } while (!noInvoiceReceived && attempt < 12);
+
+        assertThat("Expected to receive no invoices for ecid : " + ecID, noInvoiceReceived, is(true));
     }
 }
