@@ -1,6 +1,8 @@
 package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
@@ -28,17 +30,18 @@ public class LoginPageSteps extends CommonSteps {
         try {
             mainNavigationBar = loginPage.login(username);
         }catch(Exception e) {
+            PageUtils.acceptAlert(driver, "accept");
             mainNavigationBar = loginPage.reloginUsing(username);
         }
     }
 
     @When("^I am logged into appian as \"([^\"]*)\" user$")
     public void i_am_logged_into_appian_as_user(String username) throws Throwable {
-
         loginPage = loginPage.loadPage(baseUrl);
         try {
             mainNavigationBar = loginPage.login(username);
         }catch(Exception e) {
+            PageUtils.acceptAlert(driver, "accept");
             mainNavigationBar = loginPage.reloginUsing(username);
         }
     }
@@ -53,6 +56,18 @@ public class LoginPageSteps extends CommonSteps {
     @When("^I re login as user \"([^\"]*)\"$")
     public void i_re_login_as_user(String username) throws Throwable {
         mainNavigationBar = loginPage.reloginUsing(username);
+    }
+
+    @When("^I am in appian and relogin as user \"([^\"]*)\"$")
+    public void i_am_in_appian_and_re_login_as_user(String username) throws Throwable {
+        loginPage = loginPage.loadPage(baseUrl);
+        WaitUtils.nativeWait(1);
+        try {
+            mainNavigationBar = loginPage.reloginUsing(username);
+        }catch(Exception e) {
+            PageUtils.acceptAlert(driver, "accept");
+            mainNavigationBar = loginPage.login(username);
+        }
     }
 
 

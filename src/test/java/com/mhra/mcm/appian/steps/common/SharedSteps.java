@@ -1,5 +1,6 @@
 package com.mhra.mcm.appian.steps.common;
 
+import com.mhra.mcm.appian.driver.manager.WebDriverManager;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.OutputType;
@@ -57,6 +58,7 @@ public class SharedSteps extends CommonSteps {
 		//PageUtils.setBrowserZoom(driver, currentBrowser);
 		generatePrettyReportOnTheGo();
 		if(driver!=null){
+			//isThereAnAlert();
 			log.info("\n==================================\n");
 			log.info("NEW SCENARIO");
 			log.info(scenario.getName());
@@ -72,8 +74,16 @@ public class SharedSteps extends CommonSteps {
 
 	}
 
+	private void isThereAnAlert() {
+		WaitUtils.waitForAlert(driver,2,false);
+		boolean alertFound = WaitUtils.isAlertPresent(driver);
+		if(alertFound){
+			driver.switchTo().alert().accept();
+		}
+	}
 
-    /**
+
+	/**
      * This will generate pretty report on the go
      */
     private void generatePrettyReportOnTheGo() {

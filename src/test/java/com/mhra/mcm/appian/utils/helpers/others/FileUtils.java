@@ -15,6 +15,7 @@ public class FileUtils {
 
     private final static String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
     private final static String userFileLocation = "configs" + File.separator + "users.properties";
+    private final static String driverFileLocation = "configs" + File.separator + "driver.properties";
     private final static Map<String, Properties> mapOfProperties = new HashMap<String, Properties>();
 
     /**
@@ -99,5 +100,29 @@ public class FileUtils {
             xmlFileName = "Test.xml";
         }
         return xmlFileName;
+    }
+
+
+    public static Properties driverProp;
+
+    public static String getASpecificDriverProperty(String propertyName) {
+        String value = null;
+        if (driverProp == null) {
+            try {
+                String root = new File("").getAbsolutePath();
+                String location = root + File.separator + resourceFolder + driverFileLocation;
+                driverProp = new Properties();
+                InputStream in = new FileInputStream(new File(location));
+                driverProp.load(in);
+                in.close();
+
+            } catch (Exception e) {
+                driverProp = null;
+                e.printStackTrace();
+            }
+        }else{
+            value = driverProp.getProperty(propertyName);
+        }
+        return value;
     }
 }

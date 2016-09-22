@@ -15,7 +15,7 @@ Feature: As a member of the IPU, I can update the list of banned substances
       | comm1 | not be |
 
 
-  @mcm-44 @ignore
+  @mcm-44
   Scenario Outline: Add a new banned substances
     Given I am logged into appian as "<user>" user
     When I go to manage substance page
@@ -101,3 +101,15 @@ Feature: As a member of the IPU, I can update the list of banned substances
       | user | substance1 | substance2 | banned | updateBanned |
       | ipu1 | random     | stored     | is not | is           |
       | ipu1 | random     | stored     | is     | is not       |
+
+
+  @wip
+  Scenario Outline: Verify name is required for banned substances
+    Given I am logged into appian as "<user>" user
+    When I go to manage substance page
+    And I add a substance "<substance>" with following details "<commaDelimitedDetails>"
+#    Then I "accept" the dialog to leave the page
+    Examples:
+      | user | substance | commaDelimitedDetails                  |
+      | ipu1 |           | banned=true,permissible=true,cas=true  |
+      | ipu1 |           | banned=true,permissible=true,cas=false |

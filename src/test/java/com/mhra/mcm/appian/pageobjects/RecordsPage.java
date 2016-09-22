@@ -86,10 +86,18 @@ public class RecordsPage extends _Page {
     }
 
     public RecordsPage clickNotificationsLink() {
-        WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 20);
-        PageUtils.singleClick(driver, notificationsLink);
-        //notificationsLink.click();
-        return new RecordsPage(driver);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 20);
+            PageUtils.singleClick(driver, notificationsLink);
+            //notificationsLink.click();
+            return new RecordsPage(driver);
+        }catch(StaleElementReferenceException e){
+            PageFactory.initElements(driver, this);
+            WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 20);
+            PageUtils.singleClick(driver, notificationsLink);
+            //notificationsLink.click();
+            return new RecordsPage(driver);
+        }
     }
 
     public RecordsPage clickUsersLink() {

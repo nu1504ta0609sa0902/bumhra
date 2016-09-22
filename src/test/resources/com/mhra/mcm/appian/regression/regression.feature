@@ -1,7 +1,24 @@
-@regressionAll
-Feature: As a user I need to quickly verify there is no regression issues
+@ignore @regressionAll
+Feature: This feature should be ignored
   So that I can trust the system
 
+  @regression @ignore
+  Scenario Outline: Verify invoice processing of type 1 2 and 3 notification with ingredient and toxicology report
+    Given I am logged into appian as "<user>" user
+    When I create new notification with following data
+      | type       | <type>       |
+      | ingredient | <ingredient> |
+    And I attach a toxicology report for "<ingredient>"
+    When I login as "fin1" and generate a standard invoice
+    Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<price>" for the stored notification
+    When I send paid email response back to appian
+    Then The notification status should update to "<status>"
+    Then The notification status should update to "<status2>"
+    Examples:
+      | user | type | price | status | ingredient  | status2    |
+      | rdt1 | 1    | 150   | Paid   | SUPPLEMENT1 | Successful |
+      | rdt1 | 2    | 80    | Paid   | SUPPLEMENT2 | Successful |
+      | rdt1 | 3    | 150   | Paid   | SUPPLEMENT3 | Successful |
 
   @regression
   Scenario Outline: Verify audit log functions correctly
@@ -26,7 +43,8 @@ Feature: As a user I need to quickly verify there is no regression issues
     Examples:
       | user | substance | commaDelimitedDetails                 |
       | ipu1 | random    | banned=true,permissible=true,cas=true |
-      #| ipu1 | random    | banned=true,permissible=true,cas=false |
+      | ipu1 | random    | banned=true,permissible=true,cas=false |
+
 
   @regression
   Scenario: Verify error message is displayed when value are more than 100 or less than 0 for quality assurance
@@ -68,20 +86,20 @@ Feature: As a user I need to quickly verify there is no regression issues
     Then I should see the notification displayed in exception page
 
 
-  @regression @ignore
-  Scenario Outline: Verify invoice processing of type 1 2 and 3 notification with ingredient and toxicology report
+  @regression
+  Scenario Outline: Users should be able to update the status of banned substances
+#Create a substance
     Given I am logged into appian as "<user>" user
-    When I create new notification with following data
-      | type       | <type>       |
-      | ingredient | <ingredient> |
-    And I attach a toxicology report for "<ingredient>"
-    When I login as "fin1" and generate a standard invoice
-    Then I should receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min with correct price "<price>" for the stored notification
-    When I send paid email response back to appian
-    Then The notification status should update to "<status>"
-    Then The notification status should update to "<status2>"
+    When I go to manage substance page
+    And I add a substance "<substance1>" which "<banned>" banned
+#Update status of substance
+    When I go to manage substance page
+    When I search and update status of "<substance2>" substance to "<updateBanned>" banned
+#Verify actively banned status is updated
+    And I search for stored substance name which "<updateBanned>" banned
+    Then I should see substance "<updateBanned>" banned
     Examples:
-      | user | type | price | status | ingredient  | status2    |
-      | rdt1 | 1    | 150   | Paid   | SUPPLEMENT1 | Successful |
-      | rdt1 | 2    | 80    | Paid   | SUPPLEMENT2 | Successful |
-      | rdt1 | 3    | 150   | Paid   | SUPPLEMENT3 | Successful |
+      | user | substance1 | substance2 | banned | updateBanned |
+      | ipu1 | random     | stored     | is not | is           |
+      | ipu1 | random     | stored     | is     | is not       |
+

@@ -70,6 +70,15 @@ public class ActionsPage extends _Page {
         }
     }
 
+    public boolean isSubstanceGeneratedSuccessfully() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 5, false);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public UpdateQAPercentage clickUpdateQAPercentage() {
         WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, 15, false);
         PageUtils.singleClick(driver, updateQAPercentage);

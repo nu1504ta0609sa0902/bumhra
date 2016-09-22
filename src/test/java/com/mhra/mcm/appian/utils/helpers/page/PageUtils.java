@@ -113,4 +113,18 @@ public class PageUtils {
             action.keyDown(Keys.CONTROL).sendKeys(String.valueOf(0)).perform();
         }
     }
+
+    public static void acceptAlert(WebDriver driver, String accept) {
+        try {
+            WaitUtils.waitForAlert(driver, 5, false);
+            boolean present = WaitUtils.isAlertPresent(driver);
+            if (present) {
+                if (accept.equals("accept")) {
+                    driver.switchTo().alert().accept();
+                } else {
+                    driver.switchTo().alert().dismiss();
+                }
+            }
+        }catch (Exception e){}
+    }
 }

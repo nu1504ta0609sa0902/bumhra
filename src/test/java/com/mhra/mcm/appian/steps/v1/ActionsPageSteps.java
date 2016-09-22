@@ -8,6 +8,7 @@ import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.pageobjects.sections.contents.ManageSubstances;
 import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.StepsUtils;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
@@ -502,9 +503,21 @@ public class ActionsPageSteps extends CommonSteps {
             isBanned = "is not";
         }
         actionsPage = manageSubstances.addNewSubstanceForDelimitedData(substance, commanDelimitedDetails);
+        boolean created = actionsPage.isSubstanceGeneratedSuccessfully();
 
-        log.info("Added new substance : " + substance);
+        if(!created) {
+            assertThat("Could not create substance : " + substance, created, is(false));
+        }
+        log.warn("Added new substance : " + substance);
         scenarioSession.putData(SessionKey.substance, substance);
         scenarioSession.putData(SessionKey.bannedTxt, isBanned);
+
+
+        PageUtils.acceptAlert(driver, "accept");
+    }
+
+    @Then("^I \"([^\"]*)\" the dialog to leave the page$")
+    public void i_the_dialog_to_leave_the_page(String accept) throws Throwable {
+        PageUtils.acceptAlert(driver, accept);
     }
 }
