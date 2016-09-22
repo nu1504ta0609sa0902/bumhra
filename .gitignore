@@ -10,4 +10,5 @@ target/
 .classpath
 .project
 bu/*
+buAllClear/*
 /MHRA_MCM.iml
