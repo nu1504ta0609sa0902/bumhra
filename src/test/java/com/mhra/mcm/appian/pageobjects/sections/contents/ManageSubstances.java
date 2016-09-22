@@ -5,7 +5,6 @@ import com.mhra.mcm.appian.pageobjects._Page;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
-import org.apache.xpath.operations.Bool;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,9 +28,10 @@ public class ManageSubstances extends _Page {
     @FindBy(xpath = ".//*[.='Edit']//following::input[1]")
     WebElement editSubstanceName;
 
-    @FindBy(xpath = ".//*[contains(text(),'Actively Banned')]//following::input[1]")
+    //ADD OR EDIT A SUBSTANCE
+    @FindBy(xpath = ".//*[contains(text(),'substance Actively Banned')]//following::input[1]")
     WebElement activelyBannedYes;
-    @FindBy(xpath = ".//*[contains(text(),'Actively Banned')]//following::input[2]")
+    @FindBy(xpath = ".//*[contains(text(),'substance Actively Banned')]//following::input[2]")
     WebElement activelyBannedNo;
     @FindBy(xpath = ".//*[contains(text(),'substance permissible')]//following::input[1]")
     WebElement substancePermissableYes;
@@ -118,7 +118,10 @@ public class ManageSubstances extends _Page {
         WebElement link = driver.findElement(By.partialLinkText(substance));
         found = link.isDisplayed();
 
-        return found;
+        //And only 1 match
+        int size = driver.findElements(By.partialLinkText(substance)).size();
+
+        return found && size == 1;
     }
 
     public ManageSubstances searchForSubstance(String substance, boolean activelyBanned) {
@@ -153,7 +156,7 @@ public class ManageSubstances extends _Page {
         return null;
     }
 
-    public ActionsPage updateSubstance(String substanceAppended) {
+    public ActionsPage updateSubstanceName(String substanceAppended) {
         WaitUtils.waitForElementToBeClickable(driver, editSubstanceName, 10, false);
         editSubstanceName.clear();
         editSubstanceName.sendKeys(substanceAppended);
@@ -201,6 +204,56 @@ public class ManageSubstances extends _Page {
             PageUtils.singleClick(driver, casNumberRequiredNo);
         }
         comments.sendKeys("Test Comment for banned substances");
+        PageUtils.singleClick(driver, submit);
+
+        return new ActionsPage(driver);
+    }
+
+    public ActionsPage updateActivelyBannedStatusTo(String substance, boolean isBanned) {
+
+        //searchForSubstance(substance, !isBanned);
+//        WaitUtils.waitForElementToBeClickable(driver, searchSubstanceName, 10, false);
+//        searchSubstanceName.clear();
+//        searchSubstanceName.sendKeys(substance);
+//
+//        //This should not be necessary
+//        if(!isBanned)
+//            PageUtils.singleClick(driver, searchActivelyBannedYes);
+//        else
+//            PageUtils.singleClick(driver, searchActivelyBannedNo);
+//
+//        PageUtils.singleClick(driver, searchSubmit);
+
+        //viewSubstance(substance);
+        PageFactory.initElements(driver, this);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(substance), 10, false);
+        WebElement link = driver.findElement(By.partialLinkText(substance));
+        link.click();
+
+        //updateStatusOfSubstanceTo(substance, isBanned);
+        PageFactory.initElements(driver, this);
+        if(Boolean.valueOf(isBanned)) {
+            PageUtils.doubleClick(driver, activelyBannedYes);
+        }else {
+            PageUtils.doubleClick(driver, activelyBannedNo);
+        }
+        PageUtils.singleClick(driver, submit);
+
+        return new ActionsPage(driver);
+    }
+
+    public ActionsPage updateStatusOfSubstanceTo(String substance, boolean isBanned) {
+        if(substance!=null){
+            searchForSubstance(substance, isBanned);
+            viewSubstance(substance);
+        }
+
+        WaitUtils.waitForElementToBeClickable(driver, activelyBannedYes, 10, false);
+        if(Boolean.valueOf(isBanned)) {
+            PageUtils.doubleClick(driver, activelyBannedYes);
+        }else {
+            PageUtils.doubleClick(driver, activelyBannedNo);
+        }
         PageUtils.singleClick(driver, submit);
 
         return new ActionsPage(driver);

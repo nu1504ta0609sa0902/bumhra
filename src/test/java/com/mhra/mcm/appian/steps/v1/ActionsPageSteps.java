@@ -5,9 +5,9 @@ import java.util.Map;
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects.ActionsPage;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
+import com.mhra.mcm.appian.pageobjects.sections.contents.ManageSubstances;
 import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
-import com.mhra.mcm.appian.utils.helpers.page.AssertUtils;
 import com.mhra.mcm.appian.utils.helpers.page.StepsUtils;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
@@ -275,7 +275,6 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_go_to_manage_substance_page() throws Throwable {
         mainNavigationBar = new MainNavigationBar(driver);
         actionsPage = mainNavigationBar.clickActions();
-
         manageSubstances = actionsPage.clickManageSubstances();
     }
 
@@ -303,6 +302,10 @@ public class ActionsPageSteps extends CommonSteps {
             substance = RandomDataUtils.getRandomTestName("Substance");
         }
 
+        if(substance.equals("stored")){
+            substance = (String) scenarioSession.getData(SessionKey.substance);
+        }
+
         //Add substance
         manageSubstances = manageSubstances.clickOnAddNewSubstances();
 
@@ -325,10 +328,10 @@ public class ActionsPageSteps extends CommonSteps {
         boolean substanceAdded = false;
         if(isBanned.equals("is")) {
             substanceAdded = manageSubstances.verifyNewSubstanceAdded(substance, true);
-            assertThat("Expected to see new substance called : " + substance, substanceAdded, is(true));
+            assertThat("Expected to see only 1 substance called : " + substance, substanceAdded, is(true));
         }else{
             substanceAdded = manageSubstances.verifyNewSubstanceAdded(substance, false);
-            assertThat("Expected to see new substance called : " + substance, substanceAdded, is(true));
+            assertThat("Expected to see only 1 substance called : " + substance, substanceAdded, is(true));
         }
     }
 
@@ -378,6 +381,7 @@ public class ActionsPageSteps extends CommonSteps {
 
     @Then("^I should see substance \"([^\"]*)\" banned$")
     public void i_should_see_substance_banned(String isBanned) throws Throwable {
+        //ASSUMES A SEARCH IS PERFORMED
         String substance = (String) scenarioSession.getData(SessionKey.substance);
         boolean isSubstanceBanned = manageSubstances.isSubstanceBanned();
         if(isBanned.equals("is")) {
@@ -391,6 +395,48 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_update_a_random_substance_name_by_appending(String appendText) throws Throwable {
         manageSubstances = manageSubstances.updateARandomSubstance(appendText);
     }
+
+
+    @When("^I search and update status of \"([^\"]*)\" substance to \"([^\"]*)\" banned$")
+    public void i_update_status_of_substance_to_banned(String substance, String isBanned) throws Throwable {
+        if(substance.equals("stored")){
+            substance = (String) scenarioSession.getData(SessionKey.substance);
+        }
+
+        if(isBanned.equals("is")){
+            manageSubstances = manageSubstances.searchForSubstance(substance, false);
+            manageSubstances = manageSubstances.viewSubstance(substance);
+            actionsPage =  manageSubstances.updateStatusOfSubstanceTo(null, true);
+            //actionsPage = this.manageSubstances.updateActivelyBannedStatusTo(substance, true);
+        }else{
+            manageSubstances = manageSubstances.searchForSubstance(substance, true);
+            manageSubstances = manageSubstances.viewSubstance(substance);
+            actionsPage =  manageSubstances.updateStatusOfSubstanceTo(null, false);
+            //actionsPage = manageSubstances.updateActivelyBannedStatusTo(substance, false);
+        }
+    }
+
+//    @When("^I go to manage substance page and search and update status of \"([^\"]*)\" substance to \"([^\"]*)\" banned$")
+//    public void i_go_to_manage_substance_page_update_status_of_substance_to_banned(String substance, String isBanned) throws Throwable {
+//        if(substance.equals("stored")){
+//            substance = (String) scenarioSession.getData(SessionKey.substance);
+//        }
+//    mainNavigationBar = new MainNavigationBar(driver);
+//    actionsPage = mainNavigationBar.clickActions();
+//    manageSubstances = actionsPage.clickManageSubstances();
+//
+//        if(isBanned.equals("is")){
+//            manageSubstances = this.manageSubstances.searchForSubstance(substance, false);
+//            manageSubstances = this.manageSubstances.viewSubstance(substance);
+//            actionsPage =  this.manageSubstances.updateActivelyBannedStatusTo(substance, true);
+//            //actionsPage = this.manageSubstances.updateActivelyBannedStatusTo(substance, true);
+//        }else{
+//            manageSubstances = this.manageSubstances.searchForSubstance(substance, true);
+//            manageSubstances = this.manageSubstances.viewSubstance(substance);
+//            actionsPage =  this.manageSubstances.updateActivelyBannedStatusTo(substance, false);
+//            //actionsPage = manageSubstances.updateActivelyBannedStatusTo(substance, false);
+//        }
+//    }
 
     @When("^I update a stored substance name by appending \"([^\"]*)\"$")
     public void i_update_a_stored_substance_name_by_appending(String appendText) throws Throwable {
@@ -411,7 +457,7 @@ public class ActionsPageSteps extends CommonSteps {
 
         //Update the substance name
         manageSubstances = manageSubstances.viewSubstance(substance);
-        actionsPage = manageSubstances.updateSubstance(substanceAppended);
+        actionsPage = manageSubstances.updateSubstanceName(substanceAppended);
 
         scenarioSession.putData(SessionKey.substance, substanceAppended);
         scenarioSession.putData(SessionKey.bannedTxt, isBanned);

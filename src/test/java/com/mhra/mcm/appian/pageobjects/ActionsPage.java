@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.pageobjects;
 
 import com.mhra.mcm.appian.pageobjects.sections.contents.ManageSubstances;
 import com.mhra.mcm.appian.pageobjects.sections.contents.UpdateQAPercentage;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -80,8 +81,11 @@ public class ActionsPage extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 15, false);
             PageUtils.doubleClick(driver, manageSubstances);
             return new ManageSubstances(driver);
-        }catch (Exception e){
-            return null;
+        }catch(StaleElementReferenceException e){
+            PageFactory.initElements(driver, this);
+            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 15, false);
+            PageUtils.doubleClick(driver, manageSubstances);
+            return new ManageSubstances(driver);
         }
     }
 
