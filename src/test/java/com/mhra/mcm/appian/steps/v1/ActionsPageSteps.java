@@ -239,7 +239,7 @@ public class ActionsPageSteps extends CommonSteps {
 
     @Given("^I update qa percentage to \"([^\"]*)\"$")
     public void i_update_qa_percentage_to(String qaPercentage) throws Throwable {
-        if(qaPercentage.equals("") || qaPercentage.equals("random")){
+        if(qaPercentage.equals("random")){
             qaPercentage = RandomDataUtils.getSimpleRandomNumberBetween(10,50);
         }
 
@@ -290,11 +290,6 @@ public class ActionsPageSteps extends CommonSteps {
         //Appian system can't handle the automation script requesting too many logins
         WaitUtils.nativeWait(2);
     }
-
-//    @When("^I click on new substance$")
-//    public void i_click_on_new_substance() throws Throwable {
-//        manageSubstances = manageSubstances.clickOnAddNewSubstances();
-//    }
 
 
     @When("^I add a substance \"([^\"]*)\" which \"([^\"]*)\" banned$")
@@ -404,6 +399,12 @@ public class ActionsPageSteps extends CommonSteps {
             substance = (String) scenarioSession.getData(SessionKey.substance);
         }
 
+        if(manageSubstances == null){
+            mainNavigationBar = new MainNavigationBar(driver);
+            actionsPage = mainNavigationBar.clickActions();
+            manageSubstances = actionsPage.clickManageSubstances();
+        }
+
         if(isBanned.equals("is")){
             manageSubstances = manageSubstances.searchForSubstance(substance, false);
             manageSubstances = manageSubstances.viewSubstance(substance);
@@ -417,27 +418,7 @@ public class ActionsPageSteps extends CommonSteps {
         }
     }
 
-//    @When("^I go to manage substance page and search and update status of \"([^\"]*)\" substance to \"([^\"]*)\" banned$")
-//    public void i_go_to_manage_substance_page_update_status_of_substance_to_banned(String substance, String isBanned) throws Throwable {
-//        if(substance.equals("stored")){
-//            substance = (String) scenarioSession.getData(SessionKey.substance);
-//        }
-//    mainNavigationBar = new MainNavigationBar(driver);
-//    actionsPage = mainNavigationBar.clickActions();
-//    manageSubstances = actionsPage.clickManageSubstances();
-//
-//        if(isBanned.equals("is")){
-//            manageSubstances = this.manageSubstances.searchForSubstance(substance, false);
-//            manageSubstances = this.manageSubstances.viewSubstance(substance);
-//            actionsPage =  this.manageSubstances.updateActivelyBannedStatusTo(substance, true);
-//            //actionsPage = this.manageSubstances.updateActivelyBannedStatusTo(substance, true);
-//        }else{
-//            manageSubstances = this.manageSubstances.searchForSubstance(substance, true);
-//            manageSubstances = this.manageSubstances.viewSubstance(substance);
-//            actionsPage =  this.manageSubstances.updateActivelyBannedStatusTo(substance, false);
-//            //actionsPage = manageSubstances.updateActivelyBannedStatusTo(substance, false);
-//        }
-//    }
+
 
     @When("^I update a stored substance name by appending \"([^\"]*)\"$")
     public void i_update_a_stored_substance_name_by_appending(String appendText) throws Throwable {

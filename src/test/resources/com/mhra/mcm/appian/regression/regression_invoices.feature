@@ -17,6 +17,6 @@ Feature: As a user I need to quickly verify there is no regression issues with i
     Examples:
       | user | type | price | status | ingredient  | status2    |
       | rdt1 | 1    | 150   | Paid   | SUPPLEMENT1 | Successful |
-      | rdt1 | 2    | 80    | Paid   | SUPPLEMENT2 | Successful |
-      | rdt1 | 3    | 150   | Paid   | SUPPLEMENT3 | Successful |
+#      | rdt1 | 2    | 80    | Paid   | SUPPLEMENT2 | Successful |
+#      | rdt1 | 3    | 150   | Paid   | SUPPLEMENT3 | Successful |
 

@@ -1,10 +1,12 @@
 package com.mhra.mcm.appian.utils.helpers.page;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.sun.istack.internal.Nullable;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
@@ -110,5 +112,45 @@ public class WaitUtils {
         } catch (NoAlertPresentException e) {
             return false;
         }
+    }
+
+
+
+    public static void isElementPartOfDom(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
+        if(overrideTimeSpecified)
+            maxTimeToWait = resetMaxTime(maxTimeToWait);
+        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
+    }
+
+
+    public static void isElementPartOfDomAdvanced(WebDriver driver, final WebElement element, int maxTimeToWait, boolean overrideTimeSpecified) {
+        if(overrideTimeSpecified)
+            maxTimeToWait = resetMaxTime(maxTimeToWait);
+
+        new WebDriverWait(driver, maxTimeToWait)
+                .ignoring(StaleElementReferenceException.class)
+                .until(new Predicate<WebDriver>() {
+                    @Override
+                    public boolean apply(@Nullable WebDriver driver) {
+                        boolean displayed = element.isDisplayed();
+                        return displayed;
+                    }
+                });
+    }
+
+
+    public static void isElementPartOfDomAdvanced2(WebDriver driver, final By by, int maxTimeToWait, boolean overrideTimeSpecified) {
+        if(overrideTimeSpecified)
+            maxTimeToWait = resetMaxTime(maxTimeToWait);
+
+        new WebDriverWait(driver, maxTimeToWait)
+                .ignoring(StaleElementReferenceException.class)
+                .until(new Predicate<WebDriver>() {
+                    @Override
+                    public boolean apply(@Nullable WebDriver driver) {
+                        WebElement element = driver.findElement(by);
+                        return element!=null;
+                    }
+                });
     }
 }

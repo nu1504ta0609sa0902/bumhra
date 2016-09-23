@@ -79,7 +79,7 @@ public class ManageSubstances extends _Page {
     }
 
     public ActionsPage addNewSubstance(String substance, boolean isBanned ) {
-        WaitUtils.waitForElementToBeClickable(driver, substanceName, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, substanceName, 20, false);
         substanceName.sendKeys(substance);
 
         if(isBanned) {

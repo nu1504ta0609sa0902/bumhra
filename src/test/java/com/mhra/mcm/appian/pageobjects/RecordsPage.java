@@ -86,18 +86,11 @@ public class RecordsPage extends _Page {
     }
 
     public RecordsPage clickNotificationsLink() {
-        try {
+            WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Notifications"), 20, false);
             WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 20);
             PageUtils.singleClick(driver, notificationsLink);
             //notificationsLink.click();
             return new RecordsPage(driver);
-        }catch(StaleElementReferenceException e){
-            PageFactory.initElements(driver, this);
-            WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 20);
-            PageUtils.singleClick(driver, notificationsLink);
-            //notificationsLink.click();
-            return new RecordsPage(driver);
-        }
     }
 
     public RecordsPage clickUsersLink() {
@@ -291,18 +284,12 @@ public class RecordsPage extends _Page {
     }
 
     public int getNotificationCount(String ecid) {
-        try {
+            WaitUtils.isElementPartOfDom(driver, By.partialLinkText(ecid), 10, false);
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(ecid), 5);
             List<WebElement> listOfMatches = driver.findElements(By.partialLinkText(ecid));
             int count = GenericUtils.getUniqueECIDCount(listOfMatches);
             return count;
-        }catch (StaleElementReferenceException e){
-            PageFactory.initElements(driver, this);
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(ecid), 5);
-            List<WebElement> listOfMatches = driver.findElements(By.partialLinkText(ecid));
-            int count = GenericUtils.getUniqueECIDCount(listOfMatches);
-            return count;
-        }
+
     }
 
 

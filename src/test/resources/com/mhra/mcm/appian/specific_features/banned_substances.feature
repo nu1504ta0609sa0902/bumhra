@@ -86,13 +86,14 @@ Feature: As a member of the IPU, I can update the list of banned substances
 
 
   @mcm-44
-  Scenario Outline: Users should be able to update the status of banned substances
+  Scenario Outline: Users should be able to update the status of banned substance
 #Create a substance
     Given I am logged into appian as "<user>" user
     When I go to manage substance page
     And I add a substance "<substance1>" which "<banned>" banned
 #Update status of substance
-    When I go to manage substance page
+    Then I should see the new substance in the manage substance page
+#    When I go to manage substance page
     When I search and update status of "<substance2>" substance to "<updateBanned>" banned
 #Verify actively banned status is updated
     And I search for stored substance name which "<updateBanned>" banned

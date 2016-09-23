@@ -25,6 +25,12 @@ public class Exceptions extends _Page {
 
     @FindBy(xpath = ".//*[contains(@aria-label, 'Next page')]")
     WebElement nextPage;
+    @FindBy(xpath = ".//*[contains(@aria-label, 'Previous page')]")
+    WebElement prevPage;
+    @FindBy(xpath = ".//*[contains(@aria-label, 'First page')]")
+    WebElement firstPage;
+    @FindBy(xpath = ".//*[contains(@aria-label, 'Last page')]")
+    WebElement lastPage;
 
     @Autowired
     public Exceptions(WebDriver driver) {
@@ -64,6 +70,33 @@ public class Exceptions extends _Page {
 
         }while(!found && attempt < 5);
 
+        return found;
+    }
+
+    public boolean isNotificationDisplayedOnLastPage(String ecId){
+        boolean found = false;
+
+        int count = 0;
+        do {
+            try {
+                //Go to last mpage
+                WaitUtils.waitForElementToBeClickable(driver, lastPage, 7, false);
+                PageUtils.doubleClick(driver, lastPage);
+                PageFactory.initElements(driver, this);
+
+                WaitUtils.waitForElementToBeClickable(driver, By.linkText(ecId), 7, false);
+                WebElement notification = driver.findElement(By.linkText(ecId));
+                notification.click();
+                found = true;
+                break;
+            } catch (Exception e) {
+                //driver.navigate().refresh();
+                WaitUtils.waitForElementToBeClickable(driver, prevPage, 7, false);
+                PageFactory.initElements(driver, this);
+                found = false;
+            }
+            count++;
+        }while(!found && count < 3);
         return found;
     }
 

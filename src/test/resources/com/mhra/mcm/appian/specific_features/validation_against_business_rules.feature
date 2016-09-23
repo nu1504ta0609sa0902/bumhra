@@ -57,7 +57,7 @@ Feature: The system shall automatically check against the business rules defined
 
 
   @mcm-42 @mcm-44
-  Scenario Outline: Check when banned substances are added the system will not run the decision table for a notification until the notification is in a PAID status
+  Scenario Outline: Check refusal for notification email is received when banned substances are added to a notification
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
       | type       | <type>       |
@@ -81,7 +81,6 @@ Feature: The system shall automatically check against the business rules defined
     When I go to manage substance page
     And I add a substance "<substance>" which "<banned>" banned
     Then I should see the new substance in the manage substance page
-
     And I create new notification with following data
       | type       | <type> |
       | ingredient | stored |

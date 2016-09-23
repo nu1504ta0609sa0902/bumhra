@@ -135,7 +135,7 @@ public class CommonSteps {
                 try {
                     if (driver != null) {
                         log.info("Should generate the pretty report");
-                        sleep(15000);
+                        sleep(20000);
                         driver.quit();
                         //IE driver doesn't quit, so forced to try this
                         //Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");
