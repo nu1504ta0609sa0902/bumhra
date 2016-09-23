@@ -218,13 +218,39 @@ public class AnonymiseXMLDataUtility {
 
         replaceSpecificTags(".//PhoneNumber", testPhone, xpath, doc);
         replaceSpecificTags(".//Email", testEmail, xpath, doc);
+
+        //Requested by Lambros 22/09/2016
+        applyLamrosesRequest(xpath, doc);
+    }
+
+    private static void applyLamrosesRequest(XPath xpath, Document doc) throws XPathExpressionException {
+        replaceSpecificTags(".//GeneralComment", "Random Comment", xpath, doc);
+        replaceSpecificTags(".//ProductID", "12345-12-12345", xpath, doc);
+        replaceSpecificTags(".//BrandName", "MHRA Brand Name", xpath, doc);
+        replaceSpecificTags(".//ProductIdentification", "Product Identification Text", xpath, doc);
+        replaceSpecificTags(".//Description", "Product Description of this e-liquid", xpath, doc);
+        replaceSpecificTags(".//Submitter/@submitterID", "12345", xpath, doc);
+        replaceSpecificTags(".//Manufacturer/@submitterID", "12345", xpath, doc);
+        replaceSpecificTags(".//Address", "151 Buckingham Palace Road, London, SW1W 9SZ", xpath, doc);
+
+        replaceSpecificTags(".//IdentificationRefillContainerCartridge", "Refill container Description eg Cherry 2mg", xpath, doc);
+        replaceSpecificTags(".//IdentificationEcigDevice", "Refill container Description eg Cherry 2mg", xpath, doc);
+        replaceSpecificTags(".//ProductNumber", "12345-16-12345", xpath, doc);
+        replaceSpecificTags(".//ProductCombination", "20W eCig device with Cherry 2mg", xpath, doc);
+        replaceSpecificTags(".//BrandSubtypeName", "SubType Brand", xpath, doc);
     }
 
 
-
     public static void main(String args[]) {
+        //CONTROLS
         boolean applyTagsSpecifiedByBeryl = true;
         boolean overrideSpecificTags = true;
+        boolean makeDataConfidential = false;
+
+        String confidentialXPath = ".//*[@confidential='true']";
+        if(!makeDataConfidential){
+            confidentialXPath = ".//*[@confidential='trues']";
+        }
 
         String os = System.getProperty("os.name");
         String xmlFolderLocation = "C:\\Selenium\\xmlData\\originalFiles";
@@ -254,7 +280,7 @@ public class AnonymiseXMLDataUtility {
 
                 File isFile = new File(original);
                 if(isFile.isFile()) {
-                    fr.XMLReplaceTextWith(applyTagsSpecifiedByBeryl, overrideSpecificTags, original, created, ".//*[@confidential='true']", "CONFIDENTIAL DATA", listOfIgnoreTags);
+                    fr.XMLReplaceTextWith(applyTagsSpecifiedByBeryl, overrideSpecificTags, original, created, confidentialXPath, "CONFIDENTIAL DATA", listOfIgnoreTags);
                 }
             } catch (Exception e) {
 
