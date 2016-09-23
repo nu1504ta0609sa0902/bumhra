@@ -238,6 +238,11 @@ public class AnonymiseXMLDataUtility {
         replaceSpecificTags(".//ProductNumber", "12345-16-12345", xpath, doc);
         replaceSpecificTags(".//ProductCombination", "20W eCig device with Cherry 2mg", xpath, doc);
         replaceSpecificTags(".//BrandSubtypeName", "SubType Brand", xpath, doc);
+        replaceSpecificTags(".//Parent/Name", "Parent Name", xpath, doc);
+        replaceSpecificTags(".//Enterer/Name", "Enterer Name", xpath, doc);
+        replaceSpecificTags(".//Affiliate/Name", "Affiliate Name", xpath, doc);
+        replaceSpecificTags(".//Ingredient/Name", "Ingredient", xpath, doc);
+        replaceSpecificTags(".//Manufacturer/Name", "Manufacturer Name", xpath, doc);
     }
 
 
