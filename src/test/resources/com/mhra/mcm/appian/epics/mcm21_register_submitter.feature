@@ -1,6 +1,6 @@
 Feature: Once Appian has parsed the notification data, the system will register the submitter of the notification and wait for a payment to be made.
 
-  @mcm-21 @mcm-50
+  @mcm-21 @mcm-50 @ignore
   Scenario Outline: Register a new submitter without a tcaNumber and verify status
     Given I am logged into appian as "rdt1" user
     And I create new notification with following data
@@ -12,8 +12,8 @@ Feature: Once Appian has parsed the notification data, the system will register 
     Examples:
       | type | submitterNameGeneration | initialStatus |
       | 1    | random                  | Uploaded      |
-#      | 2    | random                  | Uploaded      |
-#      | 3    | random                  | Uploaded      |
+      | 2    | random                  | Uploaded      |
+      | 3    | random                  | Uploaded      |
 #      | 4    | random                  | Uploaded      |
 
 
@@ -31,8 +31,8 @@ Feature: Once Appian has parsed the notification data, the system will register 
     Examples:
       | type | submitterNameGeneration | initialStatus | statusWithTCANumber |
       | 1    | random                  | Uploaded      | Ready for Invoicing |
-#      | 2    | random                  | Uploaded      | Ready for Invoicing |
-#      | 3    | random                  | Uploaded      | Ready for Invoicing |
+      | 2    | random                  | Uploaded      | Ready for Invoicing |
+      | 3    | random                  | Uploaded      | Ready for Invoicing |
 #      | 4    | random                  | Uploaded      | Ready for Invoicing |
 
 
@@ -49,7 +49,7 @@ Feature: Once Appian has parsed the notification data, the system will register 
     Examples:
       | type | submitterNameGeneration | initialStatus |
       | 1    | random                  | Uploaded      |
-#       | 2    | random                  | Uploaded      |
-#       | 3    | random                  | Uploaded      |
+       | 2    | random                  | Uploaded      |
+       | 3    | random                  | Uploaded      |
 #       | 4    | random                  | Uploaded      |
 

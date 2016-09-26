@@ -65,7 +65,7 @@ Feature: Each notification will have a fee associated with it. No processing of 
 #      | 4    | Ready for Invoicing | Unpaid             | Paid              | 150             | Uploaded      |random                  |
 
 
-  @mcm-36 @wip
+  @mcm-36 @wip @ignore
   Scenario Outline: Invoices should not be created for submission type 4 type 5 and type 7
     Given I am logged into appian as "<user>" user
     And I select a previous notification with ecid "<previousECID>"

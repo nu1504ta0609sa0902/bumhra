@@ -77,10 +77,11 @@ Feature: As an IPU super user, I want the ability to edit notification
     And I view an random notification with status "<status>"
     Then I should be able to manage documents
     Examples:
-      | user  | status |
-      | super1  | Uploaded |
-      | ipu1  | Uploaded |
-      | fin1  | Unpaid |
-      | rdt1  | Uploaded |
-      | vrmm1 | Unpaid |
-      | comm1 | Unpaid |
+      | user   | status   |
+      | super1 | Uploaded |
+      | ipu1   | Uploaded |
+      | fin1   | Unpaid   |
+      | rdt1   | Uploaded |
+      | vrmm1  | Unpaid   |
+      | comm1  | Unpaid   |
+

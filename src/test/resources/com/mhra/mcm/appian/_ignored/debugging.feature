@@ -56,3 +56,12 @@ Feature: As a tester I would like to debug
       | super1 | Uploaded | 24335-16-58479 |
       | super1 | Uploaded | 65895-16-37521 |
       | super1 | Uploaded | 58752-16-57074 |
+
+
+  @ignore
+  Scenario: Check TCA existing notification
+    Given I am logged into appian as "super1" user
+    And I select a notification with ecid "51730-16-99116"
+    And I should see new task generated for the stored notification
+    When I set a new TCA number for the notification
+    Then I should see the stored notification with status set to "Ready for Invoicing"
