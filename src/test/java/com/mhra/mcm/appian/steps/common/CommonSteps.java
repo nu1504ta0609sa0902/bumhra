@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.mhra.mcm.appian.pageobjects.sections.contents.*;
+import com.mhra.mcm.appian.utils.driver.BrowserConfig;
 import com.mhra.mcm.appian.utils.helpers.datadriven.ExcelUtils;
 import com.mhra.mcm.appian.utils.helpers.others.NetworkUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;

@@ -58,21 +58,24 @@
         <context:property-placeholder location="classpath:configs/envs/mhradev.properties" ignore-unresolvable="true"/>
         <context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true"/>
         <!--<context:property-placeholder location="classpath:configs/envs/logsettings/log4j-mhradev.properties" ignore-unresolvable="true"/>-->
-        <bean id="driver" class="${${current.browser}}" destroy-method="quit"/>
+        <!--<bean id="driver" class="${${current.browser}}" destroy-method="quit"/>-->
+        <bean class="com.mhra.mcm.appian.utils.driver.BrowserConfig"/>
     </beans>
 
     <beans profile="mhratest">
         <context:property-placeholder location="classpath:configs/envs/mhratest.properties" ignore-unresolvable="true"/>
         <context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true"/>
         <!--<context:property-placeholder location="classpath:configs/envs/logsettings/log4j-mhratest.properties" ignore-unresolvable="true"/>-->
-        <bean id="driver" class="${${current.browser}}" destroy-method="quit"/>
+        <!--<bean id="driver" class="${${current.browser}}" destroy-method="quit"/>-->
+        <bean class="com.mhra.mcm.appian.utils.driver.BrowserConfig"/>
     </beans>
 
     <beans profile="mhra">
         <context:property-placeholder location="classpath:configs/envs/mhra.properties" ignore-unresolvable="true"/>
         <context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true"/>
         <!--<context:property-placeholder location="classpath:configs/envs/logsettings/log4j.properties" ignore-unresolvable="true"/>-->
-        <bean id="driver" class="${${current.browser}}" destroy-method="quit"/>
+        <!--<bean id="driver" class="${${current.browser}}" destroy-method="quit"/>-->
+        <bean class="com.mhra.mcm.appian.utils.driver.BrowserConfig"/>
     </beans>
 
 </beans>
