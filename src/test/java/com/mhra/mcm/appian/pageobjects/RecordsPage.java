@@ -232,6 +232,7 @@ public class RecordsPage extends _Page {
                 if(ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")){
                     ecID = null;
                 }else{
+                    WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[.='" + ecID + "']//following::p[4]"), 15, false);
                     element = driver.findElement(By.xpath(".//*[.='" + ecID + "']//following::p[4]"));
                     String currentStatus = element.getText();
 
@@ -317,12 +318,19 @@ public class RecordsPage extends _Page {
     }
 
     public int getTotalNotificationCount() {
-        WaitUtils.waitForElementToBeClickable(driver, totalCount, 15, false);
-        String count = totalCount.getText();
-        if(count!=null){
-            count = count.replace("of", "").trim();
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, totalCount, 10, false);
+            String count = totalCount.getText();
+            if (count != null) {
+                count = count.replace("of", "").trim();
+            }
+            return Integer.parseInt(count);
+        }catch (Exception e){
+            By by = By.xpath(".//*[@class='footer']//following::div/span[3]");
+            WaitUtils.waitForElementToBeClickable(driver, by, 15, false);
+            String count = driver.findElement(by).getText();
+            return Integer.parseInt(count);
         }
-        return Integer.parseInt(count);
     }
 
     public boolean isSearchResultsFor(String searchTermText) {

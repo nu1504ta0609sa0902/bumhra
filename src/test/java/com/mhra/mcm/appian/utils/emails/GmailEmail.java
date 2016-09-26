@@ -53,12 +53,14 @@ import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 
 public class GmailEmail {
 
-    public static final String REFUSAL_FOR_NOTIFICATION = "Refusal For Notification";
-    private static final String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
-    public static final String NO_NEW_NOTIFICATIONS = "No new notifications";
     public static final String UNINVOICED_NOTIFICATIONS = "Uninvoiced Notifications";
+    public static final String ANNUAL_INVOICED_NOTIFICATIONS = "Annual Notification Invoices";
+    public static final String REFUSAL_FOR_NOTIFICATION = "Refusal For Notification";
+    public static final String NO_NEW_NOTIFICATIONS = "No new notifications";
     public static final String WITHDRAWAL = "Withdrawn Notifications";
     public static final String NO_WITHDRAWN_NOTIFICATIONS = "No withdrawn notifications";
+    private static final String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
+
     private static List<Invoice> listOfInvoices = new ArrayList<>();
     private static boolean refusalEmailReceived;
     private static boolean withdrawalEmailReceived;
@@ -157,7 +159,7 @@ public class GmailEmail {
                         if ((isMessageReceivedToday && subject.contains(subjectHeading)) || subject.contains(REFUSAL_FOR_NOTIFICATION)
                                 || subject.contains(WITHDRAWAL) || subject.contains(NO_NEW_NOTIFICATIONS) || subject.contains(NO_WITHDRAWN_NOTIFICATIONS)) {
                             boolean isRecent = receivedInLast(min, sentDate);
-                            if (isRecent && subject.contains(UNINVOICED_NOTIFICATIONS)) {
+                            if (isRecent && ( subject.contains( UNINVOICED_NOTIFICATIONS )|| subject.contains(ANNUAL_INVOICED_NOTIFICATIONS)  ) ) {
                                 System.out.println("---------------------------------");
                                 System.out.println("Recent email received");
                                 System.out.println("---------------------------------");

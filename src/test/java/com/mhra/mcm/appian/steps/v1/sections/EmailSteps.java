@@ -132,10 +132,13 @@ public class EmailSteps extends CommonSteps {
             attempt++;
         } while (!foundInvoices && attempt < 12);
 
-        Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
+        if(ecID!=null) {
+            Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
+            scenarioSession.putData(SessionKey.invoice, invoice);
+        }
 
         scenarioSession.putData(SessionKey.listOfInvoices, listOfInvoices);
-        scenarioSession.putData(SessionKey.invoice, invoice);
+        assertThat("No email received from appian related to annual invoices : mhra.uat@gmail.com", listOfInvoices.size(), is(not(equalTo(0))));
 
     }
 

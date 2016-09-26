@@ -52,7 +52,7 @@ Feature: As an IPU super user, I want the ability to edit notification
       | super1 | Uploaded   | Unpaid   |
       | super1 | Unpaid     | Uploaded |
       | super1 | Uploaded   | Failed   |
-      | super1 | Failed     | Uploaded |
+      #| super1 | Failed     | Uploaded |
 
 
   @mcm-97

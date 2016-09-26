@@ -362,6 +362,24 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
 
+    @When("^I store count of notifications by status \"([^\"]*)\"$")
+    public void i_store_count_of_notificaitons_by_status(String filterByStatus) throws Throwable {
+        RecordsFilter filterSection = recordsPage.getFilterSection();
+        //filterSection = filterSection.clearSelection();
+        filterSection = filterSection.expand();
+        //recordsPage = filterSection.filterByStatus(filterByStatus);
+        recordsPage = filterSection.clickFilterText(filterByStatus);
+        boolean isFitered = filterSection.isFiteredBy(filterByStatus);
+        if (!isFitered) {
+            recordsPage = filterSection.clickFilterText(filterByStatus);
+        }
+        int count = recordsPage.getTotalNotificationCount();
+        log.info("Number of " + filterByStatus + " notifications is : " + count);
+        scenarioSession.putData(SessionKey.notificationCount, count);
+        scenarioSession.putData(SessionKey.notificationStatus, filterByStatus);
+    }
+
+
     @When("^I count the number of notifications in \"([^\"]*)\" status$")
     public void i_filter_by_statuses(String filterByStatuses) throws Throwable {
         String[] statuses = filterByStatuses.split(",");
@@ -447,6 +465,7 @@ public class RecordsPageSteps extends CommonSteps {
 //        recordsPage = recordsPage.clickNotificationsLink();
         String ecid = recordsPage.getARandomNotificationWithStatusEqualTo(status, 50);
         log.info("View notification with ecid : " + ecid);
+        scenarioSession.putData(SessionKey.ECID, ecid);
 
         //View notifications
         notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);

@@ -51,12 +51,14 @@ public class ActionsPage extends _Page {
     }
 
     public ActionsPage generateStandardInvoices() {
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Create Standard Invoices"), 10, false);
         WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 5);
         PageUtils.singleClick(driver, createStandardNotification);
         return new ActionsPage(driver);
     }
 
     public ActionsPage generateAnnualInvoices() {
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Create Annual Invoices"), 10, false);
         WaitUtils.waitForElementToBeClickable(driver, createAnnualInvoices, 5);
         PageUtils.singleClick(driver, createAnnualInvoices);
         return new ActionsPage(driver);
