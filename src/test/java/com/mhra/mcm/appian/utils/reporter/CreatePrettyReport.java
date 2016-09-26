@@ -25,14 +25,13 @@ public class CreatePrettyReport {
 
 	public static void main(String[] args) {
 		CreatePrettyReport cpr = new CreatePrettyReport();
-		cpr.monitorFolder("PrettyReport");
+		cpr.monitorFolder("PrettyReport", true);
 	}
 
 	/**
 	 * Monitors folder for changes and than generates pretty reports
 	 */
-	public void monitorFolder(String outFolderName) {
-		boolean cheat = true;
+	public void monitorFolder(String outFolderName, boolean cheat) {
 		String target = "target";
 		if(cheat){
 			target = "bu";
