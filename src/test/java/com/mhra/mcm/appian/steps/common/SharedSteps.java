@@ -1,6 +1,5 @@
 package com.mhra.mcm.appian.steps.common;
 
-import com.mhra.mcm.appian.driver.manager.WebDriverManager;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.OutputType;
@@ -92,7 +91,7 @@ public class SharedSteps extends CommonSteps {
             log.info("Will Create Pretty Report On The Go");
 			log.info("Have you configured it : --plugin json:target/report_name_what_ever_you_want.json");
             pr = new CreatePrettyReport();
-            pr.monitorFolder(PRETTY_REPORT);
+            pr.monitorFolder(PRETTY_REPORT, false);
         }
     }
 

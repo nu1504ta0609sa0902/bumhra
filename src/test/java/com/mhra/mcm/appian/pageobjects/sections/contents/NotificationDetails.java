@@ -105,7 +105,7 @@ public class NotificationDetails extends _Page {
 
     public AuditHistory clickAuditHistory() {
         WaitUtils.waitForElementToBeClickable(driver, auditHistory, 10, false);
-        PageUtils.singleClick(driver, auditHistory);
+        PageUtils.doubleClick(driver, auditHistory);
         //auditHistory.click();
         return new AuditHistory(driver);
     }

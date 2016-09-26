@@ -26,7 +26,7 @@ Feature: The Appian system shall support a full end to end audit trail for each 
 
 
     # Depends on having new notifications which are to be invoiced
-  @ignore @mcm-103 @mcm-94 @mcm-38
+  @mcm-103 @mcm-94 @mcm-38 @ignore
   Scenario Outline: Verify audit log after an existing notification invoice is paid
     Given I am logged into appian as "fin1" user
     And I generate a standard invoice
@@ -64,8 +64,28 @@ Feature: The Appian system shall support a full end to end audit trail for each 
     Then The notification status should update to "<status>"
     And Verify audit log details "<status>,<details>"
     Examples:
-      | user   | statusFrom | status   |  details                                 |
-      | super1 | Uploaded   | Unpaid   |  action=Update,user=Super 1,comment= ,timestamp=GMT+ |
-      | super1 | Unpaid     | Uploaded |   action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+   |
-      | super1 | Uploaded   | Failed    | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+   |
-      | super1 | Failed     | Uploaded   | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+   |
+      | user   | statusFrom | status   | details                                                               |
+      | super1 | Uploaded   | Unpaid   | action=Update,user=Super 1,comment= ,timestamp=GMT+                   |
+      | super1 | Unpaid     | Uploaded | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+ |
+      | super1 | Uploaded   | Failed   | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+ |
+      | super1 | Failed     | Uploaded | action=Update,user=Super 1,comment=Manage Notification,timestamp=GMT+ |
+
+
+  @mcm-70
+  Scenario Outline: Verify audit log records when a TCA number is added
+    Given I am logged into appian as "rdt1" user
+    And I create new notification with following data
+      | type          | <type>                    |
+      | tcaNumber     |                           |
+      | submitterName | <submitterNameGeneration> |
+    Then I should see the stored notification with status set to "<initialStatus>"
+    And I should see new task generated for the stored notification
+    When I set a new TCA number for the notification
+    Then I should see the stored notification with status set to "<statusWithTCANumber>"
+    And Verify audit log details "<statusWithTCANumber>,<details>"
+    Examples:
+      | type | statusWithTCANumber | initialStatus | submitterNameGeneration | details                                                             |
+      | 1    | Ready for Invoicing | Uploaded      | random                  | action=Update,user=RDT 1,comment=TCA Number Provided,timestamp=GMT+ |
+      | 2    | Ready for Invoicing | Uploaded      | random                  | action=Update,user=RDT 1,comment=TCA Number Provided,timestamp=GMT+ |
+      | 3    | Ready for Invoicing | Uploaded      | random                  | action=Update,user=RDT 1,comment=TCA Number Provided,timestamp=GMT+ |
+#      | 4    | Ready for Invoicing | Uploaded      |random                  |action=Update,user=RDT 1,comment=TCA Number Provided,timestamp=GMT+ |

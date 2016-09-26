@@ -85,6 +85,7 @@ public class TasksPage extends _Page {
     }
 
     public void enterTCANumber(String newTCANumber) {
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.xpath(".//label[.='TCA Number']//following::input[1]"), 20, false);
         WaitUtils.waitForElementToBeClickable(driver, tcaNumber, 10, false);
         tcaNumber.sendKeys(newTCANumber);
     }

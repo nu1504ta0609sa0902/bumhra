@@ -173,6 +173,20 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
 
+    @Then("^I select a notification with ecid \"([^\"]*)\"")
+    public void i_select_see_the_notification_generated(String expectedNotificationID) throws Throwable {
+        scenarioSession.putData(SessionKey.ECID, expectedNotificationID);
+        mainNavigationBar = new MainNavigationBar(driver);
+        recordsPage = mainNavigationBar.clickRecords();
+
+        recordsPage = recordsPage.clickNotificationsLink();
+        notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
+        boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
+        assertThat("Expected header to contains EC ID : " + expectedNotificationID, contains, is(equalTo(true)));
+        log.warn("Notification verified with ECID : " + expectedNotificationID);
+    }
+
+
     @Then("^I should see the stored notification$")
     public void i_should_see_the_stored_notification() throws Throwable {
         mainNavigationBar = new MainNavigationBar(driver);
