@@ -1,19 +1,16 @@
 package com.mhra.mcm.appian.pageobjects;
 
+import com.mhra.mcm.appian.pageobjects.sections.contents.CreateNotification;
 import com.mhra.mcm.appian.pageobjects.sections.contents.ManageSubstances;
 import com.mhra.mcm.appian.pageobjects.sections.contents.UpdateQAPercentage;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.mhra.mcm.appian.pageobjects.sections.contents.CreateNotification;
-import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
-import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 
 /**
  * Created by TPD_Auto on 18/07/2016.

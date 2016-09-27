@@ -1,6 +1,9 @@
 package com.mhra.mcm.appian.domain.xmlPojo;
 
-import com.mhra.mcm.appian.domain.xmlPojo.sub.*;
+import com.mhra.mcm.appian.domain.xmlPojo.sub.GeneralComment;
+import com.mhra.mcm.appian.domain.xmlPojo.sub.Product;
+import com.mhra.mcm.appian.domain.xmlPojo.sub.SubmissionType;
+import com.mhra.mcm.appian.domain.xmlPojo.sub.Submitter;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 

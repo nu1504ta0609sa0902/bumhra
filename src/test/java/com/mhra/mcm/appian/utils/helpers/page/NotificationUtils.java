@@ -1,28 +1,26 @@
 package com.mhra.mcm.appian.utils.helpers.page;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Map;
-
 import com.mhra.mcm.appian.domain.excelpojo.*;
+import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.Product;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.SubmissionType;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.Submitter;
 import com.mhra.mcm.appian.session.ScenarioSession;
 import com.mhra.mcm.appian.session.SessionKey;
-import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.datadriven.ExcelUtils;
+import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
+import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.mhra.mcm.appian.domain.webPagePojo.Notification;
-import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import java.io.File;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by TPD_Auto on 02/08/2016.

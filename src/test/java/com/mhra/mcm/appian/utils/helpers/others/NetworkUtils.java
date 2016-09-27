@@ -2,14 +2,7 @@ package com.mhra.mcm.appian.utils.helpers.others;
 
 import org.slf4j.Logger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.net.Socket;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
 
 /**
  * Created by TPD_Auto on 14/07/2016.

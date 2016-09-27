@@ -1,8 +1,7 @@
 package com.mhra.mcm.appian.domain.sort;
 
-import java.util.Comparator;
-
 import javax.mail.Message;
+import java.util.Comparator;
 
 /**
  * Created by TPD_Auto on 28/07/2016.

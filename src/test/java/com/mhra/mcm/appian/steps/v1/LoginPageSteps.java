@@ -1,18 +1,16 @@
 package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
-import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
-import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.springframework.context.annotation.Scope;
-
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.page.AssertUtils;
-
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.hamcrest.Matchers;
+import org.junit.Assert;
+import org.springframework.context.annotation.Scope;
 
 /**
  * Created by TPD_Auto on 12/07/2016.

@@ -1,26 +1,23 @@
 package com.mhra.mcm.appian.steps.v1;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
-import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
-import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
-import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
-import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
-import cucumber.api.java.eo.Se;
-import org.springframework.context.annotation.Scope;
-
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.pageobjects.RecordsPage;
+import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.pageobjects.sections.filters.RecordsFilter;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
+import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
+import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
-
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.springframework.context.annotation.Scope;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 /**
  * Created by TPD_Auto on 18/07/2016.

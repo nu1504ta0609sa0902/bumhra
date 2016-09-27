@@ -1,6 +1,8 @@
 package com.mhra.mcm.appian.pageobjects.sections.contents;
 
+import com.mhra.mcm.appian.pageobjects._Page;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,9 +10,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.mhra.mcm.appian.pageobjects._Page;
-import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 
 import java.util.List;
 

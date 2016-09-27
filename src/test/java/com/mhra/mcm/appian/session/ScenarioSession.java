@@ -1,10 +1,10 @@
 package com.mhra.mcm.appian.session;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**

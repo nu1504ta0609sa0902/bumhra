@@ -1,11 +1,5 @@
 package com.mhra.mcm.appian.utils.helpers.page;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
 /**
  * Created by TPD_Auto on 15/07/2016.
  */

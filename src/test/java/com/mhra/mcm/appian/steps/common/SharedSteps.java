@@ -1,18 +1,15 @@
 package com.mhra.mcm.appian.steps.common;
 
-import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
+import com.mhra.mcm.appian.utils.reporter.CreatePrettyReport;
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
 import org.springframework.context.annotation.Scope;
-
-import com.mhra.mcm.appian.session.SessionKey;
-import com.mhra.mcm.appian.utils.reporter.CreatePrettyReport;
-
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 
 /**
  * @author TPD_Auto

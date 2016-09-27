@@ -1,16 +1,12 @@
 package com.mhra.mcm.appian.steps.common;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
+import com.mhra.mcm.appian.pageobjects.*;
+import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.pageobjects.sections.contents.*;
-import com.mhra.mcm.appian.utils.driver.BrowserConfig;
+import com.mhra.mcm.appian.session.ScenarioSession;
 import com.mhra.mcm.appian.utils.helpers.datadriven.ExcelUtils;
 import com.mhra.mcm.appian.utils.helpers.others.NetworkUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
-import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,14 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 
-import com.mhra.mcm.appian.pageobjects.ActionsPage;
-import com.mhra.mcm.appian.pageobjects.LoginPage;
-import com.mhra.mcm.appian.pageobjects.NewsPage;
-import com.mhra.mcm.appian.pageobjects.RecordsPage;
-import com.mhra.mcm.appian.pageobjects.ReportsPage;
-import com.mhra.mcm.appian.pageobjects.TasksPage;
-import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
-import com.mhra.mcm.appian.session.ScenarioSession;
+import java.util.Map;
 
 
 @ContextConfiguration(locations = {"/cucumber.mhra.xml"})
@@ -110,7 +99,7 @@ public class CommonSteps {
                 quit();
             }
         }else{
-            WaitUtils.setImplicitWaits(driver);
+            //WaitUtils.setImplicitWaits(driver);
             PageUtils.setBrowserZoom(driver, currentBrowser);
         }
     }

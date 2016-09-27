@@ -1,10 +1,8 @@
 package com.mhra.mcm.appian.pageobjects.sections.contents;
 
-import com.mhra.mcm.appian.pageobjects.ActionsPage;
 import com.mhra.mcm.appian.pageobjects._Page;
-import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
-import org.openqa.selenium.Alert;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

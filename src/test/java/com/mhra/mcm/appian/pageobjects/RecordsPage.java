@@ -1,20 +1,21 @@
 package com.mhra.mcm.appian.pageobjects;
 
-import java.util.List;
-
-import com.mhra.mcm.appian.utils.helpers.page.AssertUtils;
-import org.openqa.selenium.*;
+import com.mhra.mcm.appian.pageobjects.sections.contents.EditNotification;
+import com.mhra.mcm.appian.pageobjects.sections.contents.NotificationDetails;
+import com.mhra.mcm.appian.pageobjects.sections.filters.RecordsFilter;
+import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mhra.mcm.appian.pageobjects.sections.contents.EditNotification;
-import com.mhra.mcm.appian.pageobjects.sections.contents.NotificationDetails;
-import com.mhra.mcm.appian.pageobjects.sections.filters.RecordsFilter;
-import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
-import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
-import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import java.util.List;
 
 /**
  * Created by TPD_Auto on 18/07/2016.

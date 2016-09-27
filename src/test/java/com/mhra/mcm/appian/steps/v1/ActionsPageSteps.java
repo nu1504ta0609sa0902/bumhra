@@ -1,28 +1,26 @@
 package com.mhra.mcm.appian.steps.v1;
 
-import java.util.Map;
-
+import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects.ActionsPage;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
+import com.mhra.mcm.appian.session.SessionKey;
+import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.StepsUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.context.annotation.Scope;
 
-import com.mhra.mcm.appian.domain.webPagePojo.Notification;
-import com.mhra.mcm.appian.session.SessionKey;
-import com.mhra.mcm.appian.steps.common.CommonSteps;
-import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
-import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
-
-import cucumber.api.java.en.Given;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
