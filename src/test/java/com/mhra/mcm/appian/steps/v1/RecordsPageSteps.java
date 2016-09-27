@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
+import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import cucumber.api.java.eo.Se;
@@ -77,7 +78,27 @@ public class RecordsPageSteps extends CommonSteps {
         //update notification
         notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
         editNotification = notificationDetails.clickManageNotification();
-        notificationDetails = editNotification.updateStatusTo(updatedStatus);
+        //notificationDetails = editNotification.updateStatusTo(updatedStatus);
+
+        //Update with new ecid
+        String newECID = GenericUtils.generateECIDBySpecifiedNumber(1, ecid);
+        notificationDetails = editNotification.updateNotificationStatus(updatedStatus, ecid, newECID);
+        log.info("Previous ECID : " + ecid);
+        log.info("New ECID : " + newECID);
+        scenarioSession.putData(SessionKey.ECID, newECID);
+    }
+
+
+    @Given("^Set a new ecid for stored notification$")
+    public void set_a_new_ecid_for_stored_notifications() throws Throwable {
+        String ecid = (String) scenarioSession.getData(SessionKey.ECID);
+        String newECID = GenericUtils.generateECIDBySpecifiedNumber(1, ecid);
+        log.info("Previous ECID : " + ecid);
+        log.info("New ECID : " + newECID);
+        scenarioSession.putData(SessionKey.ECID, newECID);
+
+        editNotification = notificationDetails.clickManageNotification();
+        notificationDetails = editNotification.updateNotificationStatus(null, ecid, newECID);
     }
 
     @Given("^I update status of an existing notification to \"([^\"]*)\"$")

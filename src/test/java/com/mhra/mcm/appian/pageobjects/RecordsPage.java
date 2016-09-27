@@ -285,7 +285,7 @@ public class RecordsPage extends _Page {
     }
 
     public int getNotificationCount(String ecid) {
-            WaitUtils.isElementPartOfDom(driver, By.partialLinkText(ecid), 10, false);
+            WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText(ecid), 10, false);
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(ecid), 5);
             List<WebElement> listOfMatches = driver.findElements(By.partialLinkText(ecid));
             int count = GenericUtils.getUniqueECIDCount(listOfMatches);

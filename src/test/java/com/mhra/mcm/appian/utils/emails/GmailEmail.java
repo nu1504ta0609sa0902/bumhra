@@ -159,19 +159,20 @@ public class GmailEmail {
                         if ((isMessageReceivedToday && subject.contains(subjectHeading)) || subject.contains(REFUSAL_FOR_NOTIFICATION)
                                 || subject.contains(WITHDRAWAL) || subject.contains(NO_NEW_NOTIFICATIONS) || subject.contains(NO_WITHDRAWN_NOTIFICATIONS)) {
                             boolean isRecent = receivedInLast(min, sentDate);
-                            if (isRecent && ( subject.contains( UNINVOICED_NOTIFICATIONS )|| subject.contains(ANNUAL_INVOICED_NOTIFICATIONS)  ) ) {
+                            if (isRecent && subject.contains( UNINVOICED_NOTIFICATIONS ) ) {
                                 System.out.println("---------------------------------");
                                 System.out.println("Recent email received");
                                 System.out.println("---------------------------------");
                                 writePart(message);
                                 System.out.println("Number of invoices : " + listOfInvoices.size());
                             }else{
-                                if (isRecent && subject.contains(REFUSAL_FOR_NOTIFICATION)){
+
+                                if(isRecent && subject.contains(ANNUAL_INVOICED_NOTIFICATIONS) ){
                                     System.out.println("---------------------------------");
-                                    System.out.println("Recent email received for : Refusal For Notification");
+                                    System.out.println("Recent email received for : Annual Invoiced Notifications");
                                     System.out.println("---------------------------------");
-                                    refusalEmailReceived = true;
-                                    break;
+                                    writePart(message);
+                                    System.out.println("Number of invoices : " + listOfInvoices.size());
                                 }
 
                                 if(isRecent && subject.contains(WITHDRAWAL)){
@@ -179,6 +180,16 @@ public class GmailEmail {
                                     System.out.println("Recent email received for : Withdrawal For Notification");
                                     System.out.println("---------------------------------");
                                     withdrawalEmailReceived = true;
+                                    writePart(message);
+                                    System.out.println("Number of invoices : " + listOfInvoices.size());
+                                    break;
+                                }
+
+                                if (isRecent && subject.contains(REFUSAL_FOR_NOTIFICATION)){
+                                    System.out.println("---------------------------------");
+                                    System.out.println("Recent email received for : Refusal For Notification");
+                                    System.out.println("---------------------------------");
+                                    refusalEmailReceived = true;
                                     break;
                                 }
 

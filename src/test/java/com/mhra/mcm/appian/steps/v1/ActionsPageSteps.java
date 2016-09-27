@@ -5,8 +5,8 @@ import java.util.Map;
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects.ActionsPage;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
-import com.mhra.mcm.appian.pageobjects.sections.contents.ManageSubstances;
 import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
+import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.StepsUtils;
@@ -102,6 +102,27 @@ public class ActionsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.storedNotification, random);
         //log.info("Notification Details : \n" + random);
         log.warn("Created Notification With ECID : " + random.ecIDNumber);
+    }
+
+
+    @Given("^I update the stored notification to type \"([^\"]*)\" withdrawal$")
+    public void i_update_the_stored_notification_to_type_withdrawal(String typeOfNotification) throws Throwable {
+        String ecid = (String) scenarioSession.getData(SessionKey.ECID);
+        String newECID = GenericUtils.generateECIDBySpecifiedNumber(1, ecid);
+
+        //Open notification we created
+        boolean isInNotificationView = PageUtils.isInCorrectPage(driver, ecid);
+        if(!isInNotificationView) {
+            mainNavigationBar = new MainNavigationBar(driver);
+            recordsPage = mainNavigationBar.clickRecords();
+            recordsPage = recordsPage.clickNotificationsLink();
+            notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+        }
+
+        //Update with a new ecid and select the specified type
+        editNotification = notificationDetails.clickManageNotification();
+        notificationDetails = editNotification.updateNotificationECID(typeOfNotification, ecid, newECID);
+        scenarioSession.putData(SessionKey.ECID, newECID);
     }
 
 
@@ -303,6 +324,11 @@ public class ActionsPageSteps extends CommonSteps {
         }
 
         //Add substance
+        if(manageSubstances == null){
+            mainNavigationBar = new MainNavigationBar(driver);
+            actionsPage = mainNavigationBar.clickActions();
+            manageSubstances = actionsPage.clickManageSubstances();
+        }
         manageSubstances = manageSubstances.clickOnAddNewSubstances();
 
         if(isBanned.equals("is")) {

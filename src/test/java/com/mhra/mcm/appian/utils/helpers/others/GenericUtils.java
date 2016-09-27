@@ -101,4 +101,11 @@ public class GenericUtils {
 
         return invoice;
     }
+
+    public static String generateECIDBySpecifiedNumber(int i, String ecid) {
+        String[] data = ecid.split("-");
+        String productId = data[2];
+        String newECID = data[0] + "-" + data[1] + "-"+ ( Integer.parseInt(productId) + 1 );
+        return newECID;
+    }
 }

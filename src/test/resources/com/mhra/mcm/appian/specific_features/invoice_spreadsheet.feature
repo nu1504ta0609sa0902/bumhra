@@ -75,7 +75,7 @@ Feature: As a Finance user I should receive invoice email with correct data
     And The number of invoices should match with count of "Published,Successful" notifications
 
 
-  @mcm-87 @ignore
+  @mcm-87
   Scenario: Verify TPD Annual Invoice are generated each time we click annual invoice
     Given I am logged into appian as "super1" user
     When I login as "fin1" and generate an annual invoice

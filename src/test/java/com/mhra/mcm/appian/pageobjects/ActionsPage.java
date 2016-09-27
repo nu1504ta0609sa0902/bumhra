@@ -45,6 +45,7 @@ public class ActionsPage extends _Page {
     }
 
     public CreateNotification clickUploadSampleNotification() {
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Upload Sample Notification"), 10, false);
         WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 5);
         uploadSampleNotification.click();
         return new CreateNotification(driver);
@@ -90,6 +91,7 @@ public class ActionsPage extends _Page {
 
     public ManageSubstances clickManageSubstances() {
         try {
+            WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Manage Substances"), 10, false);
             WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 30, false);
             PageUtils.doubleClick(driver, manageSubstances);
             return new ManageSubstances(driver);

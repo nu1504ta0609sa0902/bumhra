@@ -127,4 +127,8 @@ public class PageUtils {
             }
         }catch (Exception e){}
     }
+
+    public static boolean isInCorrectPage(WebDriver driver, String ecid) {
+        return driver.getTitle().contains(ecid);
+    }
 }

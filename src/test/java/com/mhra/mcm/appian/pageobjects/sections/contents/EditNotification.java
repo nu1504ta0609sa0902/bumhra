@@ -20,10 +20,16 @@ import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 @Component
 public class EditNotification extends _Page {
 
+    @FindBy(xpath = ".//label[.='EC ID']//following::input[1]")
+    WebElement ecId;
+    @FindBy(xpath = ".//label[.='Previous EC ID']//following::input[1]")
+    WebElement previousEcId;
     @FindBy(xpath = ".//label[.='Name']//following::input[1]")
     WebElement submitterName;
     @FindBy(xpath = ".//span[.='Status']//following::select[1]")
     WebElement status;
+    @FindBy(xpath = ".//span[.='Submission Type']//following::select[1]")
+    WebElement submissionType;
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
 
@@ -67,5 +73,45 @@ public class EditNotification extends _Page {
         }catch (Exception e){
             return false;
         }
+    }
+
+    /**
+     * Use to update submission type and set previous and new ecid
+     * @param type
+     * @param prevECID
+     * @param newECID
+     * @return
+     */
+    public NotificationDetails updateNotificationECID(String type, String prevECID, String newECID) {
+        WaitUtils.waitForElementToBeClickable(driver, submissionType, 15, false);
+
+        if(type!=null && !type.equals(""))
+        PageUtils.selectByIndex(submissionType, type);
+        
+        ecId.clear();
+        ecId.sendKeys(newECID);
+        previousEcId.clear();
+        previousEcId.sendKeys(prevECID);
+
+        //Submit for notification update
+        PageUtils.doubleClick(driver, submitBtn);
+        return new NotificationDetails(driver);
+    }
+
+
+    public NotificationDetails updateNotificationStatus(String statusTxt, String prevECID, String newECID) {
+        WaitUtils.waitForElementToBeClickable(driver, submissionType, 15, false);
+
+        if(statusTxt!=null && !statusTxt.equals(""))
+            PageUtils.selectByText(status, statusTxt);
+
+        ecId.clear();
+        ecId.sendKeys(newECID);
+        previousEcId.clear();
+        previousEcId.sendKeys(prevECID);
+
+        //Submit for notification update
+        PageUtils.doubleClick(driver, submitBtn);
+        return new NotificationDetails(driver);
     }
 }
