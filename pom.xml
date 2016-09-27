@@ -226,17 +226,12 @@
         </dependency>
 
         <!-- Phantomjs driver -->
-        <!--<dependency>-->
-            <!--<groupId>io.github.bonigarcia</groupId>-->
-            <!--<artifactId>webdrivermanager</artifactId>-->
-            <!--<version>1.4.9</version>-->
-        <!--</dependency>-->
         <!-- https://mvnrepository.com/artifact/com.github.detro.ghostdriver/phantomjsdriver -->
-        <dependency>
-            <groupId>com.github.detro.ghostdriver</groupId>
-            <artifactId>phantomjsdriver</artifactId>
-            <version>1.1.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.github.detro.ghostdriver</groupId>-->
+            <!--<artifactId>phantomjsdriver</artifactId>-->
+            <!--<version>1.1.0</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 

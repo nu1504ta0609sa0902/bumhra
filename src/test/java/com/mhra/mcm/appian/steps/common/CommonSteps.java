@@ -7,6 +7,7 @@ import com.mhra.mcm.appian.session.ScenarioSession;
 import com.mhra.mcm.appian.utils.helpers.datadriven.ExcelUtils;
 import com.mhra.mcm.appian.utils.helpers.others.NetworkUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,7 +100,7 @@ public class CommonSteps {
                 quit();
             }
         }else{
-            //WaitUtils.setImplicitWaits(driver);
+            WaitUtils.setImplicitWaits(driver);
             PageUtils.setBrowserZoom(driver, currentBrowser);
         }
     }
