@@ -50,14 +50,14 @@ public class GmailEmail {
     }
 
 
-    public static List<Invoice> getListOfInvoicesFromGmail(int min, String ecID, String subjectHeading) {
+    public static List<Invoice> getListOfInvoicesFromGmail(double min, String ecID, String subjectHeading) {
         //generate list of invoices
         read(min, subjectHeading);
         filterListOfInvoicesByEcid(ecID);
         return listOfInvoices;
     }
 
-    public static List<Invoice> getListOfInvoicesFromGmail(int min, String subjectHeading) {
+    public static List<Invoice> getListOfInvoicesFromGmail(double min, String subjectHeading) {
         //generate list of invoices
         read(min, subjectHeading);
         return listOfInvoices;
@@ -80,7 +80,7 @@ public class GmailEmail {
         }
     }
 
-    public static void read(int min, String subjectHeading) {
+    public static void read(double min, String subjectHeading) {
 
         Properties props = new Properties();
         try {
@@ -129,8 +129,10 @@ public class GmailEmail {
                     if (emailAddress != null && emailAddress.contains("appian")) {
 
                         boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
-                        if ((isMessageReceivedToday && subject.contains(subjectHeading)) || subject.contains(REFUSAL_FOR_NOTIFICATION)
+                        if ((isMessageReceivedToday && subject.contains(subjectHeading)) || subject.contains(REFUSAL_FOR_NOTIFICATION) || subject.contains(UNINVOICED_NOTIFICATIONS)
                                 || subject.contains(WITHDRAWAL) || subject.contains(NO_NEW_NOTIFICATIONS) || subject.contains(NO_WITHDRAWN_NOTIFICATIONS)) {
+
+                            //If recent
                             boolean isRecent = receivedInLast(min, sentDate);
                             if (isRecent && subject.contains( UNINVOICED_NOTIFICATIONS ) ) {
                                 System.out.println("---------------------------------");
@@ -271,7 +273,7 @@ public class GmailEmail {
             //remove temp file
             temp.delete();
 
-            System.out.println("Sent PAYMENT response message to APPIAN successfully....");
+            System.out.println("\nSent PAYMENT response message to APPIAN successfully....");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
@@ -367,10 +369,10 @@ public class GmailEmail {
      * @param receivedDate
      * @return
      */
-    private static boolean receivedInLast(int i, Date receivedDate) {
+    private static boolean receivedInLast(double i, Date receivedDate) {
         long receivedTime = receivedDate.getTime();
         long currentTime = new Date().getTime();
-        int time = i * 60 * 1000;
+        double time = i * 60 * 1000;
 
         if (receivedTime > (currentTime - time))
             return true;

@@ -31,8 +31,9 @@ public class BrowserConfig {
 		}
 		
     	if(browser!=null){
-    		
-    		if(browser.equals("ff") || browser.equals("firefox")){
+			System.out.println("Browser : " + browser);
+
+			if(browser.equals("ff") || browser.equals("firefox")){
         		return new FirefoxDriver();
     		}else if(browser.equals("gc") || browser.equals("chrome")){
         		return new ChromeDriver();

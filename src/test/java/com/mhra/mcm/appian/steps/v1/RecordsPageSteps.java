@@ -3,6 +3,7 @@ package com.mhra.mcm.appian.steps.v1;
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.pageobjects.RecordsPage;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
+import com.mhra.mcm.appian.pageobjects.sections.contents.Documents;
 import com.mhra.mcm.appian.pageobjects.sections.filters.RecordsFilter;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
@@ -257,16 +258,21 @@ public class RecordsPageSteps extends CommonSteps {
 
     @Given("^I attach a toxicology report for \"([^\"]*)\"$")
     public void i_attach_a_toxicology_reporth_with_following_data(String ingredient) throws Throwable {
-        Notification notification = (Notification) scenarioSession.getData(SessionKey.storedNotification);
-        String ecId = notification.ecIDNumber;
+        if(ingredient!=null && !ingredient.equals("")) {
+            Notification notification = (Notification) scenarioSession.getData(SessionKey.storedNotification);
+            String ecId = notification.ecIDNumber;
 
-        mainNavigationBar = new MainNavigationBar(driver);
-        recordsPage = mainNavigationBar.clickRecords();
-        recordsPage = recordsPage.clickNotificationsLink();
-        notificationDetails = recordsPage.clickNotificationNumber(ecId, 5);
+            mainNavigationBar = new MainNavigationBar(driver);
+            recordsPage = mainNavigationBar.clickRecords();
+            recordsPage = recordsPage.clickNotificationsLink();
+            notificationDetails = recordsPage.clickNotificationNumber(ecId, 5);
 
-        editNotification = notificationDetails.clickManageDocuments();
-        notificationDetails = editNotification.addGenericToxicologyReportFromTempFolder("ToxicologyReport.pdf", notification);
+            editNotification = notificationDetails.clickManageDocuments();
+            String reportName = "ToxicologyReport.pdf";
+            notificationDetails = editNotification.addGenericToxicologyReportFromTempFolder(reportName, notification);
+
+            scenarioSession.putData(SessionKey.reportName, reportName);
+        }
     }
 
 
@@ -617,6 +623,28 @@ public class RecordsPageSteps extends CommonSteps {
         boolean isCorrectPage = editNotification.isCorrectPage();
         assertThat("Expected to be on edit notification page", isCorrectPage, is(equalTo(true)));
         WaitUtils.nativeWait(1);
+    }
+
+
+    @Then("^I should be able to view documents page$")
+    public void i_should_be_able_to_view_documents_page() throws Throwable {
+        documents = notificationDetails.clickDocuments();
+        boolean isVisisble = documents.isCorrectPage();
+        assertThat("Expected to be on notifications documents page", isVisisble, is(equalTo(true)));
+    }
+
+
+    @Then("^There should be at least \"([^\"]*)\" or more documents$")
+    public void there_should_be_at_least_or_more_documents(int count) throws Throwable {
+        boolean countMatched = documents.isNumberOfDocumentsDisplayedCorrect(count);
+        assertThat("Expected to see at least " + count + " documents", countMatched, is(equalTo(true)));
+    }
+
+    @Then("^There should be at least a document for stored report name$")
+    public void there_should_be_at_least_a_document_for_ingredient() throws Throwable {
+        String reportName = (String) scenarioSession.getData(SessionKey.reportName);
+        boolean countMatched = documents.isDocumentsDisplayedFor(reportName);
+        assertThat("Expected to see a document for : " + reportName, countMatched, is(equalTo(true)));
     }
 
 }
