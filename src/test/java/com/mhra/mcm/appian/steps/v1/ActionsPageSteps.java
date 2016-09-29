@@ -109,7 +109,7 @@ public class ActionsPageSteps extends CommonSteps {
         String newECID = GenericUtils.generateECIDBySpecifiedNumber(1, ecid);
 
         //Open notification we created
-        boolean isInNotificationView = PageUtils.isInCorrectPage(driver, ecid);
+        boolean isInNotificationView = PageUtils.isCorrectPage(driver, ecid);
         if(!isInNotificationView) {
             mainNavigationBar = new MainNavigationBar(driver);
             recordsPage = mainNavigationBar.clickRecords();

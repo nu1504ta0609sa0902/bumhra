@@ -109,7 +109,12 @@ public class NotificationUtils {
         WebElement activeNo = driver.findElement(By.xpath(".//h2[.='Document Type']//following::input[" + (countFromInput + 8) + "]"));
 
         //Fill details
-        PageUtils.selectByIndex(documentTypeSelectBox, documentType);
+        try {
+            Integer.valueOf(documentType);
+            PageUtils.selectByIndex(documentTypeSelectBox, documentType);
+        }catch(Exception e){
+            PageUtils.selectByText(documentTypeSelectBox, documentType);
+        }
         PageUtils.typeText(descriptionElement, description);
         PageUtils.clickOptionAdvanced(driver, confidentialYes, confidentialNo, confidential);
         PageUtils.clickOptionAdvanced(driver, activeYes, activeNo, active);

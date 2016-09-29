@@ -9,6 +9,7 @@ import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -269,6 +270,28 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
 
+    @Given("^I attach a \"([^\"]*)\" report for \"([^\"]*)\"$")
+    public void i_attach_other_reports_with_following_data(String documentType, String ingredient) throws Throwable {
+        Notification notification = (Notification) scenarioSession.getData(SessionKey.storedNotification);
+        String ecId = (String) scenarioSession.getData(SessionKey.ECID);
+        if(notification!=null) {
+            ecId = notification.ecIDNumber;
+        }
+
+        if(!PageUtils.isCorrectPage(driver, ecId)) {
+            mainNavigationBar = new MainNavigationBar(driver);
+            recordsPage = mainNavigationBar.clickRecords();
+            recordsPage = recordsPage.clickNotificationsLink();
+            notificationDetails = recordsPage.clickNotificationNumber(ecId, 5);
+        }
+
+        editNotification = notificationDetails.clickManageDocuments();
+        int countOfDocsAttached = editNotification.getNumberOfDocsAttached();
+
+        notificationDetails = editNotification.addOtherReportFromTempFolder(countOfDocsAttached+1 ,documentType, "ToxicologyReport.pdf", "Other Docs : " + documentType, false, false, ingredient);
+    }
+
+
     @When("^I search for an existing notification by \"([^\"]*)\" for text \"([^\"]*)\"$")
     public void i_search_for_an_existing_notification_by(String searchType, String searchTextTerm) throws Throwable {
 
@@ -478,9 +501,6 @@ public class RecordsPageSteps extends CommonSteps {
 
     @Then("^I view an random notification with status \"([^\"]*)\"$")
     public void i_view_random_notification(String status) throws Throwable {
-
-//        recordsPage = mainNavigationBar.clickRecords();
-//        recordsPage = recordsPage.clickNotificationsLink();
         String ecid = recordsPage.getARandomNotificationWithStatusEqualTo(status, 50);
         log.info("View notification with ecid : " + ecid);
         scenarioSession.putData(SessionKey.ECID, ecid);

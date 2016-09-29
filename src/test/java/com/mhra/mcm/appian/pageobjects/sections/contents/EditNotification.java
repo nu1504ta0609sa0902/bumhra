@@ -10,8 +10,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by TPD_Auto on 20/07/2016.
@@ -31,6 +34,13 @@ public class EditNotification extends _Page {
     WebElement submissionType;
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
+
+    @FindBy(xpath = ".//*[.='Active']//following::tr")
+    List <WebElement> listOfAttachementsReports;
+    @FindBy(xpath = ".//*[.='Document Type']//following::select[1]")
+    WebElement documentType;
+
+
 
     @Autowired
     public EditNotification(WebDriver driver) {
@@ -55,6 +65,20 @@ public class EditNotification extends _Page {
         String fullPath = FileUtils.getFileFullPath("tmp", fileName);
         String name = random.getIngredient().ingredientName;
         NotificationUtils.addDocumentNumber(1, driver, "5", fullPath, "Some Description", false, false, name);
+        return new NotificationDetails(driver);
+    }
+
+    public NotificationDetails addGenericToxicologyReportFromTempFolder(String fileName, String name) {
+        String fullPath = FileUtils.getFileFullPath("tmp", fileName);
+        NotificationUtils.addDocumentNumber(1, driver, "5", fullPath, "Some Description", false, false, name);
+        return new NotificationDetails(driver);
+    }
+
+
+    public NotificationDetails addOtherReportFromTempFolder(int docNumber, String documentType, String fileName,
+                                                            String description, boolean confidential, boolean active, String name) {
+        String fullPath = FileUtils.getFileFullPath("tmp", fileName);
+        NotificationUtils.addDocumentNumber(docNumber, driver, documentType, fullPath, description, confidential, active, name);
         return new NotificationDetails(driver);
     }
 
@@ -112,5 +136,19 @@ public class EditNotification extends _Page {
         //Submit for notification update
         PageUtils.doubleClick(driver, submitBtn);
         return new NotificationDetails(driver);
+    }
+
+    public int getNumberOfDocsAttached() {
+        try {
+            int numberOfAttachments = listOfAttachementsReports.size();
+            Select sl = new Select(documentType);
+            String selected = sl.getFirstSelectedOption().getText();
+            if(selected.contains("Select a Value")){
+                numberOfAttachments = 0;
+            }
+            return numberOfAttachments;
+        }catch (Exception e){
+            return 0;
+        }
     }
 }

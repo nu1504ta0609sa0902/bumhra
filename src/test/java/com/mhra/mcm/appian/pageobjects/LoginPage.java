@@ -80,7 +80,7 @@ public class LoginPage extends _Page {
                 WaitUtils.nativeWait(2);
             }
         }catch(Exception e){
-            WaitUtils.waitForElementToBeClickable(driver,username, 10, false);
+            //WaitUtils.waitForElementToBeClickable(driver,username, 20, false);
         }
         return new LoginPage(driver);
     }

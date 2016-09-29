@@ -83,7 +83,8 @@ public class NotificationDetails extends _Page {
 
     public EditNotification clickManageDocuments() {
         WaitUtils.waitForElementToBeClickable(driver, manageDocuments, 5);
-        manageDocuments.click();
+        PageUtils.doubleClick(driver, manageDocuments);
+        //manageDocuments.click();
         return new EditNotification(driver);
     }
 

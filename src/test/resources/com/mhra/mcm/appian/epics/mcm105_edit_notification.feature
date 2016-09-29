@@ -85,3 +85,52 @@ Feature: As an IPU super user, I want the ability to edit notification
       | vrmm1  | Unpaid   |
       | comm1  | Unpaid   |
 
+
+  @mcm-97 @wip @bug
+  Scenario Outline: Users can add different types of documents to new notifications
+    Given I am logged into appian as "<user>" user
+    And I create new notification with following data
+      | type       | <type>       |
+      | ingredient | <ingredient> |
+    And I attach a "<documentType>" report for "<ingredient>"
+    Then I should see the stored notification with status set to "<statusWithTCANumber>"
+    Examples:
+      | user | statusWithTCANumber | documentType                          | ingredient |
+      | rdt1 | Ready for Invoicing | E-Cigarette Leaflet                   | SUPPDOC1   |
+      | rdt1 | Ready for Invoicing | Product Market Research               | SUPPDOC2   |
+      | rdt1 | Ready for Invoicing | Product Studies Summary               | SUPPDOC3   |
+      | rdt1 | Ready for Invoicing | Product Unit Packet Picture           | SUPPDOC4   |
+      | rdt1 | Ready for Invoicing | Emission Methods                      | SUPPDOC5   |
+      | rdt1 | Ready for Invoicing | E-Cigarette Nicotine Dose/Uptake      | SUPPDOC6   |
+      | rdt1 | Ready for Invoicing | E-Cigarette Opening/Refill            | SUPPDOC7   |
+      | rdt1 | Ready for Invoicing | E-Cigarette Consistent Dosing Methods | SUPPDOC8   |
+      | rdt1 | Ready for Invoicing | Product Mode of Sales                 | SUPPDOC9   |
+      | rdt1 | Ready for Invoicing | Other                                 | SUPPDOC10  |
+      | rdt1 | Ready for Invoicing | Approval Notification                 | SUPPDOC11  |
+      | rdt1 | Ready for Invoicing | Failed Notification                   | SUPPDOC12  |
+      | rdt1 | Ready for Invoicing | Withdrawal Notification               | SUPPDOC13  |
+
+  @mcm-97 @wip @bug
+  Scenario Outline: Users can add different types of documents to existing notifications
+    Given I am logged into appian as "<user>" user
+    When I go to the notifications page
+    And I view an random notification with status "Uploaded"
+    And I attach a "<documentType>" report for "<ingredient>"
+    Then I should see the stored notification with status set to "<statusWithTCANumber>"
+    Examples:
+      | user | statusWithTCANumber | documentType                          | ingredient |
+      | rdt1 | Ready for Invoicing | E-Cigarette Leaflet                   | SUPPDOC1   |
+      | rdt1 | Ready for Invoicing | Product Market Research               | SUPPDOC2   |
+      | rdt1 | Ready for Invoicing | Product Studies Summary               | SUPPDOC3   |
+      | rdt1 | Ready for Invoicing | Product Unit Packet Picture           | SUPPDOC4   |
+      | rdt1 | Ready for Invoicing | Emission Methods                      | SUPPDOC5   |
+      | rdt1 | Ready for Invoicing | E-Cigarette Nicotine Dose/Uptake      | SUPPDOC6   |
+      | rdt1 | Ready for Invoicing | E-Cigarette Opening/Refill            | SUPPDOC7   |
+      | rdt1 | Ready for Invoicing | E-Cigarette Consistent Dosing Methods | SUPPDOC8   |
+      | rdt1 | Ready for Invoicing | Product Mode of Sales                 | SUPPDOC9   |
+      | rdt1 | Ready for Invoicing | Other                                 | SUPPDOC10  |
+      | rdt1 | Ready for Invoicing | Approval Notification                 | SUPPDOC11  |
+      | rdt1 | Ready for Invoicing | Failed Notification                   | SUPPDOC12  |
+      | rdt1 | Ready for Invoicing | Withdrawal Notification               | SUPPDOC13  |
+
+

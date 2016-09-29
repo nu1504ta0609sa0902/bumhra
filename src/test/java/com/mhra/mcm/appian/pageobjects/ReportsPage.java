@@ -1,6 +1,7 @@
 package com.mhra.mcm.appian.pageobjects;
 
 import com.mhra.mcm.appian.pageobjects.sections.contents.Exceptions;
+import com.mhra.mcm.appian.pageobjects.sections.contents.NotificationsReport;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,9 @@ import org.springframework.stereotype.Component;
 public class ReportsPage extends _Page {
     @FindBy(linkText = "Exceptions")
     WebElement exceptionsLink;
+    @FindBy(linkText = "Notifications")
+    WebElement notificationsLink;
+
 
     @Autowired
     public ReportsPage(WebDriver driver) {
@@ -25,5 +29,11 @@ public class ReportsPage extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, exceptionsLink, 5, false);
         exceptionsLink.click();
         return new Exceptions(driver);
+    }
+
+    public NotificationsReport gotoNotificationsPage() {
+        WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 5, false);
+        notificationsLink.click();
+        return new NotificationsReport(driver);
     }
 }

@@ -73,7 +73,7 @@ public class ActionsPage extends _Page {
 
     public boolean isSubstanceGeneratedSuccessfully() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 5, false);
+            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, TIMEOUT_SMALL, false);
             return true;
         } catch (Exception e) {
             return false;
@@ -81,20 +81,24 @@ public class ActionsPage extends _Page {
     }
 
     public UpdateQAPercentage clickUpdateQAPercentage() {
-        WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, 15, false);
+        WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, TIMEOUT_MEDIUM, false);
         PageUtils.singleClick(driver, updateQAPercentage);
         return new UpdateQAPercentage(driver);
     }
 
     public ManageSubstances clickManageSubstances() {
-        try {
-            WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Manage Substances"), 10, false);
-            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 30, false);
-            PageUtils.doubleClick(driver, manageSubstances);
-            return new ManageSubstances(driver);
-        }catch (Exception e){
-            return null;
-        }
+//        try {
+//            WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Manage Substances"), 10, false);
+//            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 30, false);
+//            PageUtils.doubleClick(driver, manageSubstances);
+//            return new ManageSubstances(driver);
+//        }catch (Exception e){
+//            return null;
+//        }
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Manage Substances"), 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 30, false);
+        PageUtils.doubleClick(driver, manageSubstances);
+        return new ManageSubstances(driver);
     }
 
     public ActionsPage generateWithdrawalInvoice() {

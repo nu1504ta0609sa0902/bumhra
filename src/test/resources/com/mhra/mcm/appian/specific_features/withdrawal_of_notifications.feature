@@ -17,8 +17,8 @@ Feature: As a Finance user, I want to be emailed a consolidated spreadsheet when
     Examples:
       | user | type | price | ingredient  | glcode | status              |
       | super1 | 1    | 150   | SUPPLEMENT1 | 1770   | Ready for Invoicing |
-#      | rdt1 | 2    | 80    | SUPPLEMENT2 | 1771   | Ready for Invoicing |
-#      | rdt1 | 3    | 150   | SUPPLEMENT3 | 1770   | Ready for Invoicing |
+      | rdt1 | 2    | 80    | SUPPLEMENT2 | 1771   | Ready for Invoicing |
+      | rdt1 | 3    | 150   | SUPPLEMENT3 | 1770   | Ready for Invoicing |
 
 
   @mcm-92 @wip
