@@ -37,3 +37,11 @@ json:target/cucumber.json
 --monochrome
 --name
 "^Create an invoice processing of different types of notification$"
+
+
+------------------PhantomJS Tests-----------------------
+
+Don't need to do the following:
+
+	 * 	- Selenium Server or PhantomJS
+	 * 	- Should work out of the box

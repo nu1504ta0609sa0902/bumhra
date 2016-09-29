@@ -73,6 +73,8 @@ public class CommonSteps {
     public Comments commentSection;
     @Autowired
     public ManageSubstances manageSubstances;
+    @Autowired
+    public NotificationsReport notificationsReport;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {
@@ -100,7 +102,7 @@ public class CommonSteps {
                 quit();
             }
         }else{
-            WaitUtils.setImplicitWaits(driver);
+            //WaitUtils.setImplicitWaits(driver);
             PageUtils.setBrowserZoom(driver, currentBrowser);
         }
     }
@@ -125,7 +127,7 @@ public class CommonSteps {
             public void run() {
                 try {
                     if (driver != null) {
-                        log.info("Should generate the pretty report");
+                        log.info("If -Dgenerate.report=true than it generate the pretty report");
                         sleep(20000);
                         driver.quit();
                         //IE driver doesn't quit, so forced to try this
