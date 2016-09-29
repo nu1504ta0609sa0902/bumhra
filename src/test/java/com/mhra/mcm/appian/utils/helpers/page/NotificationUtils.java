@@ -60,6 +60,7 @@ public class NotificationUtils {
             }
             if (ingredient != null && !ingredient.trim().equals("") && !ingredient.trim().equals("stored")) {
                 notification.getIngredient().ingredientName = ingredient;
+                System.out.println("Ingredient : " + ingredient);
             }
 
             if(eLiquidVolume!=null && !eLiquidVolume.equals("")){

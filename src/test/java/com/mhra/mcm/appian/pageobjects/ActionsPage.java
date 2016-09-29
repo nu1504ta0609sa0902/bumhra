@@ -42,21 +42,21 @@ public class ActionsPage extends _Page {
     }
 
     public CreateNotification clickUploadSampleNotification() {
-        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Upload Sample Notification"), 10, false);
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Upload Sample Notification"), TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 5);
         uploadSampleNotification.click();
         return new CreateNotification(driver);
     }
 
     public ActionsPage generateStandardInvoices() {
-        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Create Standard Invoices"), 10, false);
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Create Standard Invoices"), TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, createStandardNotification, 5);
         PageUtils.singleClick(driver, createStandardNotification);
         return new ActionsPage(driver);
     }
 
     public ActionsPage generateAnnualInvoices() {
-        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Create Annual Invoices"), 10, false);
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Create Annual Invoices"), TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, createAnnualInvoices, 5);
         PageUtils.singleClick(driver, createAnnualInvoices);
         return new ActionsPage(driver);
@@ -64,7 +64,7 @@ public class ActionsPage extends _Page {
 
     public boolean isNotificationGeneratedSuccessfully() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 15, false);
+            WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, TIMEOUT_DEFAULT, false);
             return true;
         } catch (Exception e) {
             return false;
@@ -73,7 +73,7 @@ public class ActionsPage extends _Page {
 
     public boolean isSubstanceGeneratedSuccessfully() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, TIMEOUT_SMALL, false);
+            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, TIMEOUT_DEFAULT, false);
             return true;
         } catch (Exception e) {
             return false;
@@ -81,7 +81,7 @@ public class ActionsPage extends _Page {
     }
 
     public UpdateQAPercentage clickUpdateQAPercentage() {
-        WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, TIMEOUT_MEDIUM, false);
+        WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, TIMEOUT_DEFAULT, false);
         PageUtils.singleClick(driver, updateQAPercentage);
         return new UpdateQAPercentage(driver);
     }
@@ -95,14 +95,14 @@ public class ActionsPage extends _Page {
 //        }catch (Exception e){
 //            return null;
 //        }
-        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Manage Substances"), 10, false);
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Manage Substances"), TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 30, false);
         PageUtils.doubleClick(driver, manageSubstances);
         return new ManageSubstances(driver);
     }
 
     public ActionsPage generateWithdrawalInvoice() {
-        WaitUtils.waitForElementToBeClickable(driver, createWithdrawalInvoices, 15, false);
+        WaitUtils.waitForElementToBeClickable(driver, createWithdrawalInvoices, TIMEOUT_DEFAULT, false);
         PageUtils.singleClick(driver, createWithdrawalInvoices);
         return new ActionsPage(driver);
     }

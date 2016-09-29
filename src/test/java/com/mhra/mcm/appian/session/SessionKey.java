@@ -27,4 +27,5 @@ public class SessionKey {
     public static String qaPercentageValue = "Quality Assurance";
     public static String previousECID = "Previous ECID";
     public static String searchTerm = "Search Term";
+    public static String reportName = "Report Name";
 }

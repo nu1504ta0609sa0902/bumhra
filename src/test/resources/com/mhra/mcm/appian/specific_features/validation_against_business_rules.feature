@@ -96,7 +96,7 @@ Feature: The system shall automatically check against the business rules defined
 #      | ipu1 | 1    | Failed              | random    | is |
 
 
-  @mcm-44
+  @mcm-44 @mcm-43
   Scenario Outline: Check when water is added as ingredient the system will Pass the notification
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
@@ -113,3 +113,44 @@ Feature: The system shall automatically check against the business rules defined
       | ipu1 | 1    | Water      | Successful |
 
 
+  @mcm-43
+  Scenario Outline: Check refusal for notification email is received when notification report is not added
+    Given I am logged into appian as "<user>" user
+    And I create new notification with following data
+      | type       | <type>       |
+      | ingredient | <ingredient> |
+    Then I should see the stored notification with status set to "<statusOnLoad>"
+    When I login as "fin1" and generate a standard invoice
+    And I receive an invoice email with heading "Uninvoiced Notifications" from appian in next <time> min for "" notifications
+    When I send paid email response back to appian
+    Then I should see the stored notification with status set to "<statusBeforeSuccessful>"
+    And I receive an refusal email with heading "<refusedEmail>" from appian in next 2 min for "" notifications
+    And I should see the stored notification with status set to "<statusAfterSuccessful>"
+    Examples:
+      | user | type | ingredient | statusOnLoad        | statusAfterSuccessful | statusBeforeSuccessful | refusedEmail             | time |
+      | rdt1 | 1    | Sugar      | Ready for Invoicing | Failed                |                        | Refusal For Notification | 2    |
+      | rdt1 | 1    | EvianWater | Ready for Invoicing | Failed                |                        | Refusal For Notification | 2    |
+      | rdt1 | 1    | Water      | Ready for Invoicing | Successful            | Paid                   |                          | 0.75    |
+
+  @mcm-43
+  Scenario: Check to see if toxicology reports can be viewed for existing notification record
+    Given I am logged into appian as "super1" user
+    When I go to the notifications page
+    And I view an random notification with status "Successful"
+    Then I should be able to view documents page
+    And There should be at least "0" or more documents
+
+  @mcm-43
+  Scenario Outline: Check to see if toxicology reports can be viewed for new notification record
+    Given I am logged into appian as "<user>" user
+    And I create new notification with following data
+      | type       | <type>       |
+      | ingredient | <ingredient> |
+    And I attach a toxicology report for "<ingredient>"
+    Then I should see the stored notification with status set to "<status>"
+    Then I should be able to view documents page
+    And There should be at least "1" or more documents
+    And There should be at least a document for stored report name
+    Examples:
+      | user | type | ingredient | status              |
+      | ipu1 | 1    | SupplementD1      | Ready for Invoicing |
