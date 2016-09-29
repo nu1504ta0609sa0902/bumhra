@@ -108,28 +108,39 @@ public class EmailSteps extends CommonSteps {
 
         String ecID = (String) scenarioSession.getData(SessionKey.ECID);
         List<Invoice> listOfInvoices = null;
-        boolean foundInvoices = false;
-        int attempt = 0;
+        Invoice invoice = null;
+        int iattempt = 0;
         do {
-            listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, heading);
+            boolean foundInvoices = false;
+            int attempt = 0;
+            do {
+                listOfInvoices = GmailEmail.getListOfInvoicesFromGmail(min, heading);
 
-            //Break from loop if invoices read from the email server
-            if (listOfInvoices.size() > 0) {
-                foundInvoices = true;
-                break;
-            } else {
-                //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
-                WaitUtils.nativeWait(5);
+                //Break from loop if invoices read from the email server
+                if (listOfInvoices.size() > 0) {
+                    foundInvoices = true;
+                    break;
+                } else {
+                    //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
+                    WaitUtils.nativeWait(5);
+                }
+                attempt++;
+            } while (!foundInvoices && attempt < 12);
+
+            if (ecID != null) {
+                invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
+                scenarioSession.putData(SessionKey.invoice, invoice);
             }
-            attempt++;
-        } while (!foundInvoices && attempt < 12);
+            scenarioSession.putData(SessionKey.listOfInvoices, listOfInvoices);
 
-        if(ecID!=null) {
-            Invoice invoice = StepsUtils.getInvoiceForNotification(listOfInvoices, ecID);
-            scenarioSession.putData(SessionKey.invoice, invoice);
-        }
+            iattempt++;
 
-        scenarioSession.putData(SessionKey.listOfInvoices, listOfInvoices);
+            if(invoice == null){
+                WaitUtils.nativeWait(20);
+            }else{
+                break;
+            }
+        }while(invoice==null && iattempt <= 1);
         assertThat("No email received from appian related to invoices : mhra.uat@gmail.com", listOfInvoices.size(), is(not(equalTo(0))));
 
     }

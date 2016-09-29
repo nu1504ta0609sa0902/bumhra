@@ -130,7 +130,7 @@ Feature: The system shall automatically check against the business rules defined
       | user | type | ingredient | statusOnLoad        | statusAfterSuccessful | statusBeforeSuccessful | refusedEmail             | time |
       | rdt1 | 1    | Sugar      | Ready for Invoicing | Failed                |                        | Refusal For Notification | 2    |
       | rdt1 | 1    | EvianWater | Ready for Invoicing | Failed                |                        | Refusal For Notification | 2    |
-      | rdt1 | 1    | Water      | Ready for Invoicing | Successful            | Paid                   |                          | 0.75    |
+      | rdt1 | 1    | Water      | Ready for Invoicing | Successful            | Paid                   |                          | 2    |
 
   @mcm-43
   Scenario: Check to see if toxicology reports can be viewed for existing notification record

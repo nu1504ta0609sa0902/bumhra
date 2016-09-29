@@ -44,8 +44,9 @@ public class Documents extends _Page {
 
     public boolean isDocumentsDisplayedFor(String reportName) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[.='Active']//following::a"), 10, false);
-        WebElement name = driver.findElement(By.partialLinkText(reportName));
-        boolean containsName = name.getText().contains(reportName);
+        String rn = reportName.split(".pdf")[0];
+        WebElement name = driver.findElement(By.partialLinkText(rn));
+        boolean containsName = name.getText().contains(rn);
         return containsName;
     }
 }
