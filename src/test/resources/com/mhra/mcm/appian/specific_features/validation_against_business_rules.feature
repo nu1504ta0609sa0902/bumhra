@@ -110,10 +110,11 @@ Feature: The system shall automatically check against the business rules defined
     Then I expect the notification status should be "<status>"
     Examples:
       | user | type | ingredient | status     |
+      | ipu1 | 1    | Sugar      | Successful |
       | ipu1 | 1    | Water      | Successful |
 
 
-  @mcm-43
+  @mcm-43 @mcm-47
   Scenario Outline: Check refusal for notification email is received when notification report is not added
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
@@ -125,12 +126,13 @@ Feature: The system shall automatically check against the business rules defined
     When I send paid email response back to appian
     Then I should see the stored notification with status set to "<statusBeforeSuccessful>"
     And I receive an refusal email with heading "<refusedEmail>" from appian in next 2 min for "" notifications
+    And Check email report contains "<expectedContent>"
     And I should see the stored notification with status set to "<statusAfterSuccessful>"
     Examples:
-      | user | type | ingredient | statusOnLoad        | statusAfterSuccessful | statusBeforeSuccessful | refusedEmail             | time |
-      | rdt1 | 1    | Sugar      | Ready for Invoicing | Failed                |                        | Refusal For Notification | 2    |
-      | rdt1 | 1    | EvianWater | Ready for Invoicing | Failed                |                        | Refusal For Notification | 2    |
-      | rdt1 | 1    | Water      | Ready for Invoicing | Successful            | Paid                   |                          | 2    |
+      | user | type | ingredient | statusOnLoad        | statusAfterSuccessful | statusBeforeSuccessful | refusedEmail             | time | expectedContent                  |
+      | rdt1 | 1    | Sugar      | Ready for Invoicing | Failed                |                        | Refusal For Notification | 2    | Missing toxicology report: Sugar |
+      | rdt1 | 1    | EvianWater | Ready for Invoicing | Failed                |                        | Refusal For Notification | 2    | Missing toxicology report for: EvianWater |
+      | rdt1 | 1    | Water      | Ready for Invoicing | Successful            | Paid                   |                          | 2    |  |
 
   @mcm-43
   Scenario: Check to see if toxicology reports can be viewed for existing notification record
@@ -152,5 +154,5 @@ Feature: The system shall automatically check against the business rules defined
     And There should be at least "1" or more documents
     And There should be at least a document for stored report name
     Examples:
-      | user | type | ingredient | status              |
-      | ipu1 | 1    | SupplementD1      | Ready for Invoicing |
+      | user | type | ingredient   | status              |
+      | ipu1 | 1    | SupplementD1 | Ready for Invoicing |
