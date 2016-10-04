@@ -7,6 +7,7 @@ Feature: As a user I need to quickly verify there is no regression issues with i
     Given I am logged into appian as "<user>" user
     When I create new notification with following data
       | type       | <type>       |
+      | brandName  |              |
       | ingredient | <ingredient> |
     And I attach a toxicology report for "<ingredient>"
     When I login as "fin1" and generate a standard invoice

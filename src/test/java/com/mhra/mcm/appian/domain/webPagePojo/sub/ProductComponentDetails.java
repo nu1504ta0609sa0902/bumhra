@@ -34,6 +34,15 @@ public class ProductComponentDetails {
 
     private void createDefault() {
         //Default is all the other values are false
+        airflowAdjustable = false;
+        microprocessor = false;
+        conformity = true;
+        qualitySafety = true;
+        nonRisk = false;
+        wickChangeable = false;
+        highPurity = false;
+        tamperProof = false;
+        consistentDosing = false;
     }
 
     @Override

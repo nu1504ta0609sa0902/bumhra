@@ -10,9 +10,9 @@ Feature: As a user I need to quickly verify there is no regression issues with b
     And I add a substance "<substance>" with following details "<commaDelimitedDetails>"
     Then I should see the new substance in the manage substance page
     Examples:
-      | user | substance | commaDelimitedDetails                 |
-      | ipu1 | random    | banned=true,permissible=true,cas=true |
+      | user | substance | commaDelimitedDetails                  |
       | ipu1 | random    | banned=true,permissible=true,cas=false |
+      | ipu1 | random    | banned=true,permissible=true,cas=true  |
 
 
   @regression

@@ -17,7 +17,7 @@ public class Submitter {
     @XmlAttribute
     public boolean confidential;
     @XmlAttribute
-    public String submitterId;
+    public String submitterID;
 
     @XmlElement(name = "SubmitterType")
     public String submitterType;
@@ -37,7 +37,7 @@ public class Submitter {
 
     public Submitter(String euID){
         this.confidential = false;
-        this.submitterId = euID;
+        this.submitterID = euID;
         this.submitterType = "MANUFACTURER";
 
         this.hasAffiliate = false;
@@ -56,7 +56,7 @@ public class Submitter {
      */
     public Submitter(boolean confidential, String submitterId, String submitterType, boolean hasEnterer, boolean hasAffiliate, boolean hasParent) {
         this.confidential = confidential;
-        this.submitterId = submitterId;
+        this.submitterID = submitterId;
         this.submitterType = submitterType;
 
         this.hasAffiliate = hasAffiliate;
@@ -133,7 +133,7 @@ public class Submitter {
     public String toString() {
         return "Submitter{" +
                 "confidential=" + confidential +
-                ", submitterId='" + submitterId + '\'' +
+                ", submitterID='" + submitterID + '\'' +
                 ", submitterType='" + submitterType + '\'' +
                 ", hasEnterer=" + hasEnterer +
                 ", hasParent=" + hasParent +

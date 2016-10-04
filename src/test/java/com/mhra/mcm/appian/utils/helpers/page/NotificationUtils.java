@@ -18,9 +18,14 @@ import org.openqa.selenium.WebElement;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import java.io.File;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Created by TPD_Auto on 02/08/2016.
@@ -44,6 +49,8 @@ public class NotificationUtils {
             String eLiquidVolume = dataValues.get("eLiquidVolume");
             String batteryWattageLiquidVolume = dataValues.get("batteryWattageLiquidVolume");
             String nicotineConcetration = dataValues.get("nicotineConcetration");
+            String productType = dataValues.get("productType");
+            String brandName = dataValues.get("brandName");
 
             if (type != null  && !type.trim().equals("")) {
                 notification.getSummary().submissionType = type;
@@ -74,6 +81,16 @@ public class NotificationUtils {
             if(nicotineConcetration!=null && !nicotineConcetration.equals("")){
                 notification.getBatteryWattageVoltage().nicotineConcentration = nicotineConcetration;
             }
+
+            if(productType!=null && !productType.equals("")){
+                notification.getProduct().type = productType;
+            }
+
+            if(brandName!=null && !brandName.equals("")){
+                notification.getProduct().brandName = brandName;
+            }
+
+
 
         }
 
@@ -135,6 +152,24 @@ public class NotificationUtils {
         WaitUtils.nativeWait(1);
     }
 
+
+    /**
+     * Upload a zip file
+     * @param driver
+     * @param zipFileToUpload
+     */
+    public static void uploadZipFile(WebDriver driver, String zipFileToUpload) {
+        System.out.println(zipFileToUpload);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Add Document"), 10);
+        WebElement browseElement = driver.findElement(By.xpath(".//*[.='Upload Zip Files']//following::input[@type='file']"));
+        PageUtils.uploadDocument(browseElement, zipFileToUpload);
+
+        //Submit the form
+        WebElement submit = driver.findElement(By.xpath(".//button[.='Submit']"));
+        PageUtils.doubleClick(driver, submit);
+
+        WaitUtils.nativeWait(1);
+    }
     /**
      * Create XML data for notification IMPORT function
      * @param dataValues
@@ -524,5 +559,125 @@ public class NotificationUtils {
             random.getIngredient().ingredientName = storedIngredient;
         }
         return random;
+    }
+
+    public static String createZipFile(String xmlDataFileLocation, String xmlFileName) {
+        //Zipfile name
+        String zipFileLocation = FileUtils.getFileFullPath("tmp"+File.separator+"zips", RandomDataUtils.getRandomTestNameAdvanced("NewNotifications")+".zip");
+        try {
+
+            // input file to zip
+            File file = new File(xmlDataFileLocation);
+//            File fileOut = new File( "C:\\Selenium\\xmlData\\" + xmlFileName );
+//            String[] split = xmlFileName.split("\\.");
+//            File tempFile = File.createTempFile(split[0], split[1]);
+//            Files.move(file.toPath(), fileOut.toPath());
+            FileInputStream in = new FileInputStream(file);
+            // out put file
+            ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFileLocation));
+
+            // name the file inside the zip  file
+            out.putNextEntry(new ZipEntry(file.getName()));
+
+            // buffer size
+            byte[] b = new byte[1024];
+            int count;
+
+            while ((count = in.read(b)) > 0) {
+                out.write(b, 0, count);
+            }
+            out.close();
+            in.close();
+        }catch(Exception e){
+            e.printStackTrace();
+            zipFileLocation = null;
+        }
+        return zipFileLocation;
+    }
+
+
+    public static String createZipFile(List<String> files) {
+        //Zipfile name
+        String zipFileLocation = FileUtils.getFileFullPath("tmp"+File.separator+"zips", RandomDataUtils.getRandomTestNameAdvanced("NewNotifications")+".zip");
+        try {
+            FileOutputStream fos = new FileOutputStream(zipFileLocation);
+            ZipOutputStream zos = new ZipOutputStream(fos);
+
+            for(String fileName: files){
+                addToZipFile(fileName, zos);
+            }
+            zos.close();
+            fos.close();
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            zipFileLocation = null;
+        }
+        return zipFileLocation;
+    }
+
+
+
+    public static void addToZipFile(String fileName, ZipOutputStream zos) throws FileNotFoundException, IOException {
+
+        System.out.println("Writing '" + fileName + "' to zip file");
+
+        File file = new File(fileName);
+        FileInputStream fis = new FileInputStream(file);
+        ZipEntry zipEntry = new ZipEntry(fileName);
+        zos.putNextEntry(zipEntry);
+
+        byte[] bytes = new byte[1024];
+        int length;
+        while ((length = fis.read(bytes)) >= 0) {
+            zos.write(bytes, 0, length);
+        }
+
+        zos.closeEntry();
+        fis.close();
+    }
+
+
+    public static String createZipFileOthers(String xmlDataFileLocation, String xmlFileName) {
+        //Zipfile name
+        String zipFileLocation = FileUtils.getFileFullPath("tmp"+File.separator+"zips", RandomDataUtils.getRandomTestNameAdvanced("NewNotifications")+".zip");
+        try {
+
+            //Copy files to zip into a tmpzip folder
+            File file = new File(xmlDataFileLocation);
+            String tmpZip = FileUtils.getTempFileFullPath() + File.separator + "tmpzip";
+            String tmpZipXml = tmpZip + File.separator + xmlFileName;
+            Files.copy(file.toPath(), new File(tmpZipXml).toPath()  );
+
+            // input file to zip
+            File tmpZipFolder = new File(tmpZip);
+            File tmpZipFile = new File(tmpZipXml);
+            FileInputStream in = new FileInputStream(tmpZipFile);
+
+            // out put file
+            ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFileLocation));
+
+            // name the file inside the zip  file
+            //out.putNextEntry(new ZipEntry(xmlDataFileLocation));
+            for(File f: tmpZipFolder.listFiles()){
+                out.putNextEntry(new ZipEntry(f.getAbsolutePath()));
+            }
+
+            // buffer size
+            byte[] b = new byte[1024];
+            int count;
+
+            while ((count = in.read(b)) > 0) {
+                out.write(b, 0, count);
+            }
+            out.close();
+            in.close();
+        }catch(Exception e){
+            e.printStackTrace();
+            zipFileLocation = null;
+        }
+        return zipFileLocation;
     }
 }

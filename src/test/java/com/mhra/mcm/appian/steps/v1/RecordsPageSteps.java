@@ -1,12 +1,14 @@
 package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
+import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects.RecordsPage;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.pageobjects.sections.contents.Documents;
 import com.mhra.mcm.appian.pageobjects.sections.filters.RecordsFilter;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
+import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
@@ -646,5 +648,114 @@ public class RecordsPageSteps extends CommonSteps {
         boolean countMatched = documents.isDocumentsDisplayedFor(reportName);
         assertThat("Expected to see a document for : " + reportName, countMatched, is(equalTo(true)));
     }
+
+
+    @When("^The notification status should update to \"([^\"]*)\"$")
+    public void the_notification_status_should_update_to(String expectedStatus) throws Throwable {
+        String currentStatus = (String) scenarioSession.getData(SessionKey.notificationStatus);
+        //boolean statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
+        boolean statusChanged = false;
+        int attempt = 0;
+        do {
+            statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
+            if (statusChanged)
+                break;
+            attempt++;
+        } while (!statusChanged && attempt < 15);
+
+        String newStatus = notificationDetails.getCurrentStatus();
+
+        assertThat("Status should not be : " + currentStatus, newStatus, is(isOneOf(expectedStatus, "Quality Assurance")));
+        scenarioSession.putData(SessionKey.notificationStatus, newStatus);
+    }
+
+
+    @Given("^I should see the stored notification with status set to \"([^\"]*)\"$")
+    public void i_should_see_new_task_generated_for_the_submitter(String expectedStatus) throws Throwable {
+
+        if(expectedStatus!=null && !expectedStatus.equals("")) {
+            //Stored data to verify
+            Notification data = (Notification) scenarioSession.getData(SessionKey.storedNotification);
+            String expectedNotificationID = data.ecIDNumber;
+
+            //Verify notification generated
+            mainNavigationBar = new MainNavigationBar(driver);
+            recordsPage = mainNavigationBar.clickRecords();
+            recordsPage = recordsPage.clickNotificationsLink();
+            notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
+            boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
+            assertThat("Expected header to contains EC ID : " + expectedNotificationID, contains, is(equalTo(true)));
+
+            //Verify notification is loaded in page
+            long start = System.currentTimeMillis();
+            boolean statusMatched = false;
+            int attempt = 0;
+            do {
+                statusMatched = notificationDetails.expectedStatusToBe(expectedStatus);
+                if (statusMatched)
+                    break;
+                attempt++;
+            } while (!statusMatched && attempt < 15);
+
+            long end = System.currentTimeMillis();
+            long diff = (end-start)/1000;
+            log.warn("Time taken for status to change for ecid : " + expectedNotificationID + ", in seconds : " + diff);
+
+            String newStatus = notificationDetails.getCurrentStatus();
+            assertThat("Status should be : " + expectedStatus, newStatus, is((equalTo(expectedStatus))));
+
+            String zipFile = (String) scenarioSession.getData(SessionKey.zipFileLocation);
+            if(zipFile!=null){
+                //Assumes notification loaded, therefore delete file
+                FileUtils.deleteFile(zipFile);
+            }
+        }
+    }
+
+
+    @Given("^I should see the uploaded zip file notification with status set to \"([^\"]*)\"$")
+    public void i_should_see_uploaded_zip_file_notification_with_status(String expectedStatus) throws Throwable {
+
+        if(expectedStatus!=null && !expectedStatus.equals("")) {
+            //Stored data to verify
+            EcigProductSubmission data = (EcigProductSubmission) scenarioSession.getData(SessionKey.storedNotification);
+            String expectedNotificationID = data.getEcIDNumber();
+
+            //Verify notification generated
+            mainNavigationBar = new MainNavigationBar(driver);
+            recordsPage = mainNavigationBar.clickRecords();
+            recordsPage = recordsPage.clickNotificationsLink();
+            notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
+            boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
+            assertThat("Expected header to contains EC ID : " + expectedNotificationID, contains, is(equalTo(true)));
+
+            //Verify notification is loaded in page
+            long start = System.currentTimeMillis();
+            boolean statusMatched = false;
+            int attempt = 0;
+            do {
+                statusMatched = notificationDetails.expectedStatusToBe(expectedStatus);
+                if (statusMatched)
+                    break;
+                attempt++;
+                WaitUtils.nativeWait(5);
+            } while (!statusMatched && attempt < 15);
+
+            long end = System.currentTimeMillis();
+            long diff = (end-start)/1000;
+            log.warn("Time taken for status to change for ecid : " + expectedNotificationID + ", in seconds : " + diff);
+
+            String newStatus = notificationDetails.getCurrentStatus();
+            assertThat("Status should be : " + expectedStatus, newStatus, is((equalTo(expectedStatus))));
+
+            String zipFile = (String) scenarioSession.getData(SessionKey.zipFileLocation);
+            if(zipFile!=null){
+                //Assumes notification loaded, therefore delete file
+                FileUtils.deleteFile(zipFile);
+            }
+        }
+    }
+
+
 
 }

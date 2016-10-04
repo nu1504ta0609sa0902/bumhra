@@ -28,4 +28,6 @@ public class SessionKey {
     public static String previousECID = "Previous ECID";
     public static String searchTerm = "Search Term";
     public static String reportName = "Report Name";
+    public static String emailContent = "Email Attachment Content";
+    public static String zipFileLocation = "Zip Notification Data File";
 }

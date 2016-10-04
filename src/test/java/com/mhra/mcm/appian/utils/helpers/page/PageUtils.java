@@ -28,6 +28,13 @@ public class PageUtils {
         select.selectByIndex(i);
     }
 
+    public static void clickOption(WebDriver driver, WebElement option,  boolean status) {
+        if(status){
+            clickIfVisible(driver, option);
+            //option.click();
+        }
+    }
+
     public static void clickOption(WebElement option1, WebElement option2, boolean status) {
         if(status){
             option1.click();

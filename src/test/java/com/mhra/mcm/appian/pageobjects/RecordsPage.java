@@ -12,6 +12,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +25,7 @@ import java.util.List;
 @Component
 public class RecordsPage extends _Page {
 
-    @FindBy(css=".appianGridLayout.hasFooter>tbody>tr")
+    @FindBy(css = ".appianGridLayout.hasFooter>tbody>tr")
     List<WebElement> listOfNotifications;
 
     @FindBy(linkText = "Manage Notification")
@@ -41,13 +43,13 @@ public class RecordsPage extends _Page {
     @FindBy(xpath = ".//h2[.='Uploaded On']//following::a")
     List<WebElement> listOfECIDLinks;
 
-    @FindBy(xpath=".//img//following::input[1]")
+    @FindBy(xpath = ".//img//following::input[1]")
     WebElement searchField;
 
-    @FindBy(xpath=".//*[.='Previous']//following::span[2]")
+    @FindBy(xpath = ".//*[.='Previous']//following::span[2]")
     WebElement totalCount;
 
-    @FindBy(xpath=".//*[.='Notifications']//following::span/b")
+    @FindBy(xpath = ".//*[.='Notifications']//following::span/b")
     WebElement searchResultsFor;
 
     @Autowired
@@ -64,7 +66,7 @@ public class RecordsPage extends _Page {
 
     public boolean hasNotifications() {
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".appianGridLayout.hasFooter>tbody>tr"), 5);
-        return listOfNotifications.size()> 0;
+        return listOfNotifications.size() > 0;
     }
 
     public RecordsPage clickNotificationNumber(int notificationNumber) {
@@ -81,17 +83,17 @@ public class RecordsPage extends _Page {
             if (isDisplayed)
                 manageNotificationBtn.click();
             return isDisplayed;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     public RecordsPage clickNotificationsLink() {
-            WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Notifications"), 20, false);
-            WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 20);
-            PageUtils.singleClick(driver, notificationsLink);
-            //notificationsLink.click();
-            return new RecordsPage(driver);
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Notifications"), 20, false);
+        WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 20);
+        PageUtils.singleClick(driver, notificationsLink);
+        //notificationsLink.click();
+        return new RecordsPage(driver);
     }
 
     public RecordsPage clickUsersLink() {
@@ -107,7 +109,7 @@ public class RecordsPage extends _Page {
     }
 
     public boolean notificationsPageContainsText(String expectedName, boolean refresh) {
-        if(refresh){
+        if (refresh) {
             //Bug with the page, it requires a page refresh to show the updates
             WaitUtils.waitForElementToBeClickable(driver, submitterName, 5);
             driver.navigate().refresh();
@@ -122,7 +124,6 @@ public class RecordsPage extends _Page {
     }
 
     /**
-     *
      * @param expectedNotificationID
      * @param maxNumberOfTimesToIterate
      * @return
@@ -140,107 +141,105 @@ public class RecordsPage extends _Page {
                 //notification.click();
                 found = true;
                 break;
-            }catch(Exception e){
+            } catch (Exception e) {
                 found = false;
             }
 
             //refresh page
-            if(!found) {
+            if (!found) {
                 driver.navigate().refresh();
                 PageFactory.initElements(driver, this);
             }
 
-        }while(!found && attempt < maxNumberOfTimesToIterate);
+        } while (!found && attempt < maxNumberOfTimesToIterate);
         return new NotificationDetails(driver);
     }
 
     /**
-     *
      * @param from
      * @param maxNumberOfTimesToIterate
      * @return
      */
     public String getARandomNotificationECIDFromPosition(int from, int maxNumberOfTimesToIterate) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
-        if(listOfECIDLinks.size() > 0){
+        if (listOfECIDLinks.size() > 0) {
             String ecID = null;
             int count = from;
-            do{
+            do {
                 count++;
                 ecID = listOfECIDLinks.get(count).getText();
-                if(ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")){
+                if (ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")) {
                     ecID = null;
                 }
 
-                if(count>maxNumberOfTimesToIterate){
+                if (count > maxNumberOfTimesToIterate) {
                     break;
                 }
-            }while(ecID == null);
+            } while (ecID == null);
             return ecID;
-        }else{
+        } else {
             return null;
         }
     }
 
     /**
-     *
      * @param status
      * @param maxNumberOfTimesToIterate
      * @return
      */
     public String getARandomNotificationWithStatusNotEqualTo(String status, int maxNumberOfTimesToIterate) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
-        if(listOfECIDLinks.size() > 0){
+        if (listOfECIDLinks.size() > 0) {
             String ecID = null;
             int count = 0;
-            do{
+            do {
                 count++;
                 WebElement element = listOfECIDLinks.get(listOfECIDLinks.size() - count);
                 ecID = element.getText();
-                if(ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")){
+                if (ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")) {
                     ecID = null;
-                }else{
+                } else {
                     element = driver.findElement(By.xpath(".//*[.='" + ecID + "']//following::p[4]"));
                     String currentStatus = element.getText();
                     //System.out.println("Status " + currentStatus);
 
                     //Bug: Failed notifications can't be edited
-                    if(currentStatus.equals(status) || currentStatus.equals("Failed") || currentStatus.equals("Withdrawn")){
-                       ecID = null;
+                    if (currentStatus.equals(status) || currentStatus.equals("Failed") || currentStatus.equals("Withdrawn")) {
+                        ecID = null;
                     }
                 }
 
-                if(count>maxNumberOfTimesToIterate){
+                if (count > maxNumberOfTimesToIterate) {
                     break;
                 }
-            }while(ecID == null);
+            } while (ecID == null);
             return ecID;
-        }else{
+        } else {
             return null;
         }
     }
 
     public String getARandomNotificationWithStatusEqualTo(String status, int maxNumberOfTimesToIterate) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
-        if(listOfECIDLinks.size() > 0){
-            maxNumberOfTimesToIterate  = listOfECIDLinks.size();
+        if (listOfECIDLinks.size() > 0) {
+            maxNumberOfTimesToIterate = listOfECIDLinks.size();
             String ecID = null;
             int count = 0;
-            do{
+            do {
                 count++;
                 WebElement element = listOfECIDLinks.get(maxNumberOfTimesToIterate - count);
                 ecID = element.getText();
-                if(ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")){
+                if (ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")) {
                     ecID = null;
-                }else{
+                } else {
                     WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[.='" + ecID + "']//following::p[4]"), 15, false);
                     element = driver.findElement(By.xpath(".//*[.='" + ecID + "']//following::p[4]"));
                     String currentStatus = element.getText();
 
                     //Bug: Failed notifications can't be edited
-                    if(!currentStatus.equals(status) || currentStatus.equals("Failed") || currentStatus.equals("Withdrawn")){
+                    if (!currentStatus.equals(status) || currentStatus.equals("Failed") || currentStatus.equals("Withdrawn")) {
                         ecID = null;
-                    }else if(currentStatus.equals(status)) {
+                    } else if (currentStatus.equals(status)) {
                         System.out.println(currentStatus + ", " + status);
                         WebElement elementSub = listOfECIDLinks.get(maxNumberOfTimesToIterate - count);
                         ecID = elementSub.getText();
@@ -248,12 +247,12 @@ public class RecordsPage extends _Page {
                     }
                 }
 
-                if(count>maxNumberOfTimesToIterate){
+                if (count > maxNumberOfTimesToIterate) {
                     break;
                 }
-            }while(ecID == null);
+            } while (ecID == null);
             return ecID;
-        }else{
+        } else {
             return null;
         }
     }
@@ -261,37 +260,37 @@ public class RecordsPage extends _Page {
 
     public String getARandomNotification(int maxNumberOfTimesToIterate) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
-        if(listOfECIDLinks.size() > 0){
-            maxNumberOfTimesToIterate  = listOfECIDLinks.size();
+        if (listOfECIDLinks.size() > 0) {
+            maxNumberOfTimesToIterate = listOfECIDLinks.size();
             String ecID = null;
             int count = 0;
-            do{
+            do {
                 count++;
                 WebElement element = PageUtils.getRandomNotification(listOfECIDLinks);
                 ecID = element.getText();
-                if(ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")){
+                if (ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")) {
                     ecID = null;
-                }else{
+                } else {
                     break;
                 }
 
-                if(count>maxNumberOfTimesToIterate){
+                if (count > maxNumberOfTimesToIterate) {
                     break;
                 }
-            }while(ecID == null);
+            } while (ecID == null);
             return ecID;
-        }else{
+        } else {
             return null;
         }
     }
 
     public int getNotificationCount(String ecid) {
-            WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText(ecid), 10, false);
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(ecid), 5);
-            List<WebElement> listOfMatches = driver.findElements(By.partialLinkText(ecid));
-            int count = GenericUtils.getUniqueECIDCount(listOfMatches);
-            return count;
-
+//        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText(ecid), 10, false);
+//        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(ecid), 5);
+        new WebDriverWait(driver, TIMEOUT_DEFAULT).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.partialLinkText(ecid)));
+        List<WebElement> listOfMatches = driver.findElements(By.partialLinkText(ecid));
+        int count = GenericUtils.getUniqueECIDCount(listOfMatches);
+        return count;
     }
 
 
@@ -305,7 +304,7 @@ public class RecordsPage extends _Page {
 
 
     public String getSubmitterNameForEcid(String ecid) {
-        WebElement submitter = driver.findElement(By.xpath(".//a[.='"+ecid+"']//following::p[2]"));
+        WebElement submitter = driver.findElement(By.xpath(".//a[.='" + ecid + "']//following::p[2]"));
         String name = submitter.getText();
         return name;
     }
@@ -326,7 +325,7 @@ public class RecordsPage extends _Page {
                 count = count.replace("of", "").trim();
             }
             return Integer.parseInt(count);
-        }catch (Exception e){
+        } catch (Exception e) {
             By by = By.xpath(".//*[@class='footer']//following::div/span[3]");
             WaitUtils.waitForElementToBeClickable(driver, by, 15, false);
             String count = driver.findElement(by).getText();

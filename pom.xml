@@ -19,7 +19,7 @@
         <rest-assured-version>2.3.1</rest-assured-version>
         <hamcrest-version>1.3</hamcrest-version>
         <selenium.java.version>2.53.1</selenium.java.version>
-        <selenium.htmlunit.version>2.53.1</selenium.htmlunit.version>
+        <apache.httpclient.version>4.5</apache.httpclient.version>
         <skipTests>false</skipTests>
     </properties>
 
@@ -66,7 +66,7 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5</version>
+            <version>${apache.httpclient.version}</version>
         </dependency>
 
 
@@ -226,17 +226,20 @@
         </dependency>
 
         <!-- Phantomjs driver -->
-        <!--<dependency>-->
-            <!--<groupId>io.github.bonigarcia</groupId>-->
-            <!--<artifactId>webdrivermanager</artifactId>-->
-            <!--<version>1.4.9</version>-->
-        <!--</dependency>-->
         <!-- https://mvnrepository.com/artifact/com.codeborne/phantomjsdriver -->
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>phantomjsdriver</artifactId>
             <version>1.3.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+
 
 
     </dependencies>
