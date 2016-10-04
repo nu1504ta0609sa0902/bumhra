@@ -4,6 +4,9 @@ import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects.ActionsPage;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
+import com.mhra.mcm.appian.pageobjects.sections.contents.CreateNotification;
+import com.mhra.mcm.appian.pageobjects.sections.contents.UpdateBusinessRules;
+import com.mhra.mcm.appian.session.ScenarioSession;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
@@ -20,6 +23,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.context.annotation.Scope;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,6 +36,11 @@ import static org.hamcrest.Matchers.*;
 @Scope("cucumber-glue")
 public class ActionsPageSteps extends CommonSteps {
 
+    @When("^I go to actions page$")
+    public void i_go_to_actions_page() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        actionsPage = mainNavigationBar.clickActions();
+    }
 
     @Given("^I create new notification$")
     public void i_create_a_new_notification() throws Throwable {
@@ -253,6 +263,69 @@ public class ActionsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
         //log.info("Notification Details : \n" + random);
         log.info("Created Notification With ECID : " + ecId);
+    }
+
+    @Given("^I create zip file with following data$")
+    public void i_create_zip_file_with_following_data(Map<String, String> dataValues) throws Throwable {
+
+        //Create and save XML file
+        String xmlFileName = dataValues.get("saveXMLOutputAs");
+        xmlFileName = FileUtils.getXMLNotificationDataFileName(xmlFileName);
+        EcigProductSubmission xmlNotificationData = NotificationUtils.generateDefaultXMLNotificationDataSimple(dataValues, mapOfExcelDataAsMap);
+        String xmlDataFileLocation = NotificationUtils.createXmlNotificationData(xmlNotificationData, xmlFileName);
+
+        String ecId = xmlNotificationData.getEcIDNumber();
+        log.info("Create Notification With ECID : " + ecId);
+        log.info("XML Data File : " + xmlDataFileLocation);
+
+        //Stored ecId for future use
+        scenarioSession.putData(SessionKey.ECID, ecId);
+        scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
+        //log.info("Notification Details : \n" + random);
+        log.info("Created Notification With ECID : " + ecId);
+
+        //Zip the file now
+        String zipFileCreated = NotificationUtils.createZipFile(xmlDataFileLocation, xmlFileName);
+
+        //Zip the file now
+//        List<String> listOfFilesToZip = new ArrayList<>();
+//        listOfFilesToZip.add(xmlDataFileLocation);
+//        String zipFileCreated2 = NotificationUtils.createZipFile(listOfFilesToZip);
+
+        //It should work
+        scenarioSession.putData(SessionKey.zipFileLocation, zipFileCreated);
+    }
+
+
+    @Given("^I create new zip file with following data table$")
+    public void i_create_new_zip_file_with_following_data_table(Map<String, String> dataValues) throws Throwable {
+
+        //Create and save XML file
+        String xmlFileName = dataValues.get("saveXMLOutputAs");
+        xmlFileName = FileUtils.getXMLNotificationDataFileName(xmlFileName);
+        EcigProductSubmission xmlNotificationData = NotificationUtils.generateDefaultXMLNotificationDataSimple(dataValues, mapOfExcelDataAsMap);
+        String xmlDataFileLocation = NotificationUtils.createXmlNotificationData(xmlNotificationData, xmlFileName);
+
+        String ecId = xmlNotificationData.getEcIDNumber();
+        log.info("Create Notification With ECID : " + ecId);
+        log.info("XML Data File : " + xmlDataFileLocation);
+
+        //Stored ecId for future use
+        scenarioSession.putData(SessionKey.ECID, ecId);
+        scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
+        //log.info("Notification Details : \n" + random);
+        log.info("Created Notification With ECID : " + ecId);
+
+        //Zip the file now
+        String zipFileCreated = NotificationUtils.createZipFile(xmlDataFileLocation, xmlFileName);
+        log.warn("Zip file : " + zipFileCreated);
+
+        //Zip the file now
+//        List<String> listOfFilesToZip = new ArrayList<>();
+//        listOfFilesToZip.add(xmlDataFileLocation);
+//        String zipFileCreated2 = NotificationUtils.createZipFile(listOfFilesToZip);
+
+        scenarioSession.putData(SessionKey.zipFileLocation, zipFileCreated);
     }
 
 
@@ -525,4 +598,43 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_the_dialog_to_leave_the_page(String accept) throws Throwable {
         PageUtils.acceptAlert(driver, accept);
     }
+
+    @Then("^I should \"([^\"]*)\" the option to update business rules$")
+    public void i_should_the_option_to_update_business_rules(String see) throws Throwable {
+        boolean isDisplayed = actionsPage.isBusinessRulesLinkDisplayed();
+        if(see.equals("see")){
+            assertThat("Update Business Rules Link Not Found", isDisplayed, is(true));
+        }else{
+            assertThat("Update Business Rules Link SHOULD NOT BE DISPLAYED", isDisplayed, is(false));
+        }
+    }
+
+
+    @When("^I update business rules for product type \"([^\"]*)\" and set \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_update_business_rules_for_product_type_and_set_to(String productType, String filedToUpdate, String updateValue) throws Throwable {
+        //Go to business rules
+        mainNavigationBar = new MainNavigationBar(driver);
+        actionsPage = mainNavigationBar.clickActions();
+
+        //Update the specified field with new values
+        updateBusinessRules = actionsPage.clickUpdateBusinessRules();
+        updateBusinessRules = updateBusinessRules.viewSpecifiedProductType(productType);
+        actionsPage = updateBusinessRules.updateFieldValue(filedToUpdate, updateValue);
+    }
+
+    @Given("^I upload the stored zip file to appian$")
+    public void i_upload_the_zip_file_to_appian() throws Throwable {
+
+        mainNavigationBar = new MainNavigationBar(driver);
+        actionsPage = mainNavigationBar.clickActions();
+        createNotification = actionsPage.clickUploadZipFile();
+
+        //Upload a zip file
+        String zipFileToUpload = (String) scenarioSession.getData(SessionKey.zipFileLocation);
+        createNotification = createNotification.clickAddDocument();
+        createNotification = createNotification.addZipFile(zipFileToUpload);
+
+        log.warn("Uploaded zip file : " + zipFileToUpload);
+    }
+
 }

@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.pageobjects;
 
 import com.mhra.mcm.appian.pageobjects.sections.contents.CreateNotification;
 import com.mhra.mcm.appian.pageobjects.sections.contents.ManageSubstances;
+import com.mhra.mcm.appian.pageobjects.sections.contents.UpdateBusinessRules;
 import com.mhra.mcm.appian.pageobjects.sections.contents.UpdateQAPercentage;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
@@ -17,6 +18,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ActionsPage extends _Page {
+
+    @FindBy(partialLinkText = "Upload Zip File")
+    WebElement uploadZipFile;
 
     @FindBy(partialLinkText = "Upload Sample Notification")
     WebElement uploadSampleNotification;
@@ -36,6 +40,9 @@ public class ActionsPage extends _Page {
     @FindBy(partialLinkText = "Create Withdrawn Notifications")
     WebElement createWithdrawalInvoices;
 
+    @FindBy(partialLinkText = "Update Business Rules")
+    WebElement updateBusinessRules;
+
     @Autowired
     public ActionsPage(WebDriver driver) {
         super(driver);
@@ -45,6 +52,14 @@ public class ActionsPage extends _Page {
         WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Upload Sample Notification"), TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, uploadSampleNotification, 5);
         uploadSampleNotification.click();
+        return new CreateNotification(driver);
+    }
+
+
+    public CreateNotification clickUploadZipFile() {
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Upload Zip File"), TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, uploadZipFile, 5);
+        uploadZipFile.click();
         return new CreateNotification(driver);
     }
 
@@ -86,15 +101,13 @@ public class ActionsPage extends _Page {
         return new UpdateQAPercentage(driver);
     }
 
+    public UpdateBusinessRules clickUpdateBusinessRules() {
+        WaitUtils.waitForElementToBeClickable(driver, updateBusinessRules, TIMEOUT_DEFAULT, false);
+        PageUtils.singleClick(driver, updateBusinessRules);
+        return new UpdateBusinessRules(driver);
+    }
+
     public ManageSubstances clickManageSubstances() {
-//        try {
-//            WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Manage Substances"), 10, false);
-//            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 30, false);
-//            PageUtils.doubleClick(driver, manageSubstances);
-//            return new ManageSubstances(driver);
-//        }catch (Exception e){
-//            return null;
-//        }
         WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Manage Substances"), TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, manageSubstances, 30, false);
         PageUtils.doubleClick(driver, manageSubstances);
@@ -105,5 +118,14 @@ public class ActionsPage extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, createWithdrawalInvoices, TIMEOUT_DEFAULT, false);
         PageUtils.singleClick(driver, createWithdrawalInvoices);
         return new ActionsPage(driver);
+    }
+
+    public boolean isBusinessRulesLinkDisplayed() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, updateBusinessRules, TIMEOUT_SMALL, false);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

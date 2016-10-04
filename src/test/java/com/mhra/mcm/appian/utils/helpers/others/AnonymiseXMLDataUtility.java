@@ -181,40 +181,6 @@ public class AnonymiseXMLDataUtility {
     private static void overrideAndReplaceSpecificTags(String replaceWith, XPath xpath, Document doc) throws XPathExpressionException {
         String testPhone= "+44 207 845 1234567";
         String testEmail = "mhra.uat@gmail.com";
-
-        //replaceSpecificTags(".//Parent/Name", replaceWith, xpath, doc);
-        //replaceSpecificTags(".//Parent/Address", replaceWith, xpath, doc);
-        //replaceSpecificTags(".//Parent/PhoneNumber", testPhone, xpath, doc);
-        //replaceSpecificTags(".//Parent/Email", testEmail, xpath, doc);
-        //replaceSpecificTags(".//Parent/Country", replaceWith, xpath, doc);
-
-        //replaceSpecificTags(".//Enterer/Name", replaceWith, xpath, doc);
-        //replaceSpecificTags(".//Enterer/Address", replaceWith, xpath, doc);
-        //replaceSpecificTags(".//Enterer/PhoneNumber", testPhone, xpath, doc);
-        //replaceSpecificTags(".//Enterer/Email", testEmail, xpath, doc);
-        //replaceSpecificTags(".//Enterer/Country", replaceWith, xpath, doc);
-
-        //replaceSpecificTags(".//Affiliate/Name", replaceWith, xpath, doc);
-        //replaceSpecificTags(".//Affiliate/Address", replaceWith, xpath, doc);
-        //replaceSpecificTags(".//Affiliate/PhoneNumber", testPhone, xpath, doc);
-        //replaceSpecificTags(".//Affiliate/Email", testEmail, xpath, doc);
-        //replaceSpecificTags(".//Affiliate/Country", replaceWith, xpath, doc);
-
-        //replaceSpecificTags(".//ProductionSiteAddress/Address", replaceWith, xpath, doc);
-        //replaceSpecificTags(".//ProductionSiteAddress/PhoneNumber", testPhone, xpath, doc);
-        //replaceSpecificTags(".//ProductionSiteAddress/Email", testEmail, xpath, doc);
-
-        //replaceSpecificTags(".//ProductionSiteAddress/Address", replaceWith, xpath, doc);
-        //replaceSpecificTags(".//ProductionSiteAddress/PhoneNumber", testPhone, xpath, doc);
-        //replaceSpecificTags(".//ProductionSiteAddress/Email", testEmail, xpath, doc);
-
-        //replaceSpecificTags(".//OtherProducts/ProductIdentification", replaceWith, xpath, doc);
-        //replaceSpecificTags(".//Design/Description", replaceWith, xpath, doc);
-
-        //replaceSpecificTags(".//Presentation/BrandName", replaceWith, xpath, doc);
-        //replaceSpecificTags(".//Presentation/BrandSubtypeName", replaceWith, xpath, doc);
-
-
         replaceSpecificTags(".//PhoneNumber", testPhone, xpath, doc);
         replaceSpecificTags(".//Email", testEmail, xpath, doc);
 
@@ -223,25 +189,28 @@ public class AnonymiseXMLDataUtility {
     }
 
     private static void applyLamrosesRequest(XPath xpath, Document doc) throws XPathExpressionException {
+        String submitterID = RandomDataUtils.getSimpleRandomNumberBetween(10000, 99999);
+        String versioningID = RandomDataUtils.getSimpleRandomNumberBetween(10000, 99999);
+        String addressNumber = RandomDataUtils.getSimpleRandomNumberBetween(1, 500);
         replaceSpecificTags(".//GeneralComment", "Random Comment", xpath, doc);
-        replaceSpecificTags(".//ProductID", "12345-12-12345", xpath, doc);
+        replaceSpecificTags(".//ProductID", submitterID + "-16-" + versioningID, xpath, doc);
         replaceSpecificTags(".//BrandName", "MHRA Brand Name", xpath, doc);
         replaceSpecificTags(".//ProductIdentification", "Product Identification Text", xpath, doc);
         replaceSpecificTags(".//Description", "Product Description of this e-liquid", xpath, doc);
-        replaceSpecificTags(".//Submitter/@submitterID", "12345", xpath, doc);
-        replaceSpecificTags(".//Manufacturer/@submitterID", "12345", xpath, doc);
-        replaceSpecificTags(".//Address", "151 Buckingham Palace Road, London, SW1W 9SZ", xpath, doc);
+        replaceSpecificTags(".//Submitter/@submitterID", submitterID, xpath, doc);
+        replaceSpecificTags(".//Manufacturer/@submitterID", submitterID, xpath, doc);
+        replaceSpecificTags(".//Address", addressNumber + " Buckingham Palace Road, London, SW1W 9SZ", xpath, doc);
 
         replaceSpecificTags(".//IdentificationRefillContainerCartridge", "Refill container Description eg Cherry 2mg", xpath, doc);
         replaceSpecificTags(".//IdentificationEcigDevice", "Refill container Description eg Cherry 2mg", xpath, doc);
-        replaceSpecificTags(".//ProductNumber", "12345-16-12345", xpath, doc);
+        replaceSpecificTags(".//ProductNumber", submitterID + "-16-" + versioningID, xpath, doc);
         replaceSpecificTags(".//ProductCombination", "20W eCig device with Cherry 2mg", xpath, doc);
-        replaceSpecificTags(".//BrandSubtypeName", "SubType Brand", xpath, doc);
-        replaceSpecificTags(".//Parent/Name", "Parent Name", xpath, doc);
-        replaceSpecificTags(".//Enterer/Name", "Enterer Name", xpath, doc);
-        replaceSpecificTags(".//Affiliate/Name", "Affiliate Name", xpath, doc);
-        replaceSpecificTags(".//Ingredient/Name", "Ingredient", xpath, doc);
-        replaceSpecificTags(".//Manufacturer/Name", "Manufacturer Name", xpath, doc);
+        replaceSpecificTags(".//BrandSubtypeName", RandomDataUtils.getRandomTestName("SubType Brand"), xpath, doc);
+        replaceSpecificTags(".//Parent/Name", RandomDataUtils.getRandomTestName("Parent Name"), xpath, doc);
+        replaceSpecificTags(".//Enterer/Name", RandomDataUtils.getRandomTestName("Enterer Name"), xpath, doc);
+        replaceSpecificTags(".//Affiliate/Name", RandomDataUtils.getRandomTestName("Affiliate Name"), xpath, doc);
+        //replaceSpecificTags(".//Ingredient/Name", "Ingredient", xpath, doc);
+        replaceSpecificTags(".//Manufacturer/Name", RandomDataUtils.getRandomTestName("Manufacturer Name"), xpath, doc);
     }
 
 

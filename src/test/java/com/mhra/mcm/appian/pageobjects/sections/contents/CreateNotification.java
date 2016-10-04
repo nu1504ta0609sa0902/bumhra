@@ -4,6 +4,7 @@ import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.domain.webPagePojo.sub.*;
 import com.mhra.mcm.appian.pageobjects.ActionsPage;
 import com.mhra.mcm.appian.pageobjects._Page;
+import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -90,6 +91,45 @@ public class CreateNotification extends _Page {
     @FindBy(xpath = ".//label[.='Nicotine Concentration']//following::input[1]")
     WebElement nicotineConcentration;
 
+    //Product Component Details
+    @FindBy(xpath = ".//span[.='Airflow Adjustable']//following::input[2]")
+    WebElement pcdAirflow;
+    @FindBy(xpath = ".//span[.='Microprocessor']//following::input[2]")
+    WebElement pcdMicroprocessor;
+    @FindBy(xpath = ".//span[.='Conformity']//following::input[2]")
+    WebElement pcdConformity;
+    @FindBy(xpath = ".//span[.='Quality Safety']//following::input[2]")
+    WebElement pcdQualitySafety;
+    @FindBy(xpath = ".//span[.='Non Risk']//following::input[2]")
+    WebElement pcdNonRisk;
+    @FindBy(xpath = ".//span[.='High Purity']//following::input[2]")
+    WebElement pcdHighPurity;
+    @FindBy(xpath = ".//span[.='Wick Changeable']//following::input[2]")
+    WebElement pcdWickChangeable;
+    @FindBy(xpath = ".//span[.='Tamper Proof']//following::input[2]")
+    WebElement pcdTamperProof;
+    @FindBy(xpath = ".//span[.='Consistent Dosing']//following::input[2]")
+    WebElement pcdConsistentDosing;
+
+    @FindBy(xpath = ".//span[.='Airflow Adjustable']//following::input[1]")
+    WebElement pcdAirflowYes;
+    @FindBy(xpath = ".//span[.='Microprocessor']//following::input[1]")
+    WebElement pcdMicroprocessorYes;
+    @FindBy(xpath = ".//span[.='Conformity']//following::input[1]")
+    WebElement pcdConformityYes;
+    @FindBy(xpath = ".//span[.='Quality Safety']//following::input[1]")
+    WebElement pcdQualitySafetyYes;
+    @FindBy(xpath = ".//span[.='Non Risk']//following::input[1]")
+    WebElement pcdNonRiskYes;
+    @FindBy(xpath = ".//span[.='High Purity']//following::input[1]")
+    WebElement pcdHighPurityYes;
+    @FindBy(xpath = ".//span[.='Wick Changeable']//following::input[1]")
+    WebElement pcdWickChangeableYes;
+    @FindBy(xpath = ".//span[.='Tamper Proof']//following::input[1]")
+    WebElement pcdTamperProofYes;
+    @FindBy(xpath = ".//span[.='Consistent Dosing']//following::input[1]")
+    WebElement pcdConsistentDosingYes;
+
     //Fill address
     @FindBy(xpath = ".//span[.='Available Addresses']//following::input[1]")
     WebElement address;
@@ -137,6 +177,10 @@ public class CreateNotification extends _Page {
     @FindBy(css = ".buttonContainer")
     WebElement page;
 
+
+    @FindBy(partialLinkText = "Add Document")
+    WebElement addDocumentLink;
+
     public boolean ingredientAdded = false;
 
     @Autowired
@@ -171,6 +215,7 @@ public class CreateNotification extends _Page {
         fillProduct(notification.getProduct());
         fillProductDesign(notification.getProductDesign());
         fillBatteryWattageAndVoltage(notification.getBatteryWattageVoltage());
+        fillProductComponentDetails(notification.getProductComponentDetails());
         fillIngredients(notification.getIngredient());
 
         //Now submit the notification and keep track of ecID
@@ -178,7 +223,31 @@ public class CreateNotification extends _Page {
         return new ActionsPage(driver);
     }
 
+    private void fillProductComponentDetails(ProductComponentDetails productComponentDetails) {
+        WaitUtils.waitForElementToBeClickable(driver, pcdAirflow, 10);
+//        PageUtils.clickOption(driver, pcdAirflow, productComponentDetails.airflowAdjustable);
+//        PageUtils.clickOption(driver, pcdMicroprocessor, productComponentDetails.microprocessor);
+//        PageUtils.clickOption(driver, pcdConformity, productComponentDetails.conformity);
+//        PageUtils.clickOption(driver, pcdQualitySafety, productComponentDetails.qualitySafety);
+//        PageUtils.clickOption(driver, pcdNonRisk, productComponentDetails.nonRisk);
+//        PageUtils.clickOption(driver, pcdWickChangeable, productComponentDetails.wickChangeable);
+//        PageUtils.clickOption(driver, pcdHighPurity, productComponentDetails.highPurity);
+//        PageUtils.clickOption(driver, pcdTamperProof, productComponentDetails.tamperProof);
+//        PageUtils.clickOption(driver, pcdConsistentDosing, productComponentDetails.consistentDosing);
+
+        PageUtils.clickOptionAdvanced(driver, pcdAirflowYes, pcdAirflow, productComponentDetails.airflowAdjustable);
+        PageUtils.clickOptionAdvanced(driver, pcdMicroprocessorYes, pcdMicroprocessor, productComponentDetails.microprocessor);
+        PageUtils.clickOptionAdvanced(driver, pcdConformityYes, pcdConformity, productComponentDetails.conformity);
+        PageUtils.clickOptionAdvanced(driver, pcdQualitySafetyYes, pcdQualitySafety, productComponentDetails.qualitySafety);
+        PageUtils.clickOptionAdvanced(driver, pcdNonRiskYes, pcdNonRisk, productComponentDetails.nonRisk);
+        PageUtils.clickOptionAdvanced(driver, pcdWickChangeableYes, pcdWickChangeable, productComponentDetails.wickChangeable);
+        PageUtils.clickOptionAdvanced(driver, pcdHighPurityYes, pcdHighPurity, productComponentDetails.highPurity);
+        PageUtils.clickOptionAdvanced(driver, pcdTamperProofYes, pcdTamperProof, productComponentDetails.tamperProof);
+        PageUtils.clickOptionAdvanced(driver, pcdConsistentDosingYes, pcdConsistentDosing, productComponentDetails.consistentDosing);
+    }
+
     private void fillBatteryWattageAndVoltage(BatteryWattageVoltage batteryWattageVoltage) {
+        WaitUtils.waitForElementToBeClickable(driver, nicotineConcentration, 10);
         liquidVolumeCapacity.sendKeys(batteryWattageVoltage.liquidVolumeCapacity);
         nicotineConcentration.sendKeys(batteryWattageVoltage.nicotineConcentration);
     }
@@ -268,5 +337,16 @@ public class CreateNotification extends _Page {
     public ActionsPage clickCancel() {
         PageUtils.doubleClick(driver, cancelBtn);
         return new ActionsPage(driver);
+    }
+
+    public CreateNotification clickAddDocument() {
+        WaitUtils.waitForElementToBeClickable(driver, addDocumentLink, 10, false);
+        PageUtils.singleClick(driver, addDocumentLink);
+        return new CreateNotification(driver);
+    }
+
+    public CreateNotification addZipFile(String zipFileToUpload) {
+        NotificationUtils.uploadZipFile(driver, zipFileToUpload);
+        return new CreateNotification(driver);
     }
 }

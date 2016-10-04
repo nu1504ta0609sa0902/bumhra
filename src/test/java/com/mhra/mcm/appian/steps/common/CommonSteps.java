@@ -77,6 +77,8 @@ public class CommonSteps {
     public NotificationsReport notificationsReport;
     @Autowired
     public Documents documents;
+    @Autowired
+    public UpdateBusinessRules updateBusinessRules;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {
