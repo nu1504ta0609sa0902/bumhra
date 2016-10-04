@@ -4,6 +4,9 @@ import com.mhra.mcm.appian.domain.sort.SortByMessageNumber;
 import com.mhra.mcm.appian.domain.webPagePojo.sub.Invoice;
 import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -35,6 +38,7 @@ public class GmailEmail {
     private static final String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
 
     private static List<Invoice> listOfInvoices = new ArrayList<>();
+    private static StringBuilder refusalForEmailContent;
     private static boolean refusalEmailReceived;
     private static boolean withdrawalEmailReceived;
     private static boolean noNewNotificaitonsEmailReceived;
@@ -66,15 +70,15 @@ public class GmailEmail {
     private static void filterListOfInvoicesByEcid(String ecID) {
         boolean contains = false;
         //check invoice with ecid exists
-        for(Invoice invoice: listOfInvoices){
+        for (Invoice invoice : listOfInvoices) {
             String descECid = invoice.Description;
-            if(descECid!=null && descECid.equals(ecID)){
+            if (descECid != null && descECid.equals(ecID)) {
                 contains = true;
                 break;
             }
         }
 
-        if(!contains){
+        if (!contains) {
             //remove all invoices
             listOfInvoices.clear();
         }
@@ -134,15 +138,15 @@ public class GmailEmail {
 
                             //If recent
                             boolean isRecent = receivedInLast(min, sentDate);
-                            if (isRecent && subject.contains( UNINVOICED_NOTIFICATIONS ) ) {
+                            if (isRecent && subject.contains(UNINVOICED_NOTIFICATIONS)) {
                                 System.out.println("---------------------------------");
                                 System.out.println("Recent email received");
                                 System.out.println("---------------------------------");
                                 writePart(message);
                                 System.out.println("Number of invoices : " + listOfInvoices.size());
-                            }else{
+                            } else {
 
-                                if(isRecent && subject.contains(ANNUAL_INVOICED_NOTIFICATIONS) ){
+                                if (isRecent && subject.contains(ANNUAL_INVOICED_NOTIFICATIONS)) {
                                     System.out.println("---------------------------------");
                                     System.out.println("Recent email received for : Annual Invoiced Notifications");
                                     System.out.println("---------------------------------");
@@ -150,7 +154,7 @@ public class GmailEmail {
                                     System.out.println("Number of invoices : " + listOfInvoices.size());
                                 }
 
-                                if(isRecent && subject.contains(WITHDRAWAL)){
+                                if (isRecent && subject.contains(WITHDRAWAL)) {
                                     System.out.println("---------------------------------");
                                     System.out.println("Recent email received for : Withdrawal For Notification");
                                     System.out.println("---------------------------------");
@@ -160,15 +164,16 @@ public class GmailEmail {
                                     break;
                                 }
 
-                                if (isRecent && subject.contains(REFUSAL_FOR_NOTIFICATION)){
+                                if (isRecent && subject.contains(REFUSAL_FOR_NOTIFICATION)) {
                                     System.out.println("---------------------------------");
                                     System.out.println("Recent email received for : Refusal For Notification");
                                     System.out.println("---------------------------------");
                                     refusalEmailReceived = true;
+                                    writePartPDF(message);
                                     break;
                                 }
 
-                                if(isRecent && subject.contains(NO_NEW_NOTIFICATIONS)){
+                                if (isRecent && subject.contains(NO_NEW_NOTIFICATIONS)) {
                                     System.out.println("---------------------------------");
                                     System.out.println("Recent email received for : No New Notifications");
                                     System.out.println("---------------------------------");
@@ -176,7 +181,7 @@ public class GmailEmail {
                                     break;
                                 }
 
-                                if(isRecent && subject.contains(NO_WITHDRAWN_NOTIFICATIONS)){
+                                if (isRecent && subject.contains(NO_WITHDRAWN_NOTIFICATIONS)) {
                                     System.out.println("---------------------------------");
                                     System.out.println("Recent email received for : No Withdrawn Notifications");
                                     System.out.println("---------------------------------");
@@ -204,6 +209,7 @@ public class GmailEmail {
 
     /**
      * Send email to appian for a Invoice.
+     *
      * @param invoice
      * @return
      */
@@ -277,7 +283,7 @@ public class GmailEmail {
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
-        }  catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -287,13 +293,14 @@ public class GmailEmail {
 
     /**
      * Creates an response which will be added as an attachment
+     *
      * @param invoice
      * @return
      * @throws Exception
      */
-    public static File generateCSVResponse(Invoice invoice) throws Exception{
+    public static File generateCSVResponse(Invoice invoice) throws Exception {
 
-        String tp2 = FileUtils.getTempFileFullPath() +  File.separator + "workbook" + RandomDataUtils.getRandomNumberBetween(1000,10000) + ".xlsx";
+        String tp2 = FileUtils.getTempFileFullPath() + File.separator + "workbook" + RandomDataUtils.getRandomNumberBetween(1000, 10000) + ".xlsx";
         File temp2 = new File(tp2);
         temp2.createNewFile();
 
@@ -340,13 +347,13 @@ public class GmailEmail {
      *
      * @param subject
      * @param subjectHeading
-     *@param sentDate @return
+     * @param sentDate       @return
      */
     private static boolean isMessageReceivedToday(String subject, String subjectHeading, Date sentDate) {
 
-        if(subjectHeading == null || subjectHeading.equals("") || subjectHeading.contains("Annual Notification Invoices")){
+        if (subjectHeading == null || subjectHeading.equals("") || subjectHeading.contains("Annual Notification Invoices")) {
             return true;
-        }else {
+        } else {
             Calendar calendar = Calendar.getInstance();
             int dom = calendar.get(Calendar.DAY_OF_MONTH);
             int month = calendar.get(Calendar.MONTH) + 1;
@@ -423,8 +430,80 @@ public class GmailEmail {
                             sb.append(line + "\n");
                             Invoice invoice = new Invoice(line);
                             //if (!listOfInvoices.contains(invoice))
-                                listOfInvoices.add(invoice);
+                            listOfInvoices.add(invoice);
                         }
+                        lineNumber++;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (br != null) {
+                        try {
+                            br.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                System.out.println(sb.toString());
+            }
+        }
+    }
+
+
+    public static void writePartPDF(Part p) throws Exception {
+
+
+        if (p.isMimeType("multipart/*")) {
+
+            refusalForEmailContent = new StringBuilder();
+            System.out.println("----------------------------");
+            System.out.println("CONTENT-TYPE: " + p.getContentType());
+            System.out.println("This is a Multipart");
+            System.out.println("---------------------------");
+            Multipart mp = (Multipart) p.getContent();
+            int count = mp.getCount();
+            for (int i = 0; i < count; i++) {
+                try {
+                    BodyPart bodyPart = mp.getBodyPart(i);
+                    InputStream is = bodyPart.getInputStream();
+                    PDDocument document = null;
+                    document = PDDocument.load(is);
+                    document.getClass();
+                    if (!document.isEncrypted()) {
+                        PDFTextStripperByArea stripper = new PDFTextStripperByArea();
+                        stripper.setSortByPosition(true);
+                        PDFTextStripper Tstripper = new PDFTextStripper();
+                        String st = Tstripper.getText(document);
+                        //System.out.println("Text:" + st);
+                        refusalForEmailContent.append(st);
+                    }
+                } catch (Exception e) {
+                }
+            }
+
+        } else {
+
+            Object o = p.getContent();
+            if (o instanceof InputStream) {
+                System.out.println("This is just an input stream");
+                System.out.println("---------------------------");
+                InputStream is = (InputStream) o;
+
+                BufferedReader br = null;
+                StringBuilder sb = new StringBuilder();
+                String line;
+                try {
+                    int lineNumber = 0;
+                    br = new BufferedReader(new InputStreamReader(is));
+                    while ((line = br.readLine()) != null) {
+                        //Ignore first line
+                        //if (lineNumber > 0) {
+                        sb.append(line + "\n");
+                        //Invoice invoice = new Invoice(line);
+                        //if (!listOfInvoices.contains(invoice))
+                        //listOfInvoices.add(invoice);
+                        //}
                         lineNumber++;
                     }
                 } catch (IOException e) {
@@ -475,13 +554,20 @@ public class GmailEmail {
     public static boolean isWithdrawalEmailReceived() {
         return withdrawalEmailReceived;
     }
-    public static boolean isRefusalEmailReceived(){
+
+    public static boolean isRefusalEmailReceived() {
         return refusalEmailReceived;
     }
-    public static boolean isNoNewNotificationsEmailReceived(){
+
+    public static boolean isNoNewNotificationsEmailReceived() {
         return noNewNotificaitonsEmailReceived;
     }
-    public static boolean isNoWithdrawnNotificationsEmailReceived(){
+
+    public static boolean isNoWithdrawnNotificationsEmailReceived() {
         return noWithdrawnNotificaitonsEmailReceived;
+    }
+
+    public static String getRefusalEmailContent() {
+        return refusalForEmailContent.toString();
     }
 }

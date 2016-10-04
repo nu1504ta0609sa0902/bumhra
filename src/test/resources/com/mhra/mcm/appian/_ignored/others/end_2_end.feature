@@ -27,6 +27,26 @@ Feature: As a user I should be able to do an end to end invoice processing of no
       | ipu1 | 1    | 150   | Paid   |
 
 
+  @zipupload
+  Scenario Outline: Check when ALLOWABLE substances are added the system will Pass the notification
+    Given I am logged into appian as "<user>" user
+    When I go to manage substance page
+    And I add a substance "<substance>" which "<banned>" banned
+    Then I should see the new substance in the manage substance page
+    And I create new notification with following data
+      | type       | <type> |
+      | ingredient | stored |
+    And I attach a toxicology report for "stored"
+    When I login as "fin1" and generate a standard invoice
+    Then I receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min for "" notifications
+    When I send paid email response back to appian
+    Then I expect the notification status should be "Unpaid"
+    Then I expect the notification status should be "<status>"
+    Examples:
+      | user | type | status     | substance | banned |
+      | ipu1 | 1    | Successful | random    | is not |
+
+
   Scenario: Verify xml notification generation of minimal data from excel sheet
     #Given I am logged into appian as "super1" user
     Given I create new xml notification with following data
@@ -63,3 +83,42 @@ Feature: As a user I should be able to do an end to end invoice processing of no
       | verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.1,valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
 
 
+  Scenario: Verify xml notification zip file generation of minimal data from excel sheet
+    Given I create new zip file with following data table
+      #Field values are : excelkey or none
+      | saveXMLOutputAs                 | random                                |
+      #Submission Type
+      | submissionType                  | 1                                     |
+      #Submitter
+      | submitter1                      | valid.submitter.2                     |
+      #Product
+      | product1                        | valid.product.3                       |
+      #Product ingredient
+      | ingredientAndToxicologyReports1 | valid.ingredient.4,valid.toxicology.2 |
+      | ingredientAndToxicologyReports2 | valid.ingredient.1,valid.toxicology.2 |
+      #| ingredientAndToxicologyReports3 | valid.ingredient.1                    |
+      #Producct Emission
+      #| emission1                       | valid.emission.1                      |
+      #| emission2                       | valid.emission.3                      |
+      #Product Manufacturer
+      #| manufacturer1                   | valid.manufacturer.1                  |
+      #| manufacturer2                   | valid.manufacturer.2                  |
+      #Product Presentation
+      | presentation1                   | valid.presentation.1                  |
+      #| presentation2                   | valid.presentation.2                  |
+      #Product Design
+      | design                          | valid.design.1                        |
+    And I am logged into appian as "rdt1" user
+    And I upload the stored zip file to appian
+    Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"
+
+
+  Scenario: Verify xml notification zip file generation of minimal data from excelsheet 2
+    Given I create new zip file with following data table
+      #These are keys which will load data from excel file
+      | saveXMLOutputAs         | submissionType | submitter         | product         | ingredientAndToxicologyReportPairs                                                                  | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
+      #| verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.2, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
+      | verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.1, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1                      |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+    And I am logged into appian as "rdt1" user
+    And I upload the stored zip file to appian
+    Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"

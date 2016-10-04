@@ -88,16 +88,25 @@ public class FileUtils {
      * @return
      */
     public static String getXMLNotificationDataFileName(String xmlFileName) {
-
+        boolean randomOrEmpty = false;
         if (xmlFileName != null && (xmlFileName.contains(".xml") || xmlFileName.trim().equals("random"))) {
             if (xmlFileName.trim().equals("") || xmlFileName.trim().equals("random")) {
+                randomOrEmpty = true;
                 if (xmlFileName.equals("random"))
                     xmlFileName = "Test" + new Date().toString().substring(0, 17).replaceAll(" ", "").replace(":", "") + ".xml";
                 else
                     xmlFileName = "Test.xml";
             }
         } else {
+            randomOrEmpty = true;
             xmlFileName = "Test.xml";
+        }
+
+        if(!randomOrEmpty){
+            if(xmlFileName.contains(".")) {
+                String data[] = xmlFileName.split("\\.");
+                xmlFileName = data[0] + "_" + RandomDataUtils.getTimeMinHour() + "." + data[1];
+            }
         }
         return xmlFileName;
     }
@@ -124,5 +133,10 @@ public class FileUtils {
             value = driverProp.getProperty(propertyName);
         }
         return value;
+    }
+
+    public static void deleteFile(String zipFile) {
+        File f = new File(zipFile);
+        f.delete();
     }
 }

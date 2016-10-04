@@ -113,7 +113,7 @@ public class ManageSubstances extends _Page {
 
         //Wait for partialLinks
         PageFactory.initElements(driver, this);
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(substance), TIMEOUT_MEDIUM, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(substance), TIMEOUT_DEFAULT, false);
 
         //Verify link is visible
         WebElement link = driver.findElement(By.partialLinkText(substance));

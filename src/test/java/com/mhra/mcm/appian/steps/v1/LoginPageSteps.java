@@ -40,7 +40,9 @@ public class LoginPageSteps extends CommonSteps {
             mainNavigationBar = loginPage.login(username);
         }catch(Exception e) {
             PageUtils.acceptAlert(driver, "accept");
-            mainNavigationBar = loginPage.reloginUsing(username);
+            try {
+                mainNavigationBar = loginPage.reloginUsing(username);
+            }catch (Exception e2){}
         }
     }
 

@@ -794,6 +794,10 @@ public class ExcelUtils {
     private String[] createUpdatedData(String[] data, List<String> headers, int columnCount) {
         String[] dataUpdated = new String[data.length];
         for(String dt: data){
+            if(dt.equals("TRUE") || dt.equals("FALSE")){
+                dt = dt.toLowerCase();
+            }
+
             dt = headers.get(columnCount)+"="+dt;
             dataUpdated[columnCount] = dt;
             columnCount++;

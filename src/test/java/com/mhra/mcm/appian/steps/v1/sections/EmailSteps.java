@@ -2,17 +2,21 @@ package com.mhra.mcm.appian.steps.v1.sections;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
 import com.mhra.mcm.appian.domain.webPagePojo.sub.Invoice;
+import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.emails.GmailEmail;
+import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
 import com.mhra.mcm.appian.utils.helpers.others.GenericUtils;
+import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 import com.mhra.mcm.appian.utils.helpers.page.StepsUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.eo.Se;
 import org.springframework.context.annotation.Scope;
 
 import java.util.List;
@@ -153,6 +157,7 @@ public class EmailSteps extends CommonSteps {
             String ecID = (String) scenarioSession.getData(SessionKey.ECID);
             List<Invoice> listOfInvoices = null;
             boolean refusalEmailReceived = false;
+            String emailContent;
             int attempt = 0;
             do {
                 GmailEmail.getListOfInvoicesFromGmail(min, heading);
@@ -162,8 +167,12 @@ public class EmailSteps extends CommonSteps {
                     //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
                     WaitUtils.nativeWait(5);
                     attempt++;
+                }else{
+                    emailContent = GmailEmail.getRefusalEmailContent();
+                    scenarioSession.putData(SessionKey.emailContent, emailContent);
                 }
             } while (!refusalEmailReceived && attempt < 12);
+
 
             assertThat("Expected to receive a refusal of invoice email : " + refusalEmailReceived, refusalEmailReceived, is(true));
         }
@@ -248,59 +257,6 @@ public class EmailSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.ECID, invoice.Description);
     }
 
-    @When("^The notification status should update to \"([^\"]*)\"$")
-    public void the_status_should_update_to(String expectedStatus) throws Throwable {
-        String currentStatus = (String) scenarioSession.getData(SessionKey.notificationStatus);
-        //boolean statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
-        boolean statusChanged = false;
-        int attempt = 0;
-        do {
-            statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
-            if (statusChanged)
-                break;
-            attempt++;
-        } while (!statusChanged && attempt < 15);
-
-        String newStatus = notificationDetails.getCurrentStatus();
-
-        assertThat("Status should not be : " + currentStatus, newStatus, is(isOneOf(expectedStatus, "Quality Assurance")));
-        scenarioSession.putData(SessionKey.notificationStatus, newStatus);
-    }
-
-
-    @Given("^I should see the stored notification with status set to \"([^\"]*)\"$")
-    public void i_should_see_new_task_generated_for_the_submitter(String expectedStatus) throws Throwable {
-
-        if(expectedStatus!=null && !expectedStatus.equals("")) {
-            //Stored data to verify
-            Notification data = (Notification) scenarioSession.getData(SessionKey.storedNotification);
-            String expectedNotificationID = data.ecIDNumber;
-
-            //Verify notification generated
-            mainNavigationBar = new MainNavigationBar(driver);
-            recordsPage = mainNavigationBar.clickRecords();
-            recordsPage = recordsPage.clickNotificationsLink();
-            notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
-            boolean contains = notificationDetails.headerContainsID(expectedNotificationID);
-            assertThat("Expected header to contains EC ID : " + expectedNotificationID, contains, is(equalTo(true)));
-
-            //Verify status
-            boolean statusMatched = false;
-            int attempt = 0;
-            do {
-                statusMatched = notificationDetails.expectedStatusToBe(expectedStatus);
-                if (statusMatched)
-                    break;
-                attempt++;
-            } while (!statusMatched && attempt < 15);
-
-            String newStatus = notificationDetails.getCurrentStatus();
-
-            assertThat("Status should be : " + expectedStatus, newStatus, is((equalTo(expectedStatus))));
-        }
-    }
-
-
     @Then("^The invoice should contain correct glcode \"([^\"]*)\" and other details$")
     public void the_invoice_should_contain_correct_code_and_other_details(String expectedGlcode) throws Throwable {
         Invoice invoice = (Invoice) scenarioSession.getData(SessionKey.invoice);
@@ -344,6 +300,15 @@ public class EmailSteps extends CommonSteps {
         Integer count = (Integer) scenarioSession.getData(SessionKey.notificationCount);
         boolean matched = loi.size() == count;
         assertThat("Expected " + count + " invoices but system returned : " + loi.size() + " notifications", matched, is((equalTo(true))));
+    }
+
+    @When("^Check email report contains \"([^\"]*)\"$")
+    public void check_email_report_contains_text(String text) throws Throwable {
+        if(text!=null && !text.equals("")) {
+            String content = (String) scenarioSession.getData(SessionKey.emailContent);
+            boolean contains = content.contains(text);
+            assertThat("Expected email to contain text : " + text + " notifications", contains, is((equalTo(true))));
+        }
     }
 
     @Then("^I should receive no invoice for stored notification from appian in next (.*) min for \"([^\"]*)\" notifications$")

@@ -65,6 +65,7 @@ public class LoginPage extends _Page {
     }
 
     private void dontRemember(){
+        WaitUtils.waitForElementToBeClickable(driver,remember, TIMEOUT_DEFAULT, false);
         if(remember.getAttribute("checked")!=null){
             remember.click();
         }
