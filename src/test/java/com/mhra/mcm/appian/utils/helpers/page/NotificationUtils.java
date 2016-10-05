@@ -505,7 +505,7 @@ public class NotificationUtils {
 
             m.marshal(notification, System.out);
 
-            String tmp = FileUtils.getFileFullPath("tmp"+File.separator+"xml", xmlFileName);
+            String tmp = FileUtils.getFileFullPath("tmp"+File.separator+"xml"+File.separator+"data", xmlFileName);
             System.out.println(tmp);
             m.marshal(notification, new File(tmp));
 
@@ -529,7 +529,7 @@ public class NotificationUtils {
 
             String sn = new Date().toString().substring(0, 18).replaceAll(" ", "").replace(":", "");
             sn = "";
-            String tmp = FileUtils.getFileFullPath("tmp"+File.separator+"xml", "test" + sn + ".xml");
+            String tmp = FileUtils.getFileFullPath("tmp"+File.separator+"xml"+File.separator+"data", "test" + sn + ".xml");
             System.out.println(tmp);
             m.marshal(notification, new File(tmp));
 
@@ -568,10 +568,6 @@ public class NotificationUtils {
 
             // input file to zip
             File file = new File(xmlDataFileLocation);
-//            File fileOut = new File( "C:\\Selenium\\xmlData\\" + xmlFileName );
-//            String[] split = xmlFileName.split("\\.");
-//            File tempFile = File.createTempFile(split[0], split[1]);
-//            Files.move(file.toPath(), fileOut.toPath());
             FileInputStream in = new FileInputStream(file);
             // out put file
             ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFileLocation));

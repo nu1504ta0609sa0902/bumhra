@@ -14,6 +14,6 @@ public class VoltageWattageAdjustable {
     private String value;
 
     public VoltageWattageAdjustable(String value) {
-        this.value = value;
+        this.value = String.valueOf((int)(Double.parseDouble(value)));
     }
 }

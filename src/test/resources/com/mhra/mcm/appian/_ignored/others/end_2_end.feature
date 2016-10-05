@@ -49,7 +49,7 @@ Feature: As a user I should be able to do an end to end invoice processing of no
 
   Scenario: Verify xml notification generation of minimal data from excel sheet
     #Given I am logged into appian as "super1" user
-    Given I create new xml notification with following data
+    Given I create new xml notification with following data set
       #Field values are : excelkey or none
       | saveXMLOutputAs                 | random                                |
       #Submission Type
@@ -84,7 +84,7 @@ Feature: As a user I should be able to do an end to end invoice processing of no
 
 
   Scenario: Verify xml notification zip file generation of minimal data from excel sheet
-    Given I create new zip file with following data table
+    Given I create zip file with following data set
       #Field values are : excelkey or none
       | saveXMLOutputAs                 | random                                |
       #Submission Type
@@ -98,10 +98,10 @@ Feature: As a user I should be able to do an end to end invoice processing of no
       | ingredientAndToxicologyReports2 | valid.ingredient.1,valid.toxicology.2 |
       #| ingredientAndToxicologyReports3 | valid.ingredient.1                    |
       #Producct Emission
-      #| emission1                       | valid.emission.1                      |
+      | emission1                       | valid.emission.1                      |
       #| emission2                       | valid.emission.3                      |
       #Product Manufacturer
-      #| manufacturer1                   | valid.manufacturer.1                  |
+      | manufacturer1                   | valid.manufacturer.1                  |
       #| manufacturer2                   | valid.manufacturer.2                  |
       #Product Presentation
       | presentation1                   | valid.presentation.1                  |
@@ -110,15 +110,62 @@ Feature: As a user I should be able to do an end to end invoice processing of no
       | design                          | valid.design.1                        |
     And I am logged into appian as "rdt1" user
     And I upload the stored zip file to appian
-    Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"
+    Then I should see the uploaded zip file notification with status set to "Uploaded"
 
 
   Scenario: Verify xml notification zip file generation of minimal data from excelsheet 2
     Given I create new zip file with following data table
       #These are keys which will load data from excel file
-      | saveXMLOutputAs         | submissionType | submitter         | product         | ingredientAndToxicologyReportPairs                                                                  | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
+      | saveXMLOutputAs         | submissionType | submitter         | product         | ingredientAndToxicologyReportPairs                                             | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
       #| verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.2, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
-      | verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.1, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1                      |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.1, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
     And I am logged into appian as "rdt1" user
     And I upload the stored zip file to appian
+    Then I should see the uploaded zip file notification with status set to "Uploaded"
+
+
+  Scenario Outline: Verify xml notification zip file generation of minimal data from excelsheet 3
+    Given I create new zip file with following data table
+      #These are keys which will load data from excel file
+      | saveXMLOutputAs         | submissionType | submitter   | product   | ingredientAndToxicologyReportPairs                                             | listOfEmissions | listOfManufacturers   | listOfPresentations   | design   |
+      #| verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.2, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
+      | verifyXMLGeneration.xml | <type>         | <submitter> | <product> | valid.ingredient.1, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 |                 | <listOfManufacturers> | <listOfPresentations> | <design> |
+    And I am logged into appian as "rdt1" user
+#    And I upload the stored zip file to appian
+#    Then I should see the uploaded zip file notification with status set to "Uploaded"
+#    And I should see new task generated for the stored notification
+    Examples:
+      | type | submitter         | product         | ingredientAndToxicologyReportPairs | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
+      | 1    | valid.submitter.1 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.1 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 3    | valid.submitter.1 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.2 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.2 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 3    | valid.submitter.2 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.3 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.3 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 3    | valid.submitter.3 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.4 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.4 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 3    | valid.submitter.4 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.5 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.5 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 3    | valid.submitter.5 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+
+
+
+  Scenario: Verify xml notification zip file generation with end 2 end processing
+    Given I create new zip file with following data table
+      #These are keys which will load data from excel file
+      | saveXMLOutputAs         | submissionType | submitter         | product         | ingredientAndToxicologyReportPairs                                             | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
+      #| verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.2, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
+      | verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.1, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+    And I am logged into appian as "rdt1" user
+    And I upload the stored zip file to appian
+    Then I should see the uploaded zip file notification with status set to "Uploaded"
+    And I find the new task generated for the stored notification
+    And I set TCA details for the notification
+    Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"
+    When I re login as user "super1"
+    And I enter a submitter address to stored notification
     Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"

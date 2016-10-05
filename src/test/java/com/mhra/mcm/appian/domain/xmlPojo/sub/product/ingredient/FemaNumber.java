@@ -14,6 +14,6 @@ public class FemaNumber {
     private String value;
 
     public FemaNumber(String value) {
-        this.value = value;
+        this.value = String.valueOf((int)(Double.parseDouble(value)));
     }
 }

@@ -14,6 +14,6 @@ public class PackageUnits {
     private String value;
 
     public PackageUnits(String value) {
-        this.value = value;
+        this.value = String.valueOf((int)(Double.parseDouble(value)));
     }
 }

@@ -37,7 +37,7 @@ public class Presentation {
         brandName = new BrandName(name);
         brandSubtypeNameExists = new BrandSubtypeNameExists("true");
         brandSubtypeName = new BrandSubtypeName("ePen");
-        launchDate = new LaunchDate(RandomDataUtils.getDateInFutureMonthsUS(6));
+        launchDate = new LaunchDate(RandomDataUtils.getDateInFutureMonthsUS(6, true));
         withdrawalIndication = new WithdrawalIndication("false");
         productNumberType = new ProductNumberType("SUBMITTER");
         productNumber = new ProductNumber(""+RandomDataUtils.getRandomDigits(6));
@@ -50,7 +50,7 @@ public class Presentation {
         brandName = new BrandName(name);
         brandSubtypeNameExists = new BrandSubtypeNameExists("true");
         brandSubtypeName = new BrandSubtypeName("ePen");
-        launchDate = new LaunchDate(RandomDataUtils.getDateInFutureMonthsUS(6));
+        launchDate = new LaunchDate(RandomDataUtils.getDateInFutureMonthsUS(6, true));
         withdrawalIndication = new WithdrawalIndication("false");
         productNumberType = new ProductNumberType("SUBMITTER");
         productNumber = new ProductNumber(""+RandomDataUtils.getRandomDigits(6));
@@ -66,7 +66,7 @@ public class Presentation {
 
         String ldate = doPresentation.launchDate;
         if(ldate.equals("default") || ldate.equals("random")){
-            ldate = RandomDataUtils.getDateInFutureMonthsUS(6);
+            ldate = RandomDataUtils.getDateInFutureMonthsUS(6, true);
         }
 
         String pNumber = doPresentation.productNumber;

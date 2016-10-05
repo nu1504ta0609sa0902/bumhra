@@ -3,6 +3,7 @@ package com.mhra.mcm.appian.domain.xmlPojo.sub.product.props;
 import com.mhra.mcm.appian.domain.excelpojo.DO_Address;
 import com.mhra.mcm.appian.domain.xmlPojo.sub.product.manufacturer.ProductionSiteAddress;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.ArrayList;
@@ -12,8 +13,9 @@ import java.util.List;
  *
  */
 public class Manufacturer {
-    //@XmlAttribute
-    private boolean confidential;
+
+    @XmlAttribute
+    public boolean confidential;
 
     @XmlElement(name = "Name")
     private String name;

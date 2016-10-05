@@ -42,13 +42,21 @@ public class RandomDataUtils {
         return dom + "/" + month + "/" + year;
     }
 
-    public static String getDateInFutureMonthsUS(int monthsInFuture) {
+    public static String getDateInFutureMonthsUS(int monthsInFuture, boolean format) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, monthsInFuture);
         int dom = cal.get(Calendar.DAY_OF_MONTH);
         int month = cal.get(Calendar.MONTH)+1;
         int year = cal.get(Calendar.YEAR);
-        return year + "-" + month + "-" + dom;
+        return year + "-" + format(month, format) + "-" + format(dom, format);
+    }
+
+    private static String format(int month, boolean format) {
+        if(format && month < 10){
+            return "0" + month;
+        }else{
+            return String.valueOf(month);
+        }
     }
 
     public static String getRandomTestName(String test) {
@@ -82,9 +90,9 @@ public class RandomDataUtils {
     }
 
     public static String generateCASNumber() {
-        String a = getRandomNumberBetween(1, 1000);
-        String b = getRandomNumberBetween(1, 10000);
-        String c = getRandomNumberBetween(1, 100000);
+        String a = getRandomNumberBetween(11, 1000000);
+        String b = getRandomNumberBetween(11, 99);
+        String c = getRandomNumberBetween(1, 9);
         return a + "-" + b + "-" + c;
     }
 

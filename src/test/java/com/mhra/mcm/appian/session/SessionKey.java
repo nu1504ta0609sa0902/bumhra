@@ -30,4 +30,5 @@ public class SessionKey {
     public static String reportName = "Report Name";
     public static String emailContent = "Email Attachment Content";
     public static String zipFileLocation = "Zip Notification Data File";
+    public static String xmlDataFileLocation = "XML Notification Data File";
 }

@@ -47,11 +47,13 @@ public class Emission {
         casNumber = new CasNumber(casNumberGenerated);
         quantity = new Quantity(emission1Quantity);
         unit = new Unit(emission1Unit);
-        emissionName = new EmissionName(emission1Name);
 
         if(addAttachment.equals("true")){
             attachments.add(new Attachment("41da3cd9-5220-4b26-830c-d6fc991407b5"));
         }
+
+        emissionName = new EmissionName(emission1Name);
+
     }
 
 }

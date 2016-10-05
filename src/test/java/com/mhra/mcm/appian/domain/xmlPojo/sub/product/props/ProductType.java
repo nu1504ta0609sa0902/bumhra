@@ -14,6 +14,6 @@ public class ProductType {
     private String productType;
 
     public ProductType(String s) {
-        this.productType = s;
+        this.productType = String.valueOf((int)(Double.parseDouble(s)));
     }
 }

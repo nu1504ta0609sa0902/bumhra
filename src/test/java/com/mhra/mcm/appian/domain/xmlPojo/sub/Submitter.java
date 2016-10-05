@@ -14,6 +14,8 @@ import java.util.Map;
  */
 public class Submitter {
 
+    public String name;
+
     @XmlAttribute
     public boolean confidential;
     @XmlAttribute
@@ -59,49 +61,49 @@ public class Submitter {
         this.submitterID = submitterId;
         this.submitterType = submitterType;
 
-        this.hasAffiliate = hasAffiliate;
-        this.hasEnterer = hasEnterer;
         this.hasParent = hasParent;
+        if(hasParent)
+            parent = new Parent();
 
+        this.hasAffiliate = hasAffiliate;
         if(hasEnterer)
             enterer = new HasEnterer();
 
+        this.hasEnterer = hasEnterer;
         if(hasAffiliate)
             affiliate = new HasAffiliate();
-
-        if(hasParent)
-            parent = new Parent();
     }
 
     public void evaluate() {
+
+        if(hasParent)
+            parent = new Parent();
+
         if(hasEnterer)
             enterer = new HasEnterer();
 
         if(hasAffiliate)
             affiliate = new HasAffiliate();
-
-        if(hasParent)
-            parent = new Parent();
     }
 
     public void addSubmitter(Map<String, String> dataValues, DO_Submitter doSubmitter) {
 
         String submitterType = doSubmitter.submitterType;
+        String hasParent = doSubmitter.hasParent;
         String hasEnterer = doSubmitter.hasEnterer;
         String hasAffiliate = doSubmitter.hasAffiliate;
-        String hasParent = doSubmitter.hasParent;
 
         if (submitterType != null) {
             this.submitterType = submitterType;
+        }
+        if (hasParent != null) {
+            this.hasParent = Boolean.valueOf(hasParent);
         }
         if (hasEnterer != null) {
             this.hasEnterer = Boolean.valueOf(hasEnterer);
         }
         if (hasAffiliate != null) {
             this.hasAffiliate = Boolean.valueOf(hasAffiliate);
-        }
-        if (hasParent != null) {
-            this.hasParent = Boolean.valueOf(hasParent);
         }
 
 //        if(submitter1.equals("random") || submitter1.equals("default")){
@@ -142,5 +144,9 @@ public class Submitter {
                 ", enterer=" + enterer +
                 ", affiliate=" + affiliate +
                 '}';
+    }
+
+    public void setName(String submitterName) {
+        this.name = submitterName;
     }
 }

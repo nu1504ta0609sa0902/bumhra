@@ -76,10 +76,10 @@ public class Ingredient {
         ingredientName = new IngredientName(doIngredient.name);
         casNumberExists = new CasNumberExists(doIngredient.casNumberExists);
         ingredientCasNumber = new IngredientCasNumber(casNumberGenerated);
-        femaNumber = new FemaNumber(doIngredient.femaNumber);
         flNumber = new FlNumber(doIngredient.fINumber);
         ecNumber = new EcNumber(doIngredient.ecNumber);
         recipeQuantity = new RecipeQuantity(doIngredient.recipeQuantity);
+        femaNumber = new FemaNumber(doIngredient.femaNumber);
 
         functions.add(new Function(RandomDataUtils.getRandomNumberBetween(1, 20)));
         functions.add(new Function(RandomDataUtils.getRandomNumberBetween(1, 20)));

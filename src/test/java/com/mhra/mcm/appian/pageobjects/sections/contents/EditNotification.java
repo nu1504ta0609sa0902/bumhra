@@ -1,11 +1,15 @@
 package com.mhra.mcm.appian.pageobjects.sections.contents;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
+import com.mhra.mcm.appian.domain.webPagePojo.sub.Address;
+import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects._Page;
 import com.mhra.mcm.appian.utils.helpers.others.FileUtils;
+import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,6 +26,11 @@ import java.util.List;
 @Component
 public class EditNotification extends _Page {
 
+    //Summary
+    @FindBy(xpath = ".//label[.='Start Date']//following::input[1]")
+    WebElement startDate;
+    @FindBy(xpath = ".//label[.='End Date']//following::input[1]")
+    WebElement endDate;
     @FindBy(xpath = ".//label[.='EC ID']//following::input[1]")
     WebElement ecId;
     @FindBy(xpath = ".//label[.='Previous EC ID']//following::input[1]")
@@ -34,6 +43,40 @@ public class EditNotification extends _Page {
     WebElement submissionType;
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
+
+    //Submitter Details
+    @FindBy(xpath = ".//span[.='Has VAT?']//following::input[1]")
+    WebElement hasVATYes;
+    @FindBy(xpath = ".//span[.='Has VAT?']//following::input[2]")
+    WebElement hasVatNo;
+    @FindBy(xpath = ".//span[.='Has Enterer?']//following::input[1]")
+    WebElement hasEntererYes;
+    @FindBy(xpath = ".//span[.='Has Enterer?']//following::input[2]")
+    WebElement hasEntererNo;
+    @FindBy(xpath = ".//span[.='Has Parent?']//following::input[1]")
+    WebElement hasParentYes;
+    @FindBy(xpath = ".//span[.='Has Parent?']//following::input[2]")
+    WebElement hasParentNo;
+    @FindBy(xpath = ".//span[.='Has Affiliate?']//following::input[1]")
+    WebElement hasAffiliateYes;
+    @FindBy(xpath = ".//span[.='Has Affiliate?']//following::input[2]")
+    WebElement hasAffiliateNo;
+
+    //Add an address
+    @FindBy(linkText = "+ Add Address")
+    WebElement addAddressLink;
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::input[1]")
+    WebElement address;
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::select[1]")
+    WebElement country;
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::input[2]")
+    WebElement phone;
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::input[3]")
+    WebElement email;
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::input[5]")
+    WebElement productionSiteNo;
+    @FindBy(xpath = ".//span[.='Available Addresses']//following::input[7]")
+    WebElement addressConfidentialNo;
 
     @FindBy(xpath = ".//*[.='Active']//following::tr")
     List <WebElement> listOfAttachementsReports;
@@ -150,5 +193,63 @@ public class EditNotification extends _Page {
         }catch (Exception e){
             return 0;
         }
+    }
+
+    /**
+     *Only created because the work flow disrupted due to zip upload functionality
+     * @param add
+     * @param data
+     * @return
+     */
+    public NotificationDetails addSubmitterAddress(Address add, EcigProductSubmission data) {
+
+//        WaitUtils.waitForElementToBeClickable(driver, startDate, 15, false);
+//
+//        //Add start and end date
+//        PageUtils.enterDate(driver, endDate, RandomDataUtils.getDateInFutureMonths(6));
+//        PageUtils.enterDate(driver, startDate, RandomDataUtils.getDateInFutureMonths(18));
+
+        //Add address
+//        WaitUtils.waitForElementToBeClickable(driver, addAddressLink, 15, false);
+//        PageUtils.singleClick(driver, addAddressLink);
+//        PageFactory.initElements(driver, this);
+
+        WaitUtils.waitForElementToBeClickable(driver, address, 10);
+        address.sendKeys(add.address);
+        phone.sendKeys(add.phone);
+        email.sendKeys(add.email);
+        PageUtils.clickOptionAdvanced(driver, productionSiteNo, productionSiteNo, add.productionSite);
+        PageUtils.clickOptionAdvanced(driver, addressConfidentialNo, addressConfidentialNo, add.addressConfidential);
+
+        PageUtils.selectByText(country, add.countryName);
+
+        PageUtils.doubleClick(driver, submitBtn);
+
+        return new NotificationDetails(driver);
+    }
+
+    public NotificationDetails enterDate() {
+
+        WaitUtils.waitForElementToBeClickable(driver, startDate, 15, false);
+        //Add start and end date
+        PageUtils.enterDate(driver, endDate, RandomDataUtils.getDateInFutureMonths(6));
+        PageUtils.enterDate(driver, startDate, RandomDataUtils.getDateInFutureMonths(18));
+
+        //Update submitter details
+        PageUtils.clickOptionAdvanced(driver, hasEntererYes, hasEntererNo, false);
+        PageUtils.clickOptionAdvanced(driver, hasAffiliateYes, hasAffiliateNo, false);
+        PageUtils.clickOptionAdvanced(driver, hasParentYes, hasParentNo, false);
+        PageUtils.clickOptionAdvanced(driver, hasVATYes, hasVatNo, false);
+
+        PageUtils.doubleClick(driver, submitBtn);
+
+        return new NotificationDetails(driver);
+    }
+
+    public EditNotification clickAddAddress(){
+        WaitUtils.waitForElementToBeClickable(driver, addAddressLink, 15, false);
+        PageUtils.doubleClick(driver, addAddressLink);
+
+        return new EditNotification(driver);
     }
 }

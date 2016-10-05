@@ -10,6 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by TPD_Auto on 18/07/2016.
  */
@@ -27,6 +29,12 @@ public class TasksPage extends _Page {
 
     @FindBy(xpath = ".//label[.='TCA Number']//following::input[1]")
     WebElement tcaNumber;
+
+    @FindBy(xpath = ".//label[.='Name']//following::input[1]")
+    WebElement tcaName;
+
+    @FindBy(partialLinkText = "Update TCA for")
+    List<WebElement> listOfTCALinks;
 
     @Autowired
     public TasksPage(WebDriver driver) {
@@ -89,9 +97,21 @@ public class TasksPage extends _Page {
         tcaNumber.sendKeys(newTCANumber);
     }
 
+    public void enterTCAName(String submitterName) {
+        WaitUtils.waitForElementToBeClickable(driver, tcaName, 10, false);
+        tcaName.sendKeys(submitterName);
+    }
+
     public TasksPage updateSummary() {
         PageUtils.doubleClick(driver,submit);
         //submit.submit();
+        return new TasksPage(driver);
+    }
+
+    public TasksPage clickOnLinkAndVerifyItsCorrectPage(int count) {
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Update TCA for"), 20, false);
+        WebElement tcaLink = listOfTCALinks.get(count);
+        tcaLink.click();
         return new TasksPage(driver);
     }
 }

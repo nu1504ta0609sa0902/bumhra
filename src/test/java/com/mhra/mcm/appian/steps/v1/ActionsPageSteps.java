@@ -224,7 +224,7 @@ public class ActionsPageSteps extends CommonSteps {
     }
 
 
-    @Given("^I create new xml notification with following data$")
+    @Given("^I create new xml notification with following data set$")
     public void i_create_new_xml_notification_with_following_data(Map<String, String> dataValues) throws Throwable {
 
         //Create and save XML file
@@ -240,7 +240,8 @@ public class ActionsPageSteps extends CommonSteps {
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
-        //log.info("Notification Details : \n" + random);
+        scenarioSession.putData(SessionKey.xmlDataFileLocation, xmlDataFileLocation);
+
         log.info("Created Notification With ECID : " + ecId);
     }
 
@@ -261,11 +262,12 @@ public class ActionsPageSteps extends CommonSteps {
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
-        //log.info("Notification Details : \n" + random);
+        scenarioSession.putData(SessionKey.xmlDataFileLocation, xmlDataFileLocation);
+
         log.info("Created Notification With ECID : " + ecId);
     }
 
-    @Given("^I create zip file with following data$")
+    @Given("^I create zip file with following data set$")
     public void i_create_zip_file_with_following_data(Map<String, String> dataValues) throws Throwable {
 
         //Create and save XML file
@@ -281,7 +283,8 @@ public class ActionsPageSteps extends CommonSteps {
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
-        //log.info("Notification Details : \n" + random);
+        scenarioSession.putData(SessionKey.xmlDataFileLocation, xmlDataFileLocation);
+
         log.info("Created Notification With ECID : " + ecId);
 
         //Zip the file now
@@ -298,12 +301,13 @@ public class ActionsPageSteps extends CommonSteps {
 
 
     @Given("^I create new zip file with following data table$")
-    public void i_create_new_zip_file_with_following_data_table(Map<String, String> dataValues) throws Throwable {
+    public void i_create_new_zip_file_with_following_data_table(DataTable dataTable) throws Throwable {
+        Map<String, String> dataValues = StepsUtils.convertDataTableToMap(dataTable);
 
         //Create and save XML file
         String xmlFileName = dataValues.get("saveXMLOutputAs");
         xmlFileName = FileUtils.getXMLNotificationDataFileName(xmlFileName);
-        EcigProductSubmission xmlNotificationData = NotificationUtils.generateDefaultXMLNotificationDataSimple(dataValues, mapOfExcelDataAsMap);
+        EcigProductSubmission xmlNotificationData = NotificationUtils.generateDefaultXMLNotificationData(dataValues, mapOfExcelDataAsMap);
         String xmlDataFileLocation = NotificationUtils.createXmlNotificationData(xmlNotificationData, xmlFileName);
 
         String ecId = xmlNotificationData.getEcIDNumber();
@@ -313,7 +317,8 @@ public class ActionsPageSteps extends CommonSteps {
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
-        //log.info("Notification Details : \n" + random);
+        scenarioSession.putData(SessionKey.xmlDataFileLocation, xmlDataFileLocation);
+
         log.info("Created Notification With ECID : " + ecId);
 
         //Zip the file now

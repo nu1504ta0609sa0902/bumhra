@@ -1,6 +1,7 @@
 package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
+import com.mhra.mcm.appian.domain.webPagePojo.sub.Address;
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects.RecordsPage;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
@@ -749,13 +750,44 @@ public class RecordsPageSteps extends CommonSteps {
             assertThat("Status should be : " + expectedStatus, newStatus, is((equalTo(expectedStatus))));
 
             String zipFile = (String) scenarioSession.getData(SessionKey.zipFileLocation);
+            String xmlFileToDelete = (String) scenarioSession.getData(SessionKey.xmlDataFileLocation);
             if(zipFile!=null){
                 //Assumes notification loaded, therefore delete file
                 FileUtils.deleteFile(zipFile);
+                //FileUtils.deleteFile(xmlFileToDelete);
             }
         }
     }
 
 
+    /**
+     * This is to help with entering submitter address
+     *
+     * Otherwise we cannot pay : Workflow broken because the XML data doesn't contain submitter name
+     * @throws Throwable
+     */
+    @Then("^I enter a submitter address to stored notification$")
+    public void i_enter_a_submitter_address_for_stored_notifications() throws Throwable {
+
+        EcigProductSubmission data = (EcigProductSubmission) scenarioSession.getData(SessionKey.storedNotification);
+        String expectedNotificationID = data.getEcIDNumber();
+
+        //Verify notification generated
+        mainNavigationBar = new MainNavigationBar(driver);
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+        notificationDetails = recordsPage.clickNotificationNumber(expectedNotificationID, 5);
+
+        //Enter date
+        editNotification = notificationDetails.clickManageNotification();
+        notificationDetails = editNotification.enterDate();
+
+        WaitUtils.nativeWait(2);
+        //Add a random submitter address
+        driver.navigate().refresh();
+        editNotification = notificationDetails.clickManageNotification();
+        editNotification = editNotification.clickAddAddress();
+        notificationDetails = editNotification.addSubmitterAddress(new Address(), data);
+    }
 
 }

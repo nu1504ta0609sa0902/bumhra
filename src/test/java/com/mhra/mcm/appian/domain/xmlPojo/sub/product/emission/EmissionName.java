@@ -14,6 +14,6 @@ public class EmissionName {
     private String value;
 
     public EmissionName(String value) {
-        this.value = value;
+        this.value = String.valueOf((int)(Double.parseDouble(value)));
     }
 }

@@ -1,6 +1,7 @@
 package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.domain.webPagePojo.Notification;
+import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
@@ -44,6 +45,31 @@ public class TasksPageSteps extends CommonSteps {
 
 
 
+    @Given("^I find the new task generated for the stored notification$")
+    public void i_find_the_new_task_generated_for_the_submitter() throws Throwable {
+        //Stored data to verify
+        EcigProductSubmission data = (EcigProductSubmission) scenarioSession.getData(SessionKey.storedNotification);
+        String ecId = data.getEcIDNumber();
+        String submitterName = RandomDataUtils.getRandomTestName("TestSubmitter");
+        data.getSubmitter().setName(submitterName);
+        log.info("Expected tasks for submitter : " + submitterName);
+
+        //Verify new task generated for the stored notifications
+        boolean contains = false;
+        int count = 0;
+        do {
+            mainNavigationBar = new MainNavigationBar(driver);
+            tasksPage = mainNavigationBar.clickTasks();
+
+            tasksPage = tasksPage.clickOnLinkAndVerifyItsCorrectPage(count);
+            contains = tasksPage.isCorrectECID(ecId);
+            count++;
+        }while(!contains && count <= 10);
+
+        assertThat("Expected task with EC ID : " + ecId , contains, is(equalTo(true)));
+    }
+
+
 
     @Given("^I should see new task generated for the submitter \"([^\"]*)\" with ecid \"([^\"]*)\"$")
     public void i_should_see_new_task_generated_for_the_submitter(String submitterName, String ecId) throws Throwable {
@@ -73,5 +99,22 @@ public class TasksPageSteps extends CommonSteps {
         tasksPage.enterTCANumber(newTCANumber);
         tasksPage = tasksPage.updateSummary();
     }
+
+
+
+    @When("^I set TCA details for the notification$")
+    public void i_set_TCA_details_for_the_notification() throws Throwable {
+        EcigProductSubmission data = (EcigProductSubmission) scenarioSession.getData(SessionKey.storedNotification);
+        String newTCANumber = RandomDataUtils.getRandomNumberBetween(100000,1000000);
+        //data.getSubmitter().tcaNumber = newTCANumber;
+
+        //Set TCANumber
+        tasksPage = tasksPage.acceptTask();
+        tasksPage.enterTCANumber(newTCANumber);
+        tasksPage.enterTCAName(data.getSubmitter().name);
+        tasksPage = tasksPage.updateSummary();
+    }
+
+
 
 }

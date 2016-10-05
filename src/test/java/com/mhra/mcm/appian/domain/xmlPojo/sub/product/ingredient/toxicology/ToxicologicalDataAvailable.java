@@ -14,6 +14,6 @@ public class ToxicologicalDataAvailable {
     private String value;
 
     public ToxicologicalDataAvailable(String value) {
-        this.value = value;
+        this.value = String.valueOf((int)(Double.parseDouble(value)));
     }
 }
