@@ -105,7 +105,7 @@ public class FileUtils {
         if(!randomOrEmpty){
             if(xmlFileName.contains(".")) {
                 String data[] = xmlFileName.split("\\.");
-                xmlFileName = data[0] + "_" + RandomDataUtils.getTimeMinHour() + "." + data[1];
+                xmlFileName = data[0] + "_" + RandomDataUtils.getTimeMinHour(true) + "." + data[1];
             }
         }
         return xmlFileName;

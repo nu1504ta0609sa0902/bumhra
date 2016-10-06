@@ -63,8 +63,6 @@ public class EditNotification extends _Page {
     WebElement hasAffiliateNo;
 
     //Add an address
-    @FindBy(linkText = "+ Add Address")
-    WebElement addAddressLink;
     @FindBy(xpath = ".//span[.='Available Addresses']//following::input[1]")
     WebElement address;
     @FindBy(xpath = ".//span[.='Available Addresses']//following::select[1]")
@@ -83,6 +81,8 @@ public class EditNotification extends _Page {
     @FindBy(xpath = ".//*[.='Document Type']//following::select[1]")
     WebElement documentType;
 
+    @FindBy(xpath = ".//a[contains(text(),'+ Add Address')]")
+    WebElement addAddressLink;
 
 
     @Autowired
@@ -203,17 +203,6 @@ public class EditNotification extends _Page {
      */
     public NotificationDetails addSubmitterAddress(Address add, EcigProductSubmission data) {
 
-//        WaitUtils.waitForElementToBeClickable(driver, startDate, 15, false);
-//
-//        //Add start and end date
-//        PageUtils.enterDate(driver, endDate, RandomDataUtils.getDateInFutureMonths(6));
-//        PageUtils.enterDate(driver, startDate, RandomDataUtils.getDateInFutureMonths(18));
-
-        //Add address
-//        WaitUtils.waitForElementToBeClickable(driver, addAddressLink, 15, false);
-//        PageUtils.singleClick(driver, addAddressLink);
-//        PageFactory.initElements(driver, this);
-
         WaitUtils.waitForElementToBeClickable(driver, address, 10);
         address.sendKeys(add.address);
         phone.sendKeys(add.phone);
@@ -228,7 +217,7 @@ public class EditNotification extends _Page {
         return new NotificationDetails(driver);
     }
 
-    public NotificationDetails enterDate() {
+    public NotificationDetails enterDate(boolean submitForm) {
 
         WaitUtils.waitForElementToBeClickable(driver, startDate, 15, false);
         //Add start and end date
@@ -241,6 +230,7 @@ public class EditNotification extends _Page {
         PageUtils.clickOptionAdvanced(driver, hasParentYes, hasParentNo, false);
         PageUtils.clickOptionAdvanced(driver, hasVATYes, hasVatNo, false);
 
+        if(submitForm)
         PageUtils.doubleClick(driver, submitBtn);
 
         return new NotificationDetails(driver);
@@ -248,8 +238,8 @@ public class EditNotification extends _Page {
 
     public EditNotification clickAddAddress(){
         WaitUtils.waitForElementToBeClickable(driver, addAddressLink, 15, false);
-        PageUtils.doubleClick(driver, addAddressLink);
-
+        ecId.click();
+        PageUtils.singleClick(driver, addAddressLink);
         return new EditNotification(driver);
     }
 }

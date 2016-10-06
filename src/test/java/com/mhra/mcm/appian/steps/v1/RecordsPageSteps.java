@@ -6,6 +6,7 @@ import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects.RecordsPage;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.pageobjects.sections.contents.Documents;
+import com.mhra.mcm.appian.pageobjects.sections.contents.NotificationDetails;
 import com.mhra.mcm.appian.pageobjects.sections.filters.RecordsFilter;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
@@ -234,7 +235,7 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
     @Then("^The showing search results text is correct$")
-    public void search_by_text_should_be_correct(){
+    public void search_by_text_should_be_correct() {
         String seachTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
         boolean searchResultsForTextIsCorrect = recordsPage.isSearchResultsFor(seachTerm);
         assertThat("Showing search results for : " + seachTerm, searchResultsForTextIsCorrect, is(equalTo(true)));
@@ -261,7 +262,7 @@ public class RecordsPageSteps extends CommonSteps {
 
     @Given("^I attach a toxicology report for \"([^\"]*)\"$")
     public void i_attach_a_toxicology_reporth_with_following_data(String ingredient) throws Throwable {
-        if(ingredient!=null && !ingredient.equals("")) {
+        if (ingredient != null && !ingredient.equals("")) {
             Notification notification = (Notification) scenarioSession.getData(SessionKey.storedNotification);
             String ecId = notification.ecIDNumber;
 
@@ -283,11 +284,11 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_attach_other_reports_with_following_data(String documentType, String ingredient) throws Throwable {
         Notification notification = (Notification) scenarioSession.getData(SessionKey.storedNotification);
         String ecId = (String) scenarioSession.getData(SessionKey.ECID);
-        if(notification!=null) {
+        if (notification != null) {
             ecId = notification.ecIDNumber;
         }
 
-        if(!PageUtils.isCorrectPage(driver, ecId)) {
+        if (!PageUtils.isCorrectPage(driver, ecId)) {
             mainNavigationBar = new MainNavigationBar(driver);
             recordsPage = mainNavigationBar.clickRecords();
             recordsPage = recordsPage.clickNotificationsLink();
@@ -297,7 +298,7 @@ public class RecordsPageSteps extends CommonSteps {
         editNotification = notificationDetails.clickManageDocuments();
         int countOfDocsAttached = editNotification.getNumberOfDocsAttached();
 
-        notificationDetails = editNotification.addOtherReportFromTempFolder(countOfDocsAttached+1 ,documentType, "ToxicologyReport.pdf", "Other Docs : " + documentType, false, false, ingredient);
+        notificationDetails = editNotification.addOtherReportFromTempFolder(countOfDocsAttached + 1, documentType, "ToxicologyReport.pdf", "Other Docs : " + documentType, false, false, ingredient);
     }
 
 
@@ -310,7 +311,7 @@ public class RecordsPageSteps extends CommonSteps {
 
         if (searchType.trim().toLowerCase().equals("ecid")) {
 
-            if(searchTextTerm.equals("random")) {
+            if (searchTextTerm.equals("random")) {
                 //Select an existing notification from the page
                 //String ecid = recordsPage.getARandomNotificationECIDFromPosition(0, 50);
                 String ecid = recordsPage.getARandomNotification(5);
@@ -321,7 +322,7 @@ public class RecordsPageSteps extends CommonSteps {
                 recordsPage = recordsPage.searchForECIDSubmitterOrOthers(ecid);
             }
 
-        }else if(searchType.trim().toLowerCase().equals("date")){
+        } else if (searchType.trim().toLowerCase().equals("date")) {
 
         }
     }
@@ -329,7 +330,7 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I re search for previously searched notification$")
     public void i_research_for_an_existing_notification_by_partial_searchTerm() throws Throwable {
         String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
-        String subSearchString = searchTerm.substring(0,5);
+        String subSearchString = searchTerm.substring(0, 5);
         recordsPage = recordsPage.searchForECIDSubmitterOrOthers(subSearchString);
         scenarioSession.putData(SessionKey.searchTerm, subSearchString);
 
@@ -674,7 +675,7 @@ public class RecordsPageSteps extends CommonSteps {
     @Given("^I should see the stored notification with status set to \"([^\"]*)\"$")
     public void i_should_see_new_task_generated_for_the_submitter(String expectedStatus) throws Throwable {
 
-        if(expectedStatus!=null && !expectedStatus.equals("")) {
+        if (expectedStatus != null && !expectedStatus.equals("")) {
             //Stored data to verify
             Notification data = (Notification) scenarioSession.getData(SessionKey.storedNotification);
             String expectedNotificationID = data.ecIDNumber;
@@ -699,14 +700,14 @@ public class RecordsPageSteps extends CommonSteps {
             } while (!statusMatched && attempt < 15);
 
             long end = System.currentTimeMillis();
-            long diff = (end-start)/1000;
+            long diff = (end - start) / 1000;
             log.warn("Time taken for status to change for ecid : " + expectedNotificationID + ", in seconds : " + diff);
 
             String newStatus = notificationDetails.getCurrentStatus();
             assertThat("Status should be : " + expectedStatus, newStatus, is((equalTo(expectedStatus))));
 
             String zipFile = (String) scenarioSession.getData(SessionKey.zipFileLocation);
-            if(zipFile!=null){
+            if (zipFile != null) {
                 //Assumes notification loaded, therefore delete file
                 FileUtils.deleteFile(zipFile);
             }
@@ -717,7 +718,7 @@ public class RecordsPageSteps extends CommonSteps {
     @Given("^I should see the uploaded zip file notification with status set to \"([^\"]*)\"$")
     public void i_should_see_uploaded_zip_file_notification_with_status(String expectedStatus) throws Throwable {
 
-        if(expectedStatus!=null && !expectedStatus.equals("")) {
+        if (expectedStatus != null && !expectedStatus.equals("")) {
             //Stored data to verify
             EcigProductSubmission data = (EcigProductSubmission) scenarioSession.getData(SessionKey.storedNotification);
             String expectedNotificationID = data.getEcIDNumber();
@@ -743,7 +744,7 @@ public class RecordsPageSteps extends CommonSteps {
             } while (!statusMatched && attempt < 15);
 
             long end = System.currentTimeMillis();
-            long diff = (end-start)/1000;
+            long diff = (end - start) / 1000;
             log.warn("Time taken for status to change for ecid : " + expectedNotificationID + ", in seconds : " + diff);
 
             String newStatus = notificationDetails.getCurrentStatus();
@@ -751,7 +752,7 @@ public class RecordsPageSteps extends CommonSteps {
 
             String zipFile = (String) scenarioSession.getData(SessionKey.zipFileLocation);
             String xmlFileToDelete = (String) scenarioSession.getData(SessionKey.xmlDataFileLocation);
-            if(zipFile!=null){
+            if (zipFile != null) {
                 //Assumes notification loaded, therefore delete file
                 FileUtils.deleteFile(zipFile);
                 //FileUtils.deleteFile(xmlFileToDelete);
@@ -762,8 +763,9 @@ public class RecordsPageSteps extends CommonSteps {
 
     /**
      * This is to help with entering submitter address
-     *
+     * <p>
      * Otherwise we cannot pay : Workflow broken because the XML data doesn't contain submitter name
+     *
      * @throws Throwable
      */
     @Then("^I enter a submitter address to stored notification$")
@@ -780,13 +782,20 @@ public class RecordsPageSteps extends CommonSteps {
 
         //Enter date
         editNotification = notificationDetails.clickManageNotification();
-        notificationDetails = editNotification.enterDate();
 
-        WaitUtils.nativeWait(2);
-        //Add a random submitter address
-        driver.navigate().refresh();
-        editNotification = notificationDetails.clickManageNotification();
+        boolean submitForm = false;
+        notificationDetails = editNotification.enterDate(submitForm);
+
+        if (submitForm) {
+            WaitUtils.nativeWait(2);
+            //Add a random submitter address
+            driver.navigate().refresh();
+            //WaitUtils.nativeWait(2);
+            notificationDetails = new NotificationDetails(driver);
+            editNotification = notificationDetails.clickManageNotification();
+        }
         editNotification = editNotification.clickAddAddress();
+        WaitUtils.nativeWait(1);
         notificationDetails = editNotification.addSubmitterAddress(new Address(), data);
     }
 

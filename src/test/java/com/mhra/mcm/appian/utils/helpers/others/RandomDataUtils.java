@@ -66,12 +66,19 @@ public class RandomDataUtils {
 
     public static String getRandomTestNameAdvanced(String test) {
         Calendar cal = Calendar.getInstance();
-        return test + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + (cal.get(Calendar.MONTH)+1) + "_" + getTimeMinHour();
+        return test + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + (cal.get(Calendar.MONTH)+1) + "_" + getTimeMinHour(false);
     }
 
-    public  static String getTimeMinHour() {
+    public  static String getTimeMinHour(boolean includeDate) {
         Calendar instance = Calendar.getInstance();
-        return instance.get(Calendar.HOUR_OF_DAY) + "_" + instance.get(Calendar.MINUTE) + "_" + instance.get(Calendar.SECOND);
+        String date = (instance.get(Calendar.MONTH)+1) + "M_" + instance.get(Calendar.DAY_OF_MONTH);
+        String time =  instance.get(Calendar.HOUR_OF_DAY) + "_" + instance.get(Calendar.MINUTE) + "_" + instance.get(Calendar.SECOND);
+        String dateTime = "";
+        if(includeDate){
+            dateTime = dateTime + date + "D_";
+        }
+        dateTime = dateTime + time;
+        return dateTime;
     }
 
     public static String getRandomNumberBetween(int min, int max) {

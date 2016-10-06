@@ -45,6 +45,8 @@ public class WaitUtils {
     }
 
     /**
+     * DON'T USE FOR WAITING FOR PAGES, UNLESS ITS TO DO WITH SOME NATIVE COMPONENTS WHICH SELENIUM CAN'T HANDLE
+     *
      * Should be used for non selenium related tasks
      *
      * Example when we upload a document
