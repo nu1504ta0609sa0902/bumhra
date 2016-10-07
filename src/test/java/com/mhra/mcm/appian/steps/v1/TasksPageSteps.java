@@ -8,6 +8,7 @@ import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -88,6 +89,28 @@ public class TasksPageSteps extends CommonSteps {
         assertThat("Expected task with EC ID : " + ecId , contains, is(equalTo(true)));
     }
 
+
+    @Given("^I view a task with heading containing \"([^\"]*)\"$")
+    public void i_view_a_task_with_heading_containing_text(String taskHeading) throws Throwable {
+
+        String ecId = (String) scenarioSession.getData(SessionKey.ECID);
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        tasksPage = tasksPage.clickTaskWithSubmitterName(taskHeading);
+//        boolean contains = false;
+//        int count = 0;
+//        do {
+//            mainNavigationBar = new MainNavigationBar(driver);
+//            tasksPage = mainNavigationBar.clickTasks();
+//
+//            tasksPage = tasksPage.clickTaskWithSubmitterName(taskHeading);
+//            contains = tasksPage.isNotificationForECID(ecId);
+//            count++;
+//        }while(!contains && count <= 3);
+//
+//        assertThat("Expected task with EC ID : " + ecId , contains, is(equalTo(true)));
+    }
+
     @When("^I set a new TCA number for the notification$")
     public void i_set_a_new_TCA_number_for_the_notification() throws Throwable {
         Notification data = (Notification) scenarioSession.getData(SessionKey.storedNotification);
@@ -98,6 +121,13 @@ public class TasksPageSteps extends CommonSteps {
         tasksPage = tasksPage.acceptTask();
         tasksPage.enterTCANumber(newTCANumber);
         tasksPage = tasksPage.updateSummary();
+    }
+
+
+    @When("^I should see option to accept or reject qa tasks$")
+    public void i_should_see_option_to_accept_or_reject_qa() throws Throwable {
+        boolean isDisplayed = tasksPage.isOptionToAcceptRejectDisplayed();
+        Assert.assertThat("Accept and reject option not displayed", isDisplayed, is(true));
     }
 
 

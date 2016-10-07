@@ -31,7 +31,7 @@ public class Comments extends _Page {
 
 
     public boolean isCommentDisplayed(String commentTxt, String userName) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[.='" + commentTxt + "']//following::td[1]"), 5, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[.='" + commentTxt + "']//following::td[1]"), 10, false);
 
         WebElement user = driver.findElement(By.xpath(".//td[.='" + commentTxt + "']//following::td[1]"));
         String un = user.getText();

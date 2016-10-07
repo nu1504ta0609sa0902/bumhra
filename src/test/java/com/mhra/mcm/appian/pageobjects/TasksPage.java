@@ -18,6 +18,9 @@ import java.util.List;
 @Component
 public class TasksPage extends _Page {
 
+    @FindBy(xpath = ".//h2")
+    WebElement ecidHeading;
+
     @FindBy(xpath = ".//span[.='EC ID']//following::p[1]")
     WebElement ecid;
 
@@ -35,6 +38,12 @@ public class TasksPage extends _Page {
 
     @FindBy(partialLinkText = "Update TCA for")
     List<WebElement> listOfTCALinks;
+
+    @FindBy(xpath = ".//label[.='Approve']")
+    WebElement rbApprove;
+
+    @FindBy(xpath = ".//label[.='Reject']")
+    WebElement rbReject;
 
     @Autowired
     public TasksPage(WebDriver driver) {
@@ -78,6 +87,19 @@ public class TasksPage extends _Page {
         }
     }
 
+
+
+    public boolean isNotificationForECID(String ecIDNumber) {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, ecidHeading, 10, false);
+            String text = ecidHeading.getText();
+            boolean contains = text.equals(ecIDNumber);
+            return contains;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
     public TasksPage acceptTask() {
         try
         {
@@ -113,5 +135,12 @@ public class TasksPage extends _Page {
         WebElement tcaLink = listOfTCALinks.get(count);
         tcaLink.click();
         return new TasksPage(driver);
+    }
+
+    public boolean isOptionToAcceptRejectDisplayed() {
+        WaitUtils.waitForElementToBeVisible(driver, rbApprove, 5, false);
+        boolean approveDisplayed = rbApprove.isDisplayed();
+        boolean rejectDisplayed = rbReject.isDisplayed();
+        return approveDisplayed && rejectDisplayed;
     }
 }

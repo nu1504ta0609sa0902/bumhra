@@ -5,6 +5,7 @@ import com.mhra.mcm.appian.domain.webPagePojo.sub.Address;
 import com.mhra.mcm.appian.domain.xmlPojo.EcigProductSubmission;
 import com.mhra.mcm.appian.pageobjects.RecordsPage;
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
+import com.mhra.mcm.appian.pageobjects.sections.contents.AssessmentReport;
 import com.mhra.mcm.appian.pageobjects.sections.contents.Documents;
 import com.mhra.mcm.appian.pageobjects.sections.contents.NotificationDetails;
 import com.mhra.mcm.appian.pageobjects.sections.filters.RecordsFilter;
@@ -16,10 +17,12 @@ import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
 import com.mhra.mcm.appian.utils.helpers.page.NotificationUtils;
 import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -431,6 +434,7 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
 
+
     @When("^I count the number of notifications in \"([^\"]*)\" status$")
     public void i_filter_by_statuses(String filterByStatuses) throws Throwable {
         String[] statuses = filterByStatuses.split(",");
@@ -797,6 +801,53 @@ public class RecordsPageSteps extends CommonSteps {
         editNotification = editNotification.clickAddAddress();
         WaitUtils.nativeWait(1);
         notificationDetails = editNotification.addSubmitterAddress(new Address(), data);
+    }
+
+
+    @When("^I go to notifications page and filter by status \"([^\"]*)\" and view a random notification$")
+    public void i_go_to_notifications_page_and_filter_by_status_and_view_a_random_notification(String filterByStatus) throws Throwable {
+
+        //Go to notifications page
+        mainNavigationBar = new MainNavigationBar(driver);
+        recordsPage = mainNavigationBar.clickRecords();
+        recordsPage = recordsPage.clickNotificationsLink();
+
+        //Filter by
+        RecordsFilter filterSection = recordsPage.getFilterSection();
+        //filterSection = filterSection.clearSelection();
+        filterSection = filterSection.expand();
+        //recordsPage = filterSection.filterByStatus(filterByStatus);
+        recordsPage = filterSection.clickFilterText(filterByStatus);
+        boolean isFitered = filterSection.isFiteredBy(filterByStatus);
+        if (!isFitered) {
+            recordsPage = filterSection.clickFilterText(filterByStatus);
+        }
+//        int count = recordsPage.getTotalNotificationCount();
+//        log.info("Number of " + filterByStatus + " notifications is : " + count);
+//        scenarioSession.putData(SessionKey.notificationCount, count);
+//        scenarioSession.putData(SessionKey.notificationStatus, filterByStatus);
+
+        //And view a notificaiton
+        String ecid = recordsPage.getARandomNotification(filterByStatus);
+        log.info("View notification with ecid : " + ecid);
+        scenarioSession.putData(SessionKey.ECID, ecid);
+
+        //View notifications
+        notificationDetails = recordsPage.clickNotificationNumber(ecid, 5);
+        //String productType = notificationDetails.getProductType();
+    }
+
+    @When("^I view the assessment report$")
+    public void i_view_the_assessment_report() throws Throwable {
+        String ecid = (String) scenarioSession.getData(SessionKey.ECID);
+        assessmentReport = notificationDetails.clickAssessmentReport();
+    }
+
+
+    @Then("^The assessment report should show the values which were checked$")
+    public void the_assessment_report_should_show_the_values_which_were_checked() throws Throwable {
+        boolean allChecksDisplayed = assessmentReport.isBusinessRuleAssessmentReportDisplayed();
+        Assert.assertThat("Expected to see business rules assessments report", allChecksDisplayed, is(true));
     }
 
 }

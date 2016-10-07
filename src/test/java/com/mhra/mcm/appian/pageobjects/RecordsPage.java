@@ -258,6 +258,50 @@ public class RecordsPage extends _Page {
     }
 
 
+    /**
+     * If notificaitons already filtered than this method should be used
+     * @param status
+     * @return
+     */
+    public String getARandomNotification(String status) {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
+        if (listOfECIDLinks.size() > 0) {
+            int maxNumberOfTimesToIterate = listOfECIDLinks.size();
+            String ecID = null;
+            int count = 0;
+            do {
+                count=count+2; //Lisa has added 2 links per table row
+                WebElement element = listOfECIDLinks.get(maxNumberOfTimesToIterate - count);
+                ecID = element.getText();
+                if (ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")) {
+                    ecID = null;
+                } else {
+//                    WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[.='" + ecID + "']//following::a[1]"), 15, false);
+//                    element = driver.findElement(By.xpath(".//*[.='" + ecID + "']//following::a[1]"));
+//                    String currentStatus = element.getText();
+//
+//                    //Bug: Failed notifications can't be edited
+//                    if (!currentStatus.equals(status) || currentStatus.equals("Withdrawn")) {
+//                        ecID = null;
+//                    } else if (currentStatus.equals(status)) {
+//                        System.out.println(currentStatus + ", " + status);
+//                        WebElement elementSub = listOfECIDLinks.get(maxNumberOfTimesToIterate - count);
+//                        ecID = elementSub.getText();
+//                        break;
+//                    }
+                }
+
+                if (count > maxNumberOfTimesToIterate) {
+                    break;
+                }
+            } while (ecID == null);
+            return ecID;
+        } else {
+            return null;
+        }
+    }
+
+
     public String getARandomNotification(int maxNumberOfTimesToIterate) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Uploaded On']//following::a[2]"), 5);
         if (listOfECIDLinks.size() > 0) {

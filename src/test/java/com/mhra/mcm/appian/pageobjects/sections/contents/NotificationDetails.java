@@ -27,6 +27,8 @@ public class NotificationDetails extends _Page {
     WebElement comments;
     @FindBy(xpath = ".//*[.='Documents']")
     WebElement documents;
+    @FindBy(xpath = ".//*[.='Assessment Report']")
+    WebElement assessmentReport;
 
     @FindBy(css = ".GJEWJWHDFR")
     WebElement header;
@@ -122,5 +124,11 @@ public class NotificationDetails extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, documents, 10, false);
         PageUtils.singleClick(driver, documents);
         return new Documents(driver);
+    }
+
+    public AssessmentReport clickAssessmentReport() {
+        WaitUtils.waitForElementToBeClickable(driver, assessmentReport, 10, false);
+        PageUtils.doubleClick(driver, assessmentReport);
+        return new AssessmentReport(driver);
     }
 }

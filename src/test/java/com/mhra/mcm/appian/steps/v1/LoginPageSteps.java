@@ -112,4 +112,13 @@ public class LoginPageSteps extends CommonSteps {
         //only FINANCE users should see this option
         actionsPage = actionsPage.generateStandardInvoices();
     }
+
+    @When("^I generate a standard withdrawal invoice$")
+    public void i_generate_a_withdrawal_invoice() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        actionsPage = mainNavigationBar.clickActions();
+
+        //only FINANCE users should see this option
+        actionsPage = actionsPage.generateWithdrawalInvoice();
+    }
 }

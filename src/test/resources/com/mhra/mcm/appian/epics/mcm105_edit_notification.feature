@@ -55,14 +55,14 @@ Feature: As an IPU super user, I want the ability to edit notification
       #| super1 | Failed     | Uploaded |
 
 
-  @mcm-97
+  @mcm-97 @mcm-51
   Scenario Outline: Add comments to notifications
     Given I am logged into appian as "<user>" user
     When I go to the notifications page
     And I filter by status "<status>"
     And I view an random notification with status "<status>"
     When I add comment "<comment>" to selected notification
-    Then I should see comment "" displayed in notification for user "<userName>"
+    Then I should see comment "<comment>" displayed in notification for user "<userName>"
     Examples:
       | user   | status | comment | userName |
       | rdt1   | Unpaid | random  | RDT 1    |
@@ -86,7 +86,7 @@ Feature: As an IPU super user, I want the ability to edit notification
       | comm1  | Unpaid   |
 
 
-  @mcm-97 @wip @bug
+  @mcm-97 @wip @bug @ignore
   Scenario Outline: Users can add different types of documents to new notifications
     Given I am logged into appian as "<user>" user
     And I create new notification with following data
@@ -95,30 +95,30 @@ Feature: As an IPU super user, I want the ability to edit notification
     And I attach a "<documentType>" report for "<ingredient>"
     Then I should see the stored notification with status set to "<statusWithTCANumber>"
     Examples:
-      | user | statusWithTCANumber | documentType                          | ingredient |
-      | rdt1 | Ready for Invoicing | E-Cigarette Leaflet                   | SUPPDOC1   |
-      | rdt1 | Ready for Invoicing | Product Market Research               | SUPPDOC2   |
-      | rdt1 | Ready for Invoicing | Product Studies Summary               | SUPPDOC3   |
-      | rdt1 | Ready for Invoicing | Product Unit Packet Picture           | SUPPDOC4   |
-      | rdt1 | Ready for Invoicing | Emission Methods                      | SUPPDOC5   |
-      | rdt1 | Ready for Invoicing | E-Cigarette Nicotine Dose/Uptake      | SUPPDOC6   |
-      | rdt1 | Ready for Invoicing | E-Cigarette Opening/Refill            | SUPPDOC7   |
-      | rdt1 | Ready for Invoicing | E-Cigarette Consistent Dosing Methods | SUPPDOC8   |
-      | rdt1 | Ready for Invoicing | Product Mode of Sales                 | SUPPDOC9   |
-      | rdt1 | Ready for Invoicing | Other                                 | SUPPDOC10  |
-      | rdt1 | Ready for Invoicing | Approval Notification                 | SUPPDOC11  |
-      | rdt1 | Ready for Invoicing | Failed Notification                   | SUPPDOC12  |
-      | rdt1 | Ready for Invoicing | Withdrawal Notification               | SUPPDOC13  |
+      | user | statusWithTCANumber | documentType                          | ingredient | type |
+      | rdt1 | Ready for Invoicing | E-Cigarette Leaflet                   | SUPPDOC1   | 1    |
+      | rdt1 | Ready for Invoicing | Product Market Research               | SUPPDOC2   | 1    |
+      | rdt1 | Ready for Invoicing | Product Studies Summary               | SUPPDOC3   | 1    |
+      | rdt1 | Ready for Invoicing | Product Unit Packet Picture           | SUPPDOC4   | 1    |
+      | rdt1 | Ready for Invoicing | Emission Methods                      | SUPPDOC5   | 1    |
+      | rdt1 | Ready for Invoicing | E-Cigarette Nicotine Dose/Uptake      | SUPPDOC6   | 1    |
+      | rdt1 | Ready for Invoicing | E-Cigarette Opening/Refill            | SUPPDOC7   | 1    |
+      | rdt1 | Ready for Invoicing | E-Cigarette Consistent Dosing Methods | SUPPDOC8   | 1    |
+      | rdt1 | Ready for Invoicing | Product Mode of Sales                 | SUPPDOC9   | 1    |
+      | rdt1 | Ready for Invoicing | Other                                 | SUPPDOC10  | 1    |
+      | rdt1 | Ready for Invoicing | Approval Notification                 | SUPPDOC11  | 1    |
+      | rdt1 | Ready for Invoicing | Failed Notification                   | SUPPDOC12  | 1    |
+      | rdt1 | Ready for Invoicing | Withdrawal Notification               | SUPPDOC13  | 1    |
 
-  @mcm-97 @wip @bug
+  @mcm-97 @wip @bug @ignore
   Scenario Outline: Users can add different types of documents to existing notifications
     Given I am logged into appian as "<user>" user
     When I go to the notifications page
     And I view an random notification with status "Uploaded"
     And I attach a "<documentType>" report for "<ingredient>"
-    Then I should see the stored notification with status set to "<statusWithTCANumber>"
+    Then I should see the stored notification with status set to "<status>"
     Examples:
-      | user | statusWithTCANumber | documentType                          | ingredient |
+      | user | status              | documentType                          | ingredient |
       | rdt1 | Ready for Invoicing | E-Cigarette Leaflet                   | SUPPDOC1   |
       | rdt1 | Ready for Invoicing | Product Market Research               | SUPPDOC2   |
       | rdt1 | Ready for Invoicing | Product Studies Summary               | SUPPDOC3   |
