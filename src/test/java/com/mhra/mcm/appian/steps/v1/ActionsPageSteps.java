@@ -312,14 +312,15 @@ public class ActionsPageSteps extends CommonSteps {
 
         String ecId = xmlNotificationData.getEcIDNumber();
         log.info("Create Notification With ECID : " + ecId);
-        log.info("XML Data File : " + xmlDataFileLocation);
+        log.warn("XML Data File : " + xmlDataFileLocation);
 
         //Stored ecId for future use
         scenarioSession.putData(SessionKey.ECID, ecId);
         scenarioSession.putData(SessionKey.storedNotification, xmlNotificationData);
         scenarioSession.putData(SessionKey.xmlDataFileLocation, xmlDataFileLocation);
 
-        log.info("Created Notification With ECID : " + ecId);
+        log.warn("Notification Excel Keys : "+ dataValues);
+        log.warn("Created Notification With ECID : " + ecId);
 
         //Zip the file now
         String zipFileCreated = NotificationUtils.createZipFile(xmlDataFileLocation, xmlFileName);

@@ -658,21 +658,23 @@ public class RecordsPageSteps extends CommonSteps {
 
     @When("^The notification status should update to \"([^\"]*)\"$")
     public void the_notification_status_should_update_to(String expectedStatus) throws Throwable {
-        String currentStatus = (String) scenarioSession.getData(SessionKey.notificationStatus);
-        //boolean statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
-        boolean statusChanged = false;
-        int attempt = 0;
-        do {
-            statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
-            if (statusChanged)
-                break;
-            attempt++;
-        } while (!statusChanged && attempt < 15);
+        if(!expectedStatus.equals("")) {
+            String currentStatus = (String) scenarioSession.getData(SessionKey.notificationStatus);
+            //boolean statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
+            boolean statusChanged = false;
+            int attempt = 0;
+            do {
+                statusChanged = notificationDetails.hasPageStatusChangedTo(currentStatus);
+                if (statusChanged)
+                    break;
+                attempt++;
+            } while (!statusChanged && attempt < 15);
 
-        String newStatus = notificationDetails.getCurrentStatus();
+            String newStatus = notificationDetails.getCurrentStatus();
 
-        assertThat("Status should not be : " + currentStatus, newStatus, is(isOneOf(expectedStatus, "Quality Assurance")));
-        scenarioSession.putData(SessionKey.notificationStatus, newStatus);
+            assertThat("Status should not be : " + currentStatus, newStatus, is(isOneOf(expectedStatus, "Quality Assurance")));
+            scenarioSession.putData(SessionKey.notificationStatus, newStatus);
+        }
     }
 
 

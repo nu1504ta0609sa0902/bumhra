@@ -36,6 +36,9 @@ public class TasksPage extends _Page {
     @FindBy(xpath = ".//label[.='Name']//following::input[1]")
     WebElement tcaName;
 
+    @FindBy(xpath = ".//*//following::textarea[1]")
+    WebElement decisionComment;
+
     @FindBy(partialLinkText = "Update TCA for")
     List<WebElement> listOfTCALinks;
 
@@ -76,6 +79,15 @@ public class TasksPage extends _Page {
         return new TasksPage(driver);
     }
 
+    public TasksPage clickTaskWithText(String heading, int count) {
+        //Get list of links and click specific number
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(heading), 5, false);
+        WebElement task = driver.findElements(By.partialLinkText(heading)).get(count);
+        task.click();
+
+        return new TasksPage(driver);
+    }
+
     public boolean isCorrectECID(String ecIDNumber) {
         try {
             WaitUtils.waitForElementToBeClickable(driver, ecid, 10, false);
@@ -89,11 +101,11 @@ public class TasksPage extends _Page {
 
 
 
-    public boolean isNotificationForECID(String ecIDNumber) {
+    public boolean isHeadingContainsECID(String ecIDNumber) {
         try {
             WaitUtils.waitForElementToBeClickable(driver, ecidHeading, 10, false);
             String text = ecidHeading.getText();
-            boolean contains = text.equals(ecIDNumber);
+            boolean contains = text.contains(ecIDNumber);
             return contains;
         }catch (Exception e){
             return false;
@@ -103,7 +115,8 @@ public class TasksPage extends _Page {
     public TasksPage acceptTask() {
         try
         {
-            WaitUtils.waitForElementToBeVisible(driver, accept, 10, false);
+            WaitUtils.waitForElementToBeVisible(driver, accept, 5, false);
+            WaitUtils.waitForElementToBeClickable(driver, accept, 5, false);
             if(accept.isDisplayed()){
                 accept.click();
             }
@@ -124,8 +137,9 @@ public class TasksPage extends _Page {
         tcaName.sendKeys(submitterName);
     }
 
-    public TasksPage updateSummary() {
-        PageUtils.doubleClick(driver,submit);
+    public TasksPage submitTask() {
+        WaitUtils.waitForElementToBeClickable(driver, submit, 10, false);
+        PageUtils.singleClick(driver,submit);
         //submit.submit();
         return new TasksPage(driver);
     }
@@ -142,5 +156,37 @@ public class TasksPage extends _Page {
         boolean approveDisplayed = rbApprove.isDisplayed();
         boolean rejectDisplayed = rbReject.isDisplayed();
         return approveDisplayed && rejectDisplayed;
+    }
+
+    public TasksPage acceptOrRejectQADecision(boolean acceptQADecision) {
+        WaitUtils.waitForElementToBeClickable(driver, rbApprove, 5, false);
+        WaitUtils.waitForElementToBeClickable(driver, rbReject, 5, false);
+        if(acceptQADecision){
+            rbApprove.click();
+        }else{
+            rbReject.click();
+        }
+        return new TasksPage(driver);
+    }
+
+    public void enterComment(String comment) {
+        WaitUtils.waitForElementToBeClickable(driver, decisionComment, 10, false);
+        decisionComment.sendKeys(comment);
+    }
+
+    public String getECID() {
+        String ecIdText = null;
+        try{
+            WaitUtils.waitForElementToBeVisible(driver, ecid, 5, false);
+            ecIdText = ecid.getText();
+        }catch (Exception e){
+            WaitUtils.waitForElementToBeVisible(driver, ecidHeading, 10, false);
+            String text = ecidHeading.getText();
+            text = text.substring(text.indexOf("Notification "));
+
+            if(text.contains("Notification "))
+                ecIdText = text.split(" ")[1];
+        }
+        return ecIdText;
     }
 }

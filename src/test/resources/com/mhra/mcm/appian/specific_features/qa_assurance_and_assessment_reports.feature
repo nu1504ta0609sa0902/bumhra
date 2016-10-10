@@ -57,7 +57,8 @@ Feature: As a ipumanager user I should be able to direct certain percentage of n
       | ipu1 | Quality Assurance | IPU 1    | random  |
 
 
-  @mcm-51
+  # This depends on us having notifications in Quality Assurance status
+  @mcm-51 @mcm-93
   Scenario Outline: Users should be able to accept or reject notifications in qa status
     Given I am logged into appian as "<user>" user
     When I view a task with heading containing "<heading>"
@@ -65,3 +66,22 @@ Feature: As a ipumanager user I should be able to direct certain percentage of n
     Examples:
       | user | status            | heading                    | comment |
       | ipu1 | Quality Assurance | Review Notification for QA | random  |
+
+
+  # This depends on us having notifications in Quality Assurance status
+  @mcm-93
+  Scenario Outline: QA Manager should be able to accept or reject tasks
+    Given I am logged into appian as "<user>" user
+    When I view a task with heading containing "<heading>"
+    And I should see option to accept or reject qa tasks
+    And I "<acceptOrReject>" the qa decision and add comment "<comment>"
+    When I re login as user "ipumanager1"
+    And I view a task for stored notification with heading containing "<qaManagerReviewLinks>"
+    And I should see option to accept or reject qa tasks
+    And I "<magagerAcceptOrReject>" the qa decision and add comment "<managerComment>"
+    Then The notification status should update to "<status>"
+    Examples:
+      | status | user | heading                    | acceptOrReject | comment                          | qaManagerReviewLinks | magagerAcceptOrReject | managerComment                                                                  |
+#     | | ipu1 |  Review Notification for QA   | accept         |                                  | QA Manager Review | accept | Testing manager acceptance |
+#      | ipu1 | Review Notification for QA | reject         | Testing rejecting of qa decision | QA Manager Review    | reject                | Testing manager rejection                                                       |
+     | Failed | ipu1 | Review Notification for QA | reject         | Testing rejecting of qa decision | QA Manager Review    | accept                | Testing manager accepted rejection, status should update to failed notification |

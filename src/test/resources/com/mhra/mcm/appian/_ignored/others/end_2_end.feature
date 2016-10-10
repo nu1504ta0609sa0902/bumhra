@@ -131,10 +131,52 @@ Feature: As a user I should be able to do an end to end invoice processing of no
       #| verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.2, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
       | verifyXMLGeneration.xml | <type>         | <submitter> | <product> | valid.ingredient.1, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 |                 | <listOfManufacturers> | <listOfPresentations> | <design> |
     And I am logged into appian as "rdt1" user
-#    And I upload the stored zip file to appian
+    And I upload the stored zip file to appian
 #    Then I should see the uploaded zip file notification with status set to "Uploaded"
 #    And I should see new task generated for the stored notification
     Examples:
+      | type | submitter         | product         | ingredientAndToxicologyReportPairs | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
+      | 1    | valid.submitter.1 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.1 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 3    | valid.submitter.1 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.2 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.2 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 3    | valid.submitter.2 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.3 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.3 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 3    | valid.submitter.3 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.4 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.4 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 3    | valid.submitter.4 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.5 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.5 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 3    | valid.submitter.5 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+
+
+
+  Scenario Outline: Verify xml notification zip file generation with end 2 end processing
+    Given I create new zip file with following data table
+      #These are keys which will load data from excel file
+#      | saveXMLOutputAs         | submissionType | submitter         | product         | ingredientAndToxicologyReportPairs                                             | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
+#      | verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.2, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
+#      | verifyXMLGeneration.xml | 1              | valid.submitter.6 | valid.product.1 | valid.ingredient.1, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | saveXMLOutputAs         | submissionType | submitter   | product   | ingredientAndToxicologyReportPairs                                             | listOfEmissions | listOfManufacturers   | listOfPresentations   | design   |
+      | verifyXMLGeneration.xml | <type>         | <submitter> | <product> | valid.ingredient.1, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 |                 | <listOfManufacturers> | <listOfPresentations> | <design> |
+    And I am logged into appian as "rdt1" user
+    And I upload the stored zip file to appian
+    Then I should see the uploaded zip file notification with status set to "Uploaded"
+    And I find the new task generated for the stored notification
+    And I set TCA details for the notification
+    #Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"
+    When I re login as user "super1"
+    And I enter a submitter address to stored notification
+    #Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"
+    When I login as "fin1" and generate a standard invoice
+    Then I receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min for "" notifications
+    When I send paid email response back to appian
+    Then I expect the notification status should be "Unpaid"
+    Then I expect the notification status should be "Successful"
+  Examples:
       | type | submitter         | product         | ingredientAndToxicologyReportPairs | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
       | 1    | valid.submitter.1 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 1    | valid.submitter.1 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
@@ -151,26 +193,3 @@ Feature: As a user I should be able to do an end to end invoice processing of no
       | 1    | valid.submitter.5 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 1    | valid.submitter.5 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 3    | valid.submitter.5 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
-
-
-
-  Scenario: Verify xml notification zip file generation with end 2 end processing
-    Given I create new zip file with following data table
-      #These are keys which will load data from excel file
-      | saveXMLOutputAs         | submissionType | submitter         | product         | ingredientAndToxicologyReportPairs                                             | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
-      #| verifyXMLGeneration.xml | 1              | valid.submitter.1 | valid.product.1 | valid.ingredient.2, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 : valid.ingredient.2 |                 | valid.manufacturer.2 | valid.presentation.2 | valid.design.1 |
-      | verifyXMLGeneration.xml | 1              | valid.submitter.6 | valid.product.1 | valid.ingredient.1, valid.toxicology.1 : valid.ingredient.2,valid.toxicology.1 |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
-    And I am logged into appian as "rdt1" user
-    And I upload the stored zip file to appian
-    Then I should see the uploaded zip file notification with status set to "Uploaded"
-    And I find the new task generated for the stored notification
-    And I set TCA details for the notification
-    #Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"
-    When I re login as user "super1"
-    And I enter a submitter address to stored notification
-    #Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"
-    When I login as "fin1" and generate a standard invoice
-    Then I receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min for "" notifications
-    When I send paid email response back to appian
-    Then I expect the notification status should be "Unpaid"
-    Then I expect the notification status should be "Successful"

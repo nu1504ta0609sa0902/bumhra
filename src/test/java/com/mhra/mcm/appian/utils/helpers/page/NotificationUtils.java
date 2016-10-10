@@ -32,6 +32,8 @@ import java.util.zip.ZipOutputStream;
  */
 public class NotificationUtils {
 
+    public static final String TMP_ZIP_FILES_LOCATION = "tmp" + File.separator + "xml" + File.separator + "zips";
+
     /**
      * Change notification data with the values passed into the system
      *
@@ -563,7 +565,7 @@ public class NotificationUtils {
 
     public static String createZipFile(String xmlDataFileLocation, String xmlFileName) {
         //Zipfile name
-        String zipFileLocation = FileUtils.getFileFullPath("tmp"+File.separator+"zips", RandomDataUtils.getRandomTestNameAdvanced("NewNotifications")+".zip");
+        String zipFileLocation = FileUtils.getFileFullPath(TMP_ZIP_FILES_LOCATION, RandomDataUtils.getRandomTestNameAdvanced("NewNotifications")+".zip");
         try {
 
             // input file to zip
@@ -594,7 +596,7 @@ public class NotificationUtils {
 
     public static String createZipFile(List<String> files) {
         //Zipfile name
-        String zipFileLocation = FileUtils.getFileFullPath("tmp"+File.separator+"zips", RandomDataUtils.getRandomTestNameAdvanced("NewNotifications")+".zip");
+        String zipFileLocation = FileUtils.getFileFullPath(TMP_ZIP_FILES_LOCATION, RandomDataUtils.getRandomTestNameAdvanced("NewNotifications")+".zip");
         try {
             FileOutputStream fos = new FileOutputStream(zipFileLocation);
             ZipOutputStream zos = new ZipOutputStream(fos);
@@ -638,7 +640,7 @@ public class NotificationUtils {
 
     public static String createZipFileOthers(String xmlDataFileLocation, String xmlFileName) {
         //Zipfile name
-        String zipFileLocation = FileUtils.getFileFullPath("tmp"+File.separator+"zips", RandomDataUtils.getRandomTestNameAdvanced("NewNotifications")+".zip");
+        String zipFileLocation = FileUtils.getFileFullPath(TMP_ZIP_FILES_LOCATION, RandomDataUtils.getRandomTestNameAdvanced("NewNotifications")+".zip");
         try {
 
             //Copy files to zip into a tmpzip folder

@@ -97,18 +97,27 @@ public class TasksPageSteps extends CommonSteps {
         mainNavigationBar = new MainNavigationBar(driver);
         tasksPage = mainNavigationBar.clickTasks();
         tasksPage = tasksPage.clickTaskWithSubmitterName(taskHeading);
-//        boolean contains = false;
-//        int count = 0;
-//        do {
-//            mainNavigationBar = new MainNavigationBar(driver);
-//            tasksPage = mainNavigationBar.clickTasks();
-//
-//            tasksPage = tasksPage.clickTaskWithSubmitterName(taskHeading);
-//            contains = tasksPage.isNotificationForECID(ecId);
-//            count++;
-//        }while(!contains && count <= 3);
-//
-//        assertThat("Expected task with EC ID : " + ecId , contains, is(equalTo(true)));
+
+        String ecid = tasksPage.getECID();
+        if(ecid!=null)
+            scenarioSession.putData(SessionKey.ECID, ecid);
+    }
+
+    @Given("^I view a task for stored notification with heading containing \"([^\"]*)\"$")
+    public void i_view_a_task_for_stored_notification_with_heading_containing_text(String taskHeading) throws Throwable {
+        String ecId = (String) scenarioSession.getData(SessionKey.ECID);
+        boolean contains = false;
+        int count = 0;
+        do {
+            mainNavigationBar = new MainNavigationBar(driver);
+            tasksPage = mainNavigationBar.clickTasks();
+            tasksPage = tasksPage.clickTaskWithText(taskHeading, count);
+            contains = tasksPage.isHeadingContainsECID(ecId);
+            if(!contains){
+                contains = tasksPage.isCorrectECID(ecId);
+            }
+            count++;
+        }while(!contains && count <= 10);
     }
 
     @When("^I set a new TCA number for the notification$")
@@ -120,7 +129,7 @@ public class TasksPageSteps extends CommonSteps {
         //Set TCANumber
         tasksPage = tasksPage.acceptTask();
         tasksPage.enterTCANumber(newTCANumber);
-        tasksPage = tasksPage.updateSummary();
+        tasksPage = tasksPage.submitTask();
     }
 
 
@@ -142,9 +151,25 @@ public class TasksPageSteps extends CommonSteps {
         tasksPage = tasksPage.acceptTask();
         tasksPage.enterTCANumber(newTCANumber);
         tasksPage.enterTCAName(data.getSubmitter().name);
-        tasksPage = tasksPage.updateSummary();
+        tasksPage = tasksPage.submitTask();
     }
 
 
+
+    @Given("^I \"([^\"]*)\" the qa decision and add comment \"([^\"]*)\"$")
+    public void i_view_a_task_with_heading_containing_text(String acceptOrRejectQADecision, String comment) throws Throwable {
+        //Assumes in the tasks page
+        tasksPage = tasksPage.acceptTask();
+
+        if(acceptOrRejectQADecision.equals("accept")) {
+            tasksPage = tasksPage.acceptOrRejectQADecision(true);
+            if(!comment.equals(""))
+                tasksPage.enterComment(comment);
+        }else{
+            tasksPage = tasksPage.acceptOrRejectQADecision(false);
+            tasksPage.enterComment(comment);
+        }
+        tasksPage = tasksPage.submitTask();
+    }
 
 }
