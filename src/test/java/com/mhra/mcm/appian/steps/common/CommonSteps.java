@@ -81,6 +81,8 @@ public class CommonSteps {
     public UpdateBusinessRules updateBusinessRules;
     @Autowired
     public AssessmentReport assessmentReport;
+    @Autowired
+    public InvoiceHistory invoiceHistory;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {

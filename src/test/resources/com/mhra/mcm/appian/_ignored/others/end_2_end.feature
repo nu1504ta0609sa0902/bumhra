@@ -170,26 +170,26 @@ Feature: As a user I should be able to do an end to end invoice processing of no
     #Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"
     When I re login as user "super1"
     And I enter a submitter address to stored notification
-    #Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"
+    Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"
     When I login as "fin1" and generate a standard invoice
-    Then I receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min for "" notifications
+    Then I receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2.5 min for "" notifications
     When I send paid email response back to appian
     Then I expect the notification status should be "Unpaid"
     Then I expect the notification status should be "Successful"
   Examples:
       | type | submitter         | product         | ingredientAndToxicologyReportPairs | listOfEmissions | listOfManufacturers  | listOfPresentations  | design         |
       | 1    | valid.submitter.1 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
-      | 1    | valid.submitter.1 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.1 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 3    | valid.submitter.1 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 1    | valid.submitter.2 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
-      | 1    | valid.submitter.2 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.2 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 3    | valid.submitter.2 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 1    | valid.submitter.3 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
-      | 1    | valid.submitter.3 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.3 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 3    | valid.submitter.3 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 1    | valid.submitter.4 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
-      | 1    | valid.submitter.4 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.4 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 3    | valid.submitter.4 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 1    | valid.submitter.5 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
-      | 1    | valid.submitter.5 | valid.product.2 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
+      | 1    | valid.submitter.5 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |
       | 3    | valid.submitter.5 | valid.product.1 |                                    |                 | valid.manufacturer.1 | valid.presentation.1 | valid.design.1 |

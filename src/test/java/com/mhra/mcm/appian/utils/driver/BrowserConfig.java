@@ -2,6 +2,7 @@ package com.mhra.mcm.appian.utils.driver;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
@@ -36,7 +37,8 @@ public class BrowserConfig {
 			if(browser.equals("ff") || browser.equals("firefox")){
         		return new FirefoxDriver();
     		}else if(browser.equals("gc") || browser.equals("chrome")){
-        		return new ChromeDriver();
+				DesiredCapabilities gcCap = getGoogleChromeDesiredCapabilities();
+        		return new ChromeDriver(gcCap);
     		}else if(browser.equals("ie") || browser.equals("internetexplorer")){
 				DesiredCapabilities ieCap = getIEDesiredCapabilities();
 				return new InternetExplorerDriver(ieCap);
@@ -53,6 +55,15 @@ public class BrowserConfig {
 			//return new InternetExplorerDriver();
     	}
     }
+
+	private DesiredCapabilities getGoogleChromeDesiredCapabilities() {
+		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("test-type");
+		options.addArguments("disable-popup-blocking");
+		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		return capabilities;
+	}
 
 	/**
 	 * You dont need to launch:

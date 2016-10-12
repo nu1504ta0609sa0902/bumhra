@@ -64,24 +64,24 @@ public class TasksPage extends _Page {
                 WebElement task = driver.findElement(By.partialLinkText(submitterName));
                 task.click();
                 found = true;
-            }catch(Exception e){
+            } catch (Exception e) {
                 found = false;
             }
 
             //refresh page
-            if(!found) {
+            if (!found) {
                 driver.navigate().refresh();
                 PageFactory.initElements(driver, this);
             }
 
-        }while(!found && attempt < 10);
+        } while (!found && attempt < 10);
 
         return new TasksPage(driver);
     }
 
     public TasksPage clickTaskWithText(String heading, int count) {
         //Get list of links and click specific number
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(heading), 5, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(heading), 10, false);
         WebElement task = driver.findElements(By.partialLinkText(heading)).get(count);
         task.click();
 
@@ -94,11 +94,10 @@ public class TasksPage extends _Page {
             String text = ecid.getText();
             boolean contains = text.equals(ecIDNumber);
             return contains;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
-
 
 
     public boolean isHeadingContainsECID(String ecIDNumber) {
@@ -107,20 +106,19 @@ public class TasksPage extends _Page {
             String text = ecidHeading.getText();
             boolean contains = text.contains(ecIDNumber);
             return contains;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     public TasksPage acceptTask() {
-        try
-        {
+        try {
             WaitUtils.waitForElementToBeVisible(driver, accept, 5, false);
             WaitUtils.waitForElementToBeClickable(driver, accept, 5, false);
-            if(accept.isDisplayed()){
+            if (accept.isDisplayed()) {
                 accept.click();
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             log.info("Task Already Accepted ");
         }
         return new TasksPage(driver);
@@ -139,7 +137,7 @@ public class TasksPage extends _Page {
 
     public TasksPage submitTask() {
         WaitUtils.waitForElementToBeClickable(driver, submit, 10, false);
-        PageUtils.singleClick(driver,submit);
+        PageUtils.singleClick(driver, submit);
         //submit.submit();
         return new TasksPage(driver);
     }
@@ -159,32 +157,37 @@ public class TasksPage extends _Page {
     }
 
     public TasksPage acceptOrRejectQADecision(boolean acceptQADecision) {
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.xpath(".//label[.='Approve']"), 5, false);
         WaitUtils.waitForElementToBeClickable(driver, rbApprove, 5, false);
         WaitUtils.waitForElementToBeClickable(driver, rbReject, 5, false);
-        if(acceptQADecision){
+        if (acceptQADecision) {
             rbApprove.click();
-        }else{
+            if (!rbApprove.isSelected())
+                PageUtils.singleClick(driver, rbApprove);
+        } else {
             rbReject.click();
+            if (!rbReject.isSelected())
+                PageUtils.singleClick(driver, rbReject);
         }
         return new TasksPage(driver);
     }
 
     public void enterComment(String comment) {
-        WaitUtils.waitForElementToBeClickable(driver, decisionComment, 10, false);
+        WaitUtils.waitForElementToBeVisible(driver, decisionComment, 10, false);
         decisionComment.sendKeys(comment);
     }
 
     public String getECID() {
         String ecIdText = null;
-        try{
+        try {
             WaitUtils.waitForElementToBeVisible(driver, ecid, 5, false);
             ecIdText = ecid.getText();
-        }catch (Exception e){
+        } catch (Exception e) {
             WaitUtils.waitForElementToBeVisible(driver, ecidHeading, 10, false);
             String text = ecidHeading.getText();
             text = text.substring(text.indexOf("Notification "));
 
-            if(text.contains("Notification "))
+            if (text.contains("Notification "))
                 ecIdText = text.split(" ")[1];
         }
         return ecIdText;

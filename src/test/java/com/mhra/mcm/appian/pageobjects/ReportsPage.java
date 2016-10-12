@@ -1,6 +1,7 @@
 package com.mhra.mcm.appian.pageobjects;
 
 import com.mhra.mcm.appian.pageobjects.sections.contents.Exceptions;
+import com.mhra.mcm.appian.pageobjects.sections.contents.InvoiceHistory;
 import com.mhra.mcm.appian.pageobjects.sections.contents.NotificationsReport;
 import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +19,8 @@ public class ReportsPage extends _Page {
     WebElement exceptionsLink;
     @FindBy(linkText = "Notifications")
     WebElement notificationsLink;
+    @FindBy(linkText = "Invoices")
+    WebElement invoicesLink;
 
 
     @Autowired
@@ -35,5 +38,11 @@ public class ReportsPage extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, notificationsLink, 5, false);
         notificationsLink.click();
         return new NotificationsReport(driver);
+    }
+
+    public InvoiceHistory gotoHistoricalInvoices() {
+        WaitUtils.waitForElementToBeClickable(driver, invoicesLink, 5, false);
+        invoicesLink.click();
+        return new InvoiceHistory(driver);
     }
 }

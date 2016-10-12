@@ -144,14 +144,6 @@ public class WaitUtils {
 
         new WebDriverWait(driver, maxTimeToWait)
                 .ignoring(StaleElementReferenceException.class)
-//                .until(new Predicate<WebDriver>() {
-//                    @Override
-//                    public boolean apply(@Nullable WebDriver driver) {
-//                        WebElement element = driver.findElement(by);
-//                        element.click();
-//                        return true;
-//                    }
-//                });
                 .until(new Predicate<WebDriver>() {
                     @Override
                     public boolean apply(@Nullable WebDriver driver) {

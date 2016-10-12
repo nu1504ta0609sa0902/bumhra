@@ -6,6 +6,8 @@ import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import com.mhra.mcm.appian.utils.helpers.others.RandomDataUtils;
+import com.mhra.mcm.appian.utils.helpers.page.PageUtils;
+import com.mhra.mcm.appian.utils.helpers.page.WaitUtils;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -99,13 +101,16 @@ public class TasksPageSteps extends CommonSteps {
         tasksPage = tasksPage.clickTaskWithSubmitterName(taskHeading);
 
         String ecid = tasksPage.getECID();
-        if(ecid!=null)
+        if(ecid!=null) {
+            log.warn("ECID selected : " + ecid);
             scenarioSession.putData(SessionKey.ECID, ecid);
+        }
     }
 
     @Given("^I view a task for stored notification with heading containing \"([^\"]*)\"$")
     public void i_view_a_task_for_stored_notification_with_heading_containing_text(String taskHeading) throws Throwable {
         String ecId = (String) scenarioSession.getData(SessionKey.ECID);
+        log.info("Find task for ecid : " + ecId);
         boolean contains = false;
         int count = 0;
         do {
@@ -118,6 +123,13 @@ public class TasksPageSteps extends CommonSteps {
             }
             count++;
         }while(!contains && count <= 10);
+
+        //One last try
+        if(!contains){
+            mainNavigationBar = new MainNavigationBar(driver);
+            tasksPage = mainNavigationBar.clickTasks();
+            tasksPage = tasksPage.clickTaskWithText(taskHeading, 0);
+        }
     }
 
     @When("^I set a new TCA number for the notification$")
@@ -145,6 +157,7 @@ public class TasksPageSteps extends CommonSteps {
     public void i_set_TCA_details_for_the_notification() throws Throwable {
         EcigProductSubmission data = (EcigProductSubmission) scenarioSession.getData(SessionKey.storedNotification);
         String newTCANumber = RandomDataUtils.getRandomNumberBetween(100000,1000000);
+        scenarioSession.putData(SessionKey.tcaNumber, newTCANumber);
         //data.getSubmitter().tcaNumber = newTCANumber;
 
         //Set TCANumber
@@ -170,6 +183,9 @@ public class TasksPageSteps extends CommonSteps {
             tasksPage.enterComment(comment);
         }
         tasksPage = tasksPage.submitTask();
+
+        //If an alert is displayed accept it
+        PageUtils.acceptAlert(driver, true);
     }
 
 }

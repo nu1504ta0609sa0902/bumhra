@@ -1,12 +1,15 @@
 package com.mhra.mcm.appian.steps.v1;
 
 import com.mhra.mcm.appian.pageobjects.sections.MainNavigationBar;
+import com.mhra.mcm.appian.pageobjects.sections.contents.InvoiceHistory;
 import com.mhra.mcm.appian.pageobjects.sections.contents.NotificationsReport;
 import com.mhra.mcm.appian.session.SessionKey;
 import com.mhra.mcm.appian.steps.common.CommonSteps;
 import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -119,5 +122,27 @@ public class ReportsPageSteps extends CommonSteps {
 
         notificationDetails = exception.clickOnNotificationWithEcid(ecid);
         log.info("Clicked notification with ecid : " + ecid);
+    }
+
+    @Then("^I should see at least (\\d+) previously generated invoice$")
+    public void iShouldSeeAtLeastPreviouslyGeneratedInvoice(int minimalNumberOfInvoicesExpected, String standardOrAnnual) throws Throwable {
+        int countOfInvoices = invoiceHistory.numberOfInvoicesDisplayed(standardOrAnnual);
+        Assert.assertThat("Expected at least : " + minimalNumberOfInvoicesExpected + " invoices ", countOfInvoices >= minimalNumberOfInvoicesExpected, is(true));
+    }
+
+    @When("^I go to historical invoices page$")
+    public void iGoToHistoricalInvoicesPage() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        reportsPage = mainNavigationBar.clickReports();
+        invoiceHistory = reportsPage.gotoHistoricalInvoices();
+    }
+
+    @And("^filter by \"([^\"]*)\" invoice type$")
+    public void filterByInvoiceType(String invoiceType) throws Throwable {
+        boolean isStandard = true;
+        if(!invoiceType.equals("") || invoiceType.equals("Annual"))
+            isStandard = false;
+
+        throw new PendingException();
     }
 }
