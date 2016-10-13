@@ -1,0 +1,43 @@
+Automated Issues:
+    TAGS:
+    - @poc
+    - @regression @regressionAll
+    - @type1 @e2e @type2 @type3
+    - @wip @testenv @e2e
+    EPICS:
+    - @mcm-20
+    - @mcm-21
+    - @mcm-22
+    STORIES:
+    - @mcm-29 Notification data reports
+    - @mcm-28 SLA cant automate, we need to wait for 2 days
+    - @mcm-32
+    - @mcm-36
+    - @mcm-37
+    - @mcm-38
+    - @mcm-42
+    - @mcm-43 Validate notifications
+    - @mcm-44
+    - @mcm-47 Refusal or failed analysis
+    - @mcm-45 Update business rules, more to do
+    - @mcm-50
+    - @mcm-51
+    - @mcm-53 Withdrawal of notification
+    - @mcm-67
+    - @mcm-68
+    - @mcm-70
+    - @mcm-72
+    - @mcm-87
+    - @mcm-88 Invoice exception
+    - @mcm-89
+    - @mcm-90
+    - @mcm-91
+    - @mcm-92
+    - @mcm-93 QA Manager review
+    - @mcm-94
+    - @mcm-97
+    - @mcm-101
+    - @mcm-103
+    - @mcm-106
+    - @mcm-107
+    - @mcm-109
