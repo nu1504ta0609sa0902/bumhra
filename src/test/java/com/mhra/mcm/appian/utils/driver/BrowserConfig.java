@@ -3,7 +3,9 @@ package com.mhra.mcm.appian.utils.driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.MarionetteDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
@@ -34,18 +36,39 @@ public class BrowserConfig {
     	if(browser!=null){
 			System.out.println("Browser : " + browser);
 
+			//Firefox
 			if(browser.equals("ff") || browser.equals("firefox")){
-        		return new FirefoxDriver();
-    		}else if(browser.equals("gc") || browser.equals("chrome")){
+				DesiredCapabilities gcCap = getFirefoxDesiredCapabilities();
+        		return new FirefoxDriver(gcCap);
+    		}else if(browser.equals("ff2") || browser.equals("firefox2")){
+				DesiredCapabilities gcCap = getFirefoxDesiredCapabilities();
+				return new MarionetteDriver(gcCap);
+			}
+			//Chrome
+			else if(browser.equals("gc") || browser.equals("chrome")){
 				DesiredCapabilities gcCap = getGoogleChromeDesiredCapabilities();
-        		return new ChromeDriver(gcCap);
-    		}else if(browser.equals("ie") || browser.equals("internetexplorer")){
+				return new ChromeDriver(gcCap);
+			}
+			//IE
+			else if(browser.equals("ie") || browser.equals("internetexplorer")){
 				DesiredCapabilities ieCap = getIEDesiredCapabilities();
 				return new InternetExplorerDriver(ieCap);
-			}else if(browser.equals("pjs") || browser.equals("phantom")){
+			}else if(browser.equals("ie2") || browser.equals("internetexplorer2")){
+				DesiredCapabilities ieCap = getIEDesiredCapabilities();
+				return new EdgeDriver(ieCap);
+			}
+			//PhantomJs
+			else if(browser.equals("pjs") || browser.equals("phantom")|| browser.equals("phantomjs")){
 				DesiredCapabilities ieCap = getPJSDesiredCapabilities();
 				return new PhantomJSDriver(ieCap);
-			}else{
+			}
+			//HTMLUnitDriver
+//			else if(browser.equals("hu") || browser.equals("htmlunit")|| browser.equals("htmlunitdriver")){
+//				DesiredCapabilities cap = getHtmlUnitDesiredCapabilities();
+//				return new HtmlUnitDriver(cap);
+//			}
+			//Defaults to project default IE
+			else{
 				DesiredCapabilities ieCap = getIEDesiredCapabilities();
 				return new InternetExplorerDriver(ieCap);
     		}
@@ -55,6 +78,18 @@ public class BrowserConfig {
 			//return new InternetExplorerDriver();
     	}
     }
+
+	private DesiredCapabilities getHtmlUnitDesiredCapabilities() {
+		DesiredCapabilities capabilities = DesiredCapabilities.htmlUnit();
+		capabilities.setBrowserName("Mozilla/5.0 (X11; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0");
+		capabilities.setJavascriptEnabled(true);
+		return capabilities;
+	}
+
+	private DesiredCapabilities getFirefoxDesiredCapabilities() {
+		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+		return capabilities;
+	}
 
 	private DesiredCapabilities getGoogleChromeDesiredCapabilities() {
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();

@@ -29,7 +29,9 @@
             <util:properties>
                 <prop key="webdriver.chrome.driver">C:\Selenium\chromedriver.exe</prop>
                 <prop key="webdriver.ie.driver">C:\Selenium\ie32\IEDriverServer.exe</prop>
+                <prop key="webdriver.edge.driver">C:\Selenium\ieEdge\MicrosoftWebDriver.exe</prop>
                 <prop key="phantomjs.binary.path">C:\Selenium\phantomjs\phantomjs\bin\phantomjs.exe</prop>
+                <prop key="webdriver.gecko.driver">C:\Selenium\firefox\geckodriver.exe</prop>
             </util:properties>
         </property>
     </bean>
