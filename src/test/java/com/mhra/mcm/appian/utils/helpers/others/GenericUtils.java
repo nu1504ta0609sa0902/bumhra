@@ -3,9 +3,7 @@ package com.mhra.mcm.appian.utils.helpers.others;
 import com.mhra.mcm.appian.domain.webPagePojo.sub.Invoice;
 import org.openqa.selenium.WebElement;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by TPD_Auto on 11/08/2016.
@@ -107,5 +105,22 @@ public class GenericUtils {
         String productId = data[2];
         String newECID = data[0] + "-" + data[1] + "-"+ ( Integer.parseInt(productId) + 1 );
         return newECID;
+    }
+
+    public static boolean isRecentData(double timeLimit, String hour, String min) {
+        Calendar instance = Calendar.getInstance();
+        instance.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
+        instance.set(Calendar.MINUTE, Integer.parseInt(min));
+        System.out.println(instance.getTime());
+
+        long receivedTime = instance.getTimeInMillis();
+        long currentTime = new Date().getTime();
+        double time = timeLimit * 60 * 1000;
+
+        if (receivedTime > (currentTime - time))
+            return true;
+        else
+            return false;
+
     }
 }

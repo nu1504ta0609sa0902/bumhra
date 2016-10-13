@@ -124,9 +124,9 @@ public class ReportsPageSteps extends CommonSteps {
         log.info("Clicked notification with ecid : " + ecid);
     }
 
-    @Then("^I should see at least (\\d+) previously generated invoice$")
-    public void iShouldSeeAtLeastPreviouslyGeneratedInvoice(int minimalNumberOfInvoicesExpected, String standardOrAnnual) throws Throwable {
-        int countOfInvoices = invoiceHistory.numberOfInvoicesDisplayed(standardOrAnnual);
+    @Then("^I expect to see at least (.*) previously generated invoice$")
+    public void iShouldSeeAtLeastPreviouslyGeneratedInvoice(int minimalNumberOfInvoicesExpected) throws Throwable {
+        int countOfInvoices = invoiceHistory.numberOfInvoicesDisplayed();
         Assert.assertThat("Expected at least : " + minimalNumberOfInvoicesExpected + " invoices ", countOfInvoices >= minimalNumberOfInvoicesExpected, is(true));
     }
 
@@ -140,9 +140,30 @@ public class ReportsPageSteps extends CommonSteps {
     @And("^filter by \"([^\"]*)\" invoice type$")
     public void filterByInvoiceType(String invoiceType) throws Throwable {
         boolean isStandard = true;
+        if(!invoiceType.equals("") && invoiceType.equals("Annual"))
+            isStandard = false;
+
+        invoiceHistory = invoiceHistory.filterByInvoiceType(isStandard);
+    }
+
+    @When("^I go to historical invoices page and filter by \"([^\"]*)\" invoice type$")
+    public void iGoToHistoricalInvoicesPage(String invoiceType) throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        reportsPage = mainNavigationBar.clickReports();
+        invoiceHistory = reportsPage.gotoHistoricalInvoices();
+
+        //filter by
+        boolean isStandard = true;
         if(!invoiceType.equals("") || invoiceType.equals("Annual"))
             isStandard = false;
 
-        throw new PendingException();
+        invoiceHistory = invoiceHistory.filterByInvoiceType(isStandard);
+    }
+
+    @Then("^I should see a new invoice generated with in the last (\\d+) min$")
+    public void iShouldSeeANewInvoiceGeneratedWithInTheLastMin(double time) throws Throwable {
+        invoiceHistory = invoiceHistory.filterByTodaysDate();
+        boolean isLastInvoiceWithInTime = invoiceHistory.isLastInvoiceWithinTimeSpecified(time);
+        Assert.assertThat("Expected at least 1 Uninvoiced Notifications within the last : " + time + " minutes ", isLastInvoiceWithInTime, is(true));
     }
 }

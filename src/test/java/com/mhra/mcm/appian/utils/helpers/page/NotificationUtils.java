@@ -162,6 +162,7 @@ public class NotificationUtils {
      */
     public static void uploadZipFile(WebDriver driver, String zipFileToUpload) {
         System.out.println(zipFileToUpload);
+        WaitUtils.nativeWait(2);
         WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Add Document"), 10);
         WebElement browseElement = driver.findElement(By.xpath(".//*[.='Upload Zip Files']//following::input[@type='file']"));
         PageUtils.uploadDocument(browseElement, zipFileToUpload);

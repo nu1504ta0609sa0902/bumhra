@@ -790,7 +790,8 @@ public class RecordsPageSteps extends CommonSteps {
         editNotification = notificationDetails.clickManageNotification();
 
         boolean submitForm = false;
-        notificationDetails = editNotification.enterDate(submitForm);
+        boolean hasVAT = false;
+        notificationDetails = editNotification.enterDate(submitForm, hasVAT);
 
         if (submitForm) {
             WaitUtils.nativeWait(2);

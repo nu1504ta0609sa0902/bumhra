@@ -74,7 +74,7 @@ public class NotificationDetails extends _Page {
         boolean found = false;
         WaitUtils.waitForElementToBeVisible(driver, currentStatus, 5);
         String updatedStatus = getCurrentStatus();
-        if(updatedStatus.equals(expectedStatus)){
+        if(updatedStatus.equals(expectedStatus) || updatedStatus.equals("Quality Assurance")){
             found = true;
         }else{
             //WaitUtils.nativeWait(5);

@@ -217,7 +217,7 @@ public class EditNotification extends _Page {
         return new NotificationDetails(driver);
     }
 
-    public NotificationDetails enterDate(boolean submitForm) {
+    public NotificationDetails enterDate(boolean submitForm, boolean hasVAT) {
 
         WaitUtils.waitForElementToBeClickable(driver, startDate, 15, false);
         //Add start and end date
@@ -228,7 +228,13 @@ public class EditNotification extends _Page {
         PageUtils.clickOptionAdvanced(driver, hasEntererYes, hasEntererNo, false);
         PageUtils.clickOptionAdvanced(driver, hasAffiliateYes, hasAffiliateNo, false);
         PageUtils.clickOptionAdvanced(driver, hasParentYes, hasParentNo, false);
-        PageUtils.clickOptionAdvanced(driver, hasVATYes, hasVatNo, false);
+
+        PageUtils.clickOptionAdvanced(driver, hasVATYes, hasVatNo, hasVAT);
+        if(hasVAT){
+            WaitUtils.waitForElementToBeClickable(driver,By.xpath(".//label[.='VAT']//following::input[1]"), 5 );
+            WebElement vatField = driver.findElement(By.xpath(".//label[.='VAT']//following::input[1]"));
+            vatField.sendKeys(RandomDataUtils.getSimpleRandomNumberBetween(100000, 1000000));
+        }
 
         if(submitForm)
         PageUtils.doubleClick(driver, submitBtn);

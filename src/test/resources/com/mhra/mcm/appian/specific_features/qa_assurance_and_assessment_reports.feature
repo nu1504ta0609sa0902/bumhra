@@ -103,6 +103,7 @@ Feature: As a ipumanager user I should be able to direct certain percentage of n
     And I set TCA details for the notification
     When I re login as user "super1"
     And I enter a submitter address to stored notification
+    Then I should see the uploaded zip file notification with status set to "Ready for Invoicing"
     When I login as "fin1" and generate a standard invoice
     Then I receive an invoice email with heading "Uninvoiced Notifications" from appian in next 2 min for "" notifications
     When I send paid email response back to appian
