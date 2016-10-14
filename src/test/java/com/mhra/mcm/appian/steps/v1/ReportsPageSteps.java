@@ -154,7 +154,7 @@ public class ReportsPageSteps extends CommonSteps {
 
         //filter by
         boolean isStandard = true;
-        if(!invoiceType.equals("") || invoiceType.equals("Annual"))
+        if(!invoiceType.equals("") && invoiceType.equals("Annual"))
             isStandard = false;
 
         invoiceHistory = invoiceHistory.filterByInvoiceType(isStandard);

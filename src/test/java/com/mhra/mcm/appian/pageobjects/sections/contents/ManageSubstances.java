@@ -29,9 +29,9 @@ public class ManageSubstances extends _Page {
     WebElement editSubstanceName;
 
     //ADD OR EDIT A SUBSTANCE
-    @FindBy(xpath = ".//*[contains(text(),'substance Actively Banned')]//following::input[1]")
+    @FindBy(xpath = ".//*[contains(text(),'substance currently banned')]//following::input[1]")
     WebElement activelyBannedYes;
-    @FindBy(xpath = ".//*[contains(text(),'substance Actively Banned')]//following::input[2]")
+    @FindBy(xpath = ".//*[contains(text(),'substance currently banned')]//following::input[2]")
     WebElement activelyBannedNo;
     @FindBy(xpath = ".//*[contains(text(),'substance permissible')]//following::input[1]")
     WebElement substancePermissableYes;
@@ -43,7 +43,7 @@ public class ManageSubstances extends _Page {
     WebElement casNumberRequiredNo;
     @FindBy(xpath = ".//*[.='CAS Numbers']//following::input[1]")
     WebElement casNumbers;
-    @FindBy(xpath = ".//label[.='Comments']//following::textarea[1]")
+    @FindBy(xpath = ".//label[.='Description']//following::textarea[1]")
     WebElement comments;
 
     @FindBy(xpath = ".//button[.='Submit']")
@@ -53,17 +53,18 @@ public class ManageSubstances extends _Page {
     //Search section
     @FindBy(xpath = ".//*[.='Search']//following::input[1]")
     WebElement searchSubstanceName;
-    @FindBy(xpath = ".//*[contains(text(),'Actively Banned')]//following::input[1]")
+    @FindBy(xpath = ".//*[.='Banned']//following::input[1]")
     WebElement searchActivelyBannedYes;
-    @FindBy(xpath = ".//*[contains(text(),'Actively Banned')]//following::input[2]")
+    @FindBy(xpath = ".//*[.='Banned']//following::input[2]")
     WebElement searchActivelyBannedNo;
+
     @FindBy(xpath = ".//button[.='Search']")
     WebElement searchSubmit;
 
     //Actively banned logo
-    @FindBy(xpath = ".//*[.='Actively Banned']//following::img")
+    @FindBy(xpath = ".//a[.='Banned']//following::img")
     List<WebElement> listOfImgActivelyBannedAfterSearch;
-    @FindBy(xpath = ".//*[.='Actively Banned']//following::img[1]")
+    @FindBy(xpath = ".//a[.='Banned']//following::img[1]")
     WebElement imgActivelyBannedAfterSearch;
 
 
@@ -90,6 +91,7 @@ public class ManageSubstances extends _Page {
         PageUtils.singleClick(driver, casNumberRequiredYes);
         PageUtils.singleClick(driver, substancePermissableYes);
         casNumbers.sendKeys(RandomDataUtils.generateCASNumber());
+
         comments.sendKeys("Test Comment for banned substances");
         PageUtils.singleClick(driver, submit);
 
@@ -104,10 +106,13 @@ public class ManageSubstances extends _Page {
         searchSubstanceName.sendKeys(substance);
 
         //This should not be necessary
-        if(isBanned)
+        if(isBanned) {
+            WaitUtils.waitForElementToBeClickable(driver, searchActivelyBannedNo, 5, false);
             PageUtils.singleClick(driver, searchActivelyBannedYes);
-        else
+        }else {
+            WaitUtils.waitForElementToBeClickable(driver, searchActivelyBannedNo, 5, false);
             PageUtils.singleClick(driver, searchActivelyBannedNo);
+        }
 
         PageUtils.singleClick(driver, searchSubmit);
 
@@ -187,10 +192,13 @@ public class ManageSubstances extends _Page {
             PageUtils.singleClick(driver, activelyBannedNo);
         }
 
+        String casNumGenerated = RandomDataUtils.generateCASNumber();
+
         if(Boolean.valueOf(permissible)) {
             PageUtils.singleClick(driver, substancePermissableYes);
             PageFactory.initElements(driver, this);
             WaitUtils.waitForElementToBeClickable(driver, casNumbers, 10, false);
+            casNumbers.clear();
             casNumbers.sendKeys(RandomDataUtils.generateCASNumber());
         }else{
             PageUtils.singleClick(driver, substancePermissableNo);
@@ -200,6 +208,7 @@ public class ManageSubstances extends _Page {
             PageUtils.singleClick(driver, casNumberRequiredYes);
             PageFactory.initElements(driver, this);
             WaitUtils.waitForElementToBeClickable(driver, casNumbers, 10, false);
+            casNumbers.clear();
             casNumbers.sendKeys(RandomDataUtils.generateCASNumber());
         }else{
             PageUtils.singleClick(driver, casNumberRequiredNo);

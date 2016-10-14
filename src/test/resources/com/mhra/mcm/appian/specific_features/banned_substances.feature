@@ -45,6 +45,7 @@ Feature: As a member of the IPU, I can update the list of banned substances
     Given I am logged into appian as "<user>" user
     When I go to manage substance page
     And I add a substance "<substance>" which "<banned>" banned
+    And I search for stored substance name which "<banned>" banned
     When I go to manage substance page
     And I update a stored substance name by appending "<append>"
     Then I should see stored substance
@@ -72,13 +73,13 @@ Feature: As a member of the IPU, I can update the list of banned substances
       | ipu1 | random    | banned=false,permissible=false,cas=true  |
 
 
-  @mcm-44
+  @mcm-44 @bug
   Scenario Outline: Adding duplicate banned substance should not be allowed
     Given I am logged into appian as "<user>" user
     When I go to manage substance page
     And I add a substance "<substance1>" which "<banned>" banned
     Then I should see the new substance in the manage substance page
-    And I add a substance "<substance2>" which "<banned>" banned
+    When I add a substance "<substance2>" which "<banned>" banned
     Then I should see the new substance in the manage substance page
     Examples:
       | user | substance1 | substance2 | banned |

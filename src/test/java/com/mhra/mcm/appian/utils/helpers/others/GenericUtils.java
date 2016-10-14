@@ -123,4 +123,9 @@ public class GenericUtils {
             return false;
 
     }
+
+    public static boolean isGMTPlus0(String gmtHours, String invoiceFileName) {
+        boolean containsHours = invoiceFileName.contains("GMT+"+gmtHours);
+        return containsHours;
+    }
 }

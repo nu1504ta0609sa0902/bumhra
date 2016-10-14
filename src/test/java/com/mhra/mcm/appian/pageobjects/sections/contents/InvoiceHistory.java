@@ -74,8 +74,15 @@ public class InvoiceHistory extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath( ".//*[.='Invoice Type']//following::input[1]" ), 5, false );
         WebElement recentInvoice = listOfHisoricalInvoices.get(0);
         String invoiceFileName = recentInvoice.getText();
+
+        //It can be either +1 or 00 unless we are in another country
+        boolean isGMTPlus00 = GenericUtils.isGMTPlus0("00:00", invoiceFileName);
         invoiceFileName = invoiceFileName.substring(invoiceFileName.indexOf(":")-2, invoiceFileName.indexOf("GMT")-1);
         String[] dataTime = invoiceFileName.split("\\:");
+
+        if(isGMTPlus00){
+            time = time + 60;
+        }
         boolean isInvoiceWithinTimeLimit = GenericUtils.isRecentData(time, dataTime[0], dataTime[1]);
         return  isInvoiceWithinTimeLimit;
     }

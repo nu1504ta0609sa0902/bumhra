@@ -128,4 +128,13 @@ public class ActionsPage extends _Page {
             return false;
         }
     }
+
+    public boolean isManageSusbstanceLinksDisplayed() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, TIMEOUT_DEFAULT, false);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

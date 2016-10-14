@@ -10,7 +10,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -38,10 +37,10 @@ public class BrowserConfig {
 
 			//Firefox
 			if(browser.equals("ff") || browser.equals("firefox")){
-				DesiredCapabilities gcCap = getFirefoxDesiredCapabilities();
+				DesiredCapabilities gcCap = getFirefoxDesiredCapabilities(false);
         		return new FirefoxDriver(gcCap);
     		}else if(browser.equals("ff2") || browser.equals("firefox2")){
-				DesiredCapabilities gcCap = getFirefoxDesiredCapabilities();
+				DesiredCapabilities gcCap = getFirefoxDesiredCapabilities(true);
 				return new MarionetteDriver(gcCap);
 			}
 			//Chrome
@@ -86,8 +85,10 @@ public class BrowserConfig {
 		return capabilities;
 	}
 
-	private DesiredCapabilities getFirefoxDesiredCapabilities() {
+	private DesiredCapabilities getFirefoxDesiredCapabilities(boolean isMarionette) {
 		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+		if(isMarionette)
+		capabilities.setCapability("marionette", true);
 		return capabilities;
 	}
 

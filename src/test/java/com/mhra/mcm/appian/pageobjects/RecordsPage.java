@@ -17,6 +17,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -135,7 +136,7 @@ public class RecordsPage extends _Page {
             attempt++;
 
             try {
-                WaitUtils.waitForElementToBeClickable(driver, By.linkText(expectedNotificationID), 7, false);
+                WaitUtils.waitForElementToBeClickable(driver, By.linkText(expectedNotificationID), TIMEOUT_DEFAULT, false);
                 WebElement notification = driver.findElement(By.linkText(expectedNotificationID));
                 PageUtils.doubleClick(driver, notification);
                 //notification.click();

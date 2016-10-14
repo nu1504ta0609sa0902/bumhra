@@ -374,7 +374,10 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_go_to_manage_substance_page() throws Throwable {
         mainNavigationBar = new MainNavigationBar(driver);
         actionsPage = mainNavigationBar.clickActions();
-        manageSubstances = actionsPage.clickManageSubstances();
+        boolean isDisplayed = actionsPage.isManageSusbstanceLinksDisplayed();
+        if(isDisplayed) {
+            manageSubstances = actionsPage.clickManageSubstances();
+        }
     }
 
     @Then("^I should \"([^\"]*)\" able to add a new substance$")
@@ -574,6 +577,12 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_add_a__substance_with_following_details(String substance, String commanDelimitedDetails) throws Throwable {
         if (substance.equals("random")) {
             substance = RandomDataUtils.getRandomTestName("Substance");
+        }
+
+        if(manageSubstances == null){
+            mainNavigationBar = new MainNavigationBar(driver);
+            actionsPage = mainNavigationBar.clickActions();
+            manageSubstances = actionsPage.clickManageSubstances();
         }
 
         //Add substance

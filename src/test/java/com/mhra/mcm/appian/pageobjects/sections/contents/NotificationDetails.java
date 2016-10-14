@@ -45,7 +45,7 @@ public class NotificationDetails extends _Page {
     }
 
     public boolean headerContainsID(String expectedNotificationID) {
-        WaitUtils.waitForElementToBeClickable(driver, header, 5);
+        WaitUtils.waitForElementToBeClickable(driver, header, TIMEOUT_DEFAULT, false);
         return header.getText().contains(expectedNotificationID);
     }
 
@@ -57,7 +57,7 @@ public class NotificationDetails extends _Page {
     public boolean hasPageStatusChangedTo(String currentStatusText) {
 
         boolean statusChanged = false;
-        WaitUtils.waitForElementToBeVisible(driver, currentStatus, 10, false);
+        WaitUtils.waitForElementToBeVisible(driver, currentStatus, TIMEOUT_DEFAULT, false);
         String updatedStatus = getCurrentStatus();
         if(!updatedStatus.equals(currentStatusText)){
             statusChanged = true;
@@ -72,7 +72,7 @@ public class NotificationDetails extends _Page {
 
     public boolean expectedStatusToBe(String expectedStatus) {
         boolean found = false;
-        WaitUtils.waitForElementToBeVisible(driver, currentStatus, 5);
+        WaitUtils.waitForElementToBeVisible(driver, currentStatus, TIMEOUT_DEFAULT, false);
         String updatedStatus = getCurrentStatus();
         if(updatedStatus.equals(expectedStatus) || updatedStatus.equals("Quality Assurance")){
             found = true;
@@ -86,21 +86,21 @@ public class NotificationDetails extends _Page {
     }
 
     public EditNotification clickManageDocuments() {
-        WaitUtils.waitForElementToBeClickable(driver, manageDocuments, 5);
+        WaitUtils.waitForElementToBeClickable(driver, manageDocuments, TIMEOUT_DEFAULT, false);
         PageUtils.doubleClick(driver, manageDocuments);
         //manageDocuments.click();
         return new EditNotification(driver);
     }
 
     public EditNotification clickManageNotification() {
-        WaitUtils.waitForElementToBeClickable(driver, manageNotificationBtn, 5);
+        WaitUtils.waitForElementToBeClickable(driver, manageNotificationBtn, TIMEOUT_DEFAULT, false);
         manageNotificationBtn.click();
         return new EditNotification(driver);
     }
 
     public boolean isCorrectPage() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, manageDocuments, 5, false);
+            WaitUtils.waitForElementToBeClickable(driver, manageDocuments, TIMEOUT_DEFAULT, false);
             return true;
         }catch (Exception e){
             return false;
@@ -108,26 +108,26 @@ public class NotificationDetails extends _Page {
     }
 
     public AuditHistory clickAuditHistory() {
-        WaitUtils.waitForElementToBeClickable(driver, auditHistory, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, auditHistory, TIMEOUT_DEFAULT, false);
         PageUtils.doubleClick(driver, auditHistory);
         //auditHistory.click();
         return new AuditHistory(driver);
     }
 
     public Comments clickCommentsLink() {
-        WaitUtils.waitForElementToBeClickable(driver, comments, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, comments, TIMEOUT_DEFAULT, false);
         PageUtils.singleClick(driver, comments);
         return new Comments(driver);
     }
 
     public Documents clickDocuments() {
-        WaitUtils.waitForElementToBeClickable(driver, documents, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, documents, TIMEOUT_DEFAULT, false);
         PageUtils.singleClick(driver, documents);
         return new Documents(driver);
     }
 
     public AssessmentReport clickAssessmentReport() {
-        WaitUtils.waitForElementToBeClickable(driver, assessmentReport, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, assessmentReport, TIMEOUT_DEFAULT, false);
         PageUtils.doubleClick(driver, assessmentReport);
         return new AssessmentReport(driver);
     }

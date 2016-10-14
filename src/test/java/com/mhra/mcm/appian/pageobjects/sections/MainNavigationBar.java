@@ -37,67 +37,47 @@ public class MainNavigationBar extends _Page {
 
     public NewsPage clickNews() {
         //try {
-            WaitUtils.waitForElementToBeClickable(driver, news, 30, false);
-            PageUtils.doubleClick(driver, news);
-            //news.click();
-            return new NewsPage(driver);
+        WaitUtils.waitForElementToBeClickable(driver, news, 30, false);
+        PageUtils.doubleClick(driver, news);
+        //news.click();
+        return new NewsPage(driver);
 //        } catch (Exception e) {
 //            return null;
 //        }
     }
 
     public TasksPage clickTasks() {
-        //try {
-            WaitUtils.waitForElementToBeClickable(driver, tasks, 30, false);
-            PageUtils.doubleClick(driver, tasks);
-            //tasks.click();
-            return new TasksPage(driver);
-//        } catch (Exception e) {
-//            return null;
-//        }
+        WaitUtils.waitForElementToBeClickable(driver, tasks, 30, false);
+        tasks.click();
+        PageUtils.doubleClick(driver, tasks);
+        return new TasksPage(driver);
     }
 
     public RecordsPage clickRecords() {
-        //try {
-            WaitUtils.waitForElementToBeClickable(driver, records, 30, false);
-            PageUtils.doubleClick(driver, records);
-            //records.click();
-            return new RecordsPage(driver);
-//        } catch (Exception e) {
-//            return null;
-//        }
+        WaitUtils.waitForElementToBeClickable(driver, records, 30, false);
+        records.click();
+        PageUtils.doubleClick(driver, records);
+        return new RecordsPage(driver);
     }
 
     public ReportsPage clickReports() {
-        //try {
-            WaitUtils.waitForElementToBeClickable(driver, reports, 30, false);
-            PageUtils.doubleClick(driver, reports);
-            //reports.click();
-            return new ReportsPage(driver);
-//        } catch (Exception e) {
-//            return null;
-//        }
+        WaitUtils.waitForElementToBeClickable(driver, reports, 30, false);
+        reports.click();
+        PageUtils.doubleClick(driver, reports);
+        return new ReportsPage(driver);
     }
 
     public String getCurrentSelectedMenu() {
-        //try {
-            WaitUtils.waitForElementToBeClickable(driver, currentSelection, 30, false);
-            String selectedMenu = currentSelection.getText();
-            return selectedMenu;
-//        } catch (Exception e) {
-//            return null;
-//        }
+        WaitUtils.waitForElementToBeClickable(driver, currentSelection, 30, false);
+        String selectedMenu = currentSelection.getText();
+        return selectedMenu;
     }
 
     public ActionsPage clickActions() {
-        //try {
-            WaitUtils.waitForElementToBeClickable(driver, actions, 30);
-            PageUtils.doubleClick(driver, actions);
-            //actions.click();
-            return new ActionsPage(driver);
-//        } catch (Exception e) {
-//            return null;
-//        }
+        WaitUtils.waitForElementToBeClickable(driver, actions, 30);
+        actions.click();
+        PageUtils.doubleClick(driver, actions);
+        return new ActionsPage(driver);
     }
 
 

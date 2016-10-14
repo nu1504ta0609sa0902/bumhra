@@ -494,6 +494,7 @@ public class RecordsPageSteps extends CommonSteps {
         } while (!statusMatched && attempt < 15);
 
         String newStatus = notificationDetails.getCurrentStatus();
+        log.info("Updated Status : " + newStatus);
 
         assertThat("Status should be : " + currentStatus, newStatus, is(isOneOf(expectedStatus, "Quality Assurance")));
         scenarioSession.putData(SessionKey.notificationStatus, newStatus);

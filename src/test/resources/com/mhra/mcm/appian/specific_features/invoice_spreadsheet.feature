@@ -83,11 +83,15 @@ Feature: As a Finance user I should receive invoice email with correct data
 
 
   @mcm-102
-  Scenario: Check historical invoices are accessible to users
-    Given I am logged into appian as "fin1" user
+  Scenario Outline: Check historical invoices are accessible to users
+    Given I am logged into appian as "<user>" user
     When I go to historical invoices page
-    And filter by "Standard" invoice type
+    And filter by "<invoiceType>" invoice type
     Then I expect to see at least 1 previously generated invoice
+    Examples:
+      | user | invoiceType |
+      | fin1 | Standard    |
+      | fin1 | Annual      |
 
   @mcm-102
   Scenario: Check newly generated invoices appear in historical invoice page
@@ -109,4 +113,4 @@ Feature: As a Finance user I should receive invoice email with correct data
     Then I expect the notification status should be "Paid"
     Then I expect the notification status should be "Successful"
     When I go to historical invoices page and filter by "Standard" invoice type
-    Then I should see a new invoice generated with in the last 3 min
+    Then I should see a new invoice generated with in the last 5 min
