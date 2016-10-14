@@ -91,6 +91,7 @@ public class Exceptions extends _Page {
             } catch (Exception e) {
                 //driver.navigate().refresh();
                 WaitUtils.waitForElementToBeClickable(driver, prevPage, 7, false);
+                PageUtils.doubleClick(driver, prevPage);
                 PageFactory.initElements(driver, this);
                 found = false;
             }

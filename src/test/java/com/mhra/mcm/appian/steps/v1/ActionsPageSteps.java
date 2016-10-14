@@ -344,6 +344,10 @@ public class ActionsPageSteps extends CommonSteps {
         mainNavigationBar = new MainNavigationBar(driver);
         actionsPage = mainNavigationBar.clickActions();
         updateQAPercentage = actionsPage.clickUpdateQAPercentage();
+        boolean isInQAPage = updateQAPercentage.isInCorrectPage();
+        if(!isInQAPage){
+            updateQAPercentage = actionsPage.clickUpdateQAPercentage();
+        }
         updateQAPercentage = updateQAPercentage.setQAPercentage(qaPercentage);
         updateQAPercentage.acceptDialog(true);
 
@@ -377,15 +381,22 @@ public class ActionsPageSteps extends CommonSteps {
         boolean isDisplayed = actionsPage.isManageSusbstanceLinksDisplayed();
         if(isDisplayed) {
             manageSubstances = actionsPage.clickManageSubstances();
+        }else{
+            mainNavigationBar = new MainNavigationBar(driver);
+            actionsPage = mainNavigationBar.clickActions();
+            isDisplayed = actionsPage.isManageSusbstanceLinksDisplayed();
         }
+
+        scenarioSession.putData(SessionKey.isDisplayed, isDisplayed);
     }
 
     @Then("^I should \"([^\"]*)\" able to add a new substance$")
     public void i_should_not_be_be_able_to_add_a_new_substance(String action) throws Throwable {
+        Boolean isDisplayed = (Boolean) scenarioSession.getData(SessionKey.isDisplayed);
         if (action.equals("not be")) {
-            assertThat("Manage substance page should not be displayed", manageSubstances, is(nullValue()));
+            assertThat("Manage substance page should not be displayed", isDisplayed, is(false));
         } else {
-            assertThat("Manage substance page be displayed", manageSubstances, is(notNullValue()));
+            assertThat("Manage substance page be displayed", isDisplayed, is(true));
         }
 
         //Appian system can't handle the automation script requesting too many logins

@@ -74,7 +74,7 @@ public class ManageSubstances extends _Page {
     }
 
     public ManageSubstances clickOnAddNewSubstances() {
-        WaitUtils.waitForElementToBeClickable(driver, addANewSubstance, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, addANewSubstance, TIMEOUT_DEFAULT, false);
         addANewSubstance.click();
         return new ManageSubstances(driver);
     }

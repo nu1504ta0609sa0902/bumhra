@@ -57,9 +57,19 @@ public class UpdateQAPercentage extends _Page {
     }
 
     public boolean isQAPercentageCorrect(String expectedQAPercentage) {
-        WaitUtils.waitForElementToBeClickable(driver, percentage, 5);
+        WaitUtils.waitForElementToBeClickable(driver, percentage, 5, false);
         String currentQAPercentage = PageUtils.getText(percentage);
         boolean matched = currentQAPercentage.equals(expectedQAPercentage);
         return matched;
+    }
+
+    public boolean isInCorrectPage() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, percentage, 5, false);
+            boolean isDisplayed = percentage.isDisplayed();
+            return isDisplayed;
+        }catch (Exception e){
+            return false;
+        }
     }
 }

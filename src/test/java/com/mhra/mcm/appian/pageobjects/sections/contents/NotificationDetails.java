@@ -94,7 +94,8 @@ public class NotificationDetails extends _Page {
 
     public EditNotification clickManageNotification() {
         WaitUtils.waitForElementToBeClickable(driver, manageNotificationBtn, TIMEOUT_DEFAULT, false);
-        manageNotificationBtn.click();
+        PageUtils.doubleClick(driver, manageNotificationBtn);
+        //manageNotificationBtn.click();
         return new EditNotification(driver);
     }
 

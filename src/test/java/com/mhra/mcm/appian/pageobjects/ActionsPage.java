@@ -96,6 +96,7 @@ public class ActionsPage extends _Page {
     }
 
     public UpdateQAPercentage clickUpdateQAPercentage() {
+        WaitUtils.isElementPartOfDomAdvanced2(driver, By.partialLinkText("Update QA Percentage"), TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, updateQAPercentage, TIMEOUT_DEFAULT, false);
         PageUtils.singleClick(driver, updateQAPercentage);
         return new UpdateQAPercentage(driver);

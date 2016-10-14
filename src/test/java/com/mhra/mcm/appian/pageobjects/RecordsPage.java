@@ -26,6 +26,9 @@ import java.util.List;
 @Component
 public class RecordsPage extends _Page {
 
+    //Mainly used to skip links in a table row, where its not an ecid
+    int LINKS_TO_AVOID = 2;
+
     @FindBy(css = ".appianGridLayout.hasFooter>tbody>tr")
     List<WebElement> listOfNotifications;
 
@@ -167,7 +170,7 @@ public class RecordsPage extends _Page {
             String ecID = null;
             int count = from;
             do {
-                count++;
+                count=count+LINKS_TO_AVOID;
                 ecID = listOfECIDLinks.get(count).getText();
                 if (ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")) {
                     ecID = null;
@@ -194,7 +197,7 @@ public class RecordsPage extends _Page {
             String ecID = null;
             int count = 0;
             do {
-                count++;
+                count=count+LINKS_TO_AVOID;
                 WebElement element = listOfECIDLinks.get(listOfECIDLinks.size() - count);
                 ecID = element.getText();
                 if (ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")) {
@@ -227,7 +230,7 @@ public class RecordsPage extends _Page {
             String ecID = null;
             int count = 0;
             do {
-                count++;
+                count=count+LINKS_TO_AVOID;
                 WebElement element = listOfECIDLinks.get(maxNumberOfTimesToIterate - count);
                 ecID = element.getText();
                 if (ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")) {
@@ -271,7 +274,7 @@ public class RecordsPage extends _Page {
             String ecID = null;
             int count = 0;
             do {
-                count=count+2; //Lisa has added 2 links per table row
+                count=count+LINKS_TO_AVOID; //Lisa has added 2 links per table row
                 WebElement element = listOfECIDLinks.get(maxNumberOfTimesToIterate - count);
                 ecID = element.getText();
                 if (ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")) {
@@ -310,7 +313,7 @@ public class RecordsPage extends _Page {
             String ecID = null;
             int count = 0;
             do {
-                count++;
+                count=count+LINKS_TO_AVOID;
                 WebElement element = PageUtils.getRandomNotification(listOfECIDLinks);
                 ecID = element.getText();
                 if (ecID.contains("Next") || ecID.contains("Previous") || ecID.trim().equals("")) {

@@ -32,4 +32,5 @@ public class SessionKey {
     public static String zipFileLocation = "Zip Notification Data File";
     public static String xmlDataFileLocation = "XML Notification Data File";
     public static String tcaNumber = "TCA Number New";
+    public static String isDisplayed = "Is Something Displayed";
 }

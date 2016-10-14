@@ -38,6 +38,7 @@ Feature: As a Finance user I should receive invoice email with correct data
       | rdt1 | 1     | SUPPLEMENT1 | 2     | SUPPLEMENT2 |
 
 
+#    Depends on notificaitons in PUBLISHED state
   @mcm-87 @mcm-37 @mcm-109 @mcm-101 @bug
   Scenario Outline: Test GL code for 1772 TPD Annual Periodic Fee
     Given I am logged into appian as "<user>" user
