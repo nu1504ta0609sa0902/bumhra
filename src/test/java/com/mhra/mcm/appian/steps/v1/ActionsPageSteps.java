@@ -332,6 +332,7 @@ public class ActionsPageSteps extends CommonSteps {
 //        String zipFileCreated2 = NotificationUtils.createZipFile(listOfFilesToZip);
 
         scenarioSession.putData(SessionKey.zipFileLocation, zipFileCreated);
+        WaitUtils.nativeWait(2);
     }
 
 
@@ -382,9 +383,11 @@ public class ActionsPageSteps extends CommonSteps {
         if(isDisplayed) {
             manageSubstances = actionsPage.clickManageSubstances();
         }else{
-            mainNavigationBar = new MainNavigationBar(driver);
+            //mainNavigationBar = new MainNavigationBar(driver);
             actionsPage = mainNavigationBar.clickActions();
             isDisplayed = actionsPage.isManageSusbstanceLinksDisplayed();
+            if(isDisplayed)
+            manageSubstances = actionsPage.clickManageSubstances();
         }
 
         scenarioSession.putData(SessionKey.isDisplayed, isDisplayed);

@@ -132,7 +132,7 @@ public class ActionsPage extends _Page {
 
     public boolean isManageSusbstanceLinksDisplayed() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, TIMEOUT_DEFAULT, false);
+            WaitUtils.waitForElementToBeClickable(driver, manageSubstances, TIMEOUT_SMALL, false);
             return true;
         } catch (Exception e) {
             return false;

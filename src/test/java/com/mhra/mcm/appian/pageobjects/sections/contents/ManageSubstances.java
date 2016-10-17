@@ -131,7 +131,7 @@ public class ManageSubstances extends _Page {
     }
 
     public ManageSubstances searchForSubstance(String substance, boolean activelyBanned) {
-        WaitUtils.waitForElementToBeClickable(driver, searchSubstanceName, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, searchSubstanceName, TIMEOUT_SMALL, false);
         searchSubstanceName.clear();
         searchSubstanceName.sendKeys(substance);
 
